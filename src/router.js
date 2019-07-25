@@ -1,8 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import Signup from './views/signup/Signup'
+import Login from './views/login/Login'
+import {store} from './store/auth'
 
-Vue.use(Router)
+Vue.use(Router);
+
+const requireAuth = () => (from, to, next) => {
+  if (store.getters.getAuth) return next();
+  next('/login')
+};
 
 export default new Router({
   mode: 'history',
@@ -11,7 +19,8 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      beforeEnter: requireAuth()
     },
     {
       path: '/about',
@@ -20,6 +29,18 @@ export default new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+    },
+    {
+      path: '/signup',
+      name: 'Signup',
+      component: Signup,
+      props: true
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+      props: true
     }
   ]
 })
