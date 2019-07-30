@@ -3,13 +3,23 @@ import App from './App.vue'
 import router from './router'
 import {store} from './store/auth'
 import VeeValidate from "vee-validate";
+import VueSidebarMenu from '../static/sidebar/src/index'
 import BootstrapVue from 'bootstrap-vue'
+import mysidebar from "./components/sidebar/mysidebar.vue";
+
+import '../static/fontawesome/css/all.css'
+import '../static/fontawesome/js/all'
+import '../static/sidebar/dist/vue-sidebar-menu.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-Vue.config.productionTip = false;
 Vue.use(VeeValidate);
 Vue.use(BootstrapVue);
+Vue.use(VueSidebarMenu);
+
+Vue.component('mysidebar', mysidebar);
+
+Vue.config.productionTip = false;
 
 new Vue({
   router,
