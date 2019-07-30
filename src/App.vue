@@ -6,10 +6,11 @@
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
+    <mysidebar/>
   </div>
 </template>
 
-<style>
+<style lang="scss" scoped>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
