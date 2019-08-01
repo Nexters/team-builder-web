@@ -8,6 +8,9 @@ import VueSidebarMenu from '../static/sidebar/src/index'
 import BootstrapVue from 'bootstrap-vue'
 import mysidebar from "./components/sidebar/mysidebar.vue";
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
 import '../static/fontawesome/css/all.css'
 import '../static/fontawesome/js/all'
 import '../static/sidebar/dist/vue-sidebar-menu.css'
@@ -17,6 +20,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 Vue.use(VeeValidate);
 Vue.use(BootstrapVue);
 Vue.use(VueSidebarMenu);
+Vue.use(ElementUI);
 
 Vue.component('mysidebar', mysidebar);
 

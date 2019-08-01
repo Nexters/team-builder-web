@@ -2,11 +2,15 @@
     <div>
         <h1>POSTS Example</h1>
         <h2 v-if="!isDoneLoadPosts">Loading...</h2>
-        <div v-else v-for="post in posts">
-            <span>{{post.id}}</span>
-            <span>{{post.title}}</span>
-            <span>{{post.body}}</span>
-            <span>{{post.userId}}</span>
+        <div v-else v-for="post in posts" :key="post.id" @click="onClickPost(post.id)">
+            <el-card class="box-card">
+                <div slot="header" class="clearfix">
+                    <span>{{ post.title }}</span>
+                </div>
+                <div class="text item">
+                    {{ post.body }}
+                </div>
+            </el-card>
         </div>
     </div>
 </template>
@@ -30,6 +34,10 @@
                 posts: state => state.posts,
             }),
 
+            ...mapGetters({
+                getPostDetail: GETTERS.POST_DETAIL,
+            })
+
         },
 
         methods: {
@@ -37,6 +45,15 @@
                 loadPosts: ACTIONS.LOAD_POSTS,
             }),
 
+            onClickPost(postId) {
+                const post = this.getPostDetail(postId);
+                this.$alert(post.body, post.title, {
+                    confirmButtonText: 'OK',
+                    callback: action => {
+                        /**/
+                    }
+                });
+            }
         },
 
         created() {
@@ -47,5 +64,16 @@
 </script>
 
 <style scoped>
+    body {
+        font-family: "Noto Sans";
+    }
 
+    .box-card {
+        width: 70%;
+        margin: 20px 10px 10px 140px;
+    }
+
+    .clearfix {
+        font-weight: bold;
+    }
 </style>

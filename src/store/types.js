@@ -3,7 +3,7 @@
  *
  */
 export const GETTERS = {
-
+    POST_DETAIL: 'POST_DETAIL',
 };
 
 export const MUTATIONS = {

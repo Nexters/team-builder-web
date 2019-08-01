@@ -13,7 +13,9 @@ const store = {
     },
 
     getters: {
-
+        [GETTERS.POST_DETAIL](state) {
+            return (postId) => state.posts.find(post => post.id === postId);
+        }
     },
 
     mutations: {

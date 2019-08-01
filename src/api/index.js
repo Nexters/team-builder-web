@@ -16,8 +16,8 @@ basicApi.interceptors.response.use(
 
     //요청 실패시
     error => {
-
-        //Error 공통 처리 (ex. error 공통 modal)
+        /*error status, code, message*/
+        //Error 공통 처리 (ex. error 공통 modal or notification)
 
         return Promise.reject(error);
     }
