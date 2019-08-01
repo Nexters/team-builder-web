@@ -88,6 +88,14 @@
     </div>
     <slot name="footer" />
     <button
+      class="manage-btn"
+      :class="{'slot-icon' : $slots['manage-icon']}"
+      @click="goToMaganePage"
+      v-if="$store.getters.getAuth"
+    >
+      <slot name="manage-icon" />
+    </button>
+    <button
       class="collapse-btn"
       :class="{'slot-icon' : $slots['collapse-icon']}"
       @click="toggleCollapse"
@@ -194,6 +202,15 @@ export default {
   methods: {
     mouseLeave () {
       this.mobileItem = null
+    },
+    goToMaganePage () {
+      this.$router.push({
+          path: '/manage'
+      })
+      this.$nextTick(() => {
+        this.initSidebarHeight()
+      })
+      this.$emit('collapse', this.isCollapsed)
     },
     toggleCollapse () {
       this.isCollapsed = !this.isCollapsed

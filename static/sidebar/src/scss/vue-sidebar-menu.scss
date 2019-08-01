@@ -203,6 +203,23 @@
       display: none;
     }
   }
+  & .manage-btn {
+    display: block;
+    text-align: center;
+    font-style: normal;
+    font-weight: 900;
+    height: 50px;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    &:after {
+      content: '\f4fe';
+      font-family: 'Font Awesome 5 Free';
+    }
+    &.slot-icon:after {
+      display: none;
+    }
+  }
 }
 
 @import 'themes/default-theme';
