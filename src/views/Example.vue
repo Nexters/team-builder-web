@@ -17,9 +17,9 @@
 
 <script>
     import { GETTERS, ACTIONS } from '@/store/types';
+    import {NOTIFY_TYPE}  from '@/consts/notifIcationType';
     import {createNamespacedHelpers} from 'vuex';
     const { mapActions, mapGetters, mapState } = createNamespacedHelpers('example');
-
 
     export default {
         name: "Example",
@@ -58,7 +58,17 @@
 
         created() {
             this.loadPosts()
-            .then(() => this.isDoneLoadPosts = true);
+            .then(() => {
+                this.$notify({
+                   title: 'SUCCESS',
+                   message: 'Load post success!!',
+                   type: NOTIFY_TYPE.SUCCESS
+                });
+                this.isDoneLoadPosts = true;
+            })
+            .catch(err => {
+                /*err 처리*/
+            });
         }
     }
 </script>
@@ -70,7 +80,7 @@
 
     .box-card {
         width: 70%;
-        margin: 20px 10px 10px 140px;
+        margin: 20px auto;
     }
 
     .clearfix {
