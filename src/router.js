@@ -48,6 +48,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "example" */ './views/Example.vue')
     },
     {
+      path: '/editor',
+      name: 'Editor',
+      component: () => import(/* webpackChunkName: "editor" */ './views/Editor.vue')
+    },
+    {
       path: '*',
       name: 'NotFound',
       component: () => import(/* webpackChunkName: "example" */ './views/Example.vue') //TODO 잘못된 경로 접근 404페이
