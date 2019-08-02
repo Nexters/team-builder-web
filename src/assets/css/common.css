@@ -1,3 +1,4 @@
+/*모든 컴포넌트에서 공통으로 사용하는 css (한곳에서 모두 관리해도 무방함)*/
 .example {
     background-color: aliceblue;
 }

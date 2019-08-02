@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Signup from './views/signup/Signup'
 import Login from './views/login/Login'
-import {store} from './store/auth'
+import store from './store/modules/auth'
 
 Vue.use(Router);
 
@@ -41,6 +41,16 @@ export default new Router({
       name: 'Login',
       component: Login,
       props: true
+    },
+    {
+      path: '/example',
+      name: 'Example',
+      component: () => import(/* webpackChunkName: "example" */ './views/Example.vue')
+    },
+    {
+      path: '*',
+      name: 'NotFound',
+      component: () => import(/* webpackChunkName: "example" */ './views/Example.vue') //TODO 잘못된 경로 접근 404페이
     }
   ]
 })

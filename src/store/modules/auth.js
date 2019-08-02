@@ -1,10 +1,6 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import {SET_ID, SET_AUTH, SET_TOKEN} from "../consts/userType"
+import {SET_ID, SET_AUTH, SET_TOKEN} from "../../consts/userType"
 
-Vue.use(Vuex);
-
-export const store = new Vuex.Store({
+const store = {
     state: {
         id: '',
         auth: false,
@@ -32,4 +28,6 @@ export const store = new Vuex.Store({
             state.key = token
         }
     }
-});
+};
+
+export default store;
