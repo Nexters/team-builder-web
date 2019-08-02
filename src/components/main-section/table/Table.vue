@@ -10,9 +10,9 @@
                 <div>
                     <input type="search"
                            class="search-input"
-                           v-model="searchQuery"
+                           v-model="searchTerm"
                            placeholder="검색하기"
-                            @keyup="filterData()"
+                           @keyup="filterData()"
                     >
                 </div>
             </section>
@@ -22,7 +22,7 @@
                 <thead>
                 <tr>
                     <th v-if="starFilter === true">즐겨찾기</th>
-                    <th v-for="{name} in titles">{{ name }}</th>
+                    <th v-for="{ name } in titles">{{ name }}</th>
                     <!--<th>글번호</th>-->
                     <!--<th>아이디어 이름</th>-->
                     <!--<th>태그</th>-->
@@ -32,18 +32,18 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="entry in data">
+                <tr v-for="idea in ideaListResult()" :key="idea.id">
                     <td v-if="starFilter === true">
                         <input type="checkbox"
                                name="star-filter"
                                id="star-filter"
                                class="star"
-                               :value="entry"
+                               :value="idea"
                                v-model="selected"
-                               @change="$emit('selected-change', selected)"
+                               @change="select(selected)"
                         />
                     </td>
-                    <td v-for="{prop} in titles">{{ item[prop] }}</td>
+                    <td v-for="{ prop } in titles">{{ idea[prop] }}</td>
                 </tr>
                 </tbody>
             </table>
@@ -59,11 +59,11 @@
       event: "change"
     },
     props: {
-      checkboxFilter: {
+      starFilter: {
         type: Boolean,
         default: true
       },
-      itemList: {
+      ideaList: {
         type: Array,
         default: function () {
           return [];
@@ -71,13 +71,13 @@
       },
       searchAttrs: {
         type: Array,
-        default: function() {
+        default: function () {
           return [];
         }
       },
       titles: {
         type: Array,
-        default: function () {
+        default: function() {
           return [
             {
               prop: "",
@@ -89,34 +89,49 @@
     },
     data() {
       return {
-        items: this.itemList,
+        ideas: this.ideaList,
         searchTerm: "",
         selected: []
       };
     },
-    mounted() {
-      this.$emit("selected", []);
-    },
-    created() {
-      // axios.get()
-    },
+    // mounted() {
+    //   this.$emit("selected", []);
+    // },
+    // created() {
+    //   // axios.get()
+    // },
     methods: {
+      ideaListResult() {
+        return this.ideas;
+      },
       filterData() {
+        console.log("come in");
         this.searchTerm = this.searchTerm.toLowerCase();
+        console.log("검색어 " + this.searchTerm);
         if(this.searchTerm === "") {
-          this.items = this.itemList;
+          this.ideas = this.ideaList;
           return;
         }
-        this.items = this.itemList.filter(item =>
+
+        console.log("not returned");
+        this.ideas = this.ideaList.filter(idea =>
             this.searchAttrs.some(search =>
-                item[search].toLowerCase().includes(this.searchTerm)
+                idea[search].toLowerCase().includes(this.searchTerm)
             )
         );
+        console.log(this.ideas);
+      },
+      select(ideas) {
+        this.ideas = ideas;
+        console.log(ideas);
       }
     }
-  }
+  };
 </script>
 
 <style scoped>
+    section {
+        display: inline;
+    }
 
 </style>
