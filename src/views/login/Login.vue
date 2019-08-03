@@ -52,7 +52,6 @@
         },
         methods: {
             onSubmit() {
-                console.log(12312)
                 const uid = this.uid;
                 const password = this.password;
 
