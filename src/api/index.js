@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const basicApi = axios.create({
-    baseURL: 'https://jsonplaceholder.typicode.com',
+    baseURL: process.env.VUE_APP_API_URL_TEST, //TOOD 서버 API로 변경
     headers: {
         //headers
     }
