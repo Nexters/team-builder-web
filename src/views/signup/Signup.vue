@@ -158,7 +158,7 @@
                     return false
                 }
 
-                signup(uid, upassword, uname, uclass, ujob)
+                signup(uid, upassword, uname, uclass, ujob, accessCode)
                     .then(res => {
                         this.goToPages(res.data)
                     })
