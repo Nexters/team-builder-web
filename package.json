@@ -10,6 +10,7 @@
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-svg-core": "^1.2.20",
     "@fortawesome/vue-fontawesome": "^0.1.6",
+    "@toast-ui/vue-editor": "^1.1.1",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.27",
     "core-js": "^2.6.5",
