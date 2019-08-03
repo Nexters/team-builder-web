@@ -6,7 +6,7 @@
                 <p> 현재 기수는 15기 입니다.</p>
             </div>
             <div class="main-container">
-                <div class="row justify-content-md-center">
+                <div class="row" style="margin: 0">
                     <div class="col col-md-6 login-container">
                         <div class="el-header">로그인</div>
                         <div class="el-main">
