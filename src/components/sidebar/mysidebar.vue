@@ -48,6 +48,11 @@
                         href: '/login',
                         title: 'login',
                         icon: 'fas fa-sign-in-alt'
+                    },
+                    {
+                        href: '/info',
+                        title: 'info',
+                        icon: 'fas fa-exchange-alt'
                     }
                 ],
                 collapsed: true,
