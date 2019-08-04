@@ -5,6 +5,8 @@ import Signup from './views/signup/Signup'
 import Login from './views/login/Login'
 import {store} from './store/auth'
 
+import MainSection from './views/main/MainSection'
+
 Vue.use(Router);
 
 const requireAuth = () => (from, to, next) => {
@@ -40,6 +42,12 @@ export default new Router({
       path: '/login',
       name: 'Login',
       component: Login,
+      props: true
+    },
+    {
+      path: '/main',
+      name: 'mainSection',
+      component: MainSection,
       props: true
     }
   ]
