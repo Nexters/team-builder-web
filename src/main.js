@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store/index';
-import {storeAuth} from './store/modules/auth'
 import VeeValidate from "vee-validate";
 import VueSidebarMenu from '../static/sidebar/src/index'
 import BootstrapVue from 'bootstrap-vue'
@@ -28,7 +27,6 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
-  storeAuth,
   store,
   render: h => h(App)
 }).$mount('#app');
