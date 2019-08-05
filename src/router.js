@@ -70,9 +70,9 @@ export default new Router({
       props: true
     },
     {
-      path: '/layout',
-      name: 'Layout',
-      component: () => import(/* webpackChunkName: "Layout" */ './views/Layout.vue')
+      path: '/mainLayout',
+      name: 'Main',
+      component: () => import(/* webpackChunkName: "MainLayout" */ './views/MainLayout.vue')
     },
   ]
 })
