@@ -84,5 +84,9 @@
 </script>
 
 <style scoped>
-
+    .container {
+        padding: 25px 360px;
+        /* 메인 레이아웃 생성 전까지 배경 색 표시 */
+        background-color: #f5f5f5;
+    }
 </style>
