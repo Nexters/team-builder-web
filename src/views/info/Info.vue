@@ -1,14 +1,9 @@
 <template>
     <div class="Signup">
         <div class="container">
-            <div class="row header">
-                <img src="@/assets/logo.png" width="40px" height="40px">
-                <p> 현재 기수는 15기 입니다.</p>
-            </div>
-
             <div class="main-container">
 
-                <div class="col col-md-2 el-header">회원가입</div>
+                <div class="col col-md-2 el-header">정보수정</div>
 
                 <div class="el-main">
                     <div class="row">
@@ -17,19 +12,23 @@
                             <b-form-group>
                                 <p class="form-title">아이디</p>
                                 <b-form inline>
-                                    <b-form-input type="text" v-model="uid"></b-form-input>
-                                    <button type="button" class="btn btn-success" v-on:click="idDuplicateCheck">
-                                        중복확인
-                                    </button>
+                                    <b-form-input type="text" v-model="uid" disabled="disabled"> {{ uid }}
+                                    </b-form-input>
                                 </b-form>
                             </b-form-group>
 
                             <b-form-group>
                                 <b-form inline>
+                                <b-form>
+                                    <p class="form-title">현재 패스워드</p>
+                                    <b-form-input v-validate="'required|min:8'" type="password"
+                                                  v-model="curPassword" name="curPassword"
+                                                  placeholder="영문, 숫자 8자 이상" ref="password"></b-form-input>
+                                </b-form>
                                     <b-form>
-                                        <p class="form-title">패스워드</p>
+                                        <p class="form-title">새로운 패스워드</p>
                                         <b-form-input v-validate="'required|min:8'" type="password"
-                                                      v-model="password" name="password"
+                                                      v-model="newPassword" name="password"
                                                       placeholder="영문, 숫자 8자 이상" ref="password"></b-form-input>
                                     </b-form>
                                     <b-form>
@@ -50,12 +49,17 @@
                                         </div>
                                     </b-form>
                                 </b-form>
+                                <b-form class="form-title">
+                                    <button type="button" class="btn btn-success" v-on:click="passwordChange">
+                                        패스워드 수정
+                                    </button>
+                                </b-form>
                             </b-form-group>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col col-md-2 info-title">계정정보</div>
+                        <div class="col col-md-2 info-title">개인정보</div>
                         <div class="col col-md-10 info-body">
                             <b-form-group>
                                 <p class="form-title">이름</p>
@@ -89,32 +93,18 @@
                                         </b-form-group>
                                     </b-form>
                                 </b-form>
-                            </b-form-group>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col col-md-2 info-title">보안</div>
-                        <div class="col col-md-10 info-body">
-                            <b-form-group>
-                                <p class="form-title">인증코드</p>
-                                <b-form inline>
-                                    <b-form-input type="text" v-model="accessCode"></b-form-input>
+                                <b-form class="form-title">
+                                    <button type="button" class="btn btn-success" v-on:click="infoChange">
+                                        내정보 수정
+                                    </button>
                                 </b-form>
                             </b-form-group>
                         </div>
                     </div>
+
                 </div>
             </div>
 
-            <form @submit.prevent="onSubmit" style="text-align: right">
-                <button type="submit"
-                        class="btn btn-success"
-                        :disabled='isDisabled'
-                        style="margin-top: 20px; padding: 10px 50px; margin-bottom: 50px; font-size: 20px">
-                    가입하기
-                </button>
-            </form>
         </div>
     </div>
 </template>
@@ -124,14 +114,14 @@
     import {SET_ID, SET_AUTH, SET_TOKEN} from "../../consts/userType"
 
     export default {
-        name: 'Signup',
+        name: 'Info',
         data() {
             return {
-                uid: '',
-                password: '',
+                uid: '내아이디',
+                curPassword: '',
+                newPassword: '',
                 confirmPassword: '',
-                name: '',
-                accessCode: '',
+                name: '내이름',
                 duringLogin: false,
                 classSelect: null,
                 classOptions: [
@@ -146,40 +136,11 @@
             }
         },
         methods: {
-            onSubmit() {
-                const uid = this.uid;
-                const upassword = this.password;
-                const uname = this.name;
-                const uclass = this.classSelect;
-                const ujob = this.jobSelect;
-                const accessCode = this.accessCode;
-
-                if (!uid || !upassword || !uname || !uclass || !ujob || !accessCode || this.errors.any()) {
-                    return false
-                }
-
-                signup(uid, upassword, uname, uclass, ujob, accessCode)
-                    .then(res => {
-                        this.goToPages(res.data)
-                    })
-                    .catch(err => {
-                        alert('Signup fail!', err);
-                        this.duringLogin = false
-                    });
-
-                this.duringLogin = true;
-                console.log('waiting')
+            passwordChange() {
+                alert("비밀번호 수정")
             },
-            goToPages(data) {
-                this.$store.commit(SET_ID, data.id);
-                this.$store.commit(SET_AUTH, true);
-                this.$store.commit(SET_TOKEN, 'temp_key');
-                this.$router.push({
-                    name: 'Login'
-                })
-            },
-            idDuplicateCheck() {
-                alert("아이디 중복확인")
+            infoChange() {
+                alert("내정보 수정")
             }
         },
         computed: {
@@ -190,5 +151,5 @@
     }
 </script>
 
-<style scoped>
+<style src="Info.css" scoped>
 </style>
