@@ -7,6 +7,7 @@
 </template>
 
 <script>
+    // 데이터 형식, 임시 데이터
   const titles = [
     {
       prop: "favorite",
@@ -65,7 +66,7 @@
     }
   ];
 
-  // import Table from "../../components/main-section/table/Table"
+  // import Table from "../../components/main/table/Table"
 
   export default {
     name: "mainSection",
