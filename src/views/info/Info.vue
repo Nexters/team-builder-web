@@ -151,5 +151,5 @@
     }
 </script>
 
-<style src="Info.css" scoped>
+<style src="./Info.css" scoped>
 </style>
