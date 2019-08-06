@@ -4,7 +4,6 @@ import Home from './views/Home.vue'
 import Signup from './views/signup/Signup'
 import Login from './views/login/Login'
 import store from './store/modules/auth'
-import MainSection from './components/main/mainSection'
 
 Vue.use(Router);
 
@@ -62,12 +61,6 @@ export default new Router({
       path: '*',
       name: 'NotFound',
       component: () => import(/* webpackChunkName: "example" */ './views/Example.vue') //TODO 잘못된 경로 접근 404페이
-    },
-    {
-      path: '/main',
-      name: 'MainSection',
-      component: () => import('./components/main/mainSection'),
-      props: true
     },
     {
       path: '/mainLayout',
