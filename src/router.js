@@ -68,6 +68,11 @@ export default new Router({
       name: 'MainSection',
       component: () => import('./components/main/mainSection'),
       props: true
-    }
+    },
+    {
+      path: '/mainLayout',
+      name: 'Main',
+      component: () => import(/* webpackChunkName: "MainLayout" */ './views/MainLayout.vue')
+    },
   ]
 })

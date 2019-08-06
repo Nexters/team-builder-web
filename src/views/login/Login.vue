@@ -88,5 +88,5 @@
     }
 </script>
 
-<style src="Login.css" scoped>
+<style src="./Login.css" scoped>
 </style>
