@@ -4,7 +4,6 @@ import Home from './views/Home.vue'
 import Signup from './views/signup/Signup'
 import Login from './views/login/Login'
 import store from './store/modules/auth'
-import MainSection from './components/main/mainSection'
 
 import MainSection from './views/main/MainSection'
 
