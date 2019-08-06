@@ -60,12 +60,17 @@ export default new Router({
     {
       path: '*',
       name: 'NotFound',
-      component: () => import(/* webpackChunkName: "example" */ './views/Example.vue') //TODO 잘못된 경로 접근 404페이
+      component: () => import(/* webpackChunkName: "NotFound" */ './views/NotFound.vue')
     },
     {
       path: '/mainLayout',
       name: 'Main',
       component: () => import(/* webpackChunkName: "MainLayout" */ './views/MainLayout.vue')
+    },
+    {
+      path: '/session',
+      name: 'Session',
+      component: () => import(/* webpackChunkName: "MainLayout" */ './views/MainLayout.vue'),
     },
   ]
 })

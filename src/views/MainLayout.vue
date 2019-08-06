@@ -1,11 +1,12 @@
 <template>
-    <div class="layout-container">
-        <LayoutGnb></LayoutGnb>
-        <LayoutHeader></LayoutHeader>
-        <div class="border-line"></div>
-        <LayoutBody></LayoutBody>
-        <LayoutFooter></LayoutFooter>
-
+    <div class="layout-container" v-loading.fullscreen.lock="loading">
+        <template v-if="!loading">
+            <LayoutGnb></LayoutGnb>
+            <LayoutHeader></LayoutHeader>
+            <div class="border-line"></div>
+            <LayoutBody></LayoutBody>
+            <LayoutFooter></LayoutFooter>
+        </template>
     </div>
 </template>
 
@@ -14,11 +15,28 @@
     import LayoutHeader from '@/components/common/LayoutHeader';
     import LayoutBody from '@/components/common/LayoutBody';
     import LayoutFooter from '@/components/common/LayoutFooter';
+
+    import { ACTIONS } from '@/store/types';
+    import {createNamespacedHelpers} from 'vuex';
+    const { mapActions } = createNamespacedHelpers('main');
+
     export default {
         name: "Main",
         components: {LayoutGnb, LayoutHeader, LayoutBody, LayoutFooter},
         data() {
-            return {}
+            return {
+                loading: true,
+            }
+        },
+        methods: {
+            ...mapActions({
+                loadInitData: ACTIONS.LOAD_INIT_DATA,
+            }),
+        },
+        created() {
+            this.loadInitData()
+                .then(() => this.loading = false)
+                .catch(err => console.log(err)); //TODO 데이터 초기화 실패
         }
     }
 </script>
