@@ -128,7 +128,25 @@
           return;
         }
 
-        this.ideas = this.ideaList.filter(idea =>
+        this.ideas = this.ideaList.filter(idea => {
+            ["title", "name"].some(function (search) {
+              if(search === "title") {
+                if(idea[search].toLowerCase().includes(this.searchTerm) !== 'undefined') {
+                  return true;
+                } else {
+                  return false;
+                }
+              } else {
+                if(idea[search].name.toLowerCase().includes(this.searchTerm) !== 'undefined') {
+                  return true;
+                } else {
+                  return false;
+                }
+              }
+            })
+        }
+
+            // if (idea.title.)
         //   ["title", "author"].some(function (search) {
         //     if(search === "title") {
         //       idea[search].toLowerCase().includes(this.searchTerm)
@@ -137,9 +155,9 @@
         //     }
         //   })
         // );
-            ["title"].some(search =>
-              idea[search].toLowerCase().includes(this.searchTerm)
-            )
+        //     ["title"].some(search =>
+        //       idea[search].toLowerCase().includes(this.searchTerm)
+        //     )
         );
         console.log(this.ideas);
       },
