@@ -1,11 +1,12 @@
 <template>
     <div class="layout-container" v-loading.fullscreen.lock="loading">
-        <LayoutGnb></LayoutGnb>
-        <LayoutHeader></LayoutHeader>
-        <div class="border-line"></div>
-        <LayoutBody></LayoutBody>
-        <LayoutFooter></LayoutFooter>
-
+        <template v-if="!loading">
+            <LayoutGnb></LayoutGnb>
+            <LayoutHeader></LayoutHeader>
+            <div class="border-line"></div>
+            <LayoutBody></LayoutBody>
+            <LayoutFooter></LayoutFooter>
+        </template>
     </div>
 </template>
 
@@ -17,7 +18,7 @@
 
     import { ACTIONS } from '@/store/types';
     import {createNamespacedHelpers} from 'vuex';
-    const { mapActions } = createNamespacedHelpers('session');
+    const { mapActions } = createNamespacedHelpers('main');
 
     export default {
         name: "Main",

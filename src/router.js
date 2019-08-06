@@ -63,15 +63,15 @@ export default new Router({
       name: 'NotFound',
       component: () => import(/* webpackChunkName: "NotFound" */ './views/NotFound.vue')
     },
+    // {
+    //   path: '/main',
+    //   name: 'MainSection',
+    //   component: () => import('./components/main/mainSection'),
+    //   props: true
+    // },
     {
-      path: '/main',
-      name: 'MainSection',
-      component: () => import('./components/main/mainSection'),
-      props: true
-    },
-    {
-      path: '/mainLayout',
-      name: 'Main',
+      path: '/session',
+      name: 'Session',
       component: () => import(/* webpackChunkName: "MainLayout" */ './views/MainLayout.vue'),
     },
   ]
