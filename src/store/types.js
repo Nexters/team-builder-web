@@ -8,9 +8,11 @@ export const GETTERS = {
 
 export const MUTATIONS = {
     SET_POSTS: 'SET_POSTS',
+    SET_INIT_DATA: 'SET_INIT_DATA',
 
 };
 
 export const ACTIONS = {
     LOAD_POSTS: 'LOAD_POSTS',
+    LOAD_INIT_DATA: 'LOAD_INIT_DATA',
 };
