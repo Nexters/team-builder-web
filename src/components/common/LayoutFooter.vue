@@ -1,5 +1,6 @@
 <template>
     <div class="layout-footer">
+        <div class="footer-contents-wrap"></div>
     </div>
 </template>
 
@@ -12,6 +13,13 @@
 <style scoped>
     .layout-footer {
         width: 100%;
+        height: 70px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .footer-contents-wrap {
+        width: 1200px;
         height: 70px;
     }
 </style>

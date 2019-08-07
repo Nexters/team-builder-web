@@ -18,7 +18,6 @@
 <style scoped>
     .layout-body {
         width: 100%;
-        height: 1200px;
         display: flex;
         flex-direction: column;
     }

@@ -1,8 +1,10 @@
 <template>
     <div class="main-idea-list-wrap">
-        <Table :titles="titles" :idea-list="ideaList" :favorite-filter=true>
-            <!--:search-attrs="searchAttrs" -->
-        </Table>
+        <div class="main-idea-contents-wrap">
+            <Table :titles="titles" :idea-list="ideaList" :favorite-filter=true>
+                <!--:search-attrs="searchAttrs" -->
+            </Table>
+        </div>
     </div>
 </template>
 
@@ -85,7 +87,13 @@
 
 <style scoped>
     .main-idea-list-wrap {
-        height: 100%;
         background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+    }
+
+    .main-idea-contents-wrap {
+        width: 1200px;
+        min-height: 538px;
     }
 </style>
