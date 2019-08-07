@@ -1,16 +1,11 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <h1>개발 편의 Index 페이지</h1>
-    <h2>힘냅시다. 미카엘, 봄  :) </h2>
+    <img style="margin-top: 100px; width: 300px" src="../assets/img/moimmoim-icon.png">
+    <br><br><br>
+    <h1>Develop Index</h1>
+    <h2>😎👊🤔👍👥💪 파이팅 - @미카엘 @봄</h2>
 
-    <router-link to="/">Home</router-link> <br>
-    <router-link to="/signup">Signup</router-link> <br>
-    <router-link to="/about">About</router-link> <br>
-    <router-link to="/example">Example</router-link> <br>
-    <router-link to="/editor">Editor</router-link> <br>
-    <router-link to="/session">Session</router-link> <br>
-
+    <router-link v-for="route in routes" :to="route.path"><b>{{route.name}}</b><br></router-link>
     <!--    <HelloWorld msg="Welcome to Your Vue.js App"/>-->
   </div>
 </template>
@@ -23,6 +18,11 @@ export default {
   name: 'home',
   components: {
     HelloWorld
+  },
+  data() {
+    return {
+      routes: this.$router.options.routes,
+    }
   }
 }
 </script>
