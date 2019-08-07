@@ -2,3 +2,22 @@
 .example {
     background-color: aliceblue;
 }
+
+@font-face {font-family: 'Roboto'; src: url("../fonts/Roboto/Roboto-Thin.ttf") format('truetype'); font-weight: 100}
+@font-face {font-family: 'Roboto'; src: url("../fonts/Roboto/Roboto-Light.ttf") format('truetype'); font-weight: 300}
+@font-face {font-family: 'Roboto'; src: url("../fonts/Roboto/Roboto-LightItalic.ttf") format('truetype'); font-weight: 300; font-style: italic;}
+@font-face {font-family: 'Roboto'; src: url("../fonts/Roboto/Roboto-Regular.ttf") format('truetype'); font-weight: 400}
+@font-face {font-family: 'Roboto'; src: url("../fonts/Roboto/Roboto-Medium.ttf") format('truetype'); font-weight: 500}
+@font-face {font-family: 'Roboto'; src: url("../fonts/Roboto/Roboto-Bold.ttf") format('truetype'); font-weight: 700}
+@font-face {font-family: 'Roboto'; src: url("../fonts/Roboto/Roboto-Black.ttf") format('truetype'); font-weight: 900}
+
+@font-face {font-family: 'NotoSansCJKkr'; src: url("../fonts/NotoSansCJKkr/NotoSansCJKkr-Thin.otf") format('opentype'); font-weight: 100}
+@font-face {font-family: 'NotoSansCJKkr'; src: url("../fonts/NotoSansCJKkr/NotoSansCJKkr-Light.otf") format('opentype'); font-weight: 300}
+@font-face {font-family: 'NotoSansCJKkr'; src: url("../fonts/NotoSansCJKkr/NotoSansCJKkr-Regular.otf") format('opentype'); font-weight: 400}
+@font-face {font-family: 'NotoSansCJKkr'; src: url("../fonts/NotoSansCJKkr/NotoSansCJKkr-Medium.otf") format('opentype'); font-weight: 500}
+@font-face {font-family: 'NotoSansCJKkr'; src: url("../fonts/NotoSansCJKkr/NotoSansCJKkr-Bold.otf") format('opentype'); font-weight: 700}
+@font-face {font-family: 'NotoSansCJKkr'; src: url("../fonts/NotoSansCJKkr/NotoSansCJKkr-Black.otf") format('opentype'); font-weight: 900}
+
+body {
+    font-family: NotoSansCJKkr, SansSerif;
+}
