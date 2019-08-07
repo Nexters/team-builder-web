@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import SessionInfoDDay from '@/components/common/main/sessionInfo/SessionInfoDDay';
+    import SessionInfoDDay from '@/components/common/sessionInfo/SessionInfoDDay';
     export default {
         name: "SessionInfo",
         components: {SessionInfoDDay}

@@ -1,6 +1,6 @@
 <template>
     <div class="session-info-d-day">
-        <img class="exclamation-mark-icon" src="../../../../assets/img/exclamation-mark-icon.png"/>
+        <img class="exclamation-mark-icon" src="../../../assets/img/exclamation-mark-icon.png"/>
         <div class="apply-state-massage">
             <span>미제출</span>
         </div>

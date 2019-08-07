@@ -5,7 +5,12 @@
             <LayoutHeader></LayoutHeader>
             <div class="border-line"></div>
 
-            <slot></slot>
+            <div class="slot-wrap">
+                <slot name="session-info"></slot> <!-- session 정보(하얀색), 없으면 미노출 -->
+                <div class="slot-body-wrap">
+                    <slot name="body"></slot> <!-- 회색 영역, 내부에서 width: 1200px; 지정 필요 -->
+                </div>
+            </div>
 
             <LayoutFooter></LayoutFooter>
         </template>
@@ -59,4 +64,17 @@
         height: 1px;
         background-color: #eeeeee;
     }
+
+    .slot-wrap {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .slot-body-wrap {
+        display: flex;
+        justify-content: center;
+        background-color: #f5f5f5;
+    }
+
 </style>

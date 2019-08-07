@@ -42,6 +42,7 @@
 
 <style scoped>
     .layout-header {
+        margin-left: 70px;
         width: 100%;
         height: 72px;
         display: flex;

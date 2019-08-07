@@ -26,6 +26,7 @@
 
 <style scoped>
     .layout-footer {
+        margin-left: 70px;
         height: 70px;
         display: flex;
         justify-content: center;
