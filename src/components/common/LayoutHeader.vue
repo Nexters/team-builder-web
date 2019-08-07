@@ -11,13 +11,25 @@
                 <div class="mode-team-building-bar"></div>
             </div>
 
-            <div class="header-period header-period-on" style="margin-left: 449px;"><div class="period-step period-step-on">step1</div>아이디어 모집</div>
+            <div class="header-period header-period-on" style="margin-left: 449px;">
+                <div class="period-step period-step-on">step1</div>
+                아이디어 모집
+            </div>
             <img class="period-right-icon" src="../../assets/img/header-right-icon.png"/>
-            <div class="header-period"><div class="period-step">step2</div>아이디어 투표</div>
+            <div class="header-period">
+                <div class="period-step">step2</div>
+                아이디어 투표
+            </div>
             <img class="period-right-icon" src="../../assets/img/header-right-icon.png"/>
-            <div class="header-period"><div class="period-step">step3</div>선정아이디어 확인</div>
+            <div class="header-period">
+                <div class="period-step">step3</div>
+                선정아이디어 확인
+            </div>
             <img class="period-right-icon" src="../../assets/img/header-right-icon.png"/>
-            <div class="header-period"><div class="period-step">step4</div>팀빌딩</div>
+            <div class="header-period">
+                <div class="period-step">step4</div>
+                팀빌딩
+            </div>
         </div>
     </div>
 </template>
@@ -37,7 +49,7 @@
     }
 
     .header-contents-wrap {
-        width: 1200px;
+        min-width: 1200px;
         height: 70px;
         display: flex;
     }
