@@ -19,7 +19,7 @@
     }
 
     .footer-contents-wrap {
-        width: 1200px;
+        min-width: 1200px;
         height: 70px;
     }
 </style>

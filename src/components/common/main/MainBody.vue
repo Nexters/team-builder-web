@@ -1,6 +1,6 @@
 <template>
     <div class="layout-body">
-        <div class="main-info"></div>
+        <SessionInfo></SessionInfo>
         <div class="border-line"></div>
         <IdeaSection></IdeaSection>
         <div class="i"></div>
@@ -9,9 +9,10 @@
 
 <script>
     import IdeaSection from '@/components/idea/IdeaSection';
+    import SessionInfo from '@/components/common/main/sessionInfo/SessionInfo';
     export default {
-        name: "LayoutBody",
-        components: {IdeaSection}
+        name: "MainBody",
+        components: {SessionInfo, IdeaSection}
     }
 </script>
 
@@ -20,11 +21,6 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-    }
-
-    .main-info {
-        height: 400px;
-        background-color: white;
     }
 
     .border-line {

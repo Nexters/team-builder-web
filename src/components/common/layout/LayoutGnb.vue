@@ -1,11 +1,11 @@
 <template>
     <div class="layout-gnb">
-        <div class="gnb-logo-wrap"><div class="gnb-logo-image"><img style="width: 48px; height: 48px;" src="../../assets/img/nexters_15th_logo.png"/></div></div>
+        <div class="gnb-logo-wrap"><div class="gnb-logo-image"><img style="width: 48px; height: 48px;" src="../../../assets/img/nexters_15th_logo.png"/></div></div>
         <div class="gnb-session-wrap">
             <div class="gnb-session">
                 16
             </div>
-            <img class="gnb-session-open-icon" src="../../assets/img/gnb_open_icon.png" />
+            <img class="gnb-session-open-icon" src="../../../assets/img/gnb_open_icon.png" />
         </div>
         <div class="gnb-my-page">
             <div class="gnb-my-page-name">

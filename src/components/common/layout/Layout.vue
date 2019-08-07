@@ -4,25 +4,26 @@
             <LayoutGnb></LayoutGnb>
             <LayoutHeader></LayoutHeader>
             <div class="border-line"></div>
-            <LayoutBody></LayoutBody>
+
+            <slot></slot>
+
             <LayoutFooter></LayoutFooter>
         </template>
     </div>
 </template>
 
 <script>
-    import LayoutGnb from '@/components/common/LayoutGnb';
-    import LayoutHeader from '@/components/common/LayoutHeader';
-    import LayoutBody from '@/components/common/LayoutBody';
-    import LayoutFooter from '@/components/common/LayoutFooter';
+    import LayoutGnb from '@/components/common/layout/LayoutGnb';
+    import LayoutHeader from '@/components/common/layout/LayoutHeader';
+    import LayoutFooter from '@/components/common/layout/LayoutFooter';
 
     import { ACTIONS } from '@/store/types';
     import {createNamespacedHelpers} from 'vuex';
     const { mapActions } = createNamespacedHelpers('main');
 
     export default {
-        name: "Main",
-        components: {LayoutGnb, LayoutHeader, LayoutBody, LayoutFooter},
+        name: "Layout",
+        components: {LayoutGnb, LayoutHeader, LayoutFooter},
         data() {
             return {
                 loading: true,
@@ -47,6 +48,7 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+        overflow: hidden;
         margin: 0px;
         padding: 0px;
 
