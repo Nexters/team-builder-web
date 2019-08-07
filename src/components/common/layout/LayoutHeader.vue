@@ -7,7 +7,7 @@
             </div>
             <div class="contents-mode">
                 <div class="mode-team-building">팀빌딩</div>
-                <img class="mode-team-building-padlock" src="../../assets/img/header-padlock-icon.png"/>
+                <img class="mode-team-building-padlock" src="../../../assets/img/header-padlock-icon.png"/>
                 <div class="mode-team-building-bar"></div>
             </div>
 
@@ -15,17 +15,17 @@
                 <div class="period-step period-step-on">step1</div>
                 아이디어 모집
             </div>
-            <img class="period-right-icon" src="../../assets/img/header-right-icon.png"/>
+            <img class="period-right-icon" src="../../../assets/img/header-right-icon.png"/>
             <div class="header-period">
                 <div class="period-step">step2</div>
                 아이디어 투표
             </div>
-            <img class="period-right-icon" src="../../assets/img/header-right-icon.png"/>
+            <img class="period-right-icon" src="../../../assets/img/header-right-icon.png"/>
             <div class="header-period">
                 <div class="period-step">step3</div>
                 선정아이디어 확인
             </div>
-            <img class="period-right-icon" src="../../assets/img/header-right-icon.png"/>
+            <img class="period-right-icon" src="../../../assets/img/header-right-icon.png"/>
             <div class="header-period">
                 <div class="period-step">step4</div>
                 팀빌딩

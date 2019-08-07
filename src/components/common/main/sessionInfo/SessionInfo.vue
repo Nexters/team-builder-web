@@ -20,7 +20,7 @@
 </template>
 
 <script>
-    import SessionInfoDDay from '@/components/common/sessionInfo/SessionInfoDDay';
+    import SessionInfoDDay from '@/components/common/main/sessionInfo/SessionInfoDDay';
     export default {
         name: "SessionInfo",
         components: {SessionInfoDDay}
@@ -42,7 +42,7 @@
 
     .session-info-title {
         text-align: left;
-        margin-top: 67px;
+        margin: 67px 0px 16px 0px;
         width: 100%;
         height: 118px;
         font-family: NotoSansCJKkr;
@@ -60,6 +60,7 @@
     .session-info-idea-write-button {
         width: 240px;
         height: 64px;
+        border-style: none;
         border-radius: 6px;
         background-color: #ff5000;
     }

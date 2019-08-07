@@ -9,9 +9,9 @@
 
 <script>
     import IdeaSection from '@/components/idea/IdeaSection';
-    import SessionInfo from '@/components/common/sessionInfo/SessionInfo';
+    import SessionInfo from '@/components/common/main/sessionInfo/SessionInfo';
     export default {
-        name: "LayoutBody",
+        name: "MainBody",
         components: {SessionInfo, IdeaSection}
     }
 </script>
