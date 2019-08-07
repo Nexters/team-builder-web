@@ -65,7 +65,7 @@
       }
     ];
 
-  import Table from "../../components/main-section/table/Table";
+  import Table from "../../components/idea/IdeaList";
 
   export default {
     name: "MainSection",
