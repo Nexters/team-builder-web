@@ -36,6 +36,6 @@
 <style scoped>
     .editor-wrap {
         margin: 20px auto;
-        width: 1200px;
+        min-width: 1200px;
     }
 </style>

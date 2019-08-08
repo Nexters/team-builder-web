@@ -2,7 +2,7 @@ import api from './index';
 
 export function getSession() {
     // return api.get('session'); TODO: 실제 API 호출
-    return new Promise((resolve, reject) => setTimeout(() => resolve(getMockData()), 1000));
+    return new Promise((resolve, reject) => setTimeout(() => resolve(getMockData()), 100));
 }
 
 //TODO: MockData 설정
