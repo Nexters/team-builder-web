@@ -1,0 +1,160 @@
+<template>
+    <div>
+        <div class="d-flex" style="margin-top: 30px">
+            <div>
+                <p class="main-title">로고관리</p>
+            </div>
+            <div class="ml-auto">
+                <button class="btn-lg btn-success">
+                    적용하기
+                </button>
+            </div>
+        </div>
+
+        <div class="d-flex" style="margin-bottom: 50px">
+            <img src="../../assets/logo.png" alt="../../assets/logo.png"/>
+            <input type="file"/>
+        </div>
+
+        <div>
+            <p class="main-title">일정관리</p>
+
+            <div class="d-flex">
+                <p style="margin-left: 250px">시작일</p>
+                <p style="margin-left: 230px">종료일</p>
+            </div>
+
+            <div class="sub-item-row d-flex align-items-center">
+                <p class="sub-title">아이디어 모집</p>
+                <div class="block">
+                    <el-date-picker
+                            v-model="ideaRecruitStart"
+                            type="date"
+                            placeholder="Pick a day">
+                    </el-date-picker>
+                </div>
+                <p style="margin: 0 20px">-</p>
+                <div class="block">
+                    <el-date-picker
+                            v-model="ideaRecruitEnd"
+                            type="date"
+                            placeholder="Pick a day">
+                    </el-date-picker>
+                </div>
+            </div>
+
+
+            <div class="sub-item-row d-flex align-items-center">
+                <p class="sub-title">아이디어 투표</p>
+                <div class="block">
+                    <el-date-picker
+                            v-model="ideaVoteStart"
+                            type="date"
+                            placeholder="Pick a day">
+                    </el-date-picker>
+                </div>
+                <p style="margin: 0 20px">-</p>
+                <div class="block">
+                    <el-date-picker
+                            v-model="ideaVoteEnd"
+                            type="date"
+                            placeholder="Pick a day">
+                    </el-date-picker>
+                </div>
+
+                <p class="sub-title" style="margin-left: 20px">아이디어 투표 횟수 설정</p>
+
+                <b-form-select v-model="classSelect" :options="classOptions" style="width: 200px">
+                    <template slot="first">
+                    </template>
+                </b-form-select>
+            </div>
+
+
+            <div class="sub-item-row d-flex align-items-center">
+                <p class="sub-title">선정 아이디어 확인</p>
+                <div class="block">
+                    <el-date-picker
+                            v-model="ideaSelectCheckStart"
+                            type="date"
+                            placeholder="Pick a day">
+                    </el-date-picker>
+                </div>
+                <p style="margin: 0 20px">-</p>
+                <div class="block">
+                    <el-date-picker
+                            v-model="ideaSelectCheckEnd"
+                            type="date"
+                            placeholder="Pick a day">
+                    </el-date-picker>
+                </div>
+            </div>
+
+            <div class="sub-item-row d-flex align-items-center">
+                <p class="sub-title">팀 빌딩 모드</p>
+                <RockerSwitch size="large" value="teamBuildingSwitch"/>
+                <p style="margin-left: 20px">아이디어 모집과 아이디어 선정이 활성화됩니다.</p>
+            </div>
+        </div>
+    </div>
+
+</template>
+
+<script>
+    import Layout from "../common/layout/Layout";
+    import RockerSwitch from "vue-rocker-switch";
+    import "vue-rocker-switch/dist/vue-rocker-switch.css";
+
+    export default {
+        data() {
+            return {
+                ideaRecruitStart: '',
+                ideaRecruitEnd: '',
+                ideaVoteStart: '',
+                ideaVoteEnd: '',
+                ideaSelectCheckStart: '',
+                ideaSelectCheckEnd: '',
+                classSelect: '2',
+                classOptions: [
+                    {value: '1', text: '1'},
+                    {value: '2', text: '2'},
+                    {value: '3', text: '3'},
+                    {value: '4', text: '4'}
+                ],
+                teamBuildingSwitch: true
+            }
+        },
+        name: "ActiveUser",
+        components: {
+            Layout,
+            RockerSwitch
+        }
+    }
+</script>
+
+<style scoped>
+    p {
+        margin-bottom: 0;
+    }
+
+    .main-title {
+        font-size: 30px;
+        font-weight: bold;
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    .sub-item-row {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: left;
+        margin: 20px 0;
+    }
+
+    .sub-title {
+        width: 200px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+</style>
