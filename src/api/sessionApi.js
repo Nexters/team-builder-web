@@ -29,7 +29,7 @@ function getMockData() {
                     selected: false,
                     type: 'IDEA',
                     orderNumber: 1,
-                    favorite: false,
+                    favorite: true,
                     tags : [
                         {
                             id: 1,
