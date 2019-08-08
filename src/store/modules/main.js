@@ -142,6 +142,8 @@ const store = {
                     title: idea.title,
                     name: idea.author.name};
                 });
+            console.log(state.ideaList);
+            console.log(session.ideas);
         },
       // TO-DO state.searchTerm 저장하는 SET_SEARCH_TERM
     },

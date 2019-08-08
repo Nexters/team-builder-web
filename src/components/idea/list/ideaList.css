@@ -1,3 +1,7 @@
+.card {
+	width: 1200px;
+}
+
 .card-header {
 	/*padding: 4.3% 0;*/
 	/*padding: 3.9em 0;*/
@@ -55,13 +59,52 @@
 .card {
 	background-color: #fff;
 	background-clip: border-box;
-	border: 0px rgba(0, 0, 0, 0);
+	border: 0 rgba(0, 0, 0, 0);
 	border-radius: 0;
 }
 
 .search {
 	display: inline-block;
 	float: right;
+}
+
+.search-input {
+
+	/*background-image : url('../../../assets/img/ico-search@2x.png');*/
+
+	/*background-position:top right;*/
+
+	/*background-width: 28px;*/
+	/*background-height: 28px;*/
+	/*object-fit: contain;*/
+
+	/*background-repeat:no-repeat;*/
+
+}
+
+[contenteditable=true]:empty:before{
+	content: attr(placeholder);
+	/*display: block; !* For Firefox *!*/
+}
+
+div[contenteditable=true] {
+	position: relative;
+	text-align: left;
+	vertical-align: center;
+	/*border: 1px solid #ddd;*/
+	/*color : #333;*/
+	/*font-size: 12px;*/
+	/*width: 300px;*/
+	/*padding: 5px;*/
+
+	font-family: NotoSansCJKkr;
+	font-size: 16px;
+	font-weight: 300;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: -0.53px;
+	color: #9b9b9b;
 }
 
 .Rectangle-Copy {
@@ -71,7 +114,7 @@
 	background-color: #273ea5;
 
 	padding: 11px 24px;
-	margin-left: 16px;
+	margin-right: 16px;
 }
 
 span {
@@ -96,6 +139,11 @@ span {
 }
 
 .ico_search {
+	/*float: right;*/
+	position: absolute;
+	left: 291px;
+	bottom: 11px;
+
 	width: 28px;
 	height: 28px;
 	object-fit: contain;
@@ -126,17 +174,43 @@ span {
 	color: #4a4a4a;
 }
 
+.ico_table_tag {
+	width: 16px;
+	height: 16px;
+	object-fit: contain;
+	margin-left: 6px;
+}
+
+.Group-10 {
+	width: 16px;
+	height: 16px;
+	object-fit: contain;
+	margin-left: 6px;
+}
+
 .board {
 	background-color: white;
+	width: 100%;
 }
 
 .list {
 	width: 1200px;
 	height: 74px;
 	margin-bottom: 12px;
+	text-align: left;
+}
+
+td {
+	position: relative;
 }
 
 .favorite {
+	width: 24px;
+	height: 23px;
+	object-fit: contain;
+
+	position: relative;
+	left: 22px;
 
 }
 
@@ -152,4 +226,85 @@ span {
 	letter-spacing: -0.88px;
 	text-align: center;
 	color: #9b9b9b;
+
+	position: relative;
+	left: 12px;
+
 }
+
+.idea-name {
+	position: relative;
+	left: 7px;
+
+	width: 429px;
+	height: 24px;
+	font-family: NotoSansCJKkr;
+	font-size: 16px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: -0.89px;
+	color: #1c1c1c;;
+
+}
+
+.tags {
+	width: 99px;
+	height: 40px;
+	border-radius: 6px;
+	background-color: #daf4ea;
+	padding: 14px 0 8px 0;
+	text-align: center;
+	vertical-align: center;
+
+	margin-right: 12px;
+}
+
+.tag {
+	width: 69px;
+	height: 24px;
+	font-family: NotoSansCJKkr;
+	font-size: 16px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: -1px;
+	color: #208b84;
+}
+
+.position {
+	position: relative;
+	left: 6px;
+
+	width: 56px;
+	height: 24px;
+	font-family: NotoSansCJKkr;
+	font-size: 16px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: -1px;
+	text-align: center;
+	color: #1c1c1c;
+}
+
+.author {
+	width: 56px;
+	height: 24px;
+	font-family: NotoSansCJKkr;
+	font-size: 16px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: -1px;
+	text-align: center;
+	color: #1c1c1c;
+
+	position: relative;
+	left: 5px;
+}
+
