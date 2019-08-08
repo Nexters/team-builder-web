@@ -190,5 +190,5 @@
     }
 </script>
 
-<style scoped>
+<style src="./Signup.css" scoped>
 </style>

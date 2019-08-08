@@ -4,6 +4,7 @@ import Home from './views/Home.vue'
 import Signup from './views/signup/Signup'
 import Login from './views/login/Login'
 import store from './store/modules/auth'
+import Admin from "./views/admin/Admin";
 
 Vue.use(Router);
 
@@ -56,6 +57,11 @@ export default new Router({
       path: '/info',
       name: 'Info',
       component: () => import(/* webpackChunkName: "editor" */ './views/info/Info.vue')
+    },
+    {
+      path: '/admin',
+      name: 'Admin',
+      component: Admin
     },
     {
       path: '*',
