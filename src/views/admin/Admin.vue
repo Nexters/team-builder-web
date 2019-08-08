@@ -1,19 +1,19 @@
 <template>
     <Layout>
         <template v-slot:body>
-            <div>
+            <div style="width: 1200px">
                 <b-nav tabs align="center">
-                    <b-nav-item @click="setAllUser" v-bind:active="selectedTab === 'allUser'">모든 기수</b-nav-item>
-                    <b-nav-item @click="setActiveUser" v-bind:active="selectedTab === 'activeUser'">현재 기수</b-nav-item>
+                    <b-nav-item @click="setUserManage" v-bind:active="selectedTab === userManage">회원관리</b-nav-item>
+                    <b-nav-item @click="setActiveUser" v-bind:active="selectedTab === generalManage">일반관리</b-nav-item>
                 </b-nav>
                 <h2 v-if="!isDoneLoadPosts">Loading...</h2>
                 <div v-else>
-                    <div v-if="selectedTab === 'allUser'">
-                        <AllUser :users="users"/>
+                    <div v-if="selectedTab === userManage">
+                        <UserManage :users="users"/>
                     </div>
 
-                    <div v-else-if="selectedTab === 'activeUser'" v-for="user in users" :key="user.id">
-                        <ActiveUser/>
+                    <div v-else-if="selectedTab === generalManage">
+                        <GeneralManage/>
                     </div>
                 </div>
             </div>
@@ -23,16 +23,19 @@
 
 <script>
     import {getAllUsers} from "../../api/UserAPI";
-    import AllUser from "../../components/admin/AllUser";
-    import ActiveUser from "../../components/admin/ActiveUser";
+    import UserManage from "../../components/admin/UserManage";
+    import GeneralManage from "../../components/admin/GeneralManage";
+    import {USER_MANAGE, GENERAL_MANAGE} from "../../consts/adminType";
     import Layout from '@/components/common/layout/Layout';
 
     export default {
         name: "Admin",
-        components: {Layout, ActiveUser, AllUser},
+        components: {Layout, UserManage, GeneralManage},
         data() {
             return {
-                selectedTab: 'allUser',
+                userManage: USER_MANAGE,
+                generalManage: GENERAL_MANAGE,
+                selectedTab: this.userManage,
                 isDoneLoadPosts: false,
                 users: []
             }
@@ -51,11 +54,11 @@
                         /*err 처리*/
                     });
             },
-            setAllUser() {
-                this.selectedTab = 'allUser'
+            setUserManage() {
+                this.selectedTab = this.userManage
             },
             setActiveUser() {
-                this.selectedTab = 'activeUser'
+                this.selectedTab = this.generalManage
             }
         },
 
@@ -70,7 +73,8 @@
     body {
         font-family: "Noto Sans";
     }
+
     .el-card__body {
-        padding: 10px 0 ;
+        padding: 10px 0;
     }
 </style>
