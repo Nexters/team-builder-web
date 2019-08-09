@@ -1,121 +1,105 @@
 <template>
-    <div class="Signup">
-        <div class="container">
-            <div class="row header">
-                <img src="@/assets/logo.png" width="40px" height="40px">
-                <p> 현재 기수는 15기 입니다.</p>
-            </div>
+    <div class="container">
+        <div class="main-container">
 
-            <div class="main-container">
+            <div class="el-header">회원가입</div>
 
-                <div class="col col-md-2 el-header">회원가입</div>
+            <div class="el-main">
+                <div class="sub-id-info row">
+                    <div class="info-title">계정정보</div>
+                    <div class="info-body">
+                        <b-form-group>
+                            <b-form class="row">
+                                <b-form-input class="input-box" placeholder="아이디를 입력해주세요" type="text"
+                                              v-model="uid"></b-form-input>
+                                <button type="button" class="btn-duplicate-check" v-on:click="idDuplicateCheck">
+                                    중복확인
+                                </button>
+                            </b-form>
+                        </b-form-group>
 
-                <div class="el-main">
-                    <div class="row">
-                        <div class="col col-md-2 info-title">계정정보</div>
-                        <div class="col col-md-10 info-body">
-                            <b-form-group>
-                                <p class="form-title">아이디</p>
-                                <b-form inline>
-                                    <b-form-input type="text" v-model="uid"></b-form-input>
-                                    <button type="button" class="btn btn-success" v-on:click="idDuplicateCheck">
-                                        중복확인
-                                    </button>
+                        <b-form-group style="margin-top: 16px">
+                            <b-form class="row">
+                                <b-form>
+                                    <b-form-input class="input-box" v-validate="'required|min:8'" type="password"
+                                                  v-model="password" name="password"
+                                                  placeholder="비밀번호를 입력해주세요." ref="password"></b-form-input>
                                 </b-form>
-                            </b-form-group>
-
-                            <b-form-group>
-                                <b-form inline>
-                                    <b-form>
-                                        <p class="form-title">패스워드</p>
-                                        <b-form-input v-validate="'required|min:8'" type="password"
-                                                      v-model="password" name="password"
-                                                      placeholder="영문, 숫자 8자 이상" ref="password"></b-form-input>
-                                    </b-form>
-                                    <b-form>
-                                        <p class="form-title">패스워드 확인</p>
-                                        <b-form-input v-validate="'required|confirmed:password'" type="password"
-                                                      v-model="confirmPassword"
-                                                      name="password_confirmation" placeholder="영문, 숫자 8자 이상"
-                                                      data-vv-as="password"></b-form-input>
-                                    </b-form>
-                                    <b-form>
-                                        <div class="alert-danger" v-show="errors.any()">
-                                            <div v-if="errors.has('password')">
-                                                {{ errors.first('password') }}
-                                            </div>
-                                            <div v-if="errors.has('password_confirmation')">
-                                                {{ errors.first('password_confirmation') }}
-                                            </div>
+                                <b-form>
+                                    <b-form-input class="input-box" v-validate="'required|confirmed:password'"
+                                                  type="password" v-model="confirmPassword"
+                                                  name="password_confirmation" placeholder="비밀번호를 다시 입력해주세요."
+                                                  data-vv-as="password" style="margin-left: 15px;"></b-form-input>
+                                </b-form>
+                                <b-form>
+                                    <div class="alert-danger" v-show="errors.any()">
+                                        <div v-if="errors.has('password')">
+                                            {{ errors.first('password') }}
                                         </div>
-                                    </b-form>
+                                        <div v-if="errors.has('password_confirmation')">
+                                            {{ errors.first('password_confirmation') }}
+                                        </div>
+                                    </div>
                                 </b-form>
-                            </b-form-group>
-                        </div>
+                            </b-form>
+                            <p class="password-check-info">영문,숫자 8자 이상 입력하세요.</p>
+                        </b-form-group>
                     </div>
+                </div>
 
-                    <div class="row">
-                        <div class="col col-md-2 info-title">계정정보</div>
-                        <div class="col col-md-10 info-body">
-                            <b-form-group>
-                                <p class="form-title">이름</p>
-                                <b-form inline>
-                                    <b-form-input type="text" v-model="name"></b-form-input>
-                                </b-form>
-                            </b-form-group>
+                <div class="row">
+                    <div class="info-title">개인정보</div>
+                    <div class="info-body">
+                        <b-form-group>
+                            <b-form class="row">
+                                <b-form-input class="input-box" type="text" v-model="name"
+                                              placeholder="이름을 적어주세요."></b-form-input>
+                            </b-form>
+                        </b-form-group>
 
-                            <b-form-group>
-                                <b-form inline>
-                                    <b-form>
-                                        <p class="form-title">가입기수</p>
-                                        <b-form-select v-model="classSelect" :options="classOptions" class="mb-3">
-                                            <template slot="first">
-                                                <option :value="null" disabled>기수 선택</option>
-                                            </template>
-                                        </b-form-select>
-                                    </b-form>
-                                    <b-form>
-                                        <p class="form-title">직군</p>
-                                        <b-form-group>
-                                            <b-form-radio-group
-                                                    class="mb-3"
-                                                    id="btn-radios-2"
-                                                    v-model="jobSelect"
-                                                    :options="jobOptions"
-                                                    buttons
-                                                    button-variant="outline-primary"
-                                                    name="radio-btn-outline"
-                                            ></b-form-radio-group>
-                                        </b-form-group>
-                                    </b-form>
+                        <b-form-group>
+                            <b-form class="row">
+                                <b-form>
+                                    <b-form-select v-model="classSelect" :options="classOptions" class="session-select">
+                                        <template slot="first">
+                                            <option :value="null" disabled>기수</option>
+                                        </template>
+                                    </b-form-select>
                                 </b-form>
-                            </b-form-group>
-                        </div>
+                                <b-form>
+                                    <b-form-select v-model="jobSelect" :options="jobOptions" class="job-select">
+                                        <template slot="first">
+                                            <option :value="null" disabled>직군선택</option>
+                                        </template>
+                                    </b-form-select>
+                                </b-form>
+                            </b-form>
+                        </b-form-group>
                     </div>
+                </div>
 
-                    <div class="row">
-                        <div class="col col-md-2 info-title">보안</div>
-                        <div class="col col-md-10 info-body">
-                            <b-form-group>
-                                <p class="form-title">인증코드</p>
-                                <b-form inline>
-                                    <b-form-input type="text" v-model="accessCode"></b-form-input>
-                                </b-form>
-                            </b-form-group>
-                        </div>
+                <div class="row">
+                    <div class="info-title">보안</div>
+                    <div class="info-body">
+                        <b-form-group>
+                            <b-form class="row">
+                                <b-form-input class="input-box" placeholder="넥스터즈의 인증코드를 입력해주세요."
+                                              type="text" v-model="accessCode"></b-form-input>
+                            </b-form>
+                        </b-form-group>
                     </div>
                 </div>
             </div>
 
             <form @submit.prevent="onSubmit" style="text-align: right">
                 <button type="submit"
-                        class="btn btn-success"
-                        :disabled='isDisabled'
-                        style="margin-top: 20px; padding: 10px 50px; margin-bottom: 50px; font-size: 20px">
+                        class="btn-complete"
+                        :disabled='isDisabled'>
                     가입하기
                 </button>
             </form>
         </div>
+
     </div>
 </template>
 
