@@ -72,12 +72,10 @@
     computed:  {
       ...mapState([
         'ideaList',
-        'searchTerm'
       ]),
 
       ...mapGetters({
-        ideaListResult: GETTERS.SHOW_LIST,
-        ideaListLength: GETTERS.LIST_LENGTH
+        ideaListResult: GETTERS.SHOW_LIST
       })
     },
 

@@ -22,9 +22,12 @@
                             <!-- 검색 기능 -->
                             <input type="search"
                                    class="search-input Rectangle"
-                                   v-model="searchTerm"
+                                   v-on:input="searchTerm = $event.target.value"
                                    placeholder="제목과 작성자를 검색해주세요."
-                                   @keyup="filterData()" />
+                                   @keyup="filterData()"
+                            />
+
+                            <!-- 검색 박스 다른 버전 -->
                             <!--<img src="../../../assets/img/ico-search@2x.png" class="ico_search" />-->
                             <!--&gt;-->
                             <!--<img src="../../../assets/img/ico-search@2x.png" class="ico_search"/>-->
@@ -62,9 +65,9 @@
 </template>
 
 <script>
-  import {GETTERS} from "@/store/types";
-  import {createNamespacedHelpers} from 'vuex';
-  const {mapGetters, mapState} = createNamespacedHelpers('main');
+  import {ACTIONS, GETTERS, MUTATIONS} from "@/store/types";
+  import {createNamespacedHelpers, mapActions} from 'vuex';
+  const {mapMutations, mapGetters, mapState} = createNamespacedHelpers('main');
 
   import IdeaList from '@/components/idea/list/IdeaListDefault';
 
@@ -75,14 +78,43 @@
     },
 
     computed: {
-      ...mapState([
-        'searchTerm'
-      ]),
+      searchTerm: {
+        set: function (value) {
+          this.$store.state.searchTerm = value;
+        },
+        get: function () {
+          return this.$store.state.searchTerm;
+        }
+      },
 
       ...mapGetters({
-        ideaListLength: GETTERS.LIST_LENGTH
-      })
-    }
+        ideaListLength: GETTERS.LIST_LENGTH,
+        // 'GETTERS.FILTER_DATA',
+      }),
+    },
+
+    methods: {
+      filterData() {
+        console.log('1 ' + this.$store.state.searchTerm);
+        if(this.$store.state.searchTerm === '') {
+          this.$store.state.ideaList = this.$store.state.session.ideas;
+          return;
+        }
+
+        const searchQuery = this.$store.state.searchTerm.toLowerCase();
+        console.log('2 ' + searchQuery);
+        console.log('3 ' + this.$store.state.session.ideas);
+        this.$store.state.ideaList = this.$store.state.session.ideas.filter(idea => {
+          ['title', 'name'].some(key =>
+            this.$store.state.searchAttrs[key].toLowerCase().includes(searchQuery)
+          ).forEach(function (element) {
+            if(element.id === idea.id) {
+              return true;
+            }
+          })
+        })
+      }
+    },
   }
 </script>
 

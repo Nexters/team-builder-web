@@ -47,7 +47,8 @@ const store = {
         searchAttrs: [{
               id: 0,
               title: '',
-              name: ''
+              name: '',
+              tagsId: []
           }],
         searchTerm: '',
         ideaList: [
@@ -88,46 +89,25 @@ const store = {
           return getters.SHOW_LIST.length;
         },
 
-        [GETTERS.FILTER_DATA]: (state, searchQuery) => {
-          if(typeof searchQuery === 'undefined') {
-            state.ideaList = state.ideas;
+        [GETTERS.FILTER_DATA]: (state) => {
+          console.log('1 ' + state.searchTerm);
+          if(state.searchTerm === '') {
+            state.ideaList = state.session.ideas;
             return;
           }
 
-          if(typeof searchQuery === 'string') {
-            state.searchTerm = searchQuery.toLowerCase();
-            if(state.searchTerm === '') {
-              state.ideaList = state.ideas;
-              return;
-            }
-          }
-
-          //   state.ideaList = state.ideas.filter(idea => {
-          //
-          //       ['titles', 'name'].some(function (search) {
-          //
-          //       })
-          //   })
-          //
-          // state.ideaList = state.ideas.forEach(idea => {
-          //   state.searchAttrs.filter(idea => {
-          //     ['title', 'name'].some(function (key) {
-          //       if(idea[key].toLowerCase().includes(searchTerm)) {
-          //         return idea.id;
-          //       }
-          //     })
-          //   })
-          // })
-          //
-
-          // state.searchAttrs.forEach(item, index) {
-          //       if()
-          // }
-
-
-
-
-            return state.session.ideas;
+          const searchQuery = state.searchTerm.toLowerCase();
+          console.log('2 ' + searchQuery);
+          console.log('3 ' + state.session.ideas);
+          state.ideaList = state.session.ideas.filter(idea => {
+            ['title', 'name'].some(key => {
+              state.searchAttrs[key].toLowerCase().includes(searchQuery)
+            }).forEach(function (id) {
+              if(id === idea.id) {
+                return true;
+              }
+            })
+          })
         },
     },
 
@@ -136,16 +116,15 @@ const store = {
             state.session = session;
             state.searchTerm = '';
             state.ideaList = session.ideas;
-            state.searchAttrs = session.ideas.forEach(function (idea) {
-                return {
-                    id: idea.id,
-                    title: idea.title,
-                    name: idea.author.name};
-                });
-            console.log(state.ideaList);
-            console.log(session.ideas);
+            state.searchAttrs = state.ideaList.map(function (idea) {
+              return {
+                id: idea.id,
+                title: idea.title,
+                name: idea.author.name,
+                tagsId: idea.tags.map(tag => tag.id)
+              }
+            });
         },
-      // TO-DO state.searchTerm 저장하는 SET_SEARCH_TERM
     },
 
     actions: {
