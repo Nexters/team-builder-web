@@ -1,38 +1,36 @@
 <template>
-    <div class="Login">
-        <div class="container">
-            <div class="row header">
-                <img src="@/assets/logo.png" width="40px" height="40px">
-                <p> 현재 기수는 15기 입니다.</p>
-            </div>
-            <div class="main-container">
-                <div class="row" style="margin: 0">
-                    <div class="col col-md-6 login-container">
-                        <div class="el-header">로그인</div>
-                        <div class="el-main">
-                            <form @submit.prevent="onSubmit">
-                                <p align="left">아이디</p>
-                                <input placeholder="Enter your ID" v-model="uid" style="width: 100%">
-                                <p>비밀번호</p>
-                                <input placeholder="Enter your password" v-model="password" style="width: 100%">
-                                <br>
-                                <button type="submit" class="btn btn-success" :disabled='isDisabled' style="width: 100%; margin-top: 30px">
-                                    로그인
-                                </button>
-                                <br>
-                                <router-link to="/signup">
-                                    <button class="btn btn-info" style="width: 100%">회원가입</button>
-                                </router-link>
-                            </form>
-                        </div>
+    <div class="container">
+        <div class="main-container">
+            <div class="row" style="margin: 0">
+                <div class="login-container">
+                    <div class="el-header">
+                        <p>로그인</p>
                     </div>
-                    <div class="col col-md-6 login-logo">
-                        <img src="@/assets/logo.png" width="100%" height="100%">
+                    <div class="el-main">
+                        <form @submit.prevent="onSubmit">
+                            <input class="input-box" placeholder="아이디를 입력해주세요" v-model="uid">
+                            <input class="input-box" placeholder="비밀번호를 입력해주세요" v-model="password"
+                                   style="margin-top: 16px">
+                            <br>
+                            <button type="submit" class="btn-login" :disabled='isDisabled'>
+                                로그인
+                            </button>
+                            <br>
+                            <router-link to="/signup">
+                                <button class="btn-signup">회원가입</button>
+                            </router-link>
+                        </form>
                     </div>
+
+                    <div class="el-footer">
+                        <p>© 2019 Moim-construct Corp.</p>
+                    </div>
+                </div>
+                <div class="login-logo">
+                    <img src="@/assets/logo.png" width="100%" height="100%">
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
