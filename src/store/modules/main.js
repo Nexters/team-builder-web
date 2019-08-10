@@ -81,12 +81,12 @@ const store = {
     },
 
     getters: {
-        [GETTERS.SHOW_LIST]: state => {
+        [GETTERS.GET_LIST]: state => {
             return state.ideaList;
         },
 
         [GETTERS.LIST_LENGTH]: (state, getters) => {
-          return getters.SHOW_LIST.length;
+          return getters.GET_LIST.length;
         },
     },
 
@@ -94,7 +94,9 @@ const store = {
         [MUTATIONS.SET_INIT_DATA](state, {session}) {
             state.session = session;
             state.searchTerm = '';
-            state.ideaList = session.ideas;
+            state.ideaList = session.ideas.sort((idea1, idea2) => {
+              return idea2.orderNumber - idea1.orderNumber;
+            });
             state.searchAttrs = state.ideaList.map(function (idea) {
               return {
                 id: idea.id,
@@ -105,11 +107,9 @@ const store = {
             });
         },
 
-        [MUTATIONS.SET_SEARCH_TERM] (state, value) {
+        [MUTATIONS.SET_SEARCH_TERM]: (state, value) => {
           state.searchTerm = value;
-          console.log('value ' + value);
-          console.log('searchTerm ' + searchTerm)
-        },
+         },
 
         [MUTATIONS.FILTER_DATA]: (state) => {
           console.log('1 ' + state.searchTerm);
@@ -137,6 +137,12 @@ const store = {
             }
           })
         },
+
+        [MUTATIONS.SORT_LIST](state, getter) {
+          state.ideaList = getter.GET_LIST.sort((idea1, idea2) => {
+            return idea2 - idea1;
+          })
+        }
       },
 
     actions: {
@@ -149,7 +155,12 @@ const store = {
           return setTimeout(function () {
             context.commit(MUTATIONS.FILTER_DATA);
           }, payload.duration);
-        }
+        },
+
+      [ACTIONS.SHOW_LIST](context, getter) {
+          context.commit(MUTATIONS.SORT_LIST);
+          return getter.GET_LIST;
+      }
     }
 };
 

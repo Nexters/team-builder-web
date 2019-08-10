@@ -56,7 +56,7 @@
 </template>
 
 <script>
-  import {GETTERS} from "@/store/types";
+  import {ACTIONS, GETTERS} from "@/store/types";
   import {createNamespacedHelpers} from 'vuex';
   const {mapActions, mapGetters, mapState} = createNamespacedHelpers('main');
 
@@ -67,68 +67,20 @@
       event: "change"
     },
 
-    computed:  {
-      ...mapState([
-        'ideaList',
-      ]),
-
-      ...mapGetters({
-        ideaListResult: GETTERS.SHOW_LIST
-      })
-    },
-
-
-
     methods: {
-      //   ideaListResult() {
-      //     return this.ideas;
-      //   },
-
-      // filterData() {
-      //   this.searchTerm = this.searchTerm.toLowerCase();
-      //   if(this.searchTerm === "") {
-      //     this.ideas = this.ideaList;
-      //     return;
-      //   }
-      //
-      //   this.ideas = this.ideaList.filter(idea => {
-      //       ["title", "name"].some(function (search) {
-      //         if(search === "title") {
-      //           if(idea[search].toLowerCase().includes(this.searchTerm) !== 'undefined') {
-      //             return true;
-      //           } else {
-      //             return false;
-      //           }
-      //         } else {
-      //           if(idea[search].name.toLowerCase().includes(this.searchTerm) !== 'undefined') {
-      //             return true;
-      //           } else {
-      //             return false;
-      //           }
-      //         }
-      //       })
-      //   }
-      //
-      //       // if (idea.title.)
-      //   //   ["title", "author"].some(function (search) {
-      //   //     if(search === "title") {
-      //   //       idea[search].toLowerCase().includes(this.searchTerm)
-      //   //     } else {
-      //   //       idea[search].name.toLowerCase().includes(this.searchTerm)
-      //   //     }
-      //   //   })
-      //   // );
-      //   //     ["title"].some(search =>
-      //   //       idea[search].toLowerCase().includes(this.searchTerm)
-      //   //     )
-      //   );
-      //   console.log(this.ideas);
-      // },
-
       select(ideas) {
         this.ideas = ideas;
         console.log(ideas);
       }
+    },
+
+    computed:  {
+      ...mapState([
+        'ideaList',
+      ]),
+      ...mapActions({
+        ideaListResult: ACTIONS.SHOW_LIST
+      })
     }
   };
 </script>

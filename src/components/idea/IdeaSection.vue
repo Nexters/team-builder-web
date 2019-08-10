@@ -53,11 +53,11 @@
                         <!-- 클릭 시 안내 창-->
                         <img src="../../assets/img/ico-table-tag@2x.png" class="ico_table_tag" />
                         <div class="title" style="width: 24px; line-height: normal; margin-left: 299px">직군</div>
-                        <!-- 클릭 시 정렬 -->
-                        <img src="../../assets/img/group-10@2x.png" class="Group-10" onclick="">
+                        <!-- 클릭 시 정렬(오름차순, 원상복구) -->
+                        <img src="../../assets/img/group-10@2x.png" class="Group-10" onclick="sorting('position')">
                         <div class="title" style="width: 36px; line-height: normal; margin-left: 20px">작성자</div>
                         <div class="title" style="width: 24px; line-height: normal; margin-left: 30px">날짜</div>
-                        <!-- 아직 미정 -->
+                        <!-- 클릭시 정렬(오름차순, 원상복구) -->
                         <img src="../../assets/img/group-10@2x.png" class="Group-10">
                     </div>
                     <IdeaList></IdeaList>
@@ -82,53 +82,24 @@
 
     computed: {
       searchTerm: {
-        set: function (value) {
-          // this.$store.state.main.searchTerm = value;
-          console.log(value);
-          console.log(MUTATIONS.SET_SEARCH_TERM);
-          this.$store.commit(MUTATIONS.SET_SEARCH_TERM, value);
-          console.log(100);
+        set (value) {
+          this.$store.commit('main/SET_SEARCH_TERM', value);
         },
-        get:
-          // mapState(['searchTerm'])
-          function () {
-          return this.$store.state.main.searchTerm;
-        }
+        get() {
+            return this.$store.state.main.searchTerm;
+          }
       },
 
       ...mapGetters({
-        ideaListLength: GETTERS.LIST_LENGTH,
-        // filterData: GETTERS.FILTER_DATA,
-      }),
-
-      // ...mapMutations({
-      //   filterData: MUTATIONS.FILTER_DATA,
-      // }),
+        ideaListLength: GETTERS.LIST_LENGTH
+      })
     },
 
     methods: {
       ...mapActions({
-        filterData: ACTIONS.ENTER_SEARCH_TERM
+        filterData: ACTIONS.ENTER_SEARCH_TERM,
       }),
 
-      // ...mapActions({set: 'SET_SEARCH_TERM'}),
-      // filterData() {
-      //   if(this.$store.state.main.searchTerm === '') {
-      //     this.$store.state.main.ideaList = this.$store.state.main.session.ideas;
-      //     return;
-      //   }
-      //
-      //   const searchQuery = this.$store.state.main.searchTerm.toLowerCase();
-      //   const search = this.$store.state.main.searchAttrs.filter(element => {
-      //     ['title', 'name'].some(key =>
-      //       element[key].toLowerCase().includes(searchQuery))
-      //   });
-      //  this.$store.state.main.ideaList = this.$store.state.main.session.ideas.filter(idea => {
-      //    if(idea.id === search.id) {
-      //      return true;
-      //    }
-      //  })
-      // }
     },
   }
 </script>
