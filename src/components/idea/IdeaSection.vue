@@ -24,7 +24,7 @@
                                    class="search-input Rectangle"
                                    v-on:input="searchTerm = $event.target.value"
                                    placeholder="제목과 작성자를 검색해주세요."
-                                   @keyup="filterData()"
+                                   @keyup="filterData({duration: 500})"
                             />
 
                             <!-- 검색 박스 다른 버전 -->
@@ -50,11 +50,14 @@
                         <div class="title" style="width: 24px; line-height: 1.29; margin-left: 14px">번호</div>
                         <div class="title" style="width: 62px; line-height: normal; margin-left: 18px">아이디어 명</div>
                         <div class="title" style="width: 24px; line-height: normal; margin-left: 447px">태그</div>
+                        <!-- 클릭 시 안내 창-->
                         <img src="../../assets/img/ico-table-tag@2x.png" class="ico_table_tag" />
                         <div class="title" style="width: 24px; line-height: normal; margin-left: 299px">직군</div>
-                        <img src="../../assets/img/group-10@2x.png" class="Group-10">
+                        <!-- 클릭 시 정렬 -->
+                        <img src="../../assets/img/group-10@2x.png" class="Group-10" onclick="">
                         <div class="title" style="width: 36px; line-height: normal; margin-left: 20px">작성자</div>
                         <div class="title" style="width: 24px; line-height: normal; margin-left: 30px">날짜</div>
+                        <!-- 아직 미정 -->
                         <img src="../../assets/img/group-10@2x.png" class="Group-10">
                     </div>
                     <IdeaList></IdeaList>
@@ -66,8 +69,8 @@
 
 <script>
   import {ACTIONS, GETTERS, MUTATIONS} from "@/store/types";
-  import {createNamespacedHelpers, mapActions} from 'vuex';
-  const {mapMutations, mapGetters, mapState} = createNamespacedHelpers('main');
+  import {createNamespacedHelpers} from 'vuex';
+  const {mapMutations, mapGetters, mapState, mapActions} = createNamespacedHelpers('main');
 
   import IdeaList from '@/components/idea/list/IdeaListDefault';
 
@@ -80,40 +83,52 @@
     computed: {
       searchTerm: {
         set: function (value) {
-          this.$store.state.searchTerm = value;
+          // this.$store.state.main.searchTerm = value;
+          console.log(value);
+          console.log(MUTATIONS.SET_SEARCH_TERM);
+          this.$store.commit(MUTATIONS.SET_SEARCH_TERM, value);
+          console.log(100);
         },
-        get: function () {
-          return this.$store.state.searchTerm;
+        get:
+          // mapState(['searchTerm'])
+          function () {
+          return this.$store.state.main.searchTerm;
         }
       },
 
       ...mapGetters({
         ideaListLength: GETTERS.LIST_LENGTH,
-        // 'GETTERS.FILTER_DATA',
+        // filterData: GETTERS.FILTER_DATA,
       }),
+
+      // ...mapMutations({
+      //   filterData: MUTATIONS.FILTER_DATA,
+      // }),
     },
 
     methods: {
-      filterData() {
-        console.log('1 ' + this.$store.state.searchTerm);
-        if(this.$store.state.searchTerm === '') {
-          this.$store.state.ideaList = this.$store.state.session.ideas;
-          return;
-        }
+      ...mapActions({
+        filterData: ACTIONS.ENTER_SEARCH_TERM
+      }),
 
-        const searchQuery = this.$store.state.searchTerm.toLowerCase();
-        console.log('2 ' + searchQuery);
-        console.log('3 ' + this.$store.state.session.ideas);
-        this.$store.state.ideaList = this.$store.state.session.ideas.filter(idea => {
-          ['title', 'name'].some(key =>
-            this.$store.state.searchAttrs[key].toLowerCase().includes(searchQuery)
-          ).forEach(function (element) {
-            if(element.id === idea.id) {
-              return true;
-            }
-          })
-        })
-      }
+      // ...mapActions({set: 'SET_SEARCH_TERM'}),
+      // filterData() {
+      //   if(this.$store.state.main.searchTerm === '') {
+      //     this.$store.state.main.ideaList = this.$store.state.main.session.ideas;
+      //     return;
+      //   }
+      //
+      //   const searchQuery = this.$store.state.main.searchTerm.toLowerCase();
+      //   const search = this.$store.state.main.searchAttrs.filter(element => {
+      //     ['title', 'name'].some(key =>
+      //       element[key].toLowerCase().includes(searchQuery))
+      //   });
+      //  this.$store.state.main.ideaList = this.$store.state.main.session.ideas.filter(idea => {
+      //    if(idea.id === search.id) {
+      //      return true;
+      //    }
+      //  })
+      // }
     },
   }
 </script>

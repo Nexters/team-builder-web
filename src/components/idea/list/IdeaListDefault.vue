@@ -1,7 +1,5 @@
 <!-- TO-DO column별로 정렬 기능 구현 -->
 <!-- TO-DO 작성자 검색 기능 구현 -->
-<!-- TO-DO icon 삽입 -->
-<!-- TO-DO 폰트 -->
 <template>
         <table class="board">
             <tbody>

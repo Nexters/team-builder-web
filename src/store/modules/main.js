@@ -88,27 +88,6 @@ const store = {
         [GETTERS.LIST_LENGTH]: (state, getters) => {
           return getters.SHOW_LIST.length;
         },
-
-        [GETTERS.FILTER_DATA]: (state) => {
-          console.log('1 ' + state.searchTerm);
-          if(state.searchTerm === '') {
-            state.ideaList = state.session.ideas;
-            return;
-          }
-
-          const searchQuery = state.searchTerm.toLowerCase();
-          console.log('2 ' + searchQuery);
-          console.log('3 ' + state.session.ideas);
-          state.ideaList = state.session.ideas.filter(idea => {
-            ['title', 'name'].some(key => {
-              state.searchAttrs[key].toLowerCase().includes(searchQuery)
-            }).forEach(function (id) {
-              if(id === idea.id) {
-                return true;
-              }
-            })
-          })
-        },
     },
 
     mutations: {
@@ -125,13 +104,52 @@ const store = {
               }
             });
         },
-    },
+
+        [MUTATIONS.SET_SEARCH_TERM] (state, value) {
+          state.searchTerm = value;
+          console.log('value ' + value);
+          console.log('searchTerm ' + searchTerm)
+        },
+
+        [MUTATIONS.FILTER_DATA]: (state) => {
+          console.log('1 ' + state.searchTerm);
+          if(state.searchTerm === '') {
+            state.ideaList = state.session.ideas;
+            return;
+          }
+
+          const searchQuery = state.searchTerm.toLowerCase();
+          console.log('2 ' + searchQuery);
+          console.log('3 ' + state.session.ideas);
+          const search = state.searchAttrs.filter(element => {
+            ['title', 'name'].some(key => {
+            // console.log(element[key]);
+              const char = element[key].toLowerCase();
+            // element[key].toLowerCase().includes(searchQuery))
+              if (char.includes(searchQuery)) {
+                return true;
+              }
+            })
+          });
+          state.ideaList = state.session.ideas.filter(idea => {
+            if(idea.id === search.id) {
+              return true;
+            }
+          })
+        },
+      },
 
     actions: {
         [ACTIONS.LOAD_INIT_DATA](context) {
             return getSession()
                 .then(data => context.commit(MUTATIONS.SET_INIT_DATA, data));
         },
+
+        [ACTIONS.ENTER_SEARCH_TERM](context, payload) {
+          return setTimeout(function () {
+            context.commit(MUTATIONS.FILTER_DATA);
+          }, payload.duration);
+        }
     }
 };
 
