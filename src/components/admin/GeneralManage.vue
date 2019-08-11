@@ -12,8 +12,11 @@
         </div>
 
         <div class="d-flex" style="margin-bottom: 50px">
-            <img src="../../assets/logo.png" alt="../../assets/logo.png"/>
-            <input type="file"/>
+            <img v-if="imageUrl" :src="imageUrl" style="width: 300px; height: 300px"/>
+            <div class="filebox">
+                <label for="filename">업로드</label>
+                <input type="file" id="filename" class="upload-hidden" @change="onFileChange">
+            </div>
         </div>
 
         <div>
@@ -92,7 +95,7 @@
 
             <div class="sub-item-row d-flex align-items-center">
                 <p class="sub-title">팀 빌딩 모드</p>
-                <RockerSwitch size="large" value="teamBuildingSwitch"/>
+                <RockerSwitch size="large" v-model="teamBuildingSwitch"/>
                 <p style="margin-left: 20px">아이디어 모집과 아이디어 선정이 활성화됩니다.</p>
             </div>
         </div>
@@ -108,6 +111,7 @@
     export default {
         data() {
             return {
+                imageUrl: '',
                 ideaRecruitStart: '',
                 ideaRecruitEnd: '',
                 ideaVoteStart: '',
@@ -128,6 +132,15 @@
         components: {
             Layout,
             RockerSwitch
+        },
+        methods: {
+            onFileChange(e) {
+                const file = e.target.files[0];
+                this.imageUrl = URL.createObjectURL(file);
+            }
+        },
+        created() {
+            this.imageUrl = require('@/assets/logo.png');
         }
     }
 </script>
@@ -156,5 +169,31 @@
         font-size: 14px;
         font-weight: bold;
     }
+
+    .filebox {
+        display: flex;
+        align-items: flex-end;;
+        justify-content: flex-end;
+    }
+
+    .filebox input[type="file"] {
+        visibility: hidden;
+    }
+
+    .filebox label {
+        display: inline-block;
+        padding: .5em .75em;
+        color: #999;
+        font-size: inherit;
+        line-height: normal;
+        vertical-align: middle;
+        background-color: #fdfdfd;
+        cursor: pointer;
+        border: 1px solid #ebebeb;
+        border-bottom-color: #e2e2e2;
+        border-radius: .25em;
+        margin: 0 0 0 10px;
+    }
+
 
 </style>
