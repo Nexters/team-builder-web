@@ -1,3 +1,7 @@
+.body {
+    background-color: #eeeeee;
+}
+
 .container {
     width: 1200px;
     display: flex;
@@ -7,7 +11,7 @@
 }
 
 .main-container {
-    border: 1px solid;
+    border: solid 1px #eeeeee;
     width: 984px;
     height: 726px;
     border-radius: 6px;
@@ -127,6 +131,7 @@
 .btn-complete {
     width: 240px;
     height: 65px;
+    border: 0;
     border-radius: 6px;
     background-color: #ff5000;
     font-family: NotoSansCJKkr;
