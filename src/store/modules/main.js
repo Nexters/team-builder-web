@@ -104,8 +104,6 @@ const store = {
                 tagsId: idea.tags.map(tag => tag.id)
               }
             });
-            state.sortDateASC = false;
-            state.sortPositionASC = false;
         },
 
         [MUTATIONS.SET_SEARCH_TERM]: (state, value) => {
@@ -123,19 +121,75 @@ const store = {
         },
 
         [MUTATIONS.FILTER_DATA]: (state) => {
+          console.log('Mutation')
+          // 검색어에 영어가 포함될 경우
+          if(state.searchTerm.match('^[ㄱ-ㅎ가-힣]*$')) {
+            console.log('한글이얌')
+            // 검색어에 한글이 포함될 경우
+            const ChosungSearch = require('hangul-chosung-search-js');
+            let titleAndNameArray = state.searchAttrs.map((element) => {return element.title})
+              .concat(state.searchAttrs.map((element) => {return element.name}));
+
+            console.log('titleAndNameArray :' + titleAndNameArray);
+            console.log('state.searchAttrs :' + state.searchAttrs)
+
+            const filteredList = ChosungSearch.searchList(state.searchTerm, titleAndNameArray, true);
+            // const temp = state.searchAttrs.map(attr => {
+            //   filteredList.some((element) => {
+            //     console.log(element);
+            //     console.log(attr);
+            //     if(attr.title === element || attr.name === element) {
+            //       return parseInt(attr.id + '', 10);
+            //     }
+            //   })
+            // });
+
+            const temp = state.searchAttrs.map(attr => {
+              filteredList.map(filtered => {
+                if(filtered === attr.title || filtered === attr.name) {
+                  return attr.id;
+                }
+              })
+            });
+
+
+            console.log('element');
+            console.log(temp.length);
+
+              // filter((attr) => {
+            //   filteredList.forEach(function (element) {
+            //     if(element === attr.name || element === attr.title) {
+            //       return attr;
+            //     }
+            //   })
+            // });
+            console.log('temp: ' + temp);
+            // state.ideaList = state.session.ideas.filter(idea => {
+            //   if(idea.id === temp.id) {return true}
+            // });
+            // state.ideaList = state.session.ideas.filter((idea) => {
+            //   filteredList.some((attr) => {
+            //     // if(attr === idea.author.name || attr === idea.title) return true;
+            //     return idea.author.name === attr || idea.title === attr
+            //   })
+            // });
+            console.log('1: ' + filteredList);
+            console.log('2: ' + state.ideaList);
+            return;
+          }
+          console.log('요긴 영어')
           const searchQuery = state.searchTerm.toLowerCase();
-          console.log('2 ' + searchQuery);
-          console.log('3 ' + state.session.ideas);
+          console.log(searchQuery)
           const search = state.searchAttrs.filter(element => {
             ['title', 'name'].some(key => {
-            // console.log(element[key]);
               const char = element[key].toLowerCase();
-            // element[key].toLowerCase().includes(searchQuery))
+              // element[key].toLowerCase().includes(searchQuery))
               if (char.includes(searchQuery)) {
                 return true;
               }
             })
           });
+          console.log(search);
           state.ideaList = state.session.ideas.filter(idea => {
             if(idea.id === search.id) {
               return true;
@@ -144,7 +198,6 @@ const store = {
         },
 
         [MUTATIONS.SORT_LIST_BY_POSITION](state) {
-          state.sortPositionASC = true;
           state.ideaList = state.ideaList.sort((idea1, idea2) => {
             const position1 = idea1.author.position.toUpperCase();
             const position2 = idea2.author.position.toUpperCase();
