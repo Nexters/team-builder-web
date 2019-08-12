@@ -1,7 +1,4 @@
 /*모든 컴포넌트에서 공통으로 사용하는 css (한곳에서 모두 관리해도 무방함)*/
-.example {
-    background-color: aliceblue;
-}
 
 @font-face {font-family: 'Roboto'; src: url("../fonts/Roboto/Roboto-Thin.ttf") format('truetype'); font-weight: 100}
 @font-face {font-family: 'Roboto'; src: url("../fonts/Roboto/Roboto-Light.ttf") format('truetype'); font-weight: 300}
