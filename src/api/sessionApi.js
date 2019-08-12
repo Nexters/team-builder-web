@@ -28,8 +28,8 @@ function getMockData() {
                     file: '',
                     selected: false,
                     type: 'IDEA',
-                    orderNumber: 0,
-                    favorite: false,
+                    orderNumber: 1,
+                    favorite: true,
                     tags : [
                         {
                             id: 1,
@@ -38,13 +38,61 @@ function getMockData() {
                         }
                     ],
                     author: {
-                        name: '',
+                        name: '이관호',
                         nextersNumber: 0,
-                        position: ''
+                        position: '개발자'
                     },
-                    createdAt:'',
+                    createdAt:'2019-01-01 11:11:11',
                     updatedAt:''
-                }
+                },
+              {
+                id:2,
+                title: '아이디어 제목2',
+                content: '아이디어 내용2',
+                file: '',
+                selected: false,
+                type: 'IDEA',
+                orderNumber: 2,
+                favorite: false,
+                tags : [
+                  {
+                    id: 1,
+                    name: '서버개발자',
+                    type: ''
+                  }
+                ],
+                author: {
+                  name: '허지인',
+                  nextersNumber: 0,
+                  position: '디자이너'
+                },
+                createdAt:'2019-02-02 11:11:11',
+                updatedAt:''
+              },
+              {
+                id:3,
+                title: '아이디어 제목3',
+                content: '아이디어 내용3',
+                file: '',
+                selected: false,
+                type: 'IDEA',
+                orderNumber: 3,
+                favorite: false,
+                tags : [
+                  {
+                    id: 1,
+                    name: '서버개발자',
+                    type: ''
+                  }
+                ],
+                author: {
+                  name: '최인혁',
+                  nextersNumber: 0,
+                  position: '개발자'
+                },
+                createdAt:'2019-03-03 11:11:11',
+                updatedAt:''
+              }
             ]
         }
     }
