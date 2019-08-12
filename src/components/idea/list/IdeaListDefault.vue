@@ -78,8 +78,9 @@
       ...mapState([
         'ideaList',
       ]),
-      ...mapActions({
-        ideaListResult: ACTIONS.SHOW_LIST
+
+      ...mapGetters({
+        ideaListResult: GETTERS.GET_LIST,
       })
     }
   };

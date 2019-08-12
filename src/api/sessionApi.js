@@ -38,11 +38,11 @@ function getMockData() {
                         }
                     ],
                     author: {
-                        name: '',
+                        name: '이관호',
                         nextersNumber: 0,
-                        position: ''
+                        position: '개발자'
                     },
-                    createdAt:'',
+                    createdAt:'2019-01-01 11:11:11',
                     updatedAt:''
                 },
               {
@@ -62,11 +62,11 @@ function getMockData() {
                   }
                 ],
                 author: {
-                  name: '',
+                  name: '허지인',
                   nextersNumber: 0,
-                  position: ''
+                  position: '디자이너'
                 },
-                createdAt:'',
+                createdAt:'2019-02-02 11:11:11',
                 updatedAt:''
               },
               {
@@ -90,7 +90,7 @@ function getMockData() {
                   nextersNumber: 0,
                   position: '개발자'
                 },
-                createdAt:'2019-01-01 11:11:11',
+                createdAt:'2019-03-03 11:11:11',
                 updatedAt:''
               }
             ]

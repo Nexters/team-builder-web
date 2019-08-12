@@ -77,7 +77,6 @@ const store = {
             updatedAt:''
           }
         ],
-
     },
 
     getters: {
@@ -105,19 +104,25 @@ const store = {
                 tagsId: idea.tags.map(tag => tag.id)
               }
             });
+            state.sortDateASC = false;
+            state.sortPositionASC = false;
         },
 
         [MUTATIONS.SET_SEARCH_TERM]: (state, value) => {
           state.searchTerm = value;
          },
 
-        [MUTATIONS.FILTER_DATA]: (state) => {
-          console.log('1 ' + state.searchTerm);
-          if(state.searchTerm === '') {
-            state.ideaList = state.session.ideas;
-            return;
-          }
+        [MUTATIONS.SORT_LIST_BY_ORDER_NUMBER]: (state) => {
+          state.ideaList.sort((idea1, idea2) => {
+            return idea2.orderNumber - idea1.orderNumber;
+          })
+        },
 
+        [MUTATIONS.SAVE_ORIGIN_LIST]: (state) => {
+          state.ideaList = state.session.ideas;
+        },
+
+        [MUTATIONS.FILTER_DATA]: (state) => {
           const searchQuery = state.searchTerm.toLowerCase();
           console.log('2 ' + searchQuery);
           console.log('3 ' + state.session.ideas);
@@ -138,10 +143,21 @@ const store = {
           })
         },
 
-        [MUTATIONS.SORT_LIST](state, getter) {
-          state.ideaList = getter.GET_LIST.sort((idea1, idea2) => {
-            return idea2 - idea1;
+        [MUTATIONS.SORT_LIST_BY_POSITION](state) {
+          state.sortPositionASC = true;
+          state.ideaList = state.ideaList.sort((idea1, idea2) => {
+            const position1 = idea1.author.position.toUpperCase();
+            const position2 = idea2.author.position.toUpperCase();
+            if(position2 < position1) return -1;
+            if(position2 > position1) return 1;
+            return 0;
           })
+        },
+
+        [MUTATIONS.SORT_LIST_BY_DATE](state) {
+          state.ideaList = state.ideaList.sort((idea1, idea2) => {
+            return new Date(idea1.createdAt) - new Date(idea2.createdAt);
+          });
         }
       },
 
@@ -151,16 +167,27 @@ const store = {
                 .then(data => context.commit(MUTATIONS.SET_INIT_DATA, data));
         },
 
-        [ACTIONS.ENTER_SEARCH_TERM](context, payload) {
+        [ACTIONS.ENTER_SEARCH_TERM](context) {
           return setTimeout(function () {
             context.commit(MUTATIONS.FILTER_DATA);
-          }, payload.duration);
+            context.commit(MUTATIONS.SORT_LIST_BY_ORDER_NUMBER);
+          });
         },
 
-      [ACTIONS.SHOW_LIST](context, getter) {
-          context.commit(MUTATIONS.SORT_LIST);
-          return getter.GET_LIST;
-      }
+        [ACTIONS.SHOW_ORIGIN_LIST](context) {
+          context.commit(MUTATIONS.SAVE_ORIGIN_LIST);
+          context.commit(MUTATIONS.SORT_LIST_BY_ORDER_NUMBER);
+        },
+
+        [ACTIONS.DATE_SORT_LIST](context) {
+          context.commit(MUTATIONS.SORT_LIST_BY_DATE);
+        },
+
+        [ACTIONS.POSITION_SORT_LIST](context) {
+          context.commit(MUTATIONS.SORT_LIST_BY_POSITION);
+        },
+
+
     }
 };
 

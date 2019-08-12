@@ -24,7 +24,7 @@
                                    class="search-input Rectangle"
                                    v-on:input="searchTerm = $event.target.value"
                                    placeholder="제목과 작성자를 검색해주세요."
-                                   @keyup="filterData({duration: 500})"
+                                   @keyup="filterData()"
                             />
 
                             <!-- 검색 박스 다른 버전 -->
@@ -53,12 +53,10 @@
                         <!-- 클릭 시 안내 창-->
                         <img src="../../assets/img/ico-table-tag@2x.png" class="ico_table_tag" />
                         <div class="title" style="width: 24px; line-height: normal; margin-left: 299px">직군</div>
-                        <!-- 클릭 시 정렬(오름차순, 원상복구) -->
-                        <img src="../../assets/img/group-10@2x.png" class="Group-10" onclick="sorting('position')">
+                        <img src="../../assets/img/group-10@2x.png" class="Group-10" v-on:click="sorting('position')">
                         <div class="title" style="width: 36px; line-height: normal; margin-left: 20px">작성자</div>
                         <div class="title" style="width: 24px; line-height: normal; margin-left: 30px">날짜</div>
-                        <!-- 클릭시 정렬(오름차순, 원상복구) -->
-                        <img src="../../assets/img/group-10@2x.png" class="Group-10">
+                        <img src="../../assets/img/group-10@2x.png" class="Group-10" v-on:click="sorting('date')">
                     </div>
                     <IdeaList></IdeaList>
                 </div>
@@ -80,6 +78,13 @@
       IdeaList
     },
 
+    data() {
+      return {
+        sortPositionASC: false,
+        sortDateASC: false
+      }
+    },
+
     computed: {
       searchTerm: {
         set (value) {
@@ -92,14 +97,49 @@
 
       ...mapGetters({
         ideaListLength: GETTERS.LIST_LENGTH
-      })
+      }),
+
+      ...mapMutations([
+        'SET_SEARCH_TERM'
+      ])
+
     },
 
     methods: {
-      ...mapActions({
-        filterData: ACTIONS.ENTER_SEARCH_TERM,
-      }),
+      // ...mapActions([
+      //   'ACTIONS.ENTER_SEARCH_TERM',
+      //   'ACTIONS.POSITION_SORT_LIST',
+      //   'ACTIONS.DATE_SORT_LIST',
+      //   'ACTIONS.SHOW_ORIGIN_LIST',
+      // ]),
 
+      sorting(by) {
+        if (by === 'position') {
+          this.sortPositionASC = !this.sortPositionASC;
+          if (this.sortPositionASC) {
+            this.$store.dispatch('main/POSITION_SORT_LIST');
+            return;
+          }
+        }
+
+        if (by === 'date') {
+          this.sortDateASC = !this.sortDateASC;
+          if (this.sortDateASC) {
+            this.$store.dispatch('main/DATE_SORT_LIST');
+            return;
+          }
+        }
+
+        return this.$store.dispatch('main/SHOW_ORIGIN_LIST');
+      },
+
+      filterData() {
+        if(this.searchTerm === '') {
+          this.$store.dispatch('main/SHOW_ORIGIN_LIST');
+          return;
+        }
+        this.$store.dispatch('main/ENTER_SEARCH_TERM');
+      }
     },
   }
 </script>
