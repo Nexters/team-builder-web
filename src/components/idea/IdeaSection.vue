@@ -10,7 +10,7 @@
                         <!--<div v-else>-->
                         <div class="list-info">전체 아이디어 {{ ideaListLength }}건</div>
                         |
-                        <div class="star on">즐겨찾기만 보기</div>
+                        <div class="star on" style="cursor:pointer">즐겨찾기만 보기</div>
                         <!-- click on event -->
                         <!--<div class="all">전체 아이디어 보기</div>-->
                         <!--</div>-->
@@ -51,12 +51,14 @@
                         <div class="title" style="width: 62px; line-height: normal; margin-left: 18px">아이디어 명</div>
                         <div class="title" style="width: 24px; line-height: normal; margin-left: 447px">태그</div>
                         <!-- 클릭 시 안내 창-->
-                        <img src="../../assets/img/ico-table-tag@2x.png" class="ico_table_tag" />
+                        <img src="../../assets/img/ico-table-tag@2x.png" class="ico_table_tag" style="cursor:pointer" />
                         <div class="title" style="width: 24px; line-height: normal; margin-left: 299px">직군</div>
-                        <img src="../../assets/img/group-10@2x.png" class="Group-10" v-on:click="sorting('position')">
+                        <img src="../../assets/img/group-10@2x.png" class="Group-10"
+                             v-on:click="sorting('position')" style="cursor:pointer">
                         <div class="title" style="width: 36px; line-height: normal; margin-left: 20px">작성자</div>
                         <div class="title" style="width: 24px; line-height: normal; margin-left: 30px">날짜</div>
-                        <img src="../../assets/img/group-10@2x.png" class="Group-10" v-on:click="sorting('date')">
+                        <img src="../../assets/img/group-10@2x.png" class="Group-10"
+                             v-on:click="sorting('date')" style="cursor:pointer">
                     </div>
                     <IdeaList></IdeaList>
                 </div>
