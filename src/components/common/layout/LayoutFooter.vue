@@ -1,7 +1,7 @@
 <template>
     <div class="layout-footer">
         <div class="footer-contents-wrap">
-            <img class="footer-moimmoim-icon" src="../../../assets/img/moimmoim-icon.png"/>
+            <img class="footer-moimmoim-icon" src="../../../assets/img/moimmoim_icon.png"/>
             <span class="footer-message">© 2019 Moim-construct Corp. All rights reserved.</span>
             <div class="footer-sns-group">
                 <div class="sns-nexters-icon-wrap">

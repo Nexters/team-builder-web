@@ -8,7 +8,7 @@
                 <SessionInfoDDay></SessionInfoDDay>
 
                 <div class="session-info-idea-write-wrap">
-                    <button class="session-info-idea-write-button">
+                    <button class="session-info-idea-write-button" @click="moveNewIdea">
                         <span class="session-info-idea-write-message">아이디어 작성하기</span>
                     </button>
                 </div>
@@ -23,7 +23,12 @@
     import SessionInfoDDay from '@/components/common/sessionInfo/SessionInfoDDay';
     export default {
         name: "SessionInfo",
-        components: {SessionInfoDDay}
+        components: {SessionInfoDDay},
+        methods: {
+            moveNewIdea() {
+                this.$router.push({name: 'NewIdea'});
+            }
+        }
     }
 </script>
 

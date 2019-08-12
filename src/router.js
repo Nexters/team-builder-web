@@ -49,11 +49,6 @@ export default new Router({
       component: () => import(/* webpackChunkName: "example" */ './views/Example.vue')
     },
     {
-      path: '/editor',
-      name: 'Editor',
-      component: () => import(/* webpackChunkName: "editor" */ './views/Editor.vue')
-    },
-    {
       path: '/info',
       name: 'Info',
       component: () => import(/* webpackChunkName: "editor" */ './views/info/Info.vue')
@@ -73,5 +68,15 @@ export default new Router({
       name: 'Session',
       component: () => import(/* webpackChunkName: "Main" */ './views/Main.vue'),
     },
+    {
+      path: '/session/idea/new', //TODO: 아마도 session/15/idea/new 요렇게 가야하지 않을까...?
+      name: 'NewIdea',
+      component: () => import(/* webpackChunkName: "Main" */ './views/NewIdea.vue'),
+    },
+    {
+      path: '/session/idea/:ideaId', //TODO: session/15/idea/34
+      name: 'IdeaDetail',
+      component: () => import(/* webpackChunkName: "Main" */ './views/IdeaDetail.vue'),
+    }
   ]
 })

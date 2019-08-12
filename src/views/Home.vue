@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img style="margin-top: 100px; width: 300px" src="../assets/img/moimmoim-icon.png">
+    <img style="margin-top: 100px; width: 300px" src="../assets/img/moimmoim_icon.png">
     <br><br><br>
     <h1>Develop Index</h1>
     <h2>😎👊🤔👍👥💪 파이팅 - @미카엘 @봄</h2>
