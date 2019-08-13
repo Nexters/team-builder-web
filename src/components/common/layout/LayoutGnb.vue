@@ -31,6 +31,7 @@
         background-color: #273ea5;
         display: flex;
         flex-direction: column;
+        z-index: 99;
     }
 
     .gnb-logo-wrap {
