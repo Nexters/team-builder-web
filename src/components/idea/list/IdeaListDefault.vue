@@ -27,9 +27,11 @@
                 </td>
                 <!-- tags -->
                 <!-- Tag Component 생성-->
+                <!-- 반복문 제어 확인 -->
+                <!-- hover 이벤트 -->
                 <td style="padding: 17px 0 17px 40px; width: 373px">
-                    <div class="tags" v-for="{ name } in idea['tags']">
-                        <div class="tag">{{ name }}</div>
+                    <div class="tags" v-for="(element, index) in idea['tags']">
+                        <div class="tag" v-on:mouseover="viewAllTags()" v-if="index < 3">{{ element['name'] }}</div>
                     </div>
                 </td>
                 <!-- position -->
@@ -71,6 +73,11 @@
       select(ideas) {
         this.ideas = ideas;
         console.log(ideas);
+      },
+
+      viewAllTags() {
+
+
       }
     },
 

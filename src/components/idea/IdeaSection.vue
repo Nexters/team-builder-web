@@ -8,11 +8,19 @@
                         <!--태그 ‘IOS 개발자’ 외 4건 검색결과 20건     -->
                         <!--</div>-->
                         <!--<div v-else>-->
-                        <div class="list-info">전체 아이디어 {{ ideaListLength }}건</div>
+                        <div class="list-info">
+                            <div id="view-all" style="display: inline;">전체 아이디어 </div>
+                            <div id="view-star" style="display: none;">즐겨찾기한 아이디어</div>
+                            <div style="display: inline">{{ ideaListLength }}건</div>
+                        </div>
                         |
-                        <div class="star on">즐겨찾기만 보기</div>
+                        <div class="theme" style="cursor:pointer"
+                             v-on:click="showFavorite(favorite = !favorite)">
+                            <div id="all" style="display: none;">전체 아이디어 보기</div>
+                            <div id="star" style="display: inline-block">즐겨찾기만 보기</div>
+                        </div>
                         <!-- click on event -->
-                        <!--<div class="all">전체 아이디어 보기</div>-->
+                        <!--<div class="all"></div>-->
                         <!--</div>-->
                     </section>
                     <section class="header-right">
@@ -51,12 +59,14 @@
                         <div class="title" style="width: 62px; line-height: normal; margin-left: 18px">아이디어 명</div>
                         <div class="title" style="width: 24px; line-height: normal; margin-left: 447px">태그</div>
                         <!-- 클릭 시 안내 창-->
-                        <img src="../../assets/img/ico-table-tag@2x.png" class="ico_table_tag" />
+                        <img src="../../assets/img/ico-table-tag@2x.png" class="ico_table_tag" style="cursor:pointer" />
                         <div class="title" style="width: 24px; line-height: normal; margin-left: 299px">직군</div>
-                        <img src="../../assets/img/group-10@2x.png" class="Group-10" v-on:click="sorting('position')">
+                        <img src="../../assets/img/group-10@2x.png" class="Group-10"
+                             v-on:click="sorting('position')" style="cursor:pointer">
                         <div class="title" style="width: 36px; line-height: normal; margin-left: 20px">작성자</div>
                         <div class="title" style="width: 24px; line-height: normal; margin-left: 30px">날짜</div>
-                        <img src="../../assets/img/group-10@2x.png" class="Group-10" v-on:click="sorting('date')">
+                        <img src="../../assets/img/group-10@2x.png" class="Group-10"
+                             v-on:click="sorting('date')" style="cursor:pointer">
                     </div>
                     <IdeaList></IdeaList>
                 </div>
@@ -81,7 +91,12 @@
     data() {
       return {
         sortPositionASC: false,
-        sortDateASC: false
+        sortDateASC: false,
+        favorite: false,
+        origin: 'all',
+        change: 'star',
+        viewOrigin: 'view-all',
+        viewChange: 'view-star'
       }
     },
 
@@ -99,9 +114,9 @@
         ideaListLength: GETTERS.LIST_LENGTH
       }),
 
-      ...mapMutations([
-        'SET_SEARCH_TERM'
-      ])
+      // ...mapMutations([
+      //   'SET_SEARCH_TERM'
+      // ])
 
     },
 
@@ -117,16 +132,20 @@
         if (by === 'position') {
           this.sortPositionASC = !this.sortPositionASC;
           if (this.sortPositionASC) {
-            this.$store.dispatch('main/POSITION_SORT_LIST');
-            return;
+            return this.$store.commit('main/SORT_LIST_BY_POSITION_ASC');
+          }
+          if(this.origin === 'star') {
+            return this.$store.commit('main/SORT_LIST_BY_POSITION_DESC');
           }
         }
 
         if (by === 'date') {
           this.sortDateASC = !this.sortDateASC;
           if (this.sortDateASC) {
-            this.$store.dispatch('main/DATE_SORT_LIST');
-            return;
+            return this.$store.commit('main/SORT_LIST_BY_DATE_ASC');
+          }
+          if(this.origin === 'star') {
+            return this.$store.commit('main/SORT_LIST_BY_DATE_DESC');
           }
         }
 
@@ -138,7 +157,21 @@
           this.$store.dispatch('main/SHOW_ORIGIN_LIST');
           return;
         }
+        console.log('검색어 입력')
         this.$store.dispatch('main/ENTER_SEARCH_TERM');
+      },
+
+      showFavorite(star) {
+        [this.origin, this.change] = [this.change, this.origin];
+        document.getElementById(this.origin).style.display = 'none';
+        document.getElementById(this.change).style.display = 'inline-block';
+
+        [this.viewOrigin, this.viewChange] = [this.viewChange, this.viewOrigin];
+        document.getElementById(this.viewOrigin).style.display = 'inline';
+        document.getElementById(this.viewChange).style.display = 'none';
+
+        return star ? this.$store.commit('main/SET_FAVORITE_LIST')
+          : this.$store.dispatch('main/SHOW_ORIGIN_LIST')
       }
     },
   }
