@@ -88,6 +88,7 @@ td {
 	line-height: normal;
 	letter-spacing: -1px;
 	color: #208b84;
+	cursor: pointer;
 }
 
 .position {

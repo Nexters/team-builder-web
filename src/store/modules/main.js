@@ -182,9 +182,10 @@ const store = {
           console.log(searchQuery)
           const search = state.searchAttrs.filter(element => {
             ['title', 'name'].some(key => {
-              const char = element[key].toLowerCase();
+              const char = element[key].replace(/^[A-Za-z+]*$/gi).toLowerCase();
+              console.log('char: ' + char);
               // element[key].toLowerCase().includes(searchQuery))
-              if (char.includes(searchQuery)) {
+              if (char.indexOf(searchQuery) !== -1) {
                 return true;
               }
             })
@@ -197,20 +198,47 @@ const store = {
           })
         },
 
-        [MUTATIONS.SORT_LIST_BY_POSITION](state) {
+        [MUTATIONS.SORT_LIST_BY_POSITION_ASC](state) {
+          state.ideaList = state.ideaList.sort((idea1, idea2) => {
+            const position1 = idea1.author.position.toUpperCase();
+            const position2 = idea2.author.position.toUpperCase();
+
+            if(position1 < position2) return -1;
+            if(position1 > position2) return 1;
+            return idea2.orderNumber - idea1.orderNumber;
+          })
+        },
+
+        [MUTATIONS.SORT_LIST_BY_DATE_ASC](state) {
+          state.ideaList = state.ideaList.sort((idea1, idea2) => {
+            const minusDate = new Date(idea1.createdAt) - new Date(idea2.createdAt);
+            return minusDate === 0 ?
+              idea2.orderNumber - idea1.orderNumber : minusDate;
+          });
+        },
+
+        [MUTATIONS.SORT_LIST_BY_POSITION_DESC](state) {
           state.ideaList = state.ideaList.sort((idea1, idea2) => {
             const position1 = idea1.author.position.toUpperCase();
             const position2 = idea2.author.position.toUpperCase();
             if(position2 < position1) return -1;
             if(position2 > position1) return 1;
-            return 0;
+            return idea2.orderNumber - idea1.orderNumber;
           })
         },
 
-        [MUTATIONS.SORT_LIST_BY_DATE](state) {
+        [MUTATIONS.SORT_LIST_BY_DATE_DESC](state) {
           state.ideaList = state.ideaList.sort((idea1, idea2) => {
-            return new Date(idea1.createdAt) - new Date(idea2.createdAt);
-          });
+            const minusDate = new Date(idea2.createdAt) - new Date(idea1.createdAt);
+            return minusDate === 0 ?
+              idea2.orderNumber - idea1.orderNumber : minusDate;
+          })
+        },
+
+        [MUTATIONS.SET_FAVORITE_LIST](state) {
+          state.ideaList = state.session.ideas.filter(idea => {
+            return idea.favorite;
+          })
         }
       },
 
@@ -232,13 +260,13 @@ const store = {
           context.commit(MUTATIONS.SORT_LIST_BY_ORDER_NUMBER);
         },
 
-        [ACTIONS.DATE_SORT_LIST](context) {
-          context.commit(MUTATIONS.SORT_LIST_BY_DATE);
-        },
-
-        [ACTIONS.POSITION_SORT_LIST](context) {
-          context.commit(MUTATIONS.SORT_LIST_BY_POSITION);
-        },
+        // [ACTIONS.DATE_SORT_LIST](context) {
+        //   context.commit(MUTATIONS.SORT_LIST_BY_DATE);
+        // },
+        //
+        // [ACTIONS.POSITION_SORT_LIST](context) {
+        //   context.commit(MUTATIONS.SORT_LIST_BY_POSITION);
+        // },
 
 
     }

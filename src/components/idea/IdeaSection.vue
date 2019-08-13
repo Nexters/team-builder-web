@@ -10,9 +10,13 @@
                         <!--<div v-else>-->
                         <div class="list-info">전체 아이디어 {{ ideaListLength }}건</div>
                         |
-                        <div class="star on" style="cursor:pointer">즐겨찾기만 보기</div>
+                        <div class="theme" style="cursor:pointer"
+                             v-on:click="showFavorite(favorite = !favorite)">
+                            <div id="star" style="display: inline-block">즐겨찾기만 보기</div>
+                            <div id="all" style="display: none;">전체 아이디어 보기</div>
+                        </div>
                         <!-- click on event -->
-                        <!--<div class="all">전체 아이디어 보기</div>-->
+                        <!--<div class="all"></div>-->
                         <!--</div>-->
                     </section>
                     <section class="header-right">
@@ -83,7 +87,10 @@
     data() {
       return {
         sortPositionASC: false,
-        sortDateASC: false
+        sortDateASC: false,
+        favorite: false,
+        origin: 'all',
+        change: 'star',
       }
     },
 
@@ -119,16 +126,20 @@
         if (by === 'position') {
           this.sortPositionASC = !this.sortPositionASC;
           if (this.sortPositionASC) {
-            this.$store.dispatch('main/POSITION_SORT_LIST');
-            return;
+            return this.$store.commit('main/SORT_LIST_BY_POSITION_ASC');
+          }
+          if(this.origin === 'star') {
+            return this.$store.commit('main/SORT_LIST_BY_POSITION_DESC');
           }
         }
 
         if (by === 'date') {
           this.sortDateASC = !this.sortDateASC;
           if (this.sortDateASC) {
-            this.$store.dispatch('main/DATE_SORT_LIST');
-            return;
+            return this.$store.commit('main/SORT_LIST_BY_DATE_ASC');
+          }
+          if(this.origin === 'star') {
+            return this.$store.commit('main/SORT_LIST_BY_DATE_DESC');
           }
         }
 
@@ -142,6 +153,15 @@
         }
         console.log('검색어 입력')
         this.$store.dispatch('main/ENTER_SEARCH_TERM');
+      },
+
+      showFavorite(star) {
+        [this.origin, this.change] = [this.change, this.origin];
+        document.getElementById(this.origin).style.display = 'none';
+        document.getElementById(this.change).style.display = 'inline-block';
+
+        return star ? this.$store.commit('main/SET_FAVORITE_LIST')
+          : this.$store.dispatch('main/SHOW_ORIGIN_LIST')
       }
     },
   }

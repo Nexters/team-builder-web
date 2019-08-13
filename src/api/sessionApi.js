@@ -23,7 +23,7 @@ function getMockData() {
             ideas:[
                 {
                     id:1,
-                    title: '아이디어 제목',
+                    title: 'asd아이디어 제목',
                     content: '아이디어 내용',
                     file: '',
                     selected: false,
@@ -47,7 +47,7 @@ function getMockData() {
                 },
               {
                 id:2,
-                title: '아이디어 제목2',
+                title: 'xcv아이디어 제목2',
                 content: '아이디어 내용2',
                 file: '',
                 selected: false,
@@ -71,7 +71,7 @@ function getMockData() {
               },
               {
                 id:3,
-                title: '아이디어 제목3',
+                title: 'okh아이디어 제목3',
                 content: '아이디어 내용3',
                 file: '',
                 selected: false,
