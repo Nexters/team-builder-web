@@ -14,23 +14,14 @@
     export default {
         name: "TagGroup",
         components: {PositionTag},
-        data() {
-            return {
-                tags: [
-                    {id: 1, name: '최대다섯자', type: TAG_TYPE.DISABLED},
-                    {id: 1, name: '최대다섯자', type: TAG_TYPE.DISABLED},
-                    {id: 1, name: '최대다섯자', type: TAG_TYPE.DISABLED},
-                    {id: 1, name: '최대다섯자', type: TAG_TYPE.DISABLED},
-                    {id: 1, name: '디자이너용', type: TAG_TYPE.DESIGNER},
-                    {id: 1, name: 'GUI', type: TAG_TYPE.DESIGNER},
-                    {id: 1, name: 'UX', type: TAG_TYPE.DESIGNER},
-                    {id: 1, name: '개발자전용', type: TAG_TYPE.DEVELOPER},
-                    {id: 1, name: '서버개발자', type: TAG_TYPE.DEVELOPER},
-                    {id: 1, name: '웹개발자', type: TAG_TYPE.DEVELOPER},
-                    {id: 1, name: 'iOS', type: TAG_TYPE.DEVELOPER},
-                    {id: 1, name: 'Android', type: TAG_TYPE.DEVELOPER},
-                ]
+        props: {
+            tags: {
+                type: Array,
+                required: true
             }
+        },
+        data() {
+            return { }
         }
     }
 </script>
