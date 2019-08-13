@@ -212,3 +212,7 @@ select[multiple]
     /* Move the label to the top */
     vertical-align:top;
 }
+
+button:focus {
+    outline: none !important;
+}

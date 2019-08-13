@@ -7,7 +7,7 @@
                 <div class="tag-group-container">
                     <div class="tag-group-message">저는 이런 팀원이 필요해요</div>
                     <div class="tag-group-message-hint">함께 일하고 싶은 팀원의 포지션을 선택해주세요. 최대 5개 까지의 태그를 선택할 수 있어요.</div>
-                    <TagGroup></TagGroup>
+                    <TagGroup :tags="allTags"></TagGroup>
                 </div>
             </div>
         </template>
@@ -19,9 +19,28 @@
     import TagGroup from '@/components/common/tag/TagGroup';
     import TuiEditor from '@/components/idea/new/TuiEditor';
     import NewIdeaHeader from '@/components/idea/new/NewIdeaHeader';
+    import {TAG_TYPE} from '@/consts/TagType';
     export default {
         name: "NewIdea",
-        components: {Layout, NewIdeaHeader, TuiEditor, TagGroup}
+        components: {Layout, NewIdeaHeader, TuiEditor, TagGroup},
+        data() {
+            return {
+                allTags: [
+                    {id: 1, name: '최대다섯자', type: TAG_TYPE.DISABLED},
+                    {id: 1, name: '최대다섯자', type: TAG_TYPE.DISABLED},
+                    {id: 1, name: '최대다섯자', type: TAG_TYPE.DISABLED},
+                    {id: 1, name: '최대다섯자', type: TAG_TYPE.DISABLED},
+                    {id: 1, name: '디자이너용', type: TAG_TYPE.DESIGNER},
+                    {id: 1, name: 'GUI', type: TAG_TYPE.DESIGNER},
+                    {id: 1, name: 'UX', type: TAG_TYPE.DESIGNER},
+                    {id: 1, name: '개발자전용', type: TAG_TYPE.DEVELOPER},
+                    {id: 1, name: '서버개발자', type: TAG_TYPE.DEVELOPER},
+                    {id: 1, name: '웹개발자', type: TAG_TYPE.DEVELOPER},
+                    {id: 1, name: 'iOS', type: TAG_TYPE.DEVELOPER},
+                    {id: 1, name: 'Android', type: TAG_TYPE.DEVELOPER},
+                ]
+            }
+        }
     }
 </script>
 
