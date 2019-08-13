@@ -8,12 +8,16 @@
                         <!--태그 ‘IOS 개발자’ 외 4건 검색결과 20건     -->
                         <!--</div>-->
                         <!--<div v-else>-->
-                        <div class="list-info">전체 아이디어 {{ ideaListLength }}건</div>
+                        <div class="list-info">
+                            <div id="view-all" style="display: inline;">전체 아이디어 </div>
+                            <div id="view-star" style="display: none;">즐겨찾기한 아이디어</div>
+                            <div style="display: inline">{{ ideaListLength }}건</div>
+                        </div>
                         |
                         <div class="theme" style="cursor:pointer"
                              v-on:click="showFavorite(favorite = !favorite)">
-                            <div id="star" style="display: inline-block">즐겨찾기만 보기</div>
                             <div id="all" style="display: none;">전체 아이디어 보기</div>
+                            <div id="star" style="display: inline-block">즐겨찾기만 보기</div>
                         </div>
                         <!-- click on event -->
                         <!--<div class="all"></div>-->
@@ -91,6 +95,8 @@
         favorite: false,
         origin: 'all',
         change: 'star',
+        viewOrigin: 'view-all',
+        viewChange: 'view-star'
       }
     },
 
@@ -159,6 +165,10 @@
         [this.origin, this.change] = [this.change, this.origin];
         document.getElementById(this.origin).style.display = 'none';
         document.getElementById(this.change).style.display = 'inline-block';
+
+        [this.viewOrigin, this.viewChange] = [this.viewChange, this.viewOrigin];
+        document.getElementById(this.viewOrigin).style.display = 'inline';
+        document.getElementById(this.viewChange).style.display = 'none';
 
         return star ? this.$store.commit('main/SET_FAVORITE_LIST')
           : this.$store.dispatch('main/SHOW_ORIGIN_LIST')
