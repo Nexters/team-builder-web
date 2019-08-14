@@ -239,6 +239,14 @@ const store = {
           state.ideaList = state.session.ideas.filter(idea => {
             return idea.favorite;
           })
+        },
+
+        // 서버 연동 => 실제로 변경
+        [MUTATIONS.SET_FAVORITE_OPPOSITE]: (state, orderNumber) => {
+          console.log('mutation')
+          const changeElement = state.ideaList.filter(idea => (idea.orderNumber === orderNumber));
+           changeElement.favorite = !changeElement.favorite
+          return changeElement.favorite
         }
       },
 

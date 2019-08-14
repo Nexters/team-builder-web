@@ -18,9 +18,7 @@ td {
 	width: 24px;
 	height: 23px;
 	object-fit: contain;
-
-	position: relative;
-	left: 22px;
+	cursor: pointer;
 
 }
 
@@ -42,15 +40,12 @@ td {
 	letter-spacing: -0.88px;
 	text-align: center;
 	color: #9b9b9b;
-
-	position: relative;
-	left: 12px;
-
 }
 
 .idea-name {
-	position: relative;
-	left: 7px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 
 	width: 429px;
 	height: 24px;
@@ -73,8 +68,6 @@ td {
 	padding: 14px 0 8px 0;
 	text-align: center;
 	vertical-align: center;
-
-	margin-right: 12px;
 }
 
 .tag {
@@ -92,9 +85,6 @@ td {
 }
 
 .position {
-	position: relative;
-	left: 6px;
-
 	width: 56px;
 	height: 24px;
 	font-family: NotoSansCJKkr;
@@ -104,8 +94,9 @@ td {
 	font-stretch: normal;
 	line-height: normal;
 	letter-spacing: -1px;
-	text-align: center;
+	text-align: left;
 	color: #1c1c1c;
+	text-align: left;
 }
 
 .author {
@@ -118,10 +109,21 @@ td {
 	font-stretch: normal;
 	line-height: normal;
 	letter-spacing: -1px;
-	text-align: center;
+	text-align: left;
 	color: #1c1c1c;
-
-	position: relative;
-	left: 5px;
 }
+
+.created-at {
+	width: 80px;
+	height: 19px;
+	font-family: Roboto;
+	font-size: 16px;
+	font-weight: 500;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: -1px;
+	color: #1c1c1c;
+}
+
 
