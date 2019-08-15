@@ -1,0 +1,209 @@
+.main-idea-list-wrap {
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+}
+
+.main-idea-contents-wrap {
+    width: 1200px;
+    min-height: 538px;
+}
+
+.header {
+    width: 537px;
+    height: 59px;
+    font-family: NotoSansCJKkr;
+    font-size: 40px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -3px;
+    color: #000000;
+    margin-top: 65px;
+}
+
+.header-sub {
+    width: 738px;
+    height: 24px;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.6px;
+    color: #1c1c1c;
+    margin-top: 16px;
+}
+
+.card {
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 rgba(0, 0, 0, 0);
+    border-radius: 0;
+}
+
+.card-header {
+    margin-bottom: 0;
+    border-bottom: 0;
+    padding: 0 0 65px 0;
+    background-color: #F5F5F5;
+}
+
+.header-left {
+    display: inline-block;
+    float: left;
+    width: 50%;
+    text-align: left;
+    margin-top: 38px;
+}
+
+.header-right {
+    display: inline-block;
+    float: right;
+    width: 50%;
+    margin-top: 25px;
+}
+
+.search {
+    display: inline-block;
+    float: right;
+}
+
+.search-input {
+    /*
+        type=search로 했을 경우, icon 넣을 수 있는 방법
+    */
+
+    /*background-image : url('../../../assets/img/ico-search@2x.png');*/
+    /*background-position:top right;*/
+    /*background-repeat:no-repeat;*/
+
+    /*background-width: 28px;*/
+    /*background-height: 28px;*/
+    /*object-fit: contain;*/
+
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.53px;
+    color: #9b9b9b;
+
+    padding: 14px 0 12px 18px;
+}
+
+.Rectangle-Copy {
+    width: 103px;
+    height: 46px;
+    border-radius: 6px;
+    background-color: #273ea5;
+
+    padding: 11px 24px;
+    margin-right: 16px;
+}
+
+.Rectangle {
+    width: 333px;
+    height: 50px;
+    border-radius: 6px;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+}
+
+.ico_search {
+    /*float: right;*/
+    position: absolute;
+    left: 291px;
+    bottom: 11px;
+
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.card-body {
+    background-color: #f5f5f5;
+    padding: 0;
+}
+
+
+.titles {
+    height: 20px;
+    text-align: left;
+    /*margin-top: 65p;*/
+    margin-bottom: 17px;
+}
+
+.title {
+    display: inline-block;
+    /*height: 20px;*/
+    font-family: NotoSansCJKkr;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    letter-spacing: -1px;
+    color: #4a4a4a;
+}
+
+.ico_table_tag {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    margin-left: 6px;
+}
+
+.Group-10 {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    margin-left: 6px;
+}
+
+.board {
+    background-color: white;
+    width: 100%;
+}
+
+.list {
+    width: 1200px;
+    height: 74px;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+td {
+    position: relative;
+}
+
+.favorite {
+    width: 24px;
+    height: 23px;
+    object-fit: contain;
+
+    position: relative;
+    left: 22px;
+
+}
+
+.favourites-filled-star-symbol, .favourites-filled-star-symbol-copy {
+    width: 24px;
+    height: 23px;
+    object-fit: contain;
+}
+
+.tags {
+    width: 99px;
+    height: 40px;
+    border-radius: 6px;
+    background-color: #daf4ea;
+    padding: 14px 0 8px 0;
+    text-align: center;
+    vertical-align: center;
+
+    margin-right: 12px;
+}

@@ -3,13 +3,13 @@
         <template v-slot:body>
             <div style="width: 1200px">
                 <b-nav tabs align="center">
-                    <b-nav-item @click="setUserManage" v-bind:active="selectedTab === userManage">회원관리</b-nav-item>
+                    <b-nav-item @click="setUserManage" v-bind:active="selectedTab === allUserManage">회원관리</b-nav-item>
                     <b-nav-item @click="setActiveUser" v-bind:active="selectedTab === generalManage">일반관리</b-nav-item>
                 </b-nav>
                 <h2 v-if="!isDoneLoadPosts">Loading...</h2>
                 <div v-else>
-                    <div v-if="selectedTab === userManage">
-                        <UserManage :users="users"/>
+                    <div v-if="selectedTab === allUserManage">
+                        <AllUserManage :users="users"/>
                     </div>
 
                     <div v-else-if="selectedTab === generalManage">
@@ -23,19 +23,19 @@
 
 <script>
     import {getAllUsers} from "../../api/UserAPI";
-    import UserManage from "../../components/admin/UserManage";
+    import AllUserManage from "../../components/admin/AllUserManage";
     import GeneralManage from "../../components/admin/GeneralManage";
-    import {USER_MANAGE, GENERAL_MANAGE} from "../../consts/adminType";
+    import {ALL_USER_MANAGE, GENERAL_MANAGE} from "../../consts/adminType";
     import Layout from '@/components/common/layout/Layout';
 
     export default {
         name: "Admin",
-        components: {Layout, UserManage, GeneralManage},
+        components: {Layout, AllUserManage, GeneralManage},
         data() {
             return {
-                userManage: USER_MANAGE,
+                allUserManage: ALL_USER_MANAGE,
                 generalManage: GENERAL_MANAGE,
-                selectedTab: this.userManage,
+                selectedTab: this.allUserManage,
                 isDoneLoadPosts: false,
                 users: []
             }
@@ -55,7 +55,7 @@
                     });
             },
             setUserManage() {
-                this.selectedTab = this.userManage
+                this.selectedTab = this.allUserManage
             },
             setActiveUser() {
                 this.selectedTab = this.generalManage
@@ -65,6 +65,7 @@
         created() {
             this.loadAllUsers();
             this.isDoneLoadPosts = true
+            this.selectedTab = this.allUserManage
         }
     }
 </script>

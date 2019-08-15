@@ -13,7 +13,6 @@
 .main-container {
     border: solid 1px #eeeeee;
     width: 984px;
-    height: 726px;
     border-radius: 6px;
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.09);
     background-color: #ffffff;
@@ -38,6 +37,7 @@
     color: #333;
     text-align: left;
     font-weight: bolder;
+    padding-bottom: 60px;
 }
 
 .sub-id-info {
@@ -69,7 +69,7 @@
     border-radius: 6px;
     border: solid 1px #eeeeee;
     background-color: #ffffff;
-    padding-left: 18px;
+    padding: 0 0 0 18px;
 }
 
 .input::placeholder {
