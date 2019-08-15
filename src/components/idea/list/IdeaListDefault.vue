@@ -1,61 +1,84 @@
 <!-- TO-DO column별로 정렬 기능 구현 -->
 <!-- TO-DO 작성자 검색 기능 구현 -->
 <template>
-        <table class="board">
-            <tbody>
-            <tr class="Rectangle list" v-for="idea in ideaListResult" :key="idea.orderNumber">
+        <div class="board">
+            <!--<tbody>-->
+            <div class="Rectangle list" v-for="idea in ideaListResult" :key="idea.orderNumber">
                 <!-- table column의 index, favorite이 0으로 시작 -->
                 <!-- favorite -->
-                <td style="padding: 26px 12px 25px 22px; width: 58px">
+                <div class="td" style="padding: 26px 12px 25px 22px; width: 58px; height: 74px;">
                     <div class="favorite" v-on:click="clickFavorite">
                         <img v-if="idea['favorite']" src="../../../assets/img/favourites-filled-star-symbol-copy@2x.png"
                              class="favourites-filled-star-symbol-copy">
                         <img v-else src="../../../assets/img/favourites-filled-star-symbol@2x.png"
                              class="favourites-filled-star-symbol" />
                     </div>
-                </td>
+                </div>
                 <!-- order-number -->
-                <td style="padding: 29px 12px 29px 7px; width: 50px">
+                <div class="td" style="padding: 29px 12px 29px 7px; width: 49px">
                     <div class="order-number">
                         {{ idea['orderNumber'] }}
                     </div>
-                </td>
+                </div>
                 <!-- idea-name-->
-                <td style="padding: 24px 40px 26px 7px; width: 506px;">
+                <div class="td" style="padding: 24px 40px 26px 7px; width: 476px;">
                     <div class="idea-name">
                         {{ idea['title'] }}
                     </div>
-                </td>
+                </div>
                 <!-- tags -->
                 <!-- Tag Component 생성-->
                 <!-- 반복문 제어 확인 -->
                 <!-- hover 이벤트 -->
-                <td style="padding: 17px 9px 17px 40px; width: 370px">
-                    <div class="tags" v-for="(element, index) in idea['tags']">
-                        <div class="tag" v-on:mouseover="viewAllTags()" v-if="index < 3">{{ element['name'] }}</div>
+                <div class="td" style="padding: 17px 0 17px 33px; width: 368px">
+                    <div class="tags" v-for="(element, index) in idea['tags']" v-on:mouseover="viewAllTags" @mouseout="viewAllTagsClose" v-if="index < 3">
+                        <div class="tag" v-if="element.type === 'DEVELOPER'" style="background-color: #daf4ea;">
+                            <div class="tag-name" style="color: #208b84;">
+                                {{ element['name'] }}
+                            </div>
+                        </div>
+                        <div v-else class="tag" style=" background-color: #fff4d5;">
+                            <div class="tag-name" style="color: #ff7205;">
+                                {{ element['name'] }}
+                            </div>
+                        </div>
                     </div>
-                </td>
+                    <div class="tag-popUp" v-if="idea['tags'].length > 3" style="float: right; display: inline">
+                        <div class="tags" v-for="(element) in idea['tags']" style="margin: 0 6px; float: left">
+                            <div class="tag" v-if="element.type === 'DEVELOPER'" style="background-color: #daf4ea;">
+                                <div class="tag-name" style="color: #208b84;">
+                                    {{ element['name'] }}
+                                </div>
+                            </div>
+                            <div v-else class="tag" style=" background-color: #fff4d5;">
+                                <div class="tag-name" style="color: #ff7205;">
+                                    {{ element['name'] }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- position -->
-                <td style="padding: 25px 7px 25px 9px; width: 65px;">
+                <div class="td" style="padding: 25px 7px 25px 9px; width: 72px;">
                     <div class="position">
                         {{ idea['author'].position }}
                     </div>
-                </td>
+                </div>
                 <!-- author -->
-                <td style="padding: 25px 8px 25px 7px; width: 71px;">
+                <div class="td" style="padding: 25px 8px 25px 7px; width: 71px;">
                     <div class="author">
                         {{ idea['author'].name }}
                     </div>
-                </td>
+                </div>
                 <!-- created At -->
-                <td style="padding: 29px 18px 26px 8px; width: 106px;">
+                <div class="td" style="padding: 29px 18px 26px 8px; width: 106px;">
                     <div class="created-at">
                         {{ format(idea['createdAt']) }}
                     </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                </div>
+            </div>
+            <!--</tbody>-->
+        </div>
 </template>
 
 <script>
@@ -76,9 +99,18 @@
         console.log(ideas);
       },
 
-      viewAllTags() {
+      viewAllTags(event) {
+        // const popUp = event.target.closest('.td').lastChild;
+        // if(popUp.className) {
+        //   popUp.style.display = 'inline';
+        // }
+      },
 
-
+      viewAllTagsClose(event) {
+        // const popUp = event.target.closest('.td').lastChild;
+        // if(popUp.className) {
+        //   popUp.style.display = 'none';
+        // }
       },
 
       format(date) {
@@ -88,7 +120,7 @@
       },
 
       clickFavorite: function (event) {
-        const t =event.target.closest('td').nextSibling.firstChild.innerText;
+        const t =event.target.closest('.td').nextSibling.firstChild.innerText;
         console.log(t)
         // console.log(orderNumber);
         //

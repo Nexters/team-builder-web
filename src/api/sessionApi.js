@@ -34,7 +34,32 @@ function getMockData() {
                         {
                             id: 1,
                             name: '서버개발자',
-                            type: ''
+                            type: 'DEVELOPER'
+                        },
+                        {
+                            id: 2,
+                            name: 'GUI디자인',
+                            type: 'DESIGNER'
+                        },
+                        {
+                            id: 3,
+                            name: '서버개발자',
+                            type: 'DEVELOPER'
+                        },
+                        {
+                            id: 4,
+                            name: '서버개발자',
+                            type: 'DEVELOPER'
+                        },
+                        {
+                            id: 5,
+                            name: '서버개발자',
+                            type: 'DEVELOPER'
+                        },
+                        {
+                            id: 6,
+                            name: '서버개발자',
+                            type: 'DEVELOPER'
                         }
                     ],
                     author: {
@@ -58,7 +83,7 @@ function getMockData() {
                   {
                     id: 1,
                     name: '서버개발자',
-                    type: ''
+                    type: 'DEVELOPER'
                   }
                 ],
                 author: {
@@ -82,7 +107,7 @@ function getMockData() {
                   {
                     id: 1,
                     name: '서버개발자',
-                    type: ''
+                    type: 'DEVELOPER'
                   }
                 ],
                 author: {
