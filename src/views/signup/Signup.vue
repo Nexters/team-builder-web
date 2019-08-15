@@ -90,15 +90,15 @@
                             </b-form-group>
                         </div>
                     </div>
-                </div>
 
-                <form @submit.prevent="onSubmit" style="text-align: right">
-                    <button type="submit"
-                            class="btn-complete"
-                            :disabled='isDisabled'>
-                        가입하기
-                    </button>
-                </form>
+                    <form @submit.prevent="onSubmit" style="text-align: right">
+                        <button type="submit"
+                                class="btn-complete"
+                                :disabled='isDisabled'>
+                            가입하기
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

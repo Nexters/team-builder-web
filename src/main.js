@@ -16,19 +16,20 @@ import '../static/sidebar/dist/vue-sidebar-menu.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import ToggleButton from 'vue-js-toggle-button'
+import locale from 'element-ui/lib/locale/lang/en'
 
 Vue.use(ToggleButton);
 Vue.use(VeeValidate);
 Vue.use(BootstrapVue);
 Vue.use(VueSidebarMenu);
-Vue.use(ElementUI);
 
+Vue.use(ElementUI, { locale })
 Vue.component('mysidebar', mysidebar);
 
 Vue.config.productionTip = false;
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app');
