@@ -65,6 +65,7 @@
         created() {
             this.loadAllUsers();
             this.isDoneLoadPosts = true
+            this.selectedTab = this.userManage
         }
     }
 </script>

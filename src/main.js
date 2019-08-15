@@ -15,7 +15,9 @@ import '../static/fontawesome/js/all'
 import '../static/sidebar/dist/vue-sidebar-menu.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import ToggleButton from 'vue-js-toggle-button'
 
+Vue.use(ToggleButton);
 Vue.use(VeeValidate);
 Vue.use(BootstrapVue);
 Vue.use(VueSidebarMenu);
