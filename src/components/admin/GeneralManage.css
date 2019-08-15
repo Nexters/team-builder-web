@@ -1,0 +1,109 @@
+
+p {
+    margin-bottom: 0;
+}
+
+.header {
+    width: 428px;
+    height: 59px;
+    font-family: NotoSansCJKkr;
+    font-size: 40px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -3px;
+    color: #000000;
+}
+
+.header-sub {
+    width: 486px;
+    height: 24px;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.6px;
+    color: #1c1c1c;
+    margin-top: 16px;
+}
+
+.btn-apply {
+    width: 200px;
+    height: 57px;
+    border: 0;
+    border-radius: 6px;
+    background-color: #ff5000;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.82px;
+    color: #ffffff;
+}
+
+.main-title {
+    width: 71px;
+    height: 29px;
+    text-align: left;
+    font-family: NotoSansCJKkr;
+    font-size: 20px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.75px;
+    color: #1c1c1c;
+}
+
+.sub-item-row {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.sub-title {
+    width: 136px;
+    height: 27px;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: #1c1c1c;
+    margin-right: 32px;
+}
+
+.filebox {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.filebox input[type="file"] {
+    visibility: hidden;
+}
+
+.filebox label {
+    width: 110px;
+    height: 56px;
+    border-radius: 6px;
+    background-color: #273ea5;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
