@@ -9,6 +9,34 @@
     min-height: 538px;
 }
 
+.header {
+    width: 537px;
+    height: 59px;
+    font-family: NotoSansCJKkr;
+    font-size: 40px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -3px;
+    color: #000000;
+    margin-top: 65px;
+}
+
+.header-sub {
+    width: 738px;
+    height: 24px;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.6px;
+    color: #1c1c1c;
+    margin-top: 16px;
+}
+
 .card {
     background-color: #fff;
     background-clip: border-box;

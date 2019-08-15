@@ -43,14 +43,14 @@
                     <el-date-picker
                             v-model="ideaRecruitStart"
                             type="date"
-                            placeholder="Pick a day">
+                            placeholder="시작일을 선택해주세요">
                     </el-date-picker>
                 </div>
                 <div class="date-picker" style="margin-left: 20px">
                     <el-date-picker
                             v-model="ideaRecruitEnd"
                             type="date"
-                            placeholder="Pick a day">
+                            placeholder="종료일을 선택해주세요">
                     </el-date-picker>
                 </div>
             </div>
@@ -62,20 +62,22 @@
                     <el-date-picker
                             v-model="ideaVoteStart"
                             type="date"
-                            placeholder="Pick a day">
+                            placeholder="시작일을 선택해주세요"
+                            format="yyyy-MM-dd">
                     </el-date-picker>
                 </div>
                 <div class="date-picker" style="margin-left: 20px">
                     <el-date-picker
                             v-model="ideaVoteEnd"
                             type="date"
-                            placeholder="Pick a day">
+                            placeholder="종료일을 선택해주세요"
+                            format="yyyy-MM-dd">
                     </el-date-picker>
                 </div>
 
                 <p class="sub-title" style="margin-left: 20px">아이디어 투표 횟수</p>
 
-                <b-form-select v-model="classSelect" :options="classOptions" style="width: 126px">
+                <b-form-select v-model="classSelect" :options="classOptions" style="width: 126px; height: 56px">
                     <template slot="first">
                     </template>
                 </b-form-select>
@@ -88,14 +90,14 @@
                     <el-date-picker
                             v-model="ideaSelectCheckStart"
                             type="date"
-                            placeholder="Pick a day">
+                            placeholder="시작일을 선택해주세요">
                     </el-date-picker>
                 </div>
                 <div class="date-picker" style="margin-left: 20px">
                     <el-date-picker
                             v-model="ideaSelectCheckEnd"
                             type="date"
-                            placeholder="Pick a day">
+                            placeholder="종료일을 선택해주세요">
                     </el-date-picker>
                 </div>
             </div>

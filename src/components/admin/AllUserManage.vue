@@ -1,28 +1,18 @@
 <template>
     <div class="main-idea-list-wrap">
         <div class="main-idea-contents-wrap">
+            <div class="header">
+                <p>인증코드 설정 및 전체 회원관리 설정</p>
+            </div>
+            <div class="header-sub">
+                <p>회원가입 시 입력하는 인증코드를 변경할 수 있어요. 또한,  전체회원 리스트에서 현재 활동기수 회원을 추가할 수 있어요.</p>
+            </div>
+
+            <div>
+
+            </div>
+
             <div class="card">
-                <div class="card-header">
-                    <section class="header-left">
-                        <div class="list-info">전체 아이디어 {{ ideaListLength }}건</div>
-                        |
-                        <div class="star on">즐겨찾기만 보기</div>
-                        <!-- click on event -->
-                        <!--<div class="all">전체 아이디어 보기</div>-->
-                        <!--</div>-->
-                    </section>
-                    <section class="header-right">
-                        <div class="search">
-                            <button class="Rectangle-Copy"><span>태그검색</span></button>
-                            <input type="search"
-                                   class="search-input Rectangle"
-                                   v-on:input="searchTerm = $event.target.value"
-                                   placeholder="제목과 작성자를 검색해주세요."
-                                   @keyup="filterData()"
-                            />
-                        </div>
-                    </section>
-                </div>
                 <div class="card-body">
                     <div class="titles">
                         <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
@@ -85,7 +75,7 @@
 
 <script>
     export default {
-        name: "UserManage",
+        name: "AllUserManage",
         props: ['users'],
         data() {
             return {
@@ -97,5 +87,5 @@
     }
 </script>
 
-<style src="./UserManage.css" scoped>
+<style src="./AllUserManage.css" scoped>
 </style>
