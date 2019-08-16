@@ -22,7 +22,6 @@
 </template>
 
 <script>
-    import {getAllUsers} from "../../api/UserAPI";
     import AllUserManage from "../../components/admin/AllUserManage";
     import GeneralManage from "../../components/admin/GeneralManage";
     import {ALL_USER_MANAGE, GENERAL_MANAGE} from "../../consts/adminType";
@@ -44,16 +43,6 @@
         computed: {},
 
         methods: {
-            loadAllUsers() {
-                getAllUsers()
-                    .then(res => {
-                        this.users = res.data;
-                        this.isDoneLoadPosts = true;
-                    })
-                    .catch(err => {
-                        /*err 처리*/
-                    });
-            },
             setUserManage() {
                 this.selectedTab = this.allUserManage
             },
@@ -63,7 +52,6 @@
         },
 
         created() {
-            this.loadAllUsers();
             this.isDoneLoadPosts = true
             this.selectedTab = this.allUserManage
         }
