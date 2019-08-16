@@ -38,10 +38,12 @@
     text-align: left;
     font-weight: bolder;
     padding-bottom: 60px;
+    padding-right: 0;
 }
 
 .sub-id-info {
     margin-top: 58px;
+    margin-right: 0;
 }
 
 .info-title {
@@ -70,6 +72,7 @@
     border: solid 1px #eeeeee;
     background-color: #ffffff;
     padding: 0 0 0 18px;
+    outline: none;
 }
 
 .input::placeholder {
@@ -81,6 +84,12 @@
     line-height: normal;
     letter-spacing: -0.5px;
     color: #9b9b9b;
+}
+
+.input-box:focus {
+    outline: none;
+    border: 1px solid #273EA5;
+    box-shadow: none;
 }
 
 .password-check-info {
@@ -100,8 +109,8 @@
     width: 110px;
     height: 56px;
     border-radius: 6px;
-    border: solid 1px #273ea5;
-    background-color: #ffffff;
+    border: 0;
+    background-color: #273ea5;
     font-family: NotoSansCJKkr;
     font-size: 18px;
     font-weight: 500;
@@ -109,7 +118,7 @@
     font-stretch: normal;
     line-height: normal;
     letter-spacing: -0.5px;
-    color: #273ea5;
+    color: #ffffff;
     margin-left: 15px;
 }
 
@@ -120,12 +129,24 @@
     border: solid 1px #eeeeee;
 }
 
+.session-select:focus {
+    outline: none;
+    border: 1px solid #273EA5;
+    box-shadow: none;
+}
+
 .job-select {
     width: 179px;
     height: 56px;
     border-radius: 6px;
     border: solid 1px #eeeeee;
     margin-left: 15px;
+}
+
+.job-select:focus {
+    outline: none;
+    border: 1px solid #273EA5;
+    box-shadow: none;
 }
 
 .btn-complete {

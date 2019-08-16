@@ -58,6 +58,12 @@
     color: #9b9b9b;
 }
 
+.input-box:focus {
+    outline: none;
+    border: 1px solid #273EA5;
+    box-shadow: none;
+}
+
 .btn-login {
     width: 378px;
     height: 56px;
@@ -110,5 +116,4 @@
 .login-logo {
     width: 50%;
     height: 726px;
-    border: 1px solid #bbc5d6;
 }

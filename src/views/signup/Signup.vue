@@ -47,7 +47,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" style="margin-right: 0">
                         <div class="info-title">개인정보</div>
                         <div class="info-body">
                             <b-form-group>
@@ -79,7 +79,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row" style="margin-right: 0">
                         <div class="info-title">보안</div>
                         <div class="info-body">
                             <b-form-group>
@@ -125,7 +125,7 @@
                 ],
                 jobSelect: null,
                 jobOptions: [
-                    {text: '개발자  ', value: 'develop'},
+                    {text: '개발자', value: 'develop'},
                     {text: '디자이너', value: 'designer'}
                 ]
             }
@@ -164,7 +164,7 @@
                 })
             },
             idDuplicateCheck() {
-                alert("아이디 중복확인")
+                alert("사용중인 아이디입니다.")
             }
         },
         computed: {
