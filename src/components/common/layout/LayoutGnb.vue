@@ -8,7 +8,7 @@
             </button>
             <button @click="openSessionGroup" class="gnb-session-wrap">
                 <span class="gnb-session">
-                    {{ sessionNo }}
+                    {{ sessionNumber }}
                 </span>
                 <img v-show="!isOpenSessionGroup" class="gnb-session-open-icon" src="@/assets/img/gnb_open_icon.png" />
                 <img v-show="isOpenSessionGroup" class="gnb-session-open-icon" src="@/assets/img/gnb_close_icon.png" />
@@ -31,8 +31,8 @@
             </button>
         </div>
         <div v-show="isOpenSessionGroup" class="layout-session-group" style="margin-top: 72px; padding-top: 7px">
-            <button @click="moveSession(sessionNo)" v-for="sessionNo in sessions" class="layout-session-group-one" :class="nowSessionClass(sessionNo)">
-                {{ sessionNo }}
+            <button @click="moveSession(sessionNumber)" v-for="sessionNumber in sessionNumbers" class="layout-session-group-one" :class="nowSessionClass(sessionNumber)">
+                {{ sessionNumber }}
             </button>
         </div>
     </div>
@@ -45,8 +45,8 @@
             return {
                 isOpenSessionGroup: false,
                 userLastName: '허',
-                sessionNo: 16,
-                sessions: [
+                sessionNumber: 16,
+                sessionNumbers: [
                     16, 15, 14, 13, 12, 11
                 ],
                 isAdmin: true, //TODO: 기본 false
@@ -64,9 +64,9 @@
             openSessionGroup() {
                 this.isOpenSessionGroup = !this.isOpenSessionGroup;
             },
-            moveSession(sessionNo) {
+            moveSession(sessionNumber) {
                 this.isOpenSessionGroup = false;
-                this.$router.push({path: `/session/${sessionNo}`});
+                this.$router.push({path: `/session/${sessionNumber}`});
             },
             onClickMyPage() {
                 this.$router.push({path: '/info'});
@@ -74,8 +74,8 @@
             onClickAllUserManage() {
                 this.$router.push({path: '/all-user-manager'});
             },
-            nowSessionClass(sessionNo) {
-                if (this.sessionNo === sessionNo) {
+            nowSessionClass(sessionNumber) {
+                if (this.sessionNumber === sessionNumber) {
                     return 'now-session';
                 }
                 return '';

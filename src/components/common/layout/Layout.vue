@@ -40,7 +40,8 @@
             }),
         },
         created() {
-            this.loadInitData()
+            const sessionNumber = this.$route.params.sessionNumber;
+            this.loadInitData({sessionNumber: sessionNumber})
                 .then(() => this.loading = false)
                 .catch(err => console.log(err)); //TODO 데이터 초기화 실패
         }
