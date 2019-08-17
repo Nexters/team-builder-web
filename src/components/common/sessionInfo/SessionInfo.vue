@@ -14,7 +14,9 @@
                 </div>
             </div>
 
-            <div class="session-info-image-wrap"></div>
+            <div class="session-info-image-wrap">
+<!--                <img class="" src="@/assets/img/session_ingo_idea_collect_image.png"/>-->
+            </div>
         </div>
     </div>
 </template>
@@ -80,5 +82,14 @@
         color: #ffffff;
     }
 
+    .session-info-image-wrap {
+        width: 560px;
+        margin-left: 221px;
+    }
+
+    .session-info-image-wrap {
+        width: 381.4px;
+        height: 306px;
+    }
 
 </style>

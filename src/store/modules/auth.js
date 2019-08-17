@@ -1,4 +1,5 @@
 import {SET_AUTH, SET_ID, SET_NAME, SET_NEXTERS_NUMBER, SET_POSITION, SET_ROLE, SET_TOKEN} from "../../consts/userType";
+import {ROLL_TYPE} from '@/consts/rollType';
 
 const store = {
     state: {
@@ -31,6 +32,9 @@ const store = {
         },
         getToken(state) {
             return state.token
+        },
+        isAdmin(state) {
+            return state.role === ROLL_TYPE.ADMIN;
         }
     },
     mutations: {
