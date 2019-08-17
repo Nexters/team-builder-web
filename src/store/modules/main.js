@@ -44,13 +44,18 @@ const store = {
                 }
             ]
         },
-        searchAttrs: [{
-              id: 0,
-              title: '',
-              name: '',
-              tagsId: []
+        // search : {
+          searchAttrs: [{
+            id: 0,
+            title: '',
+            name: '',
+            tagsId: []
           }],
-        searchTerm: '',
+          searchTerm: '',
+          selectedTags: [
+            {id: 0},
+          ],
+        // },
         ideaList: [
           {
             id:1,
@@ -87,6 +92,11 @@ const store = {
         [GETTERS.LIST_LENGTH]: (state, getters) => {
           return getters.GET_LIST.length;
         },
+
+      [GETTERS.GET_FAVORITE]: (state, orderNumber) => {
+          return state.ideaList.filter(idea => (idea.orderNumber === orderNumber))
+            .favorite;
+      },
     },
 
     mutations: {
@@ -239,6 +249,17 @@ const store = {
           state.ideaList = state.session.ideas.filter(idea => {
             return idea.favorite;
           })
+        },
+
+        // 서버 연동 => 실제로 변경
+        [MUTATIONS.SET_FAVORITE_OPPOSITE]: (state, id) => {
+          const changeElement = state.ideaList.find(idea => (idea.id === id));
+          changeElement.favorite = !changeElement.favorite
+          return changeElement.favorite
+        },
+
+        [MUTATIONS.SET_SELECTED_TAG]: (state, id) => {
+          state.selectedTags.push({ id: id});
         }
       },
 
@@ -260,15 +281,9 @@ const store = {
           context.commit(MUTATIONS.SORT_LIST_BY_ORDER_NUMBER);
         },
 
-        // [ACTIONS.DATE_SORT_LIST](context) {
-        //   context.commit(MUTATIONS.SORT_LIST_BY_DATE);
-        // },
-        //
-        // [ACTIONS.POSITION_SORT_LIST](context) {
-        //   context.commit(MUTATIONS.SORT_LIST_BY_POSITION);
-        // },
-
-
+        [ACTIONS.FAVORITE_CHANGE](context, id) {
+          context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE, id);
+        }
     }
 };
 

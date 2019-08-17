@@ -1,12 +1,6 @@
-div {
-	/*display: inline-block;*/
-	/*height: auto;*/
-	border: 0;
-	position: relative;
-}
-
 .td {
 	display: table-cell;
+	height: 74px;
 }
 
 .board {
@@ -80,6 +74,7 @@ div {
 	border: 0;
 	display: inline-block;
 	cursor: pointer;
+	clear: both;
 }
 
 .tag {
@@ -88,6 +83,8 @@ div {
 	vertical-align: center;
 	padding: 8px 15px;
 	width: 100%;
+	flex: 1 1 auto;
+	clear: both;
 }
 
 .tag-name {
@@ -104,16 +101,17 @@ div {
 }
 
 .tag-popUp {
-	width: auto;
 	height: 74px;
 	border-radius: 6px;
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.09);
 	background-color: #ffffff;
-	display: inline-block;
+	display: flex;
 	padding: 17px 10px;
-	/*object-fit: contain;*/
-	/*overflow: hidden;*/
-	float: right;
+	right: 10px;
+	top: 65px;
+	position: absolute;
+	clear: both;
+	z-index: 2;
 }
 
 .position {
@@ -157,4 +155,8 @@ div {
 	color: #1c1c1c;
 }
 
-
+.Group-2 {
+	width: 30px;
+	height: 30px;
+	object-fit: contain;
+}
