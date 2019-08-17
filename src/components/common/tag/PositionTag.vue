@@ -1,5 +1,5 @@
 <template>
-    <button class="position-tag-wrap" :class="wrapClassName" :id="id">
+    <button class="position-tag-wrap" :class="wrapClassName" :id="id" v-on:click="selected(id)">
         <span class="position-tag-span" :class="spanClassName">{{ name }}</span>
     </button>
 </template>
@@ -52,6 +52,13 @@
                         return 'disable-span';
                 }
             }
+        },
+
+        methods: {
+          selected(id) {
+            console.log(id)
+            return this.$store.commit('main/SELECT_TAG', id);
+          }
         }
     }
 </script>
@@ -72,6 +79,8 @@
         text-align: center;
         font-size: 18px;
         letter-spacing: -1.13px;
+        font-family: NotoSansCJKkr;
+        display: inline-block;
     }
 
     .disable-wrap {

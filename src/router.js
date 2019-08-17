@@ -82,6 +82,7 @@ export default new Router({
       path: '/session/idea/:ideaId', //TODO: session/15/idea/34
       name: 'IdeaDetail',
       component: () => import(/* webpackChunkName: "Main" */ './views/IdeaDetail.vue'),
-    }
+    },
+
   ]
 })
