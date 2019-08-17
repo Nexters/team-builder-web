@@ -18,7 +18,7 @@
         language: 'ko_kr',
         useCommandShortcut: true,
         useDefaultHTMLSanitizer: true,
-        hideModeSwitch: false,
+        hideModeSwitch: true,
     };
 
     export default {
@@ -36,6 +36,6 @@
 
 <style scoped>
     .tui-editor-wrap {
-
+        text-align: left;
     }
 </style>
