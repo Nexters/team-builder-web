@@ -1,31 +1,36 @@
-
-#sign-up-form {
-    padding: 0 500px;
-    margin-bottom: 100px;
+.main-container {
+    width: 1200px;
+    margin-top: 57px;
 }
 
 .header {
-    margin: 0 20px 20px 0;
-    font-weight: bolder;
+    font-family: NotoSansCJKkr;
+    font-size: 40px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #1c1c1c;
 }
 
-.header > p {
-    margin: 0;
-    vertical-align: middle;
-    line-height: 40px;
+.header-sub {
+
 }
 
-.main-container {
-    border: 1px solid;
-    margin-bottom: 50px;
-}
-
-.el-header {
-    color: #333;
-    text-align: left;
-    margin: 70px 50px 0 50px;
-    font-weight: bold;
-    font-size: 26px;
+.btn-apply {
+    width: 200px;
+    height: 57px;
+    border-radius: 6px;
+    background-color: #ff5000;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.82px;
+    color: #ffffff;
 }
 
 .el-main {

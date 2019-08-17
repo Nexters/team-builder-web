@@ -1,17 +1,15 @@
 import axios from "axios";
 
-export async function get(url, params) {
-    return axios.get(url, params)
+export async function get(url, header) {
+    return axios.get(url, header)
         .catch(err => {
-            alert("error!!", err);
             return err
         })
 }
 
-export async function post(url, params) {
-    axios.get(url, params)
+export async function post(url, params, header) {
+    return axios.post(url, params, header)
         .catch(err => {
-            alert("error!!", err);
             return err
         })
 }

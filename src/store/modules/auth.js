@@ -1,25 +1,53 @@
-import {SET_ID, SET_AUTH, SET_TOKEN} from "../../consts/userType"
+import {SET_AUTH, SET_ID, SET_NAME, SET_NEXTERS_NUMBER, SET_POSITION, SET_ROLE, SET_TOKEN} from "../../consts/userType";
 
 const store = {
     state: {
         id: '',
+        name: '',
+        nextersNumber: '',
+        role: '',
+        position: '',
         auth: false,
-        key: ''
+        token: ''
     },
     getters: {
         getId(state) {
             return state.id
         },
+        getName(state) {
+            return state.name
+        },
+        getNextersNumber(state) {
+            return state.nextersNumber
+        },
+        getRole(state) {
+            return state.role
+        },
+        getPosition(state) {
+            return state.position
+        },
         getAuth(state) {
             return state.auth
         },
-        getKey(state) {
-            return state.key
+        getToken(state) {
+            return state.token
         }
     },
     mutations: {
         [SET_ID](state, id) {
             state.id = id
+        },
+        [SET_NAME](state, name) {
+            state.name = name
+        },
+        [SET_NEXTERS_NUMBER](state, nextersNumber) {
+            state.nextersNumber = nextersNumber
+        },
+        [SET_ROLE](state, role) {
+            state.role = role
+        },
+        [SET_POSITION](state, position) {
+            state.position = position
         },
         [SET_AUTH](state, auth) {
             state.auth = auth

@@ -10,7 +10,7 @@
 }
 
 .header {
-    width: 537px;
+    width: 428px;
     height: 59px;
     font-family: NotoSansCJKkr;
     font-size: 40px;
@@ -24,7 +24,7 @@
 }
 
 .header-sub {
-    width: 738px;
+    width: 395px;
     height: 24px;
     font-family: NotoSansCJKkr;
     font-size: 16px;
@@ -144,14 +144,14 @@
 }
 
 .user-manage-tab {
-    margin-top: 93px;
+    margin-top: 72px;
     display: table-cell;
     align-items: center;
     vertical-align: middle;
 }
 
 .user-manage-tab > p {
-    width: 99px;
+    width: 124px;
     height: 24px;
     font-family: NotoSansCJKkr;
     font-size: 16px;
@@ -162,21 +162,6 @@
     letter-spacing: -0.6px;
     color: #4a4a4a;
     margin-bottom: 0;
-}
-
-.btn-active-user-add {
-    width: 144px;
-    height: 46px;
-    border-radius: 6px;
-    background-color: #ff5000;
-    font-family: NotoSansCJKkr;
-    font-size: 16px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: -1px;
-    color: #ffffff;
 }
 
 .btn-user-remove {
@@ -192,7 +177,6 @@
     line-height: normal;
     letter-spacing: -1px;
     color: #ffffff;
-    margin-left: 16px;
 }
 
 .pointer {
@@ -215,19 +199,48 @@
     background-color: #F5F5F5;
 }
 
-.header-left {
-    display: inline-block;
-    float: left;
-    width: 50%;
-    text-align: left;
-    margin-top: 38px;
+.select-box {
+    width: 120px;
+    height: 40px;
+    border-radius: 6px;
+    border: solid 1.5px #ff5000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.header-right {
-    display: inline-block;
-    float: right;
-    width: 50%;
-    margin-top: 25px;
+.select-box > p {
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #ff5000;
+    margin-bottom: 0;
+}
+
+.unselect-box {
+    width: 120px;
+    height: 40px;
+    border-radius: 6px;
+    border: solid 1.5px #dbdbdb;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.unselect-box > p {
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #9b9b9b;
 }
 
 .search {
@@ -273,7 +286,6 @@
 
 .title {
     display: inline-block;
-    /*height: 20px;*/
     font-family: NotoSansCJKkr;
     font-size: 14px;
     font-weight: normal;

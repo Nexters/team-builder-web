@@ -84,7 +84,7 @@
             </div>
 
 
-            <div class="sub-item-row d-flex align-items-center" style="margin-bottom: 25px">
+            <div class="sub-item-row d-flex align-items-center" style="margin-bottom: 12px">
                 <p class="sub-title">선정 아이디어 확인</p>
                 <div class="date-picker">
                     <el-date-picker
@@ -104,12 +104,19 @@
 
             <div class="sub-item-row d-flex align-items-center" style="margin-bottom: 100px">
                 <p class="sub-title">팀빌딩 모드</p>
+                <div class="date-picker">
+                    <el-date-picker
+                            v-model="teamBuildingDate"
+                            type="date"
+                            placeholder="팀빌딩 날짜를 선택해주세요">
+                    </el-date-picker>
+                </div>
                 <toggle-button :value="teamBuildingSwitch"
                                :width="60"
                                :height="32"
                                color="#273EA5"
                                @change="teamBuildingSwitch = $event.value"
-                               style="margin: 0"/>
+                               style="margin: 0 0 0 20px"/>
             </div>
         </div>
     </div>
@@ -130,6 +137,7 @@
                 ideaVoteEnd: '',
                 ideaSelectCheckStart: '',
                 ideaSelectCheckEnd: '',
+                teamBuildingDate: '',
                 classSelect: '2',
                 classOptions: [
                     {value: '1', text: '1'},
@@ -159,6 +167,10 @@
 </script>
 
 <style>
+    div.el-date-editor.el-input.el-input--prefix.el-input--suffix.el-date-editor--date {
+        width: 300px;
+    }
+
     .date-picker, input.el-input__inner {
         width: 300px;
         height: 56px;

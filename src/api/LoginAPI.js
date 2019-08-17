@@ -1,5 +1,5 @@
-import {LOGIN_URL} from "../consts/userType"
-import {get} from "./testAPI"
+import {GET_ME_INFO, LOGIN_URL} from "../consts/userType"
+import {post, get} from "./testAPI"
 
 export async function login(uid, password) {
     if (!uid || !password) {
@@ -10,5 +10,20 @@ export async function login(uid, password) {
     params.append('id', uid);
     params.append('password', password);
 
-    return get(LOGIN_URL, params)
+    return post(LOGIN_URL, params)
+}
+
+export async function info(token) {
+    if (!token) {
+        return false
+    }
+
+    let header = {
+        params: {},
+        headers: {
+            'Authorization': token
+        }
+    }
+
+    return get(GET_ME_INFO, header)
 }
