@@ -13,7 +13,7 @@
     import { Viewer } from '@toast-ui/vue-editor'
 
     export default {
-        name: "TuiEditorViewer",
+        name: "EditorViewer",
         components: {
             'viewer': Viewer
         },
@@ -34,5 +34,6 @@
 
         font-family: NotoSansCJKkr;
         padding: 20px;
+        text-align: left;
     }
 </style>

@@ -6,7 +6,7 @@
 
                 <div class="idea-detail-wrap">
                     <IdeaDetailHeader></IdeaDetailHeader>
-                    <TuiEditorViewer></TuiEditorViewer>
+                    <EditorViewer></EditorViewer>
                     <div class="tag-group-container">
                         <div class="tag-group-message">저는 이런 팀원이 필요해요</div>
                         <TagGroup :tags="tags"></TagGroup>
@@ -26,11 +26,11 @@
     import Layout from '@/components/common/layout/Layout';
     import TagGroup from '@/components/common/tag/TagGroup';
     import {TAG_TYPE} from '@/consts/TagType';
-    import TuiEditorViewer from '@/components/idea/detail/TuiEditorViewer';
+    import EditorViewer from '@/components/idea/detail/EditorViewer';
     import IdeaDetailHeader from '@/components/idea/detail/IdeaDetailHeader';
     export default {
         name: "IdeaDetail",
-        components: {IdeaDetailHeader, TuiEditorViewer, TagGroup, Layout},
+        components: {IdeaDetailHeader, EditorViewer, TagGroup, Layout},
         data() {
             return {
                 tags: [

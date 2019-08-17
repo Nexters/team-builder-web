@@ -1,14 +1,14 @@
 <template>
     <div>
         <div class="layout-gnb">
-            <div class="gnb-logo-wrap">
+            <button class="gnb-logo-wrap" @click="onClickLogo">
                 <div class="gnb-logo-image">
                     <img style="width: 48px; height: 48px;" src="@/assets/img/nexters_15th_logo.png"/>
                 </div>
-            </div>
+            </button>
             <button @click="openSessionGroup" class="gnb-session-wrap">
                 <span class="gnb-session">
-                    {{ session }}
+                    {{ sessionNo }}
                 </span>
                 <img v-show="!isOpenSessionGroup" class="gnb-session-open-icon" src="@/assets/img/gnb_open_icon.png" />
                 <img v-show="isOpenSessionGroup" class="gnb-session-open-icon" src="@/assets/img/gnb_close_icon.png" />
@@ -23,10 +23,16 @@
                     {{ userLastName }}
                 </span>
             </button>
+
+            <button @click="onClickMyPage" class="gnb-logout">
+                <span class="gnb-my-page-name">
+                    로
+                </span>
+            </button>
         </div>
         <div v-show="isOpenSessionGroup" class="layout-session-group" style="margin-top: 72px; padding-top: 7px">
-            <button @click="moveSession(session)" v-for="session in sessions" class="layout-session-group-one" :class="nowSessionClass(session)">
-                {{ session }}
+            <button @click="moveSession(sessionNo)" v-for="sessionNo in sessions" class="layout-session-group-one" :class="nowSessionClass(sessionNo)">
+                {{ sessionNo }}
             </button>
         </div>
     </div>
@@ -39,7 +45,7 @@
             return {
                 isOpenSessionGroup: false,
                 userLastName: '허',
-                session: 16,
+                sessionNo: 16,
                 sessions: [
                     16, 15, 14, 13, 12, 11
                 ],
@@ -52,12 +58,15 @@
         },
 
         methods: {
+            onClickLogo() {
+                this.$router.push({path: `/`});
+            },
             openSessionGroup() {
                 this.isOpenSessionGroup = !this.isOpenSessionGroup;
             },
-            moveSession(session) {
+            moveSession(sessionNo) {
                 this.isOpenSessionGroup = false;
-                this.$router.push({path: `/session/${session}`});
+                this.$router.push({path: `/session/${sessionNo}`});
             },
             onClickMyPage() {
                 this.$router.push({path: '/info'});
@@ -65,8 +74,8 @@
             onClickAllUserManage() {
                 this.$router.push({path: '/all-user-manager'});
             },
-            nowSessionClass(session) {
-                if (this.session === session) {
+            nowSessionClass(sessionNo) {
+                if (this.sessionNo === sessionNo) {
                     return 'now-session';
                 }
                 return '';
@@ -128,7 +137,7 @@
         position: absolute;
         width: 44px;
         height: 44px;
-        bottom: 22px;
+        bottom: 82px;
         left: 13px;
         border-radius: 6px;
         background-color: #4c64cf;
@@ -143,11 +152,21 @@
         color: #ffffff;
     }
 
+    .gnb-logout {
+        position: absolute;
+        width: 44px;
+        height: 44px;
+        bottom: 22px;
+        left: 13px;
+        border-radius: 6px;
+        background-color: #4c64cf;
+    }
+
     .gnb-all-user-manage {
         position: absolute;
         width: 44px;
         height: 44px;
-        bottom: 82px;
+        bottom: 142px;
         left: 13px;
         border-radius: 6px;
         background-color: #4c64cf;
