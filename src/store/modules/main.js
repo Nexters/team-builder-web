@@ -271,7 +271,7 @@ const store = {
 
         [MUTATIONS.SET_INIT_SELECTED_TAGS]: (state) => {
           state.selectedTags = [];
-        }
+        },
 
       },
 
