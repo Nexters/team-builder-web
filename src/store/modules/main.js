@@ -260,8 +260,17 @@ const store = {
         },
 
         [MUTATIONS.SET_SELECTED_TAG]: (state, id) => {
-          state.selectedTags.push({ id: id});
+            state.selectedTags.push({id: id});
+        },
+
+        [MUTATIONS.SELECT_TAG]: (state, id) => {
+
+        },
+
+        [MUTATIONS.SET_INIT_SELECTED_TAGS]: (state) => {
+          // state.selectedTags =
         }
+
       },
 
     actions: {

@@ -14,7 +14,7 @@
                     </div>
                     <button class="search"><span>검색하기</span></button>
                     <!--onclick-->
-                    <div class="selection-initialization">선택초기화</div>
+                    <div class="selection-initialization" onclick="initSelect">선택초기화</div>
                 </div>
             </div>
         </template>
@@ -53,10 +53,10 @@
         history.back();
       },
 
-      // select(ideas) {
-      //   this.ideas = ideas;
-      //   console.log(ideas);
-      // }
+      initSelect() {
+        return this.$store.commit('main/SET_INIT_SELECTED_TAGS');
+      }
+
     }
   }
 </script>
@@ -65,7 +65,6 @@
     .container {
         width: 1200px;
         text-align: center;
-        /*position: absolute;*/
     }
 
     .Rectangle {
@@ -76,7 +75,6 @@
         background-color: #ffffff;
         padding: 29px 18px 40px 34px;
         margin: 231px 197px 233px 197px;
-        /*clear: both;*/
     }
 
     .title {
@@ -96,12 +94,9 @@
     .x-img {
         width: 42px;
         height: 42px;
-        /*object-fit: contain;*/
         float: right;
-        /*margin-right: 14px;*/
         cursor: pointer;
         padding: 11px 15px 11px 7px;
-        /*margin: 0*/
     }
 
     .search {
@@ -135,14 +130,7 @@
     }
 
     .Group-4 {
-        /*width: 42px;*/
-        /*height: 42px;*/
         object-fit: contain;
-        /*position: relative;*/
-        /*left: 642px;*/
-        /*float: right;
-        margin-right: 16px;
-        cursor: pointer;*/
         width: 20px;
         height: 20px;
     }
