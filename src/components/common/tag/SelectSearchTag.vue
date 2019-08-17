@@ -15,7 +15,7 @@
                     </div>
                     <button class="search"><span>검색하기</span></button>
                     <!--onclick-->
-                    <div class="selection-initialization" onclick="initSelect">선택초기화</div>
+                    <div class="selection-initialization" onclick="initSelect()">선택초기화</div>
                 </div>
             </div>
         </div>

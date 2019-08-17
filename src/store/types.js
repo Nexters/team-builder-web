@@ -6,7 +6,9 @@ export const GETTERS = {
     POST_DETAIL: 'POST_DETAIL',
     GET_LIST: 'GET_LIST',
     LIST_LENGTH: 'LIST_LENGTH',
-    GET_TAGS: 'GET_TAGS'
+    GET_TAGS: 'GET_TAGS',
+    GET_FAVORITE: 'GET_FAVORITE',
+
 };
 
 export const MUTATIONS = {

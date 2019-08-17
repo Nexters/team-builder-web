@@ -56,7 +56,7 @@
 
         methods: {
           selected(id) {
-            console.log(id)
+            console.log(id);
             return this.$store.commit('main/SELECT_TAG', id);
           }
         }
