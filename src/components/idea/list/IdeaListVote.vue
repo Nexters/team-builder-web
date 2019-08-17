@@ -24,9 +24,6 @@
                 </div>
             </div>
             <!-- tags -->
-            <!-- Tag Component 생성-->
-            <!-- 반복문 제어 확인 -->
-            <!-- hover 이벤트 -->
             <div class="td" style="padding: 17px 0 17px 12px; width: 339px; height: 74px; position: relative;">
                 <div class="tags" v-for="(element, index) in idea['tags']" v-on:mouseover="viewAllTags" v-on:mouseout="closeAllTags" v-if="index < 3">
                     <div class="tag" v-if="element.type === 'DEVELOPER'" style="background-color: #daf4ea;">
@@ -88,11 +85,6 @@
 
   export default {
     name: "IdeaListVote",
-
-    data() {
-      return {
-      }
-    },
 
     methods: {
       viewAllTags(event) {
