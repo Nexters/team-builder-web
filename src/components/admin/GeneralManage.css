@@ -94,7 +94,6 @@ p {
     line-height: normal;
     letter-spacing: -0.5px;
     color: #1c1c1c;
-    margin-right: 32px;
 }
 
 .select-idea-vote-count {
@@ -106,6 +105,13 @@ p {
     outline: none;
     border: 1px solid #273EA5;
     box-shadow: none;
+}
+
+.claim_mark {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    border: 1px solid #ffffff;
 }
 
 .filebox {

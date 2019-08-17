@@ -54,6 +54,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "editor" */ './views/info/Info.vue')
     },
     {
+      path: '/infochange',
+      name: 'InfoChange',
+      component: () => import(/* webpackChunkName: "editor" */ './views/info/InfoChange.vue')
+    },
+    {
       path: '/admin',
       name: 'Admin',
       component: Admin
@@ -64,7 +69,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "NotFound" */ './views/NotFound.vue')
     },
     {
-      path: '/session',
+      path: '/session/:sessionNumber',
       name: 'Session',
       component: () => import(/* webpackChunkName: "Main" */ './views/Main.vue'),
     },
@@ -77,6 +82,7 @@ export default new Router({
       path: '/session/idea/:ideaId', //TODO: session/15/idea/34
       name: 'IdeaDetail',
       component: () => import(/* webpackChunkName: "Main" */ './views/IdeaDetail.vue'),
-    }
+    },
+
   ]
 })

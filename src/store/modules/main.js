@@ -93,14 +93,19 @@ const store = {
           return getters.GET_LIST.length;
         },
 
-      [GETTERS.GET_FAVORITE]: (state, orderNumber) => {
+        [GETTERS.GET_FAVORITE]: (state, orderNumber) => {
           return state.ideaList.filter(idea => (idea.orderNumber === orderNumber))
             .favorite;
-      },
+        },
+
+        [GETTERS.GET_TAGS]: (state) => {
+           return state.session.tags;
+        }
     },
 
     mutations: {
-        [MUTATIONS.SET_INIT_DATA](state, {session}) {
+        [MUTATIONS.SET_INIT_DATA](state, data) {
+            const session = data.data;
             state.session = session;
             state.searchTerm = '';
             state.ideaList = session.ideas.sort((idea1, idea2) => {
@@ -114,6 +119,7 @@ const store = {
                 tagsId: idea.tags.map(tag => tag.id)
               }
             });
+            state.session.tags = session.tags;
         },
 
         [MUTATIONS.SET_SEARCH_TERM]: (state, value) => {
@@ -259,13 +265,22 @@ const store = {
         },
 
         [MUTATIONS.SET_SELECTED_TAG]: (state, id) => {
-          state.selectedTags.push({ id: id});
+            state.selectedTags.push({id: id});
+        },
+
+        [MUTATIONS.SELECT_TAG]: (state, id) => {
+
+        },
+
+        [MUTATIONS.SET_INIT_SELECTED_TAGS]: (state) => {
+          // state.selectedTags =
         }
+
       },
 
     actions: {
-        [ACTIONS.LOAD_INIT_DATA](context) {
-            return getSession()
+        [ACTIONS.LOAD_INIT_DATA](context, {sessionNumber}) {
+            return getSession({sessionNumber: sessionNumber})
                 .then(data => context.commit(MUTATIONS.SET_INIT_DATA, data));
         },
 

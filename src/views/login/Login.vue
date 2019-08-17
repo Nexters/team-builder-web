@@ -10,7 +10,7 @@
                         <div class="el-main">
                             <form @submit.prevent="onSubmit">
                                 <input class="input-box" placeholder="아이디를 입력해주세요" v-model="uid">
-                                <input class="input-box" placeholder="비밀번호를 입력해주세요" v-model="password"
+                                <input class="input-box" type="password" placeholder="비밀번호를 입력해주세요" v-model="password"
                                        style="margin-top: 16px">
                                 <br>
                                 <button type="submit" class="btn-login" :disabled='isDisabled'>
@@ -37,7 +37,16 @@
 </template>
 
 <script>
-    import {login} from "../../api/LoginAPI"
+    import {login, info} from "../../api/LoginAPI"
+    import {
+        SET_AUTH,
+        SET_ID,
+        SET_NAME,
+        SET_NEXTERS_NUMBER,
+        SET_POSITION,
+        SET_ROLE,
+        SET_TOKEN
+    } from "../../consts/userType";
 
     export default {
         name: 'Login',
@@ -61,7 +70,11 @@
 
                 login(uid, password)
                     .then(res => {
-                        this.goToPages(res.data)
+                        let token = res.data.data.accessToken;
+                        info(token)
+                            .then(res => {
+                                this.goToPages(token, res.data.data)
+                            })
                     })
                     .catch(err => {
                         alert('Login fail!', err);
@@ -71,12 +84,16 @@
                 this.duringLogin = true;
                 console.log('waiting')
             },
-            goToPages(data) {
-                this.$store.commit('setId', data.id);
-                this.$store.commit('setAuth', true);
-                this.$store.commit('setToken', data.key);
+            goToPages(token, info) {
+                this.$store.commit(SET_ID, info.id);
+                this.$store.commit(SET_NAME, info.name);
+                this.$store.commit(SET_NEXTERS_NUMBER, info.nextersNumber);
+                this.$store.commit(SET_ROLE, info.role);
+                this.$store.commit(SET_POSITION, info.position);
+                this.$store.commit(SET_AUTH, true);
+                this.$store.commit(SET_TOKEN, token);
                 this.$router.push({
-                    path: '/'
+                    path: '/session/latest'
                 })
             }
         },

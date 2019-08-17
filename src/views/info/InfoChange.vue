@@ -40,8 +40,24 @@
                     </div>
 
                     <div class="row">
+                        <div class="info-title">새 비밀번호</div>
+                        <input class="password-box" type="password" placeholder="새 비밀번호를 입력해주세요" v-model="password">
+                    </div>
+
+                    <div class="row">
+                        <div class="info-title">새 비밀번호 확인</div>
+                        <input class="password-box" type="password" placeholder="새 비밀번호를 다시 입력해주세요" v-model="password">
+                    </div>
+
+                    <div class="row">
                         <div class="info-title">직무</div>
-                        <div class="info-body">디자이너</div>
+                        <b-form>
+                            <b-form-select v-model="positionSelect" :options="positionOptions" class="position-select">
+                                <template slot="first">
+                                    <option :value="null" disabled>직군선택</option>
+                                </template>
+                            </b-form-select>
+                        </b-form>
                     </div>
 
                 </div>
@@ -52,8 +68,6 @@
 </template>
 
 <script>
-    import {signup} from "../../api/SignupAPI"
-    import {SET_ID, SET_AUTH, SET_TOKEN} from "../../consts/userType"
     import Layout from '@/components/common/layout/Layout';
 
     export default {
@@ -62,6 +76,11 @@
         data() {
             return {
                 password: '',
+                positionSelect: null,
+                positionOptions: [
+                    {text: '개발자', value: 'DEVELOPER'},
+                    {text: '디자이너', value: 'DESIGNER'}
+                ]
             }
         },
         methods: {
@@ -80,5 +99,5 @@
     }
 </script>
 
-<style src="./Info.css" scoped>
+<style src="./InfoChange.css" scoped>
 </style>

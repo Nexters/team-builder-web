@@ -1,31 +1,48 @@
 <template>
     <div class="layout-header">
         <div class="header-contents-wrap">
-            <div class="contents-mode">
-                <div class="mode-idea on">아이디어</div>
-                <div class="mode-idea-bar"></div>
-            </div>
-            <div class="contents-mode">
-                <div class="mode-team-building">팀빌딩</div>
-                <img class="mode-team-building-padlock" src="../../../assets/img/header-padlock-icon.png"/>
-                <div class="mode-team-building-bar"></div>
+            <div style="width: 700px; display: flex;">
+                <div class="contents-mode">
+                    <button @click="moveToSession" class="mode-idea" :class="{'on': mode === 'IDEA'}">아이디어</button>
+                    <div v-show="mode === 'IDEA'" class="mode-idea-bar"></div>
+                </div>
+                <div class="contents-mode">
+                    <div @click="moveToTeamBuilding" style="position: relative; margin-right: 100%">
+                        <button class="mode-team-building" :class="{'on': mode === 'TEAMBUILDING'}">팀빌딩</button>
+                        <img v-show="isTeambuildingPeriod" class="mode-team-building-padlock" src="@/assets/img/header-padlock-icon.png"/>
+                    </div>
+                    <div v-show="mode === 'TEAMBUILDING'" class="mode-team-building-bar"></div>
+                </div>
+
+                <template v-if="isAdmin">
+                    <div class="mode-team-admin-bar"></div>
+                    <div class="contents-mode">
+                        <button @click="moveToUserManage" class="mode-user-manage" :class="{'on': mode === USER_MANAGE}">회원관리</button>
+                        <div v-show="mode === USER_MANAGE" class="mode-team-building-bar" style="width: 63px"></div>
+                    </div>
+
+                    <div class="contents-mode" style="margin-left: 48.5px; margin-right: 100%">
+                        <button @click="moveToGeneralManage" class="mode-general-manage" :class="{'on': mode === GENERAL_MANAGE}">일반관리</button>
+                        <div v-show="mode === GENERAL_MANAGE" class="mode-team-building-bar" style="width: 63px"></div>
+                    </div>
+                </template>
             </div>
 
-            <div class="header-period header-period-on" style="margin-left: 449px;">
+            <div class="header-period header-period-on">
                 <div class="period-step period-step-on">step1</div>
                 아이디어 모집
             </div>
-            <img class="period-right-icon" src="../../../assets/img/header-right-icon.png"/>
+            <img class="period-right-icon" src="@/assets/img/header-right-icon.png"/>
             <div class="header-period">
                 <div class="period-step">step2</div>
                 아이디어 투표
             </div>
-            <img class="period-right-icon" src="../../../assets/img/header-right-icon.png"/>
+            <img class="period-right-icon" src="@/assets/img/header-right-icon.png"/>
             <div class="header-period">
                 <div class="period-step">step3</div>
                 선정아이디어 확인
             </div>
-            <img class="period-right-icon" src="../../../assets/img/header-right-icon.png"/>
+            <img class="period-right-icon" src="@/assets/img/header-right-icon.png"/>
             <div class="header-period">
                 <div class="period-step">step4</div>
                 팀빌딩
@@ -35,8 +52,37 @@
 </template>
 
 <script>
+    import {GENERAL_MANAGE, USER_MANAGE} from '@/consts/adminType';
+
     export default {
-        name: "LayoutHeader"
+        name: "LayoutHeader",
+        data() {
+            return {
+                mode: 'IDEA',
+                // mode: 'TEAMBUILDING',
+                // mode: USER_MANAGE,
+                // mode: GENERAL_MANAGE,
+                isAdmin: true, //TODO: 기본 false,
+                USER_MANAGE: USER_MANAGE,
+                GENERAL_MANAGE: GENERAL_MANAGE,
+
+                isTeambuildingPeriod: false, //팀빌딩 모드 전환이 가능한지 여부! padlock img 노출용
+            }
+        },
+        methods: {
+            moveToSession() {
+                this.$router.push({path: `/session/${this.$route.params.sessionNumber}`});
+            },
+            moveToTeamBuilding() {
+                this.$router.push({path: `/session/${this.$route.params.sessionNumber}/teambuilding`});
+            },
+            moveToUserManage() {
+                this.$router.push({path: `/session/${this.$route.params.sessionNumber}/user-manage`});
+            },
+            moveToGeneralManage() {
+                this.$router.push({path: `/session/${this.$route.params.sessionNumber}/general-manage`});
+            }
+        }
     }
 </script>
 
@@ -50,7 +96,7 @@
     }
 
     .header-contents-wrap {
-        min-width: 1200px;
+        width: 1200px;
         height: 70px;
         display: flex;
     }
@@ -67,6 +113,7 @@
         height: 27px;
         margin: 26px 47px 17px 0px;
         font-family: NotoSansCJKkr;
+        color: #9b9b9b;
         font-size: 18px;
         letter-spacing: -1px;
     }
@@ -76,6 +123,7 @@
         height: 27px;
         margin: 26px 6px 17px 0px;
         font-family: NotoSansCJKkr;
+        color: #9b9b9b;
         font-size: 18px;
         letter-spacing: -1px;
         display: inline-block;
@@ -83,12 +131,14 @@
 
     .on {
         font-weight: bold;
-        color: #273ea5;
+        color: #273ea5!important;
     }
 
     .mode-team-building-padlock {
         width: 12px;
         height: 15px;
+        position: fixed;
+        top: 33px;
         margin-bottom: 5px;
         margin-right: 45px;
         object-fit: contain;
@@ -104,6 +154,33 @@
         width: 47px;
         height: 2px;
         background-color: #273ea5;
+    }
+
+    .mode-team-admin-bar {
+        width: 3px; /*2px은 노출이 안*/
+        height: 18px;
+        background-color: #d8d8d8;
+        margin: 30.5px 32.5px 23.5px 50px;
+    }
+
+    .mode-user-manage {
+        width: 63px;
+        height: 27px;
+        margin: 26px 6px 17px 0px;
+        font-family: NotoSansCJKkr;
+        font-size: 18px;
+        letter-spacing: -1px;
+        color: #9b9b9b;
+    }
+
+    .mode-general-manage {
+        width: 63px;
+        height: 27px;
+        margin: 26px 6px 17px 0px;
+        font-family: NotoSansCJKkr;
+        font-size: 18px;
+        letter-spacing: -1px;
+        color: #9b9b9b;
     }
 
     .header-period {
@@ -143,4 +220,5 @@
     .period-step-on {
         color: #208b84;
     }
+
 </style>

@@ -60,15 +60,15 @@
                             <b-form-group>
                                 <b-form class="row">
                                     <b-form>
-                                        <b-form-select v-model="classSelect" :options="classOptions"
-                                                       class="session-select">
+                                        <b-form-select v-model="nextersNumberSelect" :options="nextersNumberOptions"
+                                                       class="nexters-number-select">
                                             <template slot="first">
                                                 <option :value="null" disabled>기수</option>
                                             </template>
                                         </b-form-select>
                                     </b-form>
                                     <b-form>
-                                        <b-form-select v-model="jobSelect" :options="jobOptions" class="job-select">
+                                        <b-form-select v-model="positionSelect" :options="positionOptions" class="position-select">
                                             <template slot="first">
                                                 <option :value="null" disabled>직군선택</option>
                                             </template>
@@ -118,15 +118,15 @@
                 name: '',
                 accessCode: '',
                 duringLogin: false,
-                classSelect: null,
-                classOptions: [
-                    {value: '15기', text: '15기'},
-                    {value: '16기', text: '16기'}
+                nextersNumberSelect: null,
+                nextersNumberOptions: [
+                    {text: '15기', value: 15},
+                    {text: '16기', value: 16}
                 ],
-                jobSelect: null,
-                jobOptions: [
-                    {text: '개발자', value: 'develop'},
-                    {text: '디자이너', value: 'designer'}
+                positionSelect: null,
+                positionOptions: [
+                    {text: '개발자', value: 'DEVELOPER'},
+                    {text: '디자이너', value: 'DESIGNER'}
                 ]
             }
         },
@@ -135,15 +135,15 @@
                 const uid = this.uid;
                 const upassword = this.password;
                 const uname = this.name;
-                const uclass = this.classSelect;
-                const ujob = this.jobSelect;
+                const nextersNumber = this.nextersNumberSelect;
+                const position = this.positionSelect;
                 const accessCode = this.accessCode;
 
-                if (!uid || !upassword || !uname || !uclass || !ujob || !accessCode || this.errors.any()) {
+                if (!uid || !upassword || !uname || !nextersNumber || !position || !accessCode || this.errors.any()) {
                     return false
                 }
 
-                signup(uid, upassword, uname, uclass, ujob, accessCode)
+                signup(uid, upassword, uname, nextersNumber, position, accessCode)
                     .then(res => {
                         this.goToPages(res.data)
                     })

@@ -1,30 +1,17 @@
 <template>
     <div>
         <div class="header">
-            <p>인증코드 설정 및 전체 회원관리 설정</p>
+            <p>넥스터즈 16기 활동 회원관리</p>
         </div>
         <div class="header-sub">
-            <p>회원가입 시 입력하는 인증코드를 변경할 수 있어요. 또한, 전체회원 리스트에서 현재 활동기수 회원을 추가할 수 있어요.</p>
-        </div>
-
-        <div class="certify">
-            <p>인증코드</p>
-            <div class="flex">
-                <input class="input-box" placeholder="인증코드를 입력해주세요" v-model="accessCode">
-                <button type="submit" class="btn-certify-apply">
-                    적용하기
-                </button>
-            </div>
+            <p>활동 회원제거를 해도 전체 회원관리에서 다시 추가할 수 있어요.</p>
         </div>
 
         <div class="user-manage-tab d-flex">
-            <p>전체회원 500명</p>
+            <p>16기 활동회원 80명</p>
             <div class="ml-auto">
-                <button class="btn-active-user-add">
-                    활동회원추가
-                </button>
                 <button class="btn-user-remove">
-                    회원제거
+                    활동회원제거
                 </button>
                 <input class="search-box" placeholder="회원명과 아이디를 검색해주세요." v-model="search">
             </div>
@@ -53,16 +40,21 @@
                                  v-on:click="sorting('position')">
                         </div>
                         <div class="title" style="width: 86px">이름</div>
-                        <div class="title" style="width: 594px">아이디</div>
-                        <div class="title" style="width: 160px">
-                            활동여부
+                        <div class="title" style="width: 424px">아이디</div>
+                        <div class="title" style="width: 140px; text-align: center">
+                            아이디어 작성여부
                             <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
                                  v-on:click="sorting('isActive')">
                         </div>
-                        <div class="title" style="width: 96px">
-                            가입날짜
+                        <div class="title" style="width: 140px; text-align: center">
+                            아이디어 투표여부
                             <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
                                  v-on:click="sorting('joinDate')">
+                        </div>
+                        <div class="title" style="width: 146px; text-align: center">
+                            팀빌딩 여부
+                            <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
+                                 v-on:click="sorting('isActive')">
                         </div>
                     </div>
 
@@ -88,14 +80,23 @@
                             <td style="width: 86px;">
                                 <div class="title" style="width: 86px">{{user.username}}</div>
                             </td>
-                            <td style="width: 594px;">
-                                <div class="title" style="width: 594px">{{user.name}}</div>
+                            <td style="width: 424px;">
+                                <div class="title" style="width: 424px">{{user.name}}</div>
                             </td>
-                            <td style="width: 160px;">
-                                <div class="title" style="width: 160px">활동여부</div>
+                            <td style="width: 140px;">
+                                <div class="select-box" style="margin: auto">
+                                    <p>작성</p>
+                                </div>
                             </td>
-                            <td style="width: 96px;">
-                                <div class="title" style="width: 96px">가입날짜</div>
+                            <td style="width: 140px;">
+                                <div class="select-box" style="margin: auto">
+                                    <p>투표</p>
+                                </div>
+                            </td>
+                            <td style="width: 146px">
+                                <div class="select-box" style="margin: auto">
+                                    <p>완료</p>
+                                </div>
                             </td>
                         </tr>
                         </tbody>
@@ -206,5 +207,5 @@
     }
 </style>
 
-<style src="./AllUserManage.css" scoped>
+<style src="./ActiveUserManage.css" scoped>
 </style>

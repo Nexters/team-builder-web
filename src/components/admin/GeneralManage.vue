@@ -39,7 +39,7 @@
 
             <div class="sub-item-row d-flex align-items-center" style="margin-bottom: 12px">
                 <p class="sub-title">아이디어 모집</p>
-                <div class="date-picker">
+                <div class="date-picker" style="margin-left: 32px">
                     <el-date-picker
                             v-model="ideaRecruitStart"
                             type="date"
@@ -58,7 +58,7 @@
 
             <div class="sub-item-row d-flex align-items-center" style="margin-bottom: 12px">
                 <p class="sub-title">아이디어 투표</p>
-                <div class="date-picker">
+                <div class="date-picker" style="margin-left: 32px">
                     <el-date-picker
                             v-model="ideaVoteStart"
                             type="date"
@@ -84,9 +84,9 @@
             </div>
 
 
-            <div class="sub-item-row d-flex align-items-center" style="margin-bottom: 25px">
+            <div class="sub-item-row d-flex align-items-center" style="margin-bottom: 12px">
                 <p class="sub-title">선정 아이디어 확인</p>
-                <div class="date-picker">
+                <div class="date-picker" style="margin-left: 32px">
                     <el-date-picker
                             v-model="ideaSelectCheckStart"
                             type="date"
@@ -103,13 +103,34 @@
             </div>
 
             <div class="sub-item-row d-flex align-items-center" style="margin-bottom: 100px">
-                <p class="sub-title">팀빌딩 모드</p>
+                <p class="sub-title">
+                    팀빌딩 모드
+
+                    <el-tooltip content="팀빌딩 모드로 설정하면 일반회원의 아이디어 탭에서 아이디어 작성이 가능합니다.\n
+                        관리자는 회원이 작성한 아이디어를 관리자 아이디어 탭에서 선정해,\n
+                        팀빌딩 목록에서 볼 수 있습니다.\n
+                        오프라인 팀빌딩 시 급조된 아이디어를 위한 기능입니다."
+                                placement="bottom" effect="light">
+                        <img class="claim_mark" :src="require('../../assets/img/ico-table-tag@2x.png')"
+                             v-b-tooltip.hover variant="Secondary"
+                             id="tooltip-button-variant">
+                    </el-tooltip>
+
+                </p>
+
+                <div class="date-picker" style="margin-left: 32px">
+                    <el-date-picker
+                            v-model="teamBuildingDate"
+                            type="date"
+                            placeholder="팀빌딩 날짜를 선택해주세요">
+                    </el-date-picker>
+                </div>
                 <toggle-button :value="teamBuildingSwitch"
                                :width="60"
                                :height="32"
                                color="#273EA5"
                                @change="teamBuildingSwitch = $event.value"
-                               style="margin: 0"/>
+                               style="margin: 0 0 0 20px"/>
             </div>
         </div>
     </div>
@@ -130,6 +151,7 @@
                 ideaVoteEnd: '',
                 ideaSelectCheckStart: '',
                 ideaSelectCheckEnd: '',
+                teamBuildingDate: '',
                 classSelect: '2',
                 classOptions: [
                     {value: '1', text: '1'},
@@ -159,6 +181,15 @@
 </script>
 
 <style>
+
+    div.popper__arrow, div.el-tooltip__popper.is-light {
+        border: 4px solid red;
+    }
+
+    div.el-date-editor.el-input.el-input--prefix.el-input--suffix.el-date-editor--date {
+        width: 300px;
+    }
+
     .date-picker, input.el-input__inner {
         width: 300px;
         height: 56px;

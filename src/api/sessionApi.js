@@ -1,8 +1,14 @@
 import api from './index';
+import {TAG_TYPE} from "@/consts/TagType";
 
-export function getSession() {
-    // return api.get('session'); TODO: 실제 API 호출
-    return new Promise((resolve, reject) => setTimeout(() => resolve(getMockData()), 100));
+export function getSession({sessionNumber}) {
+
+    //TODO: 공통으로 헤더 설정해주거나 state에서 가져와야함
+    const token = 'eyJhbGciOiJIUzI1NiIsInppcCI6IkdaSVAifQ.H4sIAAAAAAAAAE3OTQvCMAyA4f-Ss4VlH93HTXS3oaLOgyLSrhkU3DraDgTxv9t58pY8vIG8QTsHFZjOm4lsDyvQwkOFGedRVkRJsoJ51iokPFGpQJJM5qRYKhFZoXjHBPaZLHlBcU7L-dJ6cj7Moxjob6OXJ-t28yDJBi7LgNY8l-S4b-pHe6qPgSbjtNdmDLytL3WzP_y4syQ8qXX4DuIISxYVDPMzplWKVYbXW3ve3OHzBToSYkjSAAAA.yWB7l1WJ0Wmdz3c2qGNhJFIE92cmaRqVhkipk49GMYU'
+    Object.assign(api.defaults, {headers: {authorization: token}});
+
+    return api.get(`apis/sessions/${sessionNumber}`);
+    // return new Promise((resolve, reject) => setTimeout(() => resolve(getMockData()), 100));
 }
 
 //TODO: MockData 설정
@@ -14,11 +20,18 @@ function getMockData() {
             period: '',
             headerImageUrl: 'url',
             tags:[
-                {
-                    id: 1,
-                    name: '서버개발자',
-                    type: ''
-                }
+                {id: 1, name: '최대다섯자', type: TAG_TYPE.DISABLED},
+                {id: 2, name: '최대다섯자', type: TAG_TYPE.DISABLED},
+                {id: 3, name: '최대다섯자', type: TAG_TYPE.DISABLED},
+                {id: 4, name: '최대다섯자', type: TAG_TYPE.DISABLED},
+                {id: 5, name: '디자이너용', type: TAG_TYPE.DESIGNER},
+                {id: 6, name: 'GUI', type: TAG_TYPE.DESIGNER},
+                {id: 7, name: 'UX', type: TAG_TYPE.DESIGNER},
+                {id: 8, name: '개발자전용', type: TAG_TYPE.DEVELOPER},
+                {id: 9, name: '서버개발자', type: TAG_TYPE.DEVELOPER},
+                {id: 10, name: '웹개발자', type: TAG_TYPE.DEVELOPER},
+                {id: 11, name: 'iOS', type: TAG_TYPE.DEVELOPER},
+                {id: 12, name: 'Android', type: TAG_TYPE.DEVELOPER},
             ],
             ideas:[
                 {

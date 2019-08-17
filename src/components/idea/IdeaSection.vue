@@ -22,7 +22,8 @@
                     </section>
                     <section class="header-right">
                         <div class="search">
-                            <button class="Rectangle-Copy"><span>태그검색</span></button>
+                            <button class="Rectangle-Copy" @click="showPopUp = true"><span>태그검색</span></button>
+                            <SelectSearchTag v-if="showPopUp" @close="showPopUp = false"></SelectSearchTag>
                             <!-- TO-DO 검색 이미지 넣기 -->
                             <!-- 검색 기능 -->
                             <input type="search"
@@ -107,11 +108,13 @@
 
   import IdeaList from '@/components/idea/list/IdeaListDefault';
   import IdeaListVote from "@/components/idea/list/IdeaListVote";
+  import SelectSearchTag from "@/components/common/tag/SelectSearchTag";
 
   export default {
     name: "IdeaSection",
     components: {
       IdeaListVote,
+      SelectSearchTag,
       IdeaList
     },
 
@@ -123,7 +126,8 @@
         origin: 'all',
         change: 'star',
         viewOrigin: 'view-all',
-        viewChange: 'view-star'
+        viewChange: 'view-star',
+        showPopUp: false,
       }
     },
 

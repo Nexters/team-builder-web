@@ -1,23 +1,86 @@
 <template>
-    <div class="layout-gnb">
-        <div class="gnb-logo-wrap"><div class="gnb-logo-image"><img style="width: 48px; height: 48px;" src="../../../assets/img/nexters_15th_logo.png"/></div></div>
-        <div class="gnb-session-wrap">
-            <div class="gnb-session">
-                16
-            </div>
-            <img class="gnb-session-open-icon" src="../../../assets/img/gnb_open_icon.png" />
+    <div>
+        <div class="layout-gnb">
+            <button class="gnb-logo-wrap" @click="onClickLogo">
+                <div class="gnb-logo-image">
+                    <img style="width: 48px; height: 48px;" src="@/assets/img/nexters_15th_logo.png"/>
+                </div>
+            </button>
+            <button @click="openSessionGroup" class="gnb-session-wrap">
+                <span class="gnb-session">
+                    {{ sessionNumber }}
+                </span>
+                <img v-show="!isOpenSessionGroup" class="gnb-session-open-icon" src="@/assets/img/gnb_open_icon.png" />
+                <img v-show="isOpenSessionGroup" class="gnb-session-open-icon" src="@/assets/img/gnb_close_icon.png" />
+            </button>
+
+            <button v-if="isAdmin" @click="onClickAllUserManage" class="gnb-all-user-manage">
+                <img class="gnb-all-user-manage-img" src="@/assets/img/gnb_all_user_manage_icon.png" />
+            </button>
+
+            <button @click="onClickMyPage" class="gnb-my-page">
+                <span class="gnb-my-page-name">
+                    {{ userLastName }}
+                </span>
+            </button>
+
+            <button @click="onClickMyPage" class="gnb-logout">
+                <span class="gnb-my-page-name">
+                    로
+                </span>
+            </button>
         </div>
-        <div class="gnb-my-page">
-            <div class="gnb-my-page-name">
-                허
-            </div>
+        <div v-show="isOpenSessionGroup" class="layout-session-group" style="margin-top: 72px; padding-top: 7px">
+            <button @click="moveSession(sessionNumber)" v-for="sessionNumber in sessionNumbers" class="layout-session-group-one" :class="nowSessionClass(sessionNumber)">
+                {{ sessionNumber }}
+            </button>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "LayoutGnb"
+        name: "LayoutGnb",
+        data() {
+            return {
+                isOpenSessionGroup: false,
+                userLastName: '허',
+                sessionNumber: 16,
+                sessionNumbers: [
+                    16, 15, 14, 13, 12, 11
+                ],
+                isAdmin: true, //TODO: 기본 false
+            }
+        },
+
+        computed: {
+
+        },
+
+        methods: {
+            onClickLogo() {
+                this.$router.push({path: `/`});
+            },
+            openSessionGroup() {
+                this.isOpenSessionGroup = !this.isOpenSessionGroup;
+            },
+            moveSession(sessionNumber) {
+                this.isOpenSessionGroup = false;
+                this.$router.push({path: `/session/${sessionNumber}`});
+            },
+            onClickMyPage() {
+                this.$router.push({path: '/info'});
+            },
+            onClickAllUserManage() {
+                this.$router.push({path: '/all-user-manager'});
+            },
+            nowSessionClass(sessionNumber) {
+                if (this.sessionNumber === sessionNumber) {
+                    return 'now-session';
+                }
+                return '';
+            },
+        }
     }
 </script>
 
@@ -74,7 +137,7 @@
         position: absolute;
         width: 44px;
         height: 44px;
-        bottom: 22px;
+        bottom: 82px;
         left: 13px;
         border-radius: 6px;
         background-color: #4c64cf;
@@ -84,9 +147,62 @@
         width: 18px;
         height: 29px;
         margin: 8px 13px 7px 13px;
-        font-family: NotoSansCJKkr;
         font-size: 20px;
         letter-spacing: -1px;
+        color: #ffffff;
+    }
+
+    .gnb-logout {
+        position: absolute;
+        width: 44px;
+        height: 44px;
+        bottom: 22px;
+        left: 13px;
+        border-radius: 6px;
+        background-color: #4c64cf;
+    }
+
+    .gnb-all-user-manage {
+        position: absolute;
+        width: 44px;
+        height: 44px;
+        bottom: 142px;
+        left: 13px;
+        border-radius: 6px;
+        background-color: #4c64cf;
+    }
+
+    .gnb-all-user-manage-img {
+        width: 22px;
+        height: 22px;
+        object-fit: contain;
+    }
+
+    .layout-session-group {
+        position: fixed;
+        top: 0px;
+        left: 70px;
+        width: 100px;
+        height: 100%;
+        background-color: #192f93;
+        display: flex;
+        flex-direction: column;
+        z-index: 99;
+    }
+
+    .layout-session-group-one {
+        width: 21px;
+        height: 40px;
+        font-family: Roboto;
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 2;
+        letter-spacing: -1px;
+        color: #93a3ea;
+        margin: 8px 40px 8px 39px;
+    }
+
+    .now-session {
         color: #ffffff;
     }
 </style>
