@@ -37,11 +37,171 @@
     margin-top: 16px;
 }
 
+.certify {
+    margin-top: 70px;
+    text-align: left;
+}
+
+.input-box {
+    width: 320px;
+    height: 56px;
+    border-radius: 6px;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: #9b9b9b;
+    padding-left: 18px;
+}
+
+.input-box::placeholder {
+    width: 57px;
+    height: 27px;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: #9b9b9b;
+    padding-left: 18px;
+}
+
+.input-box:focus {
+    outline: none;
+    border: 1px solid #273EA5;
+    box-shadow: none;
+}
+
+.search-box {
+    width: 281px;
+    height: 50px;
+    border-radius: 6px;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    background-image: url('../../assets/img/ico-search@2x.png');
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    background-position: 16px 15px;
+    padding-left: 50px;
+    margin-left: 16px;
+}
+
+.search-box::placeholder {
+    width: 209px;
+    height: 24px;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.53px;
+    color: #9b9b9b;
+    padding-left: 18px;
+}
+
+.search-box:focus {
+    outline: none;
+    border: 1px solid #273EA5;
+    box-shadow: none;
+}
+
+.certify > p {
+    width: 71px;
+    height: 29px;
+    font-family: NotoSansCJKkr;
+    font-size: 20px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.75px;
+    color: #1c1c1c;
+}
+
+.btn-certify-apply {
+    width: 110px;
+    height: 56px;
+    border-radius: 6px;
+    border: solid 1px #273ea5;
+    background-color: #273ea5;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    margin-left: 16px;
+}
+
+.user-manage-tab {
+    margin-top: 93px;
+}
+
+.user-manage-tab > p {
+    width: 99px;
+    height: 24px;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.6px;
+    color: #4a4a4a;
+}
+
+.btn-active-user-add {
+    width: 144px;
+    height: 46px;
+    border-radius: 6px;
+    background-color: #ff5000;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #ffffff;
+}
+
+.btn-user-remove {
+    width: 144px;
+    height: 46px;
+    border-radius: 6px;
+    background-color: #4a4a4a;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #ffffff;
+    margin-left: 16px;
+}
+
+.pointer {
+    width: 16px;
+    height: 16px;
+}
+
 .card {
     background-color: #fff;
     background-clip: border-box;
     border: 0 rgba(0, 0, 0, 0);
     border-radius: 0;
+    margin-top: 65px;
 }
 
 .card-header {
@@ -72,18 +232,6 @@
 }
 
 .search-input {
-    /*
-        type=search로 했을 경우, icon 넣을 수 있는 방법
-    */
-
-    /*background-image : url('../../../assets/img/ico-search@2x.png');*/
-    /*background-position:top right;*/
-    /*background-repeat:no-repeat;*/
-
-    /*background-width: 28px;*/
-    /*background-height: 28px;*/
-    /*object-fit: contain;*/
-
     font-family: NotoSansCJKkr;
     font-size: 16px;
     font-weight: 300;
@@ -92,26 +240,7 @@
     line-height: normal;
     letter-spacing: -0.53px;
     color: #9b9b9b;
-
     padding: 14px 0 12px 18px;
-}
-
-.Rectangle-Copy {
-    width: 103px;
-    height: 46px;
-    border-radius: 6px;
-    background-color: #273ea5;
-
-    padding: 11px 24px;
-    margin-right: 16px;
-}
-
-.Rectangle {
-    width: 333px;
-    height: 50px;
-    border-radius: 6px;
-    border: solid 1px #eeeeee;
-    background-color: #ffffff;
 }
 
 .ico_search {
@@ -133,9 +262,9 @@
 
 .titles {
     height: 20px;
+    display: table-cell;
     text-align: left;
-    /*margin-top: 65p;*/
-    margin-bottom: 17px;
+    margin-bottom: 5px;
 }
 
 .title {
@@ -157,53 +286,24 @@
     margin-left: 6px;
 }
 
-.Group-10 {
-    width: 16px;
-    height: 16px;
-    object-fit: contain;
-    margin-left: 6px;
+.board {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
 }
 
-.board {
-    background-color: white;
-    width: 100%;
+td {
+    display: table-cell;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
 }
 
 .list {
     width: 1200px;
     height: 74px;
-    margin-bottom: 12px;
-    text-align: left;
-}
-
-td {
-    position: relative;
-}
-
-.favorite {
-    width: 24px;
-    height: 23px;
-    object-fit: contain;
-
-    position: relative;
-    left: 22px;
-
-}
-
-.favourites-filled-star-symbol, .favourites-filled-star-symbol-copy {
-    width: 24px;
-    height: 23px;
-    object-fit: contain;
-}
-
-.tags {
-    width: 99px;
-    height: 40px;
     border-radius: 6px;
-    background-color: #daf4ea;
-    padding: 14px 0 8px 0;
-    text-align: center;
-    vertical-align: center;
-
-    margin-right: 12px;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    text-align: left;
 }

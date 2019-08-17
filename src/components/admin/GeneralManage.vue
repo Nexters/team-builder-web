@@ -22,7 +22,7 @@
         </div>
 
         <div class="d-flex" style="margin-top: 12px">
-            <img v-if="imageUrl" :src="imageUrl" style="width: 300px; height: 300px"/>
+            <input class="logo-input-box" v-model="imageUrl" disabled="">
             <div class="filebox">
                 <label for="filename">업로드</label>
                 <input type="file" id="filename" class="upload-hidden" @change="onFileChange">
@@ -77,7 +77,7 @@
 
                 <p class="sub-title" style="margin-left: 20px">아이디어 투표 횟수</p>
 
-                <b-form-select v-model="classSelect" :options="classOptions" style="width: 126px; height: 56px">
+                <b-form-select class="select-idea-vote-count" v-model="classSelect" :options="classOptions">
                     <template slot="first">
                     </template>
                 </b-form-select>
@@ -107,6 +107,7 @@
                 <toggle-button :value="teamBuildingSwitch"
                                :width="60"
                                :height="32"
+                               color="#273EA5"
                                @change="teamBuildingSwitch = $event.value"
                                style="margin: 0"/>
             </div>
@@ -145,8 +146,10 @@
         },
         methods: {
             onFileChange(e) {
-                const file = e.target.files[0];
-                this.imageUrl = URL.createObjectURL(file);
+                //const file = e.target.files[0];
+                //this.imageUrl = URL.createObjectURL(file);
+                this.imageUrl = e.target.files[0].name
+                console.log(e)
             }
         },
         created() {
@@ -164,6 +167,11 @@
         background-color: #ffffff;
     }
 
+    .date-picker:focus, input.el-input__inner:focus {
+        outline: none;
+        border: 1px solid #273EA5;
+        box-shadow: none;
+    }
 </style>
 
 <style src="./GeneralManage.css" scoped>
