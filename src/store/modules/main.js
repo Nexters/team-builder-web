@@ -93,13 +93,10 @@ const store = {
           return getters.GET_LIST.length;
         },
 
-        [GETTERS.GET_FAVORITE]: (state, getters, orderNumber) => {
-            return getters.GET_LIST.filter(idea => {
-              if(idea.orderNumber === orderNumber) {
-                return idea.favorite
-              }
-            })
-        }
+      [GETTERS.GET_FAVORITE]: (state, orderNumber) => {
+          return state.ideaList.filter(idea => (idea.orderNumber === orderNumber))
+            .favorite;
+      },
     },
 
     mutations: {
@@ -255,10 +252,9 @@ const store = {
         },
 
         // 서버 연동 => 실제로 변경
-        [MUTATIONS.SET_FAVORITE_OPPOSITE]: (state, orderNumber) => {
-          console.log('mutation')
-          const changeElement = state.ideaList.filter(idea => (idea.orderNumber === orderNumber));
-           changeElement.favorite = !changeElement.favorite
+        [MUTATIONS.SET_FAVORITE_OPPOSITE]: (state, id) => {
+          const changeElement = state.ideaList.find(idea => (idea.id === id));
+          changeElement.favorite = !changeElement.favorite
           return changeElement.favorite
         },
 
@@ -285,13 +281,9 @@ const store = {
           context.commit(MUTATIONS.SORT_LIST_BY_ORDER_NUMBER);
         },
 
-        // [ACTIONS.DATE_SORT_LIST](context) {
-        //   context.commit(MUTATIONS.SORT_LIST_BY_DATE);
-        // },
-        //
-        // [ACTIONS.POSITION_SORT_LIST](context) {
-        //   context.commit(MUTATIONS.SORT_LIST_BY_POSITION);
-        // },
+        [ACTIONS.FAVORITE_CHANGE](context, id) {
+          context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE, id);
+        }
     }
 };
 
