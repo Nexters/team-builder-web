@@ -1,7 +1,8 @@
-.td {
-	display: table-cell;
-	height: 74px;
-}
+/*.td {*/
+	/*display: inline;*/
+	/*!*height: 74px;*!*/
+	/*height: inherit;*/
+/*}*/
 
 .board {
 	/*background-color: white;*/
@@ -16,14 +17,16 @@
 	border-radius: 6px;
 	border: solid 1px #eeeeee;
 	background-color: #ffffff;
+	/*padding: 17px 0;*/
+	display: flex;
 }
 
 .favorite {
+	flex: 1 1 auto;
+	margin: 26px 12px 25px 22px;
 	width: 24px;
 	height: 23px;
-	object-fit: contain;
 	cursor: pointer;
-
 }
 
 .favourites-filled-star-symbol, .favourites-filled-star-symbol-copy {
@@ -33,6 +36,8 @@
 }
 
 .order-number {
+	display: inline-block;
+	margin: 29px 7px 29px 12px;
 	width: 30px;
 	height: 16px;
 	font-family: Roboto;
@@ -50,6 +55,8 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+
+	margin: 26px 15px 24px 7px;
 
 	width: 429px;
 	height: 24px;
