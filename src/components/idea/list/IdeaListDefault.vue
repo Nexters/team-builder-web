@@ -57,7 +57,7 @@
                 <!-- position -->
                 <div class="td" style="padding: 25px 7px 25px 9px; width: 72px;">
                     <div class="position">
-                        {{ idea['author'].position }}
+                        {{ positionFormat(idea['author'].position) }}
                     </div>
                 </div>
                 <!-- author -->
@@ -69,7 +69,7 @@
                 <!-- created At -->
                 <div class="td" style="padding: 29px 18px 26px 8px; width: 106px;">
                     <div class="created-at">
-                        {{ format(idea['createdAt']) }}
+                        {{ dateFormat(idea['createdAt']) }}
                     </div>
                 </div>
             </div>
@@ -101,18 +101,24 @@
           popUp.style.display = 'none';
         }
       },
-    },
 
-    format(date) {
-      const parsingStr = date.split(' ')[0];
-      const returnDate = parsingStr.split('-');
-      return returnDate[0] + '. ' + returnDate[1] + '. ' + returnDate[2]
-    },
+      dateFormat(date) {
+        const parsingStr = date.split('T')[0];
+        const returnDate = parsingStr.split('-');
+        return returnDate[0] + '. ' + returnDate[1] + '. ' + returnDate[2]
+      },
 
-    clickFavorite: function (id) {
-      return this.$store.dispatch('main/FAVORITE_CHANGE', id);
+      clickFavorite: function (id) {
+        return this.$store.dispatch('main/FAVORITE_CHANGE', id);
+      },
+
+      positionFormat(position) {
+        if (position === 'DEVELOPER') {
+          return '개발자';
+        }
+        return '디자이너';
+      },
     },
-  },
 
     computed:  {
       ...mapState([

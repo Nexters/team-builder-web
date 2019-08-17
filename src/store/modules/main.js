@@ -264,16 +264,13 @@ const store = {
           return changeElement.favorite
         },
 
-        [MUTATIONS.SET_SELECTED_TAG]: (state, id) => {
-            state.selectedTags.push({id: id});
-        },
-
         [MUTATIONS.SELECT_TAG]: (state, id) => {
-
+          state.selectedTags.push({id: id});
+          console.log(state.selectedTags);
         },
 
         [MUTATIONS.SET_INIT_SELECTED_TAGS]: (state) => {
-          // state.selectedTags =
+          state.selectedTags = [];
         }
 
       },
