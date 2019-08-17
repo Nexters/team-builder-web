@@ -44,13 +44,18 @@ const store = {
                 }
             ]
         },
-        searchAttrs: [{
-              id: 0,
-              title: '',
-              name: '',
-              tagsId: []
+        // search : {
+          searchAttrs: [{
+            id: 0,
+            title: '',
+            name: '',
+            tagsId: []
           }],
-        searchTerm: '',
+          searchTerm: '',
+          selectedTags: [
+            {id: 0},
+          ],
+        // },
         ideaList: [
           {
             id:1,
@@ -87,6 +92,14 @@ const store = {
         [GETTERS.LIST_LENGTH]: (state, getters) => {
           return getters.GET_LIST.length;
         },
+
+        [GETTERS.GET_FAVORITE]: (state, getters, orderNumber) => {
+            return getters.GET_LIST.filter(idea => {
+              if(idea.orderNumber === orderNumber) {
+                return idea.favorite
+              }
+            })
+        }
     },
 
     mutations: {
@@ -247,6 +260,10 @@ const store = {
           const changeElement = state.ideaList.filter(idea => (idea.orderNumber === orderNumber));
            changeElement.favorite = !changeElement.favorite
           return changeElement.favorite
+        },
+
+        [MUTATIONS.SET_SELECTED_TAG]: (state, id) => {
+          state.selectedTags.push({ id: id});
         }
       },
 
@@ -275,8 +292,6 @@ const store = {
         // [ACTIONS.POSITION_SORT_LIST](context) {
         //   context.commit(MUTATIONS.SORT_LIST_BY_POSITION);
         // },
-
-
     }
 };
 

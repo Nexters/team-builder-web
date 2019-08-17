@@ -64,33 +64,34 @@
                         <img src="../../assets/img/group-10@2x.png" class="Group-10"
                              v-on:click="sorting('position')" style="cursor:pointer; margin-left: 6px;">
                         <div class="title" style="width: 36px; margin-left: 20px">작성자</div>
-                        <div class="title" style="width: 24px; margin-left: 40px">날짜</div>
+                        <div class="title" style="width: 24px; margin-left: 30px">날짜</div>
                         <img src="../../assets/img/group-10@2x.png" class="Group-10"
                              v-on:click="sorting('date')" style="cursor:pointer; margin-left: 6px;">
                         <!-- 선정 전에는 안보임 -->
                         <div class="title" style="width: 48px; margin-left: 42px">선정여부</div>
                     </div>
 
-                    <div class=" default titles">
-                        <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
-                        <div class="title" style="width: 48px; height: 18px; line-height: 1.29;
-                        margin-left: 10px; margin-bottom: 1px">즐겨찾기</div>
-                        <div class="title" style="width: 24px; height: 18px; line-height: 1.29;
-                        margin-left: 14px; margin-bottom: 1px;">번호</div>
-                        <div class="title" style="width: 62px; margin-left: 18px">아이디어 명</div>
-                        <div class="title" style="width: 24px; margin-left: 447px">태그</div>
-                        <!-- 클릭 시 안내 창-->
-                        <img src="../../assets/img/ico-table-tag@2x.png" class="ico_table_tag"
-                             style="cursor:pointer; margin-left: 6px;" />
-                        <div class="title" style="width: 24px; margin-left: 291px">직군</div>
-                        <img src="../../assets/img/group-10@2x.png" class="Group-10"
-                             v-on:click="sorting('position')" style="cursor:pointer; margin-left: 6px;">
-                        <div class="title" style="width: 36px; margin-left: 24px">작성자</div>
-                        <div class="title" style="width: 24px; margin-left: 36px">날짜</div>
-                        <img src="../../assets/img/group-10@2x.png" class="Group-10"
-                             v-on:click="sorting('date')" style="cursor:pointer; margin-left: 6px;">
-                    </div>
-                    <IdeaList></IdeaList>
+                    <!--<div class=" default titles">-->
+                        <!--&lt;!&ndash;<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>&ndash;&gt;-->
+                        <!--<div class="title" style="width: 48px; height: 18px; line-height: 1.29;-->
+                        <!--margin-left: 10px; margin-bottom: 1px">즐겨찾기</div>-->
+                        <!--<div class="title" style="width: 24px; height: 18px; line-height: 1.29;-->
+                        <!--margin-left: 14px; margin-bottom: 1px;">번호</div>-->
+                        <!--<div class="title" style="width: 62px; margin-left: 18px">아이디어 명</div>-->
+                        <!--<div class="title" style="width: 24px; margin-left: 447px">태그</div>-->
+                        <!--&lt;!&ndash; 클릭 시 안내 창&ndash;&gt;-->
+                        <!--<img src="../../assets/img/ico-table-tag@2x.png" class="ico_table_tag"-->
+                             <!--style="cursor:pointer; margin-left: 6px;" />-->
+                        <!--<div class="title" style="width: 24px; margin-left: 291px">직군</div>-->
+                        <!--<img src="../../assets/img/group-10@2x.png" class="Group-10"-->
+                             <!--v-on:click="sorting('position')" style="cursor:pointer; margin-left: 6px;">-->
+                        <!--<div class="title" style="width: 36px; margin-left: 24px">작성자</div>-->
+                        <!--<div class="title" style="width: 24px; margin-left: 36px">날짜</div>-->
+                        <!--<img src="../../assets/img/group-10@2x.png" class="Group-10"-->
+                             <!--v-on:click="sorting('date')" style="cursor:pointer; margin-left: 6px;">-->
+                    <!--</div>-->
+                    <!--<IdeaList></IdeaList>-->
+                    <IdeaListVote></IdeaListVote>
                 </div>
             </div>
         </div>
@@ -103,10 +104,12 @@
   const {mapMutations, mapGetters, mapState, mapActions} = createNamespacedHelpers('main');
 
   import IdeaList from '@/components/idea/list/IdeaListDefault';
+  import IdeaListVote from "@/components/idea/list/IdeaListVote";
 
   export default {
     name: "IdeaSection",
     components: {
+      IdeaListVote,
       IdeaList
     },
 
