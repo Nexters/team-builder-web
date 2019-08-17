@@ -98,7 +98,8 @@ p {
 
 .select-idea-vote-count {
     width: 126px;
-    height: 56px
+    height: 56px;
+    margin-left: 32px;
 }
 
 .select-idea-vote-count:focus {

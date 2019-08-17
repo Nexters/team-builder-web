@@ -44,16 +44,25 @@
         data() {
             return {
                 isOpenSessionGroup: false,
-                userLastName: '허',
-                sessionNumber: 16,
-                sessionNumbers: [
-                    16, 15, 14, 13, 12, 11
-                ],
-                isAdmin: true, //TODO: 기본 false
             }
         },
 
         computed: {
+            isAdmin() {
+                return this.$store.getters.isAdmin;
+            },
+
+            sessionNumber() {
+                return this.$store.state.main.session.sessionNumber;
+            },
+
+            sessionNumbers() {
+                return this.$store.state.main.session.sessionNumbers.map(session => session.sessionNumber).sort((a, b) => b - a);
+            },
+
+            userLastName() {
+                return this.$store.state.auth.name.slice(0, 1);
+            }
 
         },
 

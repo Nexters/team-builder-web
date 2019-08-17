@@ -62,13 +62,19 @@
                 // mode: 'TEAMBUILDING',
                 // mode: USER_MANAGE,
                 // mode: GENERAL_MANAGE,
-                isAdmin: true, //TODO: 기본 false,
                 USER_MANAGE: USER_MANAGE,
                 GENERAL_MANAGE: GENERAL_MANAGE,
 
                 isTeambuildingPeriod: false, //팀빌딩 모드 전환이 가능한지 여부! padlock img 노출용
             }
         },
+
+        computed: {
+            isAdmin() {
+                return this.$store.getters.isAdmin;
+            }
+        },
+
         methods: {
             moveToSession() {
                 this.$router.push({path: `/session/${this.$route.params.sessionNumber}`});
