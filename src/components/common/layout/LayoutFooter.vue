@@ -1,11 +1,11 @@
 <template>
     <div class="layout-footer">
         <div class="footer-contents-wrap">
-            <img class="footer-moimmoim-icon" src="../../../assets/img/moimmoim_icon.png"/>
+            <img class="footer-moimmoim-icon" src="@/assets/img/moimmoim_icon.png"/>
             <span class="footer-message">© 2019 Moim-construct Corp. All rights reserved.</span>
             <div class="footer-sns-group">
                 <div class="sns-nexters-icon-wrap">
-                    <a target="_blank" href="http://teamnexters.com/"><img class="sns-nexters-icon" src="../../../assets/img/nexters-icon.png"/></a>
+                    <a target="_blank" href="http://teamnexters.com/"><img class="sns-nexters-icon" src="@/assets/img/nexters-icon.png"/></a>
                 </div>
                 <div class="sns-facebook-icon-wrap">
                     <a target="_blank" href="https://www.facebook.com/Nexterspage/"><img class="sns-facebook-icon" src="../../../assets/img/facebook-icon.png"/></a>

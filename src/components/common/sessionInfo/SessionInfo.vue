@@ -15,7 +15,7 @@
             </div>
 
             <div class="session-info-image-wrap">
-<!--                <img class="" src="@/assets/img/session_ingo_idea_collect_image.png"/>-->
+                <img class="session-info-image" src="@/assets/img/session_ingo_idea_collect_image.png"/>
             </div>
         </div>
     </div>
@@ -84,12 +84,14 @@
 
     .session-info-image-wrap {
         width: 560px;
+        height: 100%;
         margin-left: 221px;
     }
 
-    .session-info-image-wrap {
+    .session-info-image {
         width: 381.4px;
         height: 306px;
+        margin: 41px 60.8px 52px 117.8px;
     }
 
 </style>
