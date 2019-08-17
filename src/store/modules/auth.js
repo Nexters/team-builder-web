@@ -57,7 +57,7 @@ const store = {
             state.auth = auth
         },
         [SET_TOKEN](state, token) {
-            state.key = token
+            state.token = token
         }
     }
 };
