@@ -54,6 +54,11 @@ export default new Router({
       component: () => import(/* webpackChunkName: "editor" */ './views/info/Info.vue')
     },
     {
+      path: '/infochange',
+      name: 'InfoChange',
+      component: () => import(/* webpackChunkName: "editor" */ './views/info/InfoChange.vue')
+    },
+    {
       path: '/admin',
       name: 'Admin',
       component: Admin

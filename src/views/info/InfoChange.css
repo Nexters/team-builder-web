@@ -1,49 +1,136 @@
-
-#sign-up-form {
-    padding: 0 500px;
-    margin-bottom: 100px;
-}
-
-.header {
-    margin: 0 20px 20px 0;
-    font-weight: bolder;
-}
-
-.header > p {
-    margin: 0;
-    vertical-align: middle;
-    line-height: 40px;
+.body {
+    background-color: #eeeeee;
 }
 
 .main-container {
-    border: 1px solid;
-    margin-bottom: 50px;
+    width: 1200px;
+    margin-top: 57px;
 }
 
-.el-header {
-    color: #333;
-    text-align: left;
-    margin: 70px 50px 0 50px;
-    font-weight: bold;
-    font-size: 26px;
+.header {
+    font-family: NotoSansCJKkr;
+    font-size: 40px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #1c1c1c;
+}
+
+.header-sub {
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.4px;
+    color: #1c1c1c;
+}
+
+.btn-apply {
+    width: 200px;
+    height: 57px;
+    border-radius: 6px;
+    background-color: #ff5000;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.82px;
+    color: #ffffff;
 }
 
 .el-main {
     color: #333;
     text-align: left;
     line-height: 50px;
-    margin: 0 50px 30px 50px;
     font-weight: bolder;
+    margin-top: 46px;
 }
 
 .info-title {
-    text-align: left;
-    font-weight: bolder;
+    width: 192px;
+    font-family: NotoSansCJKkr;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.56px;
+    color: #1c1c1c;
 }
 
 .info-body {
     text-align: left;
-    padding: 0 30px;
+    font-family: NotoSansCJKkr;
+    font-size: 20px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.56px;
+    color: #1c1c1c;
+}
+
+.password-box {
+    width: 320px;
+    height: 56px;
+    border-radius: 6px;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    padding-left: 18px;
+}
+
+.password-box::placeholder {
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.6px;
+    color: #9b9b9b;
+}
+
+.password-box:focus {
+    outline: none;
+    border: 1px solid #273EA5;
+    box-shadow: none;
+}
+
+.position-select, .form-title[data-v-29704375], .form-control[data-v-29704375], .custom-select[data-v-29704375], .form-group[data-v-29704375] {
+    width: 179px;
+    height: 56px;
+    border-radius: 6px;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: #9b9b9b;
+    margin: 0;
+}
+
+.position-select:focus {
+    outline: none;
+    border: 1px solid #273EA5;
+    box-shadow: none;
+}
+
+.row {
+    margin-top: 24px;
+    display: flex;
+    vertical-align: center;
+    align-items: center;
 }
 
 .form-title, .form-control, .custom-select, .form-group {

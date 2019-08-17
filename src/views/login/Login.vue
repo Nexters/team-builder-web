@@ -10,7 +10,7 @@
                         <div class="el-main">
                             <form @submit.prevent="onSubmit">
                                 <input class="input-box" placeholder="아이디를 입력해주세요" v-model="uid">
-                                <input class="input-box" placeholder="비밀번호를 입력해주세요" v-model="password"
+                                <input class="input-box" type="password" placeholder="비밀번호를 입력해주세요" v-model="password"
                                        style="margin-top: 16px">
                                 <br>
                                 <button type="submit" class="btn-login" :disabled='isDisabled'>

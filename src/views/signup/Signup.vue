@@ -61,14 +61,14 @@
                                 <b-form class="row">
                                     <b-form>
                                         <b-form-select v-model="nextersNumberSelect" :options="nextersNumberOptions"
-                                                       class="session-select">
+                                                       class="nexters-number-select">
                                             <template slot="first">
                                                 <option :value="null" disabled>기수</option>
                                             </template>
                                         </b-form-select>
                                     </b-form>
                                     <b-form>
-                                        <b-form-select v-model="positionSelect" :options="positionOptions" class="job-select">
+                                        <b-form-select v-model="positionSelect" :options="positionOptions" class="position-select">
                                             <template slot="first">
                                                 <option :value="null" disabled>직군선택</option>
                                             </template>
