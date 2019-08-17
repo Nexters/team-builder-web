@@ -93,7 +93,7 @@
                 this.$store.commit(SET_AUTH, true);
                 this.$store.commit(SET_TOKEN, token);
                 this.$router.push({
-                    path: '/'
+                    path: '/session/latest'
                 })
             }
         },

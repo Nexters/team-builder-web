@@ -69,7 +69,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "NotFound" */ './views/NotFound.vue')
     },
     {
-      path: '/session/:sessionNo',
+      path: '/session/:sessionNumber',
       name: 'Session',
       component: () => import(/* webpackChunkName: "Main" */ './views/Main.vue'),
     },

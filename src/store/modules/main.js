@@ -100,7 +100,8 @@ const store = {
     },
 
     mutations: {
-        [MUTATIONS.SET_INIT_DATA](state, {session}) {
+        [MUTATIONS.SET_INIT_DATA](state, data) {
+            const session = data.data;
             state.session = session;
             state.searchTerm = '';
             state.ideaList = session.ideas.sort((idea1, idea2) => {
@@ -264,8 +265,8 @@ const store = {
       },
 
     actions: {
-        [ACTIONS.LOAD_INIT_DATA](context) {
-            return getSession()
+        [ACTIONS.LOAD_INIT_DATA](context, {sessionNumber}) {
+            return getSession({sessionNumber: sessionNumber})
                 .then(data => context.commit(MUTATIONS.SET_INIT_DATA, data));
         },
 

@@ -71,16 +71,16 @@
         },
         methods: {
             moveToSession() {
-                this.$router.push({path: `/session/${this.$route.params.sessionNo}`});
+                this.$router.push({path: `/session/${this.$route.params.sessionNumber}`});
             },
             moveToTeamBuilding() {
-                this.$router.push({path: `/session/${this.$route.params.sessionNo}/teambuilding`});
+                this.$router.push({path: `/session/${this.$route.params.sessionNumber}/teambuilding`});
             },
             moveToUserManage() {
-                this.$router.push({path: `/session/${this.$route.params.sessionNo}/user-manage`});
+                this.$router.push({path: `/session/${this.$route.params.sessionNumber}/user-manage`});
             },
             moveToGeneralManage() {
-                this.$router.push({path: `/session/${this.$route.params.sessionNo}/general-manage`});
+                this.$router.push({path: `/session/${this.$route.params.sessionNumber}/general-manage`});
             }
         }
     }
