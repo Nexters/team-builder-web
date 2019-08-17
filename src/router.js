@@ -1,10 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-import Signup from './views/signup/Signup'
-import Login from './views/login/Login'
-import store from './store/modules/auth'
-import Admin from "./views/admin/Admin";
 
 Vue.use(Router);
 
@@ -34,13 +30,13 @@ export default new Router({
     {
       path: '/signup',
       name: 'Signup',
-      component: Signup,
+      component: () => import(/* webpackChunkName: "Main" */ './views/signup/Signup.vue'),
       props: true
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login,
+      component: () => import(/* webpackChunkName: "Main" */ './views/login/Login.vue'),
       props: true
     },
     {
@@ -57,11 +53,6 @@ export default new Router({
       path: '/infochange',
       name: 'InfoChange',
       component: () => import(/* webpackChunkName: "editor" */ './views/info/InfoChange.vue')
-    },
-    {
-      path: '/admin',
-      name: 'Admin',
-      component: Admin
     },
     {
       path: '*',
@@ -83,6 +74,20 @@ export default new Router({
       name: 'IdeaDetail',
       component: () => import(/* webpackChunkName: "Main" */ './views/IdeaDetail.vue'),
     },
-
+    {
+      path: '/all-user-manager',
+      name: 'AllUserManage',
+      component: () => import(/* webpackChunkName: "Main" */ './views/admin/AllUserManage.vue'),
+    },
+    {
+      path: '/session/:sessionNumber/general-manage',
+      name: 'GeneralManage',
+      component: () => import(/* webpackChunkName: "Main" */ './views/admin/GeneralManage.vue'),
+    },
+    {
+      path: '/session/:sessionNumber/user-manage',
+      name: 'ActiveUserManage',
+      component: () => import(/* webpackChunkName: "Main" */ './views/admin/ActiveUserManage.vue'),
+    },
   ]
 })

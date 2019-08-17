@@ -52,8 +52,6 @@
 </template>
 
 <script>
-    import {signup} from "../../api/SignupAPI"
-    import {SET_ID, SET_AUTH, SET_TOKEN} from "../../consts/userType"
     import Layout from '@/components/common/layout/Layout';
 
     export default {
