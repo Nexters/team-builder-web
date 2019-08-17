@@ -83,10 +83,6 @@ export default new Router({
       name: 'IdeaDetail',
       component: () => import(/* webpackChunkName: "Main" */ './views/IdeaDetail.vue'),
     },
-    {
-      path: '/session/tagSelect',
-      name: 'SelectSearchTag',
-      component: () => import(/* webpackChunkName: "Main" */ './views/SelectSearchTag.vue'),
-    }
+
   ]
 })

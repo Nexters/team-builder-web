@@ -1,4 +1,5 @@
 import api from './index';
+import {TAG_TYPE} from "@/consts/TagType";
 
 export function getSession({sessionNumber}) {
 
@@ -19,11 +20,18 @@ function getMockData() {
             period: '',
             headerImageUrl: 'url',
             tags:[
-                {
-                    id: 1,
-                    name: '서버개발자',
-                    type: ''
-                }
+                {id: 1, name: '최대다섯자', type: TAG_TYPE.DISABLED},
+                {id: 2, name: '최대다섯자', type: TAG_TYPE.DISABLED},
+                {id: 3, name: '최대다섯자', type: TAG_TYPE.DISABLED},
+                {id: 4, name: '최대다섯자', type: TAG_TYPE.DISABLED},
+                {id: 5, name: '디자이너용', type: TAG_TYPE.DESIGNER},
+                {id: 6, name: 'GUI', type: TAG_TYPE.DESIGNER},
+                {id: 7, name: 'UX', type: TAG_TYPE.DESIGNER},
+                {id: 8, name: '개발자전용', type: TAG_TYPE.DEVELOPER},
+                {id: 9, name: '서버개발자', type: TAG_TYPE.DEVELOPER},
+                {id: 10, name: '웹개발자', type: TAG_TYPE.DEVELOPER},
+                {id: 11, name: 'iOS', type: TAG_TYPE.DEVELOPER},
+                {id: 12, name: 'Android', type: TAG_TYPE.DEVELOPER},
             ],
             ideas:[
                 {

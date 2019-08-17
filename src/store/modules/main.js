@@ -93,10 +93,14 @@ const store = {
           return getters.GET_LIST.length;
         },
 
-      [GETTERS.GET_FAVORITE]: (state, orderNumber) => {
+        [GETTERS.GET_FAVORITE]: (state, orderNumber) => {
           return state.ideaList.filter(idea => (idea.orderNumber === orderNumber))
             .favorite;
-      },
+        },
+
+        [GETTERS.GET_TAGS]: (state) => {
+           return state.session.tags;
+        }
     },
 
     mutations: {
@@ -115,6 +119,7 @@ const store = {
                 tagsId: idea.tags.map(tag => tag.id)
               }
             });
+            state.session.tags = session.tags;
         },
 
         [MUTATIONS.SET_SEARCH_TERM]: (state, value) => {
