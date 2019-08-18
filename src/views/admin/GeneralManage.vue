@@ -4,7 +4,7 @@
             <div style="width: 1200px">
                 <div class="d-flex" style="margin-top: 30px">
                     <div>
-                        <p class="header">넥스터즈 {{sessionNumber}}기 활동 일반관리</p>
+                        <p class="header">넥스터즈 {{$store.state.main.session.sessionNumber}}기 활동 일반관리</p>
                     </div>
                     <div class="ml-auto">
                         <button class="btn-apply">
@@ -107,12 +107,13 @@
                     <div class="sub-item-row d-flex align-items-center" style="margin-bottom: 100px">
                         <p class="sub-title">
                             팀빌딩 모드
-                            <span data-tooltip-text='팀빌딩 모드로 설정하면 일반회원의 아이디어 탭에서 아이디어 작성이 가능합니다.
-                        관리자는 회원이 작성한 아이디어를 관리자 아이디어 탭에서 선정해,
-                        팀빌딩 목록에서 볼 수 있습니다.
-                        오프라인 팀빌딩 시 급조된 아이디어를 위한 기능입니다.'>
-                        <img class="claim_mark" :src="require('../../assets/img/ico-table-tag@2x.png')">
-                    </span>
+                            <el-popover
+                                    placement="bottom"
+                                    width="400"
+                                    trigger="hover"
+                                    content='팀빌딩 모드는 기간에 상관 없이 투표 기능을 제외한 모든 기능이 활성화됩니다.  오프라인 팀빌딩 시 생성된 아이디어를 위한 기능입니다.'>
+                                <img class="claim_mark" slot="reference" :src="require('../../assets/img/ico-table-tag@2x.png')">
+                            </el-popover>
                         </p>
 
                         <div class="date-picker" style="margin-left: 32px">

@@ -3,7 +3,7 @@
         <template v-slot:body>
             <div style="width: 1200px">
                 <div class="header">
-                    <p>넥스터즈 {{sessionNumber}}기 활동 회원관리</p>
+                    <p>넥스터즈 {{$store.state.main.session.sessionNumber}}기 활동 회원관리</p>
                 </div>
                 <div class="header-sub">
                     <p>활동 회원제거를 해도 전체 회원관리에서 다시 추가할 수 있어요.</p>

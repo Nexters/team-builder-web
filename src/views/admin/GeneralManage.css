@@ -119,6 +119,7 @@ p {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
+    margin-left: 15px;
 }
 
 .filebox input[type="file"] {
