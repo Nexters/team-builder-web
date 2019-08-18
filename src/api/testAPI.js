@@ -13,3 +13,10 @@ export async function post(url, params, header) {
             return err
         })
 }
+
+export async function put(url, params, header) {
+    return axios.post(url, params, header)
+        .catch(err => {
+            return err
+        })
+}

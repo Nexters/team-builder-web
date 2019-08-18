@@ -8,7 +8,7 @@
                         <p class="header">개인정보</p>
                     </div>
                     <div class="ml-auto">
-                        <button class="btn-apply">
+                        <button class="btn-apply" @click="infoChange()">
                             적용하기
                         </button>
                     </div>
@@ -21,17 +21,17 @@
                 <div class="el-main">
                     <div class="row">
                         <div class="info-title">계정정보</div>
-                        <div class="info-body">15기</div>
+                        <div class="info-body">{{ $store.getters.getNextersNumber }}</div>
                     </div>
 
                     <div class="row">
                         <div class="info-title">이름</div>
-                        <div class="info-body">양해인</div>
+                        <div class="info-body">{{ $store.getters.getName }}</div>
                     </div>
 
                     <div class="row">
                         <div class="info-title">아이디</div>
-                        <div class="info-body">hyenny33</div>
+                        <div class="info-body">{{ $store.getters.getId }}</div>
                     </div>
 
                     <div class="row">
@@ -41,7 +41,7 @@
 
                     <div class="row">
                         <div class="info-title">직무</div>
-                        <div class="info-body">디자이너</div>
+                        <div class="info-body">{{ $store.getters.getPosition }}</div>
                     </div>
 
                 </div>
@@ -63,11 +63,12 @@
             }
         },
         methods: {
-            passwordChange() {
-                alert("비밀번호 수정")
-            },
             infoChange() {
-                alert("내정보 수정")
+                // TO-DO
+                // Need to password check logic
+                this.$router.push({
+                    path: '/infoChange'
+                })
             }
         },
         computed: {
