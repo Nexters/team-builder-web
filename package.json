@@ -23,7 +23,8 @@
     "vue-loader": "^15.7.1",
     "vue-rocker-switch": "^1.2.4",
     "vue-router": "^3.0.3",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.10.0",
