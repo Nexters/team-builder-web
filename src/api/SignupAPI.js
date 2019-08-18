@@ -15,11 +15,11 @@ export async function signup(uid, upassword, uname, nextersNumber, position, acc
         'role': "ROLE_USER"
     });
 
-    let header = JSON.stringify({
+    let header = {
         headers: {
             'Content-Type': 'application/json'
         }
-    });
+    };
 
     return post(SIGNUP_URL, params, header)
 }

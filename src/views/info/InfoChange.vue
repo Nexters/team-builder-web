@@ -8,7 +8,7 @@
                         <p class="header">개인정보</p>
                     </div>
                     <div class="ml-auto">
-                        <button class="btn-apply">
+                        <button class="btn-apply" @click="infoChange()">
                             적용하기
                         </button>
                     </div>
@@ -21,17 +21,17 @@
                 <div class="el-main">
                     <div class="row">
                         <div class="info-title">계정정보</div>
-                        <div class="info-body">15기</div>
+                        <div class="info-body">{{ $store.getters.getNextersNumber }}</div>
                     </div>
 
                     <div class="row">
                         <div class="info-title">이름</div>
-                        <div class="info-body">양해인</div>
+                        <div class="info-body">{{ $store.getters.getName }}</div>
                     </div>
 
                     <div class="row">
                         <div class="info-title">아이디</div>
-                        <div class="info-body">hyenny33</div>
+                        <div class="info-body">{{ $store.getters.getId }}</div>
                     </div>
 
                     <div class="row">
@@ -41,12 +41,17 @@
 
                     <div class="row">
                         <div class="info-title">새 비밀번호</div>
-                        <input class="password-box" type="password" placeholder="새 비밀번호를 입력해주세요" v-model="password">
+                        <input class="password-box" type="password" placeholder="새 비밀번호를 입력해주세요" v-model="newPassword">
+                        <p v-if="0 < newPassword.length && newPassword.length < 8" class="password-confirm-box">영문,숫자 8자
+                            이상 입력하세요.</p>
                     </div>
 
                     <div class="row">
                         <div class="info-title">새 비밀번호 확인</div>
-                        <input class="password-box" type="password" placeholder="새 비밀번호를 다시 입력해주세요" v-model="password">
+                        <input class="password-box" type="password" placeholder="새 비밀번호를 다시 입력해주세요"
+                               v-model="checkPassword">
+                        <p v-if="0 < checkPassword.length  && newPassword !== checkPassword" class="password-confirm-box">
+                            비밀번호가 일치하지 않습니다.</p>
                     </div>
 
                     <div class="row">
@@ -68,6 +73,7 @@
 </template>
 
 <script>
+    import {updateUserInfo} from "../../api/InfoChangeAPI"
     import Layout from '@/components/common/layout/Layout';
 
     export default {
@@ -76,6 +82,8 @@
         data() {
             return {
                 password: '',
+                newPassword: '',
+                checkPassword: '',
                 positionSelect: null,
                 positionOptions: [
                     {text: '개발자', value: 'DEVELOPER'},
@@ -84,11 +92,15 @@
             }
         },
         methods: {
-            passwordChange() {
-                alert("비밀번호 수정")
-            },
             infoChange() {
-                alert("내정보 수정")
+                updateUserInfo(this.newPassword, this.password, this.positionSelect)
+                    .then(res => {
+                        alert("수정 완료!")
+                    })
+                    .catch(err => {
+                        alert('Signup fail!', err);
+                        this.duringLogin = false
+                    });
             }
         },
         computed: {
