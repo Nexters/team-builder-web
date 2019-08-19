@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="user-manage-tab d-flex">
-                    <p>전체회원 500명</p>
+                    <p>전체회원 {{users.length}}명</p>
                     <div class="ml-auto">
                         <button class="btn-active-user-add">
                             활동회원추가
@@ -36,7 +36,7 @@
                     <div class="card-body">
                         <b-form-group>
                             <div class="titles">
-                                <div class="flex title" style="width: 78px; padding-left: 26px">
+                                <div class="flex title" style="width: 78px; padding-left: 26px; margin-bottom: -2px">
                                     <div class="custom-checkbox">
                                         <b-form-checkbox
                                                 v-model="allSelected"
@@ -56,12 +56,12 @@
                                 </div>
                                 <div class="title" style="width: 86px">이름</div>
                                 <div class="title" style="width: 594px">아이디</div>
-                                <div class="title" style="width: 160px">
+                                <div class="title" style="width: 135px; margin-left: 25px">
                                     활동여부
                                     <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
                                          v-on:click="sorting('isActive')">
                                 </div>
-                                <div class="title" style="width: 96px">
+                                <div class="title" style="width: 91px; margin-left: 5px">
                                     가입날짜
                                     <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
                                          v-on:click="sorting('joinDate')">
@@ -71,8 +71,8 @@
                             <table class="board">
                                 <tbody>
                                 <tr class="list" v-for="user in filteredUsers" :key="user.id">
-                                    <td class="flex titles"
-                                        style="width: 78px; height: 20px; padding-left: 26px; padding-bottom: 5px">
+                                    <td class="flex"
+                                        style="width: 78px; height: 20px; padding-left: 26px; padding-bottom: 2px">
                                         <div class="custom-checkbox">
                                             <b-form-checkbox
                                                     :value="user.id"
@@ -81,23 +81,27 @@
                                             />
                                         </div>
                                     </td>
-                                    <td style="width: 100px;">
-                                        <div class="flex title" style="width: 100px">{{user.id}}</div>
+                                    <td style="width: 100px">
+                                        <div class="row-item" style="margin-left: 27px">{{user.nextersNumber}}</div>
                                     </td>
                                     <td style="width: 86px;">
-                                        <div class="title" style="width: 86px">직군</div>
+                                        <div v-if="user.position === 'DEVELOPER'" class="row-item" style="width: 100px">개발자</div>
+                                        <div v-else-if="user.position === 'DESIGNER'" class="row-item" style="width: 100px">디자이너</div>
                                     </td>
                                     <td style="width: 86px;">
-                                        <div class="title" style="width: 86px">{{user.username}}</div>
+                                        <div class="row-item" style="width: 86px">{{user.name}}</div>
                                     </td>
                                     <td style="width: 594px;">
-                                        <div class="title" style="width: 594px">{{user.name}}</div>
+                                        <div class="row-item" style="width: 594px">{{user.id}}</div>
                                     </td>
                                     <td style="width: 160px;">
-                                        <div class="title" style="width: 160px">활동여부</div>
+                                        <div class="row-item select-box">
+                                            <p>활동</p>
+                                        </div>
                                     </td>
                                     <td style="width: 96px;">
-                                        <div class="title" style="width: 96px">가입날짜</div>
+                                        <div class="row-item" style="width: 96px">{{ user.createdAt | formatDate }}
+                                        </div>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -113,6 +117,8 @@
 <script>
     import Layout from '@/components/common/layout/Layout';
     import {getAllUsers} from "../../api/UserAPI";
+    import Vue from 'vue';
+    import moment from 'moment';
 
     export default {
         name: "AllUserManage",
@@ -132,10 +138,11 @@
             }
         },
         methods: {
+            moment,
             loadAllUsers() {
                 getAllUsers()
                     .then(res => {
-                        this.users = res.data;
+                        this.users = res.data.data;
                     });
             },
             toggleAll(checked) {
@@ -181,7 +188,7 @@
             filteredUsers() {
                 return this.users.filter(post => {
                     return post.name.toLowerCase().includes(this.search.toLowerCase()) ||
-                        post.username.toLowerCase().includes(this.search.toLowerCase())
+                        post.id.toLowerCase().includes(this.search.toLowerCase())
                 })
             }
         },
@@ -189,6 +196,12 @@
             this.loadAllUsers();
         }
     }
+
+    Vue.filter('formatDate', function (value) {
+        if (value) {
+            return moment(value).format('YYYY.MM.DD')
+        }
+    })
 </script>
 
 <style>
