@@ -102,6 +102,19 @@
     box-shadow: none;
 }
 
+.password-confirm-box {
+    height: 20px;
+    font-family: NotoSansCJKkr;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.39px;
+    color: #ff1c16;
+    margin: 0 0 0 16px;
+}
+
 .position-select, .form-title[data-v-29704375], .form-control[data-v-29704375], .custom-select[data-v-29704375], .form-group[data-v-29704375] {
     width: 179px;
     height: 56px;
