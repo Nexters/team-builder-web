@@ -109,6 +109,14 @@ const store = {
 
         [GETTERS.GET_TAGS]: (state) => {
            return state.session.tags;
+        },
+
+        [GETTERS.SEARCH_TAG_LIST_LENGTH]: (state) => {
+          return state.selectedTags.length;
+        },
+
+        [GETTERS.GET_SEARCH_TAGS_FIRST_NAME]: (state) => {
+          return state.selectedTags.length > 0? state.selectedTags[0].name : "";
         }
     },
 
@@ -323,7 +331,12 @@ const store = {
 
         [ACTIONS.FAVORITE_CHANGE](context, id) {
           context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE, id);
-        }
+        },
+
+        [ACTIONS.SEARCH_TAGS](context) {
+          // 서버로 전송
+          // 받아온 리스트 ideaList에 저장
+        },
     }
 };
 

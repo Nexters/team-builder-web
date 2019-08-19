@@ -13,7 +13,7 @@
                     <div class="section">
                         <TagGroup :tags="allTags"></TagGroup>
                     </div>
-                    <button class="search" @click="searchTags"><span>검색하기</span></button>
+                    <button class="search" @click="$emit('searchTags')"><span>검색하기</span></button>
                     <!--onclick-->
                     <div class="selection-initialization" @click="initSelect">선택초기화</div>
                 </div>
@@ -66,11 +66,6 @@
       initSelect() {
         return this.$store.commit('main/SET_INIT_SELECTED_TAGS');
       },
-
-      searchTags() {
-
-      }
-
     }
   }
 </script>
