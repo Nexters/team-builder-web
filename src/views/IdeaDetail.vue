@@ -25,7 +25,7 @@
 <script>
     import Layout from '@/components/common/layout/Layout';
     import TagGroup from '@/components/common/tag/TagGroup';
-    import {TAG_TYPE} from '@/consts/TagType';
+    import {TAG_TYPE} from '@/consts/Tag';
     import EditorViewer from '@/components/idea/detail/EditorViewer';
     import IdeaDetailHeader from '@/components/idea/detail/IdeaDetailHeader';
     export default {
