@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="user-manage-tab d-flex">
-                    <p>16기 활동회원 80명</p>
+                    <p>{{$store.state.main.session.sessionNumber}}기 활동회원 {{users.length}}명</p>
                     <div class="ml-auto">
                         <button class="btn-user-remove">
                             활동회원제거
@@ -53,7 +53,7 @@
                                     <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
                                          v-on:click="sorting('joinDate')">
                                 </div>
-                                <div class="title" style="width: 146px; text-align: center">
+                                <div class="title" style="width: 146px; padding-left: 18px">
                                     팀빌딩 여부
                                     <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
                                          v-on:click="sorting('isActive')">
@@ -63,7 +63,7 @@
                             <table class="board">
                                 <tbody>
                                 <tr class="list" v-for="user in filteredUsers" :key="user.id">
-                                    <td class="flex titles"
+                                    <td class="flex"
                                         style="width: 78px; height: 20px; padding-left: 26px; padding-bottom: 5px">
                                         <div class="custom-checkbox">
                                             <b-form-checkbox
@@ -74,29 +74,30 @@
                                         </div>
                                     </td>
                                     <td style="width: 100px;">
-                                        <div class="flex title" style="width: 100px">{{user.id}}</div>
+                                        <div class="row-item" style="width: 100px; padding-left: 27px">{{user.nextersNumber}}</div>
                                     </td>
                                     <td style="width: 86px;">
-                                        <div class="title" style="width: 86px">직군</div>
+                                        <div v-if="user.position === 'DEVELOPER'" class="row-item" style="width: 100px">개발자</div>
+                                        <div v-else-if="user.position === 'DESIGNER'" class="row-item" style="width: 100px">디자이너</div>
                                     </td>
                                     <td style="width: 86px;">
-                                        <div class="title" style="width: 86px">{{user.username}}</div>
+                                        <div class="row-item" style="width: 86px">{{user.name}}</div>
                                     </td>
                                     <td style="width: 424px;">
-                                        <div class="title" style="width: 424px">{{user.name}}</div>
+                                        <div class="row-item" style="width: 424px">{{user.id}}</div>
                                     </td>
                                     <td style="width: 140px;">
-                                        <div class="select-box" style="margin: auto">
+                                        <div class="select-box">
                                             <p>작성</p>
                                         </div>
                                     </td>
                                     <td style="width: 140px;">
-                                        <div class="select-box" style="margin: auto">
+                                        <div class="select-box">
                                             <p>투표</p>
                                         </div>
                                     </td>
                                     <td style="width: 146px">
-                                        <div class="select-box" style="margin: auto">
+                                        <div class="select-box">
                                             <p>완료</p>
                                         </div>
                                     </td>
@@ -137,7 +138,7 @@
             loadAllUsers() {
                 getAllUsers()
                     .then(res => {
-                        this.users = res.data;
+                        this.users = res.data.data;
                     });
             },
             toggleAll(checked) {
@@ -183,7 +184,7 @@
             filteredUsers() {
                 return this.users.filter(post => {
                     return post.name.toLowerCase().includes(this.search.toLowerCase()) ||
-                        post.username.toLowerCase().includes(this.search.toLowerCase())
+                        post.id.toLowerCase().includes(this.search.toLowerCase())
                 })
             }
         },
