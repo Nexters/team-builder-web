@@ -1,5 +1,0 @@
-export const TAG_TYPE = {
-    DISABLED: 'DISABLED',
-    DESIGNER: 'DESIGNER',
-    DEVELOPER: 'DEVELOPER',
-}

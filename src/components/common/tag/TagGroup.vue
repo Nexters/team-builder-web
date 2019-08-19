@@ -1,16 +1,17 @@
 <template>
     <div class="tag-group-wrap">
         <PositionTag v-for="tag in this.tags"
-                     :id="tag.id"
+                     :id="tag.tagId"
                      :name="tag.name"
-                     :type="tag.type">
+                     :type="tag.type"
+                     :state="tag.state">
         </PositionTag>
     </div>
 </template>
 
 <script>
     import PositionTag from '@/components/common/tag/PositionTag';
-    import {TAG_TYPE} from '@/consts/TagType';
+    import {TAG_TYPE} from '@/consts/Tag';
     export default {
         name: "TagGroup",
         components: {PositionTag},

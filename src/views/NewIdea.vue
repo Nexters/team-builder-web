@@ -19,26 +19,18 @@
     import TagGroup from '@/components/common/tag/TagGroup';
     import Editor from '@/components/idea/new/Editor';
     import NewIdeaHeader from '@/components/idea/new/NewIdeaHeader';
-    import {TAG_TYPE} from '@/consts/TagType';
+    import {TAG_TYPE} from '@/consts/Tag';
     export default {
         name: "NewIdea",
         components: {Layout, NewIdeaHeader, Editor, TagGroup},
         data() {
             return {
-                allTags: [
-                    {id: 1, name: '최대다섯자', type: TAG_TYPE.DISABLED},
-                    {id: 1, name: '최대다섯자', type: TAG_TYPE.DISABLED},
-                    {id: 1, name: '최대다섯자', type: TAG_TYPE.DISABLED},
-                    {id: 1, name: '최대다섯자', type: TAG_TYPE.DISABLED},
-                    {id: 1, name: '디자이너용', type: TAG_TYPE.DESIGNER},
-                    {id: 1, name: 'GUI', type: TAG_TYPE.DESIGNER},
-                    {id: 1, name: 'UX', type: TAG_TYPE.DESIGNER},
-                    {id: 1, name: '개발자전용', type: TAG_TYPE.DEVELOPER},
-                    {id: 1, name: '서버개발자', type: TAG_TYPE.DEVELOPER},
-                    {id: 1, name: '웹개발자', type: TAG_TYPE.DEVELOPER},
-                    {id: 1, name: 'iOS', type: TAG_TYPE.DEVELOPER},
-                    {id: 1, name: 'Android', type: TAG_TYPE.DEVELOPER},
-                ]
+            }
+        },
+
+        computed: {
+            allTags() {
+                return this.$store.state.main.session.tags;
             }
         }
     }
