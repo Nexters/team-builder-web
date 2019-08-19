@@ -61,10 +61,13 @@
                 {{ dateFormat(idea['createdAt']) }}
             </div>
             <!-- 투표 이미지 -->
-            <img src="../../../assets/img/group@2x.png" class="idea-button"
-                 v-show="inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
-            <img src="../../../assets/img/idea-minus.png" class="idea-button minus"
-                 v-show="!inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
+            <!--<img src="../../../assets/img/group@2x.png" class="idea-button"-->
+                 <!--v-show="inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">-->
+            <!--<img src="../../../assets/img/idea-minus.png" class="idea-button minus"-->
+                 <!--v-show="!inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">-->
+            <!-- 선정 이미지 -->
+            <img src="../../../assets/img/selection.png" class="selection" v-show="idea['selected']">
+            <img src="../../../assets/img/non-selection.png" class="selection" v-show="!idea['selected']">
         </div>
     </div>
 </template>

@@ -1,23 +1,14 @@
-/*.td {*/
-	/*display: inline;*/
-	/*!*height: 74px;*!*/
-	/*height: inherit;*/
-/*}*/
-
 .board {
-	/*background-color: white;*/
 	width: 100%;
 }
 
 .list {
-	/*width: 1200px;*/
 	height: 74px;
 	margin-bottom: 12px;
 	text-align: left;
 	border-radius: 6px;
 	border: solid 1px #eeeeee;
 	background-color: #ffffff;
-	/*padding: 17px 0;*/
 	display: flex;
 }
 
@@ -162,7 +153,7 @@
 	line-height: normal;
 	letter-spacing: -1px;
 	color: #1c1c1c;
-	margin: 29px 10px 26px 5px;
+	margin: 27px 10px 28px 5px;
 }
 
 .idea-button {
@@ -171,4 +162,12 @@
 	object-fit: contain;
 	margin: 22px 22px 22px 13px;
 	cursor: pointer;
+}
+
+.selection {
+	width: 45px;
+	height: 29px;
+	object-fit: contain;
+
+	margin: 23px 13px 22px 6px;
 }

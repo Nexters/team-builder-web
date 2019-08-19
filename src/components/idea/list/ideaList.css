@@ -1,27 +1,15 @@
-div {
-	/*display: inline-block;*/
-	/*height: auto;*/
-	border: 0;
-	position: relative;
-}
-
-.td {
-	display: table-cell;
-}
-
 .board {
-	/*background-color: white;*/
 	width: 100%;
 }
 
 .list {
-	/*width: 1200px;*/
 	height: 74px;
 	margin-bottom: 12px;
 	text-align: left;
 	border-radius: 6px;
 	border: solid 1px #eeeeee;
 	background-color: #ffffff;
+	display: flex;
 }
 
 .favorite {
@@ -29,7 +17,7 @@ div {
 	height: 23px;
 	object-fit: contain;
 	cursor: pointer;
-
+	margin: 26px 12px 25px 22px;
 }
 
 .favourites-filled-star-symbol, .favourites-filled-star-symbol-copy {
@@ -50,12 +38,16 @@ div {
 	letter-spacing: -0.88px;
 	text-align: center;
 	color: #9b9b9b;
+	margin: 29px 7px 29px 12px;
+	display: inline-block;
 }
 
 .idea-name {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+
+	margin: 26px 40px 24px 7px;
 
 	width: 429px;
 	height: 24px;
@@ -128,7 +120,7 @@ div {
 	letter-spacing: -1px;
 	text-align: left;
 	color: #1c1c1c;
-	margin: 25px 5px 25px 0;
+	margin: 25px 5px 25px 11px;
 }
 
 .author {
@@ -143,6 +135,7 @@ div {
 	letter-spacing: -1px;
 	text-align: left;
 	color: #1c1c1c;
+	margin: 25px 5px 25px 10px;
 }
 
 .created-at {
@@ -156,6 +149,7 @@ div {
 	line-height: normal;
 	letter-spacing: -1px;
 	color: #1c1c1c;
+	margin: 27px 18px 28px 10px;
 }
 
 

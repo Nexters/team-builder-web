@@ -69,7 +69,7 @@
                         <img src="../../assets/img/group-10@2x.png" class="Group-10"
                              v-on:click="sorting('date')" style="cursor:pointer; margin-left: 6px;">
                         <!-- 선정 전에는 안보임 -->
-                        <!--<div class="title" style="width: 48px; margin-left: 42px">선정여부</div>-->
+                        <div class="title" style="width: 48px; margin-left: 52px">선정여부</div>
                     </div>
                     <IdeaListVote></IdeaListVote>
                 </div>
