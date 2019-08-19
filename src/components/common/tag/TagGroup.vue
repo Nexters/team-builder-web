@@ -1,7 +1,7 @@
 <template>
     <div class="tag-group-wrap">
         <PositionTag v-for="tag in this.tags"
-                     :id="tag.id"
+                     :tag-id="tag.tagId"
                      :name="tag.name"
                      :type="tag.type">
         </PositionTag>

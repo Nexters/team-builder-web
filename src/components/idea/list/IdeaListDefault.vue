@@ -55,11 +55,11 @@
                     </div>
                 </div>
                 <!-- position -->
-                <div class="td" style="padding: 25px 7px 25px 9px; width: 72px;">
+                <!--<div class="td" style="padding: 25px 7px 25px 9px; width: 72px;">-->
                     <div class="position">
                         {{ positionFormat(idea['author'].position) }}
                     </div>
-                </div>
+                <!--</div>-->
                 <!-- author -->
                 <div class="td" style="padding: 25px 8px 25px 7px; width: 71px;">
                     <div class="author">

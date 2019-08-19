@@ -3,28 +3,24 @@
         <div class="Rectangle list" v-for="idea in ideaListResult" :key="idea.orderNumber">
             <!-- table column의 index, favorite이 0으로 시작 -->
             <!-- favorite -->
-            <!--<div class="td" style="margin: 9px 12px 8px 22px; width: 24px; height: 23px">-->
-                <div class="favorite">
-                    <img v-if="idea['favorite'] === true" @click="clickFavorite(idea.id)" src="../../../assets/img/favourites-filled-star-symbol-copy@2x.png"
-                         class="favourites-filled-star-symbol-copy">
-                    <img v-if="idea['favorite'] === false" @click="clickFavorite(idea.id)" src="../../../assets/img/favourites-filled-star-symbol@2x.png"
-                         class="favourites-filled-star-symbol" />
-                </div>
-            <!--</div>-->
+            <div class="favorite">
+                <img v-if="idea['favorite'] === true" @click="clickFavorite(idea.ideaId)"
+                     src="../../../assets/img/favourites-filled-star-symbol-copy@2x.png"
+                     class="favourites-filled-star-symbol-copy" />
+                <img v-if="idea['favorite'] === false" @click="clickFavorite(idea.ideaId)"
+                     src="../../../assets/img/favourites-filled-star-symbol@2x.png"
+                     class="favourites-filled-star-symbol" />
+            </div>
             <!-- order-number -->
-            <!--<div class="td" style="margin: 12px 7px 12px 12px; width: 30px; height: 16px;">-->
-                <div class="order-number">
-                    {{ idea['orderNumber'] }}
-                </div>
-            <!--</div>-->
+            <div class="order-number">
+                {{ idea['orderNumber'] }}
+            </div>
             <!-- idea-name-->
-            <!--<div class="td" style="margin: 8px 15px 8px 7px; width: 429px; height: 24px;">-->
-                <div class="idea-name">
-                    {{ idea['title'] }}
-                </div>
-            <!--</div>-->
+            <div class="idea-name">
+                {{ idea['title'] }}
+            </div>
             <!-- tags -->
-            <div class="td" style="padding: 17px 0 17px 12px; width: 339px; height: 74px; position: relative;">
+            <div class="td" style="margin: 17px 0 17px 12px; width: 327px; height: 40px; position: relative;">
                 <div class="tags" v-for="(element, index) in idea['tags']" v-on:mouseover="viewAllTags" v-on:mouseout="closeAllTags" v-if="index < 3">
                     <div class="tag" v-if="element.type === 'DEVELOPER'" style="background-color: #daf4ea;">
                         <div class="tag-name" style="color: #208b84;">
@@ -53,27 +49,22 @@
                 </div>
             </div>
             <!-- position -->
-            <div class="td" style="padding: 25px 5px 25px 9px; width: 70px;">
-                <div class="position">
-                    {{ positionFormat(idea['author'].position) }}
-                </div>
+            <div class="position">
+                {{ positionFormat(idea['author'].position) }}
             </div>
             <!-- author -->
-            <div class="td" style="padding: 25px 5px; width: 66px;">
-                <div class="author">
-                    {{ idea['author'].name }}
-                </div>
+            <div class="author">
+                {{ idea['author'].name }}
             </div>
             <!-- created At -->
-            <div class="td" style="padding: 29px 13px 26px 5px; width: 98px;">
-                <div class="created-at">
-                    {{ dateFormat(idea['createdAt']) }}
-                </div>
-
+            <div class="created-at">
+                {{ dateFormat(idea['createdAt']) }}
             </div>
-            <div class="td" style="padding: 5px 22px 24px 13px; width: 65px; height: 74px;">
-                <img src="../../../assets/img/group@2x.png" class="Group-2">
-            </div>
+            <!-- 투표 이미지 -->
+            <img src="../../../assets/img/group@2x.png" class="idea-button"
+                 v-show="inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
+            <img src="../../../assets/img/idea-minus.png" class="idea-button minus"
+                 v-show="!inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
         </div>
     </div>
 </template>
@@ -116,7 +107,16 @@
           return '개발자';
         }
         return '디자이너';
-      }
+      },
+
+      clickIdea(id) {
+         return this.$store.commit('main/CLICK_IDEAS', id);
+      },
+
+      inSelectedIdeas(id) {
+         return this.$store.state.main.candidateIdeas.findIndex(idea => (idea.ideaId === id)) <= -1;
+      },
+
     },
 
     computed:  {

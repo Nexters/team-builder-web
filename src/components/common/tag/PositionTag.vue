@@ -1,5 +1,5 @@
 <template>
-    <button class="position-tag-wrap" :class="wrapClassName" :id="id" v-on:click="selected(id)">
+    <button class="position-tag-wrap" :class="wrapClassName" :id="tagId" v-on:click="selected(tagId)">
         <span class="position-tag-span" :class="spanClassName">{{ name }}</span>
     </button>
 </template>
@@ -10,7 +10,7 @@
     export default {
         name: "PositionTag",
         props: {
-            id: {
+            tagId: {
                 type: Number,
                 required: true
             },
