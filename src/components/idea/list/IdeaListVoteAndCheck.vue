@@ -1,6 +1,6 @@
 <template>
     <div class="board">
-        <div class="Rectangle list" v-for="idea in ideaListResult" :key="idea.orderNumber">
+        <div class="Rectangle list" v-for="idea in ideaListResult" :key="idea.orderNumber"  @click="$emit('goDetail', idea.ideaId)">
             <!-- favorite -->
             <div class="favorite">
                 <img v-if="idea['favorite'] === true" @click="clickFavorite(idea.ideaId)"

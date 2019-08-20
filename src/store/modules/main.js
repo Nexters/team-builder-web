@@ -104,41 +104,42 @@ const store = {
     },
 
     getters: {
-        [GETTERS.GET_LIST]: state => {
-            return state.ideaList;
-        },
+      [GETTERS.GET_LIST]: state => {
+        return state.ideaList;
+      },
 
-        [GETTERS.LIST_LENGTH]: (state, getters) => {
-          return getters.GET_LIST.length;
-        },
+      [GETTERS.LIST_LENGTH]: (state, getters) => {
+        return getters.GET_LIST.length;
+      },
 
-        [GETTERS.GET_FAVORITE]: (state, orderNumber) => {
-          return state.ideaList.filter(idea => (idea.orderNumber === orderNumber))
-            .favorite;
-        },
+      [GETTERS.GET_FAVORITE]: (state, orderNumber) => {
+        return state.ideaList.filter(idea => (idea.orderNumber === orderNumber))
+          .favorite;
+      },
 
-        [GETTERS.GET_TAGS]: (state) => {
-           return state.session.tags;
-        },
+      [GETTERS.GET_TAGS]: (state) => {
+        return state.session.tags;
+      },
 
-        [GETTERS.SEARCH_TAG_LIST_LENGTH]: (state) => {
-          return state.selectedTags.length;
-        },
+      [GETTERS.SEARCH_TAG_LIST_LENGTH]: (state) => {
+        return state.selectedTags.length;
+      },
 
-        [GETTERS.GET_SEARCH_TAGS_FIRST_NAME]: (state) => {
-          return state.selectedTags.length > 0? state.selectedTags[0].name : "";
-        },
+      [GETTERS.GET_SEARCH_TAGS_FIRST_NAME]: (state) => {
+        return state.selectedTags.length > 0 ? state.selectedTags[0].name : "";
+      },
 
-        [GETTERS.GET_NOW_SESSION_NUMBER]: (state) => {
-            return state.session.sessionNumber;
-        },
+      [GETTERS.GET_NOW_SESSION_NUMBER]: (state) => {
+        return state.session.sessionNumber;
+      },
 
-        [GETTERS.GET_PERIOD_TYPE_NOW]: (state) => {
-          const period = state.session.periods.find(element => {
-            return element.now;
-          });
-          return period === undefined ? '' : period.periodType;
-        },
+      [GETTERS.GET_PERIOD_TYPE_NOW]: (state) => {
+        const period = state.session.periods.find(element => {
+          return element.now;
+        });
+        return period === undefined ? '' : period.periodType;
+      },
+    },
 
     mutations: {
       [MUTATIONS.SET_INIT_DATA](state, data) {

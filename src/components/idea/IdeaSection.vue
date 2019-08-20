@@ -65,7 +65,7 @@
                         <img src="../../assets/img/group-10@2x.png" class="Group-10"
                              v-on:click="sorting('date')" style="cursor:pointer; margin-left: 6px;">
                     </div>
-                    <IdeaListRecruiting @goDetail="goDetail"></IdeaListRecruiting>
+                    <idea-list-recruiting @goDetail="goDetail"></idea-list-recruiting>
                 </div>
 
                 <div v-show="nowPeriodType === 'IDEA_VOTE' || nowPeriodType.periodType === 'IDEA_CHECK'" class="card-body">
@@ -90,7 +90,7 @@
                         <!-- 선정 전에는 안보임 -->
                         <div v-show="nowPeriodType === 'IDEA_CHECK'" class="title" style="width: 48px; margin-left: 48px">선정여부</div>
                     </div>
-                    <IdeaListVoteAndCheck></IdeaListVoteAndCheck>
+                    <idea-list-vote-and-check @goDetail="goDetail"></idea-list-vote-and-check>
                 </div>
             </div>
         </div>
@@ -223,9 +223,6 @@
           path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${id}`
         });
       },
-
-
-
     },
   }
 </script>
