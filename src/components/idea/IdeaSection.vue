@@ -24,6 +24,7 @@
                             </div>
                         </div>
                     </section>
+
                     <section class="header-right">
                         <div class="search">
                             <button class="Rectangle-Copy" @click="showPopUp = true"><span>태그검색</span></button>
@@ -31,7 +32,7 @@
                                              @close="showPopUp = false"
                                              @searchTags="searchTags">
                             </SelectSearchTag>
-                            <!-- TO-DO 검색 이미지 넣기 -->
+
                             <!-- 검색 기능 -->
                             <input type="search"
                                    class="search-input Rectangle"
@@ -39,24 +40,35 @@
                                    placeholder="제목과 작성자를 검색해주세요."
                                    @keyup="filterData()"
                             />
-
-                            <!-- 검색 박스 다른 버전 -->
-                            <!--<img src="../../../assets/img/ico-search@2x.png" class="ico_search" />-->
-                            <!--&gt;-->
-                            <!--<img src="../../../assets/img/ico-search@2x.png" class="ico_search"/>-->
-                            <!--<div contenteditable="true"-->
-                            <!--class="search-input Rectangle"-->
-                            <!--v-model="searchTerm"-->
-                            <!--placeholder="제목과 작성자를 검색해주세요."-->
-                            <!--@keyup="filterData()">-->
-                            <!--<img src="../../../assets/img/ico-search@2x.png"-->
-                            <!--class="ico_search">-->
-                            <!--</div>-->
-
                         </div>
                     </section>
                 </div>
+
+                <!--<div  v-show="nowPeriodType === 'IDEA_COLLECT'" class="card-body">-->
                 <div class="card-body">
+                    <div class="default titles">
+                        <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
+                        <div class="title" style="width: 48px; height: 18px; line-height: 1.29;
+                        margin-left: 10px; margin-bottom: 1px">즐겨찾기</div>
+                        <div class="title" style="width: 24px; height: 18px; line-height: 1.29;
+                        margin-left: 14px; margin-bottom: 1px;">번호</div>
+                        <div class="title" style="width: 62px; margin-left: 18px">아이디어 명</div>
+                        <div class="title" style="width: 24px; margin-left: 447px">태그</div>
+                        <!-- 클릭 시 안내 창-->
+                        <img src="../../assets/img/ico-table-tag@2x.png" class="ico_table_tag"
+                             style="cursor:pointer; margin-left: 6px;" />
+                        <div class="title" style="width: 24px; margin-left: 291px">직군</div>
+                        <img src="../../assets/img/group-10@2x.png" class="Group-10"
+                             v-on:click="sorting('position')" style="cursor:pointer; margin-left: 6px;">
+                        <div class="title" style="width: 36px; margin-left: 24px">작성자</div>
+                        <div class="title" style="width: 24px; margin-left: 36px">날짜</div>
+                        <img src="../../assets/img/group-10@2x.png" class="Group-10"
+                             v-on:click="sorting('date')" style="cursor:pointer; margin-left: 6px;">
+                    </div>
+                    <IdeaListRecruiting @goDetail="goDetail"></IdeaListRecruiting>
+                </div>
+
+                <div v-show="nowPeriodType === 'IDEA_VOTE' || nowPeriodType.periodType === 'IDEA_CHECK'" class="card-body">
                     <div class="titles">
                         <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
                         <div class="title" style="width: 48px; height: 18px; line-height: 1.29;
@@ -76,32 +88,9 @@
                         <img src="../../assets/img/group-10@2x.png" class="Group-10"
                              v-on:click="sorting('date')" style="cursor:pointer; margin-left: 6px;">
                         <!-- 선정 전에는 안보임 -->
-                        <div class="title" style="width: 48px; margin-left: 48px">선정여부</div>
+                        <div v-show="nowPeriodType === 'IDEA_CHECK'" class="title" style="width: 48px; margin-left: 48px">선정여부</div>
                     </div>
-                    <IdeaListVote></IdeaListVote>
-                </div>
-
-                <div class="card-body">
-                    <div class=" default titles">
-                        <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
-                        <div class="title" style="width: 48px; height: 18px; line-height: 1.29;
-                        margin-left: 10px; margin-bottom: 1px">즐겨찾기</div>
-                        <div class="title" style="width: 24px; height: 18px; line-height: 1.29;
-                        margin-left: 14px; margin-bottom: 1px;">번호</div>
-                        <div class="title" style="width: 62px; margin-left: 18px">아이디어 명</div>
-                        <div class="title" style="width: 24px; margin-left: 447px">태그</div>
-                        <!-- 클릭 시 안내 창-->
-                        <img src="../../assets/img/ico-table-tag@2x.png" class="ico_table_tag"
-                             style="cursor:pointer; margin-left: 6px;" />
-                        <div class="title" style="width: 24px; margin-left: 291px">직군</div>
-                        <img src="../../assets/img/group-10@2x.png" class="Group-10"
-                             v-on:click="sorting('position')" style="cursor:pointer; margin-left: 6px;">
-                        <div class="title" style="width: 36px; margin-left: 24px">작성자</div>
-                        <div class="title" style="width: 24px; margin-left: 36px">날짜</div>
-                        <img src="../../assets/img/group-10@2x.png" class="Group-10"
-                             v-on:click="sorting('date')" style="cursor:pointer; margin-left: 6px;">
-                    </div>
-                    <IdeaList></IdeaList>
+                    <IdeaListVoteAndCheck></IdeaListVoteAndCheck>
                 </div>
             </div>
         </div>
@@ -113,16 +102,16 @@
   import {createNamespacedHelpers} from 'vuex';
   const {mapMutations, mapGetters, mapState, mapActions} = createNamespacedHelpers('main');
 
-  import IdeaList from '@/components/idea/list/IdeaListDefault';
-  import IdeaListVote from "@/components/idea/list/IdeaListVote";
+  import IdeaListRecruiting from '@/components/idea/list/IdeaListRecruiting';
+  import IdeaListVoteAndCheck from "@/components/idea/list/IdeaListVoteAndCheck";
   import SelectSearchTag from "@/components/common/tag/SelectSearchTag";
 
   export default {
     name: "IdeaSection",
     components: {
-      IdeaListVote,
+      IdeaListVoteAndCheck,
       SelectSearchTag,
-      IdeaList
+      IdeaListRecruiting
     },
 
     data() {
@@ -153,7 +142,8 @@
       ...mapGetters({
         ideaListLength: GETTERS.LIST_LENGTH,
         searchTagResult: GETTERS.SEARCH_TAG_LIST_LENGTH,
-        getSearchTagName: GETTERS.GET_SEARCH_TAGS_FIRST_NAME
+        getSearchTagName: GETTERS.GET_SEARCH_TAGS_FIRST_NAME,
+        nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
       }),
 
       // ...mapMutations([
@@ -225,7 +215,17 @@
         this.showSearchTagResult = true;
         this.showPopUp = false;
         return this.$store.dispatch('main/SEARCH_TAGS');
-      }
+      },
+
+      goDetail(id) {
+        console.log(id);
+        this.$router.push({
+          path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${id}`
+        });
+      },
+
+
+
     },
   }
 </script>

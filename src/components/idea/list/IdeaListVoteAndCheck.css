@@ -156,7 +156,7 @@
 	margin: 27px 10px 28px 5px;
 }
 
-.idea-button {
+.idea-button > img {
 	width: 30px;
 	height: 30px;
 	object-fit: contain;
@@ -164,7 +164,7 @@
 	cursor: pointer;
 }
 
-.selection {
+.selection > img {
 	width: 45px;
 	height: 29px;
 	object-fit: contain;

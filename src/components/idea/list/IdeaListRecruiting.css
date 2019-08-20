@@ -10,6 +10,7 @@
 	border: solid 1px #eeeeee;
 	background-color: #ffffff;
 	display: flex;
+	cursor: pointer;
 }
 
 .favorite {
@@ -103,8 +104,6 @@
 	background-color: #ffffff;
 	display: inline-block;
 	padding: 17px 10px;
-	/*object-fit: contain;*/
-	/*overflow: hidden;*/
 	float: right;
 }
 

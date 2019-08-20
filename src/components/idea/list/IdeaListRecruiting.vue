@@ -1,12 +1,11 @@
 <template>
     <div class="board">
-        <div class="Rectangle list" v-for="idea in ideaListResult" :key="idea.orderNumber">
-            <!-- table column의 index, favorite이 0으로 시작 -->
+        <div class="Rectangle list" v-for="idea in ideaListResult" :key="idea.orderNumber" @click="$emit('goDetail', idea.ideaId)">
             <!-- favorite -->
             <div class="favorite">
                 <img v-if="idea['favorite'] === true" @click="clickFavorite(idea.ideaId)"
                      src="../../../assets/img/favourites-filled-star-symbol-copy@2x.png"
-                     class="favourites-filled-star-symbol-copy" />
+                     class="favourites-filled-star-symbol-copy">
                 <img v-if="idea['favorite'] === false" @click="clickFavorite(idea.ideaId)"
                      src="../../../assets/img/favourites-filled-star-symbol@2x.png"
                      class="favourites-filled-star-symbol" />
@@ -20,7 +19,7 @@
                 {{ idea['title'] }}
             </div>
             <!-- tags -->
-            <div class="td" style="margin: 17px 0 17px 12px; width: 327px; height: 40px; position: relative;">
+            <div class="td" style="margin: 17px 0 17px 37px; width: 327px; position: relative;">
                 <div class="tags" v-for="(element, index) in idea['tags']" v-on:mouseover="viewAllTags" v-on:mouseout="closeAllTags" v-if="index < 3">
                     <div class="tag" v-if="element.type === 'DEVELOPER'" style="background-color: #daf4ea;">
                         <div class="tag-name" style="color: #208b84;">
@@ -60,14 +59,6 @@
             <div class="created-at">
                 {{ dateFormat(idea['createdAt']) }}
             </div>
-            <!-- 투표 이미지 -->
-            <!--<img src="../../../assets/img/group@2x.png" class="idea-button"-->
-                 <!--v-show="inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">-->
-            <!--<img src="../../../assets/img/idea-minus.png" class="idea-button minus"-->
-                 <!--v-show="!inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">-->
-            <!-- 선정 이미지 -->
-            <img src="../../../assets/img/selection.png" class="selection" v-show="idea['selected']">
-            <img src="../../../assets/img/non-selection.png" class="selection" v-show="!idea['selected']">
         </div>
     </div>
 </template>
@@ -78,19 +69,21 @@
   const {mapActions, mapGetters, mapState} = createNamespacedHelpers('main');
 
   export default {
-    name: "IdeaListVote",
-
+    name: "IdeaListRecruiting",
+    model: {
+      event: "change"
+    },
     methods: {
       viewAllTags(event) {
         const popUp = event.target.closest('.td').lastChild;
-        if(popUp.className) {
+        if (popUp.className) {
           popUp.style.display = 'flex';
         }
       },
 
       closeAllTags(event) {
         const popUp = event.target.closest('.td').lastChild;
-        if(popUp.className) {
+        if (popUp.className) {
           popUp.style.display = 'none';
         }
       },
@@ -106,20 +99,11 @@
       },
 
       positionFormat(position) {
-        if(position === 'DEVELOPER') {
+        if (position === 'DEVELOPER') {
           return '개발자';
         }
         return '디자이너';
       },
-
-      clickIdea(id) {
-         return this.$store.commit('main/CLICK_IDEAS', id);
-      },
-
-      inSelectedIdeas(id) {
-         return this.$store.state.main.candidateIdeas.findIndex(idea => (idea.ideaId === id)) <= -1;
-      },
-
     },
 
     computed:  {
@@ -129,15 +113,11 @@
 
       ...mapGetters({
         ideaListResult: GETTERS.GET_LIST,
-      }),
-
-      ...mapActions({
-
       })
     }
-  }
+  };
 </script>
 
-<style src="./IdeaListVote.css" scoped>
+<style src="./IdeaListRecruiting.css" scoped>
 
 </style>

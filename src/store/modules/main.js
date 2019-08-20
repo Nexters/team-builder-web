@@ -42,6 +42,14 @@ const store = {
                     createdAt:'',
                     updatedAt:''
                 }
+            ],
+            periods: [
+              {
+                periodType: '',
+                now: true,
+                endDate: '',
+                startDate: '',
+              },
             ]
         },
         // search : {
@@ -117,6 +125,13 @@ const store = {
 
         [GETTERS.GET_SEARCH_TAGS_FIRST_NAME]: (state) => {
           return state.selectedTags.length > 0? state.selectedTags[0].name : "";
+        },
+
+        [GETTERS.GET_PERIOD_TYPE_NOW]: (state) => {
+          const period = state.session.periods.find(element => {
+            return element.now;
+          });
+          return period === undefined ? '' : period.periodType;
         }
     },
 
@@ -307,6 +322,14 @@ const store = {
         // 선택 되지 않은 아이디어라면,
         const selectedIdea = state.ideaList.find(idea => (idea.ideaId === id));
         state.candidateIdeas.push({ideaId: id, title: selectedIdea.title});
+      },
+
+      [MUTATIONS.SORT_LIST_BY_VOTE_NUMBER_DESC]: (state) => {
+        state.ideaList = state.ideaList.sort((idea1, idea2) => {
+          if(idea1.type !== 'NOTICE' && idea2.type !== 'NOTICE') {
+            return idea2.voteNumber - idea1.voteNumber;
+          }
+        })
       },
 
     },
