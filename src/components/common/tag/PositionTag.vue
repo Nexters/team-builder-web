@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import {TAG_TYPE} from '@/consts/TagType';
+    import {TAG_TYPE} from '@/consts/Tag';
 
     export default {
         name: "PositionTag",
@@ -24,6 +24,11 @@
                 type: String,
                 required: true
             },
+
+            state: {
+                type: String,
+                required: false
+            }
         },
 
         data() {

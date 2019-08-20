@@ -1,0 +1,9 @@
+export const TAG_TYPE = {
+    DESIGNER: 'DESIGNER',
+    DEVELOPER: 'DEVELOPER',
+}
+
+export const TAG_STATE = {
+    SELECTED: 'SELECTED',
+    UNSELECTED: 'UNSELECTED',
+}

@@ -199,6 +199,17 @@
     background-color: #F5F5F5;
 }
 
+.row-item {
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.89px;
+    color: #1c1c1c;
+}
+
 .select-box {
     width: 120px;
     height: 40px;
@@ -241,6 +252,7 @@
     line-height: normal;
     letter-spacing: -1px;
     color: #9b9b9b;
+    margin: auto;
 }
 
 .search {

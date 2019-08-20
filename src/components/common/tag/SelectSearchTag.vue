@@ -28,7 +28,7 @@
 <script>
   import TagGroup from "@/components/common/tag/TagGroup";
   import Layout from "@/components/common/layout/Layout";
-  import {TAG_TYPE} from '@/consts/TagType';
+  import {TAG_TYPE} from '@/consts/Tag';
   import {ACTIONS, GETTERS, MUTATIONS} from "@/store/types";
   import {createNamespacedHelpers} from 'vuex';
   const {mapMutations, mapGetters, mapState, mapActions} = createNamespacedHelpers('main');
