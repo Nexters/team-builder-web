@@ -19,7 +19,7 @@ const store = {
             ],
             ideas:[
                 {
-                    id:1,
+                    ideaId:1,
                     title: '',
                     content: '',
                     file: '',
@@ -46,19 +46,28 @@ const store = {
         },
         // search : {
           searchAttrs: [{
-            id: 0,
+            ideaId: 0,
             title: '',
-            name: '',
+            authorName: '',
             tagsId: []
           }],
           searchTerm: '',
           selectedTags: [
-            {id: 0},
+            {
+              tagId: 0,
+              name: ''
+            },
           ],
+        candidateIdeas: [
+          {
+            ideaId: 0,
+            title: ''
+          }
+        ],
         // },
         ideaList: [
           {
-            id:1,
+            ideaId:1,
             title: '',
             content: '',
             file: '',
@@ -100,179 +109,207 @@ const store = {
 
         [GETTERS.GET_TAGS]: (state) => {
            return state.session.tags;
+        },
+
+        [GETTERS.SEARCH_TAG_LIST_LENGTH]: (state) => {
+          return state.selectedTags.length;
+        },
+
+        [GETTERS.GET_SEARCH_TAGS_FIRST_NAME]: (state) => {
+          return state.selectedTags.length > 0? state.selectedTags[0].name : "";
         }
     },
 
     mutations: {
-        [MUTATIONS.SET_INIT_DATA](state, data) {
-            const session = data.data;
-            state.session = session;
-            state.searchTerm = '';
-            state.ideaList = session.ideas.sort((idea1, idea2) => {
-              return idea2.orderNumber - idea1.orderNumber;
-            });
-            state.searchAttrs = state.ideaList.map(function (idea) {
-              return {
-                id: idea.id,
-                title: idea.title,
-                name: idea.author.name,
-                tagsId: idea.tags.map(tag => tag.id)
-              }
-            });
-            state.session.tags = session.tags;
-        },
-
-        [MUTATIONS.SET_SEARCH_TERM]: (state, value) => {
-          state.searchTerm = value;
-         },
-
-        [MUTATIONS.SORT_LIST_BY_ORDER_NUMBER]: (state) => {
-          state.ideaList.sort((idea1, idea2) => {
-            return idea2.orderNumber - idea1.orderNumber;
-          })
-        },
-
-        [MUTATIONS.SAVE_ORIGIN_LIST]: (state) => {
-          state.ideaList = state.session.ideas;
-        },
-
-        [MUTATIONS.FILTER_DATA]: (state) => {
-          console.log('Mutation')
-          // 검색어에 영어가 포함될 경우
-          if(state.searchTerm.match('^[ㄱ-ㅎ가-힣]*$')) {
-            console.log('한글이얌')
-            // 검색어에 한글이 포함될 경우
-            const ChosungSearch = require('hangul-chosung-search-js');
-            let titleAndNameArray = state.searchAttrs.map((element) => {return element.title})
-              .concat(state.searchAttrs.map((element) => {return element.name}));
-
-            console.log('titleAndNameArray :' + titleAndNameArray);
-            console.log('state.searchAttrs :' + state.searchAttrs)
-
-            const filteredList = ChosungSearch.searchList(state.searchTerm, titleAndNameArray, true);
-            // const temp = state.searchAttrs.map(attr => {
-            //   filteredList.some((element) => {
-            //     console.log(element);
-            //     console.log(attr);
-            //     if(attr.title === element || attr.name === element) {
-            //       return parseInt(attr.id + '', 10);
-            //     }
-            //   })
-            // });
-
-            const temp = state.searchAttrs.map(attr => {
-              filteredList.map(filtered => {
-                if(filtered === attr.title || filtered === attr.name) {
-                  return attr.id;
-                }
-              })
-            });
-
-
-            console.log('element');
-            console.log(temp.length);
-
-              // filter((attr) => {
-            //   filteredList.forEach(function (element) {
-            //     if(element === attr.name || element === attr.title) {
-            //       return attr;
-            //     }
-            //   })
-            // });
-            console.log('temp: ' + temp);
-            // state.ideaList = state.session.ideas.filter(idea => {
-            //   if(idea.id === temp.id) {return true}
-            // });
-            // state.ideaList = state.session.ideas.filter((idea) => {
-            //   filteredList.some((attr) => {
-            //     // if(attr === idea.author.name || attr === idea.title) return true;
-            //     return idea.author.name === attr || idea.title === attr
-            //   })
-            // });
-            console.log('1: ' + filteredList);
-            console.log('2: ' + state.ideaList);
-            return;
+      [MUTATIONS.SET_INIT_DATA](state, data) {
+        const session = data.data;
+        state.session = session;
+        state.searchTerm = '';
+        state.ideaList = session.ideas.sort((idea1, idea2) => {
+          return idea2.orderNumber - idea1.orderNumber;
+        });
+        state.searchAttrs = state.ideaList.map(function (idea) {
+          return {
+            ideaId: idea.ideaId,
+            title: idea.title,
+            authorName: idea.author.name,
+            tagsId: idea.tags.map(tag => tag.tagId)
           }
-          console.log('요긴 영어')
-          const searchQuery = state.searchTerm.toLowerCase();
-          console.log(searchQuery)
-          const search = state.searchAttrs.filter(element => {
-            ['title', 'name'].some(key => {
-              const char = element[key].replace(/^[A-Za-z+]*$/gi).toLowerCase();
-              console.log('char: ' + char);
-              // element[key].toLowerCase().includes(searchQuery))
-              if (char.indexOf(searchQuery) !== -1) {
-                return true;
+        });
+        state.session.tags = session.tags;
+        state.candidateIdeas = [];
+        state.selectedTags = [];
+      },
+
+      [MUTATIONS.SET_SEARCH_TERM]: (state, value) => {
+        state.searchTerm = value;
+      },
+
+      [MUTATIONS.SORT_LIST_BY_ORDER_NUMBER]: (state) => {
+        state.ideaList.sort((idea1, idea2) => {
+          return idea2.orderNumber - idea1.orderNumber;
+        })
+      },
+
+      [MUTATIONS.SAVE_ORIGIN_LIST]: (state) => {
+        state.ideaList = state.session.ideas;
+      },
+
+      [MUTATIONS.FILTER_DATA]: (state) => {
+        console.log('Mutation')
+        // 검색어에 영어가 포함될 경우
+        if (state.searchTerm.match('^[ㄱ-ㅎ가-힣]*$')) {
+          console.log('한글이얌')
+          // 검색어에 한글이 포함될 경우
+          const ChosungSearch = require('hangul-chosung-search-js');
+          let titleAndNameArray = state.searchAttrs.map((element) => {
+            return element.title
+          })
+            .concat(state.searchAttrs.map((element) => {
+              return element.name
+            }));
+
+          console.log('titleAndNameArray :' + titleAndNameArray);
+          console.log('state.searchAttrs :' + state.searchAttrs)
+
+          const filteredList = ChosungSearch.searchList(state.searchTerm, titleAndNameArray, true);
+          // const temp = state.searchAttrs.map(attr => {
+          //   filteredList.some((element) => {
+          //     console.log(element);
+          //     console.log(attr);
+          //     if(attr.title === element || attr.name === element) {
+          //       return parseInt(attr.id + '', 10);
+          //     }
+          //   })
+          // });
+
+          const temp = state.searchAttrs.map(attr => {
+            filteredList.map(filtered => {
+              if (filtered === attr.title || filtered === attr.authorName) {
+                return attr.ideaId;
               }
             })
           });
-          console.log(search);
-          state.ideaList = state.session.ideas.filter(idea => {
-            if(idea.id === search.id) {
+
+
+          console.log('element');
+          console.log(temp.length);
+
+          // filter((attr) => {
+          //   filteredList.forEach(function (element) {
+          //     if(element === attr.name || element === attr.title) {
+          //       return attr;
+          //     }
+          //   })
+          // });
+          console.log('temp: ' + temp);
+          // state.ideaList = state.session.ideas.filter(idea => {
+          //   if(idea.id === temp.id) {return true}
+          // });
+          // state.ideaList = state.session.ideas.filter((idea) => {
+          //   filteredList.some((attr) => {
+          //     // if(attr === idea.author.name || attr === idea.title) return true;
+          //     return idea.author.name === attr || idea.title === attr
+          //   })
+          // });
+          console.log('1: ' + filteredList);
+          console.log('2: ' + state.ideaList);
+          return;
+        }
+        console.log('요긴 영어')
+        const searchQuery = state.searchTerm.toLowerCase();
+        console.log(searchQuery)
+        const search = state.searchAttrs.filter(element => {
+          ['title', 'name'].some(key => {
+            const char = element[key].replace(/^[A-Za-z+]*$/gi).toLowerCase();
+            console.log('char: ' + char);
+            // element[key].toLowerCase().includes(searchQuery))
+            if (char.indexOf(searchQuery) !== -1) {
               return true;
             }
           })
-        },
-
-        [MUTATIONS.SORT_LIST_BY_POSITION_ASC](state) {
-          state.ideaList = state.ideaList.sort((idea1, idea2) => {
-            const position1 = idea1.author.position.toUpperCase();
-            const position2 = idea2.author.position.toUpperCase();
-
-            if(position1 < position2) return -1;
-            if(position1 > position2) return 1;
-            return idea2.orderNumber - idea1.orderNumber;
-          })
-        },
-
-        [MUTATIONS.SORT_LIST_BY_DATE_ASC](state) {
-          state.ideaList = state.ideaList.sort((idea1, idea2) => {
-            const minusDate = new Date(idea1.createdAt) - new Date(idea2.createdAt);
-            return minusDate === 0 ?
-              idea2.orderNumber - idea1.orderNumber : minusDate;
-          });
-        },
-
-        [MUTATIONS.SORT_LIST_BY_POSITION_DESC](state) {
-          state.ideaList = state.ideaList.sort((idea1, idea2) => {
-            const position1 = idea1.author.position.toUpperCase();
-            const position2 = idea2.author.position.toUpperCase();
-            if(position2 < position1) return -1;
-            if(position2 > position1) return 1;
-            return idea2.orderNumber - idea1.orderNumber;
-          })
-        },
-
-        [MUTATIONS.SORT_LIST_BY_DATE_DESC](state) {
-          state.ideaList = state.ideaList.sort((idea1, idea2) => {
-            const minusDate = new Date(idea2.createdAt) - new Date(idea1.createdAt);
-            return minusDate === 0 ?
-              idea2.orderNumber - idea1.orderNumber : minusDate;
-          })
-        },
-
-        [MUTATIONS.SET_FAVORITE_LIST](state) {
-          state.ideaList = state.session.ideas.filter(idea => {
-            return idea.favorite;
-          })
-        },
-
-        // 서버 연동 => 실제로 변경
-        [MUTATIONS.SET_FAVORITE_OPPOSITE]: (state, id) => {
-          const changeElement = state.ideaList.find(idea => (idea.id === id));
-          changeElement.favorite = !changeElement.favorite
-          return changeElement.favorite
-        },
-
-        [MUTATIONS.SELECT_TAG]: (state, id) => {
-          state.selectedTags.push({id: id});
-          console.log(state.selectedTags);
-        },
-
-        [MUTATIONS.SET_INIT_SELECTED_TAGS]: (state) => {
-          state.selectedTags = [];
-        },
+        });
+        console.log(search);
+        state.ideaList = state.session.ideas.filter(idea => {
+          if (idea.id === search.id) {
+            return true;
+          }
+        })
       },
+
+      [MUTATIONS.SORT_LIST_BY_POSITION_ASC](state) {
+        state.ideaList = state.ideaList.sort((idea1, idea2) => {
+          const position1 = idea1.author.position.toUpperCase();
+          const position2 = idea2.author.position.toUpperCase();
+
+          if (position1 < position2) return -1;
+          if (position1 > position2) return 1;
+          return idea2.orderNumber - idea1.orderNumber;
+        })
+      },
+
+      [MUTATIONS.SORT_LIST_BY_DATE_ASC](state) {
+        state.ideaList = state.ideaList.sort((idea1, idea2) => {
+          const minusDate = new Date(idea1.createdAt) - new Date(idea2.createdAt);
+          return minusDate === 0 ?
+            idea2.orderNumber - idea1.orderNumber : minusDate;
+        });
+      },
+
+      [MUTATIONS.SORT_LIST_BY_POSITION_DESC](state) {
+        state.ideaList = state.ideaList.sort((idea1, idea2) => {
+          const position1 = idea1.author.position.toUpperCase();
+          const position2 = idea2.author.position.toUpperCase();
+          if (position2 < position1) return -1;
+          if (position2 > position1) return 1;
+          return idea2.orderNumber - idea1.orderNumber;
+        })
+      },
+
+      [MUTATIONS.SORT_LIST_BY_DATE_DESC](state) {
+        state.ideaList = state.ideaList.sort((idea1, idea2) => {
+          const minusDate = new Date(idea2.createdAt) - new Date(idea1.createdAt);
+          return minusDate === 0 ?
+            idea2.orderNumber - idea1.orderNumber : minusDate;
+        })
+      },
+
+      [MUTATIONS.SET_FAVORITE_LIST](state) {
+        state.ideaList = state.session.ideas.filter(idea => {
+          return idea.favorite;
+        })
+      },
+
+      // 서버 연동 => 실제로 변경
+      [MUTATIONS.SET_FAVORITE_OPPOSITE]: (state, id) => {
+        const changeElement = state.ideaList.find(idea => (idea.ideaId === id));
+        changeElement.favorite = !changeElement.favorite
+        return changeElement.favorite
+      },
+
+      [MUTATIONS.SELECT_TAG]: (state, id) => {
+        const tag = state.session.tags.find(tag => (tag.tagId === id));
+        state.selectedTags.push({tagId: id, name: tag.name});
+        console.log(state.selectedTags);
+      },
+
+      [MUTATIONS.SET_INIT_SELECTED_TAGS]: (state) => {
+        state.selectedTags =  [];
+      },
+
+      [MUTATIONS.CLICK_IDEAS]: (state, id) => {
+        const idx = state.candidateIdeas.findIndex(idea => (idea.ideaId === id));
+        // 이미 선택된 아이디어일 경우
+        if (idx > -1) {
+          state.candidateIdeas.splice(idx, 1);
+          return;
+        }
+        // 선택 되지 않은 아이디어라면,
+        const selectedIdea = state.ideaList.find(idea => (idea.ideaId === id));
+        state.candidateIdeas.push({ideaId: id, title: selectedIdea.title});
+      },
+
+    },
 
     actions: {
         [ACTIONS.LOAD_INIT_DATA](context, {sessionNumber}) {
@@ -294,7 +331,12 @@ const store = {
 
         [ACTIONS.FAVORITE_CHANGE](context, id) {
           context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE, id);
-        }
+        },
+
+        [ACTIONS.SEARCH_TAGS](context) {
+          // 서버로 전송
+          // 받아온 리스트 ideaList에 저장
+        },
     }
 };
 

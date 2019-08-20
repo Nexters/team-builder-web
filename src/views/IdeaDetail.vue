@@ -34,11 +34,11 @@
         data() {
             return {
                 tags: [
-                    {id: 1, name: 'GUI', type: TAG_TYPE.DESIGNER},
-                    {id: 1, name: 'UX', type: TAG_TYPE.DESIGNER},
-                    {id: 1, name: '개발자전용', type: TAG_TYPE.DEVELOPER},
-                    {id: 1, name: '서버개발자', type: TAG_TYPE.DEVELOPER},
-                    {id: 1, name: '웹개발자', type: TAG_TYPE.DEVELOPER},
+                    {tagId: 1, name: 'GUI', type: TAG_TYPE.DESIGNER},
+                    {tagId: 1, name: 'UX', type: TAG_TYPE.DESIGNER},
+                    {tagId: 1, name: '개발자전용', type: TAG_TYPE.DEVELOPER},
+                    {tagId: 1, name: '서버개발자', type: TAG_TYPE.DEVELOPER},
+                    {tagId: 1, name: '웹개발자', type: TAG_TYPE.DEVELOPER},
                 ],
 
                 ideaId: this.$route.params.ideaId,
