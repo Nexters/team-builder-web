@@ -43,6 +43,15 @@
 	line-height: normal;
 	letter-spacing: -0.6px;
 	color: #4a4a4a;
+	display: inline;
+}
+
+.cancellation {
+	width: 20px;
+	height: 20px;
+	object-fit: contain;
+	margin-left: 10px;
+	cursor: pointer;
 }
 
 .header-right {

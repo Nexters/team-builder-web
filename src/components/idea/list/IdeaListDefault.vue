@@ -5,28 +5,22 @@
             <div class="Rectangle list" v-for="idea in ideaListResult" :key="idea.orderNumber">
                 <!-- table column의 index, favorite이 0으로 시작 -->
                 <!-- favorite -->
-                <div class="td" style="padding: 26px 12px 25px 22px; width: 58px; height: 74px;">
                     <div class="favorite">
-                        <img v-if="idea['favorite'] === true" @click="clickFavorite(idea.id)" src="../../../assets/img/favourites-filled-star-symbol-copy@2x.png"
+                        <img v-if="idea['favorite'] === true" @click="clickFavorite(idea.ideaId)" src="../../../assets/img/favourites-filled-star-symbol-copy@2x.png"
                              class="favourites-filled-star-symbol-copy">
-                        <img v-if="idea['favorite'] === false" @click="clickFavorite(idea.id)" src="../../../assets/img/favourites-filled-star-symbol@2x.png"
+                        <img v-if="idea['favorite'] === false" @click="clickFavorite(idea.ideaId)" src="../../../assets/img/favourites-filled-star-symbol@2x.png"
                              class="favourites-filled-star-symbol" />
                     </div>
-                </div>
            <!-- order-number -->
-                <div class="td" style="padding: 29px 12px 29px 7px; width: 49px">
                     <div class="order-number">
                         {{ idea['orderNumber'] }}
                     </div>
-                </div>
                 <!-- idea-name-->
-                <div class="td" style="padding: 24px 40px 26px 7px; width: 476px;">
                     <div class="idea-name">
                         {{ idea['title'] }}
                     </div>
-                </div>
                 <!-- tags -->
-                <div class="td" style="padding: 17px 0 17px 33px; width: 368px; position: relative;">
+                <div class="td" style="margin: 17px 0 17px 37px; width: 327px; position: relative;">
                     <div class="tags" v-for="(element, index) in idea['tags']" v-on:mouseover="viewAllTags" v-on:mouseout="closeAllTags" v-if="index < 3">
                         <div class="tag" v-if="element.type === 'DEVELOPER'" style="background-color: #daf4ea;">
                             <div class="tag-name" style="color: #208b84;">
@@ -55,23 +49,17 @@
                     </div>
                 </div>
                 <!-- position -->
-                <div class="td" style="padding: 25px 7px 25px 9px; width: 72px;">
                     <div class="position">
                         {{ positionFormat(idea['author'].position) }}
                     </div>
-                </div>
                 <!-- author -->
-                <div class="td" style="padding: 25px 8px 25px 7px; width: 71px;">
                     <div class="author">
                         {{ idea['author'].name }}
                     </div>
-                </div>
                 <!-- created At -->
-                <div class="td" style="padding: 29px 18px 26px 8px; width: 106px;">
                     <div class="created-at">
                         {{ dateFormat(idea['createdAt']) }}
                     </div>
-                </div>
             </div>
         </div>
 </template>

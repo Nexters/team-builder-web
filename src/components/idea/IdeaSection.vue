@@ -4,26 +4,33 @@
             <div class="card">
                 <div class="card-header">
                     <section class="header-left">
-                        <!--<div v-if="searchTagResult" class="tag-result">-->
-                        <!--태그 ‘IOS 개발자’ 외 4건 검색결과 20건     -->
-                        <!--</div>-->
-                        <!--<div v-else>-->
-                        <div class="list-info">
-                            <div id="view-all" style="display: inline;">전체 아이디어 </div>
-                            <div id="view-star" style="display: none;">즐겨찾기한 아이디어</div>
-                            <div style="display: inline">{{ ideaListLength }}건</div>
+                        <div v-if="showSearchTagResult">
+                            <div class="tag-result">
+                                태그 '{{ getSearchTagName }}' 외 {{ searchTagResult - 1 }}건 검색결과 {{ ideaListLength }}건
+                            </div>
+                            <img src="@/assets/img/cancellation.png" class="cancellation" @click="cancelTagSearch">
                         </div>
-                        |
-                        <div class="theme" style="cursor:pointer"
-                             v-on:click="showFavorite(favorite = !favorite)">
-                            <div id="all" style="display: none;">전체 아이디어 보기</div>
-                            <div id="star" style="display: inline-block">즐겨찾기만 보기</div>
+                        <div v-else-if="!showSearchTagResult">
+                            <div class="list-info">
+                                <div id="view-all" style="display: inline;">전체 아이디어 </div>
+                                <div id="view-star" style="display: none;">즐겨찾기한 아이디어</div>
+                                <div style="display: inline">{{ ideaListLength }}건</div>
+                            </div>
+                            |
+                            <div class="theme" style="cursor:pointer"
+                                 v-on:click="showFavorite(favorite = !favorite)">
+                                <div id="all" style="display: none;">전체 아이디어 보기</div>
+                                <div id="star" style="display: inline-block">즐겨찾기만 보기</div>
+                            </div>
                         </div>
                     </section>
                     <section class="header-right">
                         <div class="search">
                             <button class="Rectangle-Copy" @click="showPopUp = true"><span>태그검색</span></button>
-                            <SelectSearchTag v-if="showPopUp" @close="showPopUp = false"></SelectSearchTag>
+                            <SelectSearchTag v-if="showPopUp"
+                                             @close="showPopUp = false"
+                                             @searchTags="searchTags">
+                            </SelectSearchTag>
                             <!-- TO-DO 검색 이미지 넣기 -->
                             <!-- 검색 기능 -->
                             <input type="search"
@@ -69,7 +76,7 @@
                         <img src="../../assets/img/group-10@2x.png" class="Group-10"
                              v-on:click="sorting('date')" style="cursor:pointer; margin-left: 6px;">
                         <!-- 선정 전에는 안보임 -->
-                        <!--<div class="title" style="width: 48px; margin-left: 42px">선정여부</div>-->
+                        <div class="title" style="width: 48px; margin-left: 48px">선정여부</div>
                     </div>
                     <IdeaListVote></IdeaListVote>
                 </div>
@@ -128,6 +135,8 @@
         viewOrigin: 'view-all',
         viewChange: 'view-star',
         showPopUp: false,
+        showSearchTagResult: false,
+
       }
     },
 
@@ -137,12 +146,14 @@
           this.$store.commit('main/SET_SEARCH_TERM', value);
         },
         get() {
-            return this.$store.state.main.searchTerm;
-          }
+          return this.$store.state.main.searchTerm;
+        }
       },
 
       ...mapGetters({
-        ideaListLength: GETTERS.LIST_LENGTH
+        ideaListLength: GETTERS.LIST_LENGTH,
+        searchTagResult: GETTERS.SEARCH_TAG_LIST_LENGTH,
+        getSearchTagName: GETTERS.GET_SEARCH_TAGS_FIRST_NAME
       }),
 
       // ...mapMutations([
@@ -203,6 +214,17 @@
 
         return star ? this.$store.commit('main/SET_FAVORITE_LIST')
           : this.$store.dispatch('main/SHOW_ORIGIN_LIST')
+      },
+
+      cancelTagSearch() {
+        this.showSearchTagResult = false;
+        return this.$store.commit('main/SAVE_ORIGIN_LIST');
+      },
+
+      searchTags() {
+        this.showSearchTagResult = true;
+        this.showPopUp = false;
+        return this.$store.dispatch('main/SEARCH_TAGS');
       }
     },
   }
