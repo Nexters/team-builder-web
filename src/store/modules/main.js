@@ -117,6 +117,10 @@ const store = {
 
         [GETTERS.GET_SEARCH_TAGS_FIRST_NAME]: (state) => {
           return state.selectedTags.length > 0? state.selectedTags[0].name : "";
+        },
+
+        [GETTERS.GET_NOW_SESSION_NUMBER]: (state) => {
+            return state.session.sessionNumber;
         }
     },
 

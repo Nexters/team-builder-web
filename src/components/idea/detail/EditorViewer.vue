@@ -21,6 +21,9 @@
             return {
                 viewerText: '아이디어 내용이 표시됩니다.',
             }
+        },
+
+        mounted() {
         }
     }
 </script>

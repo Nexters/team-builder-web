@@ -85,7 +85,6 @@
         font-size: 18px;
         letter-spacing: -1.13px;
         font-family: NotoSansCJKkr;
-        display: inline-block;
     }
 
     .disable-wrap {
