@@ -6,19 +6,22 @@
                 <img v-show="isFavorite" @click="toggleFavorite" class="favorite-button-image-on" src="@/assets/img/favourites-filled-star-symbol-copy@2x.png"/>
             </button>
             <span class="idea-detail-header-title">{{idea.title}}</span>
-            <button class="idea-detail-header-modify-button">
+            <button v-if="" class="idea-detail-header-modify-button">
                 <span class="idea-detail-header-modify-button-span">수정하기</span>
             </button>
         </div>
         <div class="idea-detail-header-sub">
-            <span class="idea-detail-header-sub-text">개발자</span>
+            <span class="idea-detail-header-sub-text">{{positionName}}</span>
             <span class="idea-detail-header-sub-text">{{idea.author.name}}</span>
-            <span class="idea-detail-header-sub-text">{{idea.updatedAt}}</span>
+            <span class="idea-detail-header-sub-text">{{updateTime}}</span>
         </div>
     </div>
 </template>
 
 <script>
+    import {ROLL_TYPE} from '@/consts/rollType';
+    import moment from 'moment';
+
     export default {
         name: "IdeaDetailHeader",
         data() {
@@ -33,11 +36,25 @@
             },
         },
 
+        computed: {
+            positionName() {
+                if (this.idea.author.role === ROLL_TYPE.ADMIN) {
+                    return '운영자';
+                }
+                return this.idea.author.position === 'DEVELOPER' ? '개발자' : '디자이너';
+            },
+
+            updateTime() {
+                return moment(this.idea.updatedAt).locale('ko').format('YYYY.MM.DD  a hh:mm').toString();
+            }
+        },
+
         methods: {
             toggleFavorite() {
                 this.isFavorite = !this.isFavorite;
             },
-        }
+        },
+
     }
 </script>
 
@@ -90,6 +107,7 @@
         border-radius: 6px;
         border-style: none;
         background-color: #ff5000;
+        display: none;
     }
 
     .idea-detail-header-modify-button-span {

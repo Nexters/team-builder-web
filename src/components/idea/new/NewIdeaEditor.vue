@@ -22,6 +22,7 @@
                     v-model="editorText"
                     :options="editorOptions"
                     mode="wysiwyg"
+                    height="370px"
             />
         </div>
     </div>

@@ -51,11 +51,11 @@
             }),
 
             movePrevIdeaDetail() {
-                this.$router.push({name: 'IdeaDetail', params: {ideaId: Number(this.ideaId) - 1}});
+                this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${Number(this.ideaId) - 1}`});
             },
 
             moveNextIdeaDetail() {
-                this.$router.push({name: 'IdeaDetail', params: {ideaId: Number(this.ideaId) + 1}});
+                this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${Number(this.ideaId) + 1}`});
             },
 
             moveSession() {
@@ -70,7 +70,7 @@
                     this.tags = this.idea.tags;
                 })
                 .catch(err => console.log(err));
-        }
+        },
     }
 </script>
 
