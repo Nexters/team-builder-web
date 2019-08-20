@@ -2,7 +2,7 @@
 <!-- TO-DO 작성자 검색 기능 구현 -->
 <template>
         <div class="board">
-            <div class="Rectangle list" v-for="idea in ideaListResult" :key="idea.orderNumber">
+            <div class="Rectangle list" v-for="idea in ideaListResult" :key="idea.orderNumber" @click="$emit('goDetail', idea.ideaId)">
                 <!-- table column의 index, favorite이 0으로 시작 -->
                 <!-- favorite -->
                     <div class="favorite">

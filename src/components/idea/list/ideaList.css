@@ -10,6 +10,7 @@
 	border: solid 1px #eeeeee;
 	background-color: #ffffff;
 	display: flex;
+	cursor: pointer;
 }
 
 .favorite {

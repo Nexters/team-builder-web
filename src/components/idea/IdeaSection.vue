@@ -78,11 +78,11 @@
                         <!-- 선정 전에는 안보임 -->
                         <div class="title" style="width: 48px; margin-left: 48px">선정여부</div>
                     </div>
-                    <IdeaListVote></IdeaListVote>
+                    <IdeaListVote @goDetail="goDetail"></IdeaListVote>
                 </div>
 
                 <div class="card-body">
-                    <div class=" default titles">
+                    <div class="default titles">
                         <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
                         <div class="title" style="width: 48px; height: 18px; line-height: 1.29;
                         margin-left: 10px; margin-bottom: 1px">즐겨찾기</div>
@@ -101,7 +101,7 @@
                         <img src="../../assets/img/group-10@2x.png" class="Group-10"
                              v-on:click="sorting('date')" style="cursor:pointer; margin-left: 6px;">
                     </div>
-                    <IdeaList></IdeaList>
+                    <IdeaList @goDetail="goDetail"></IdeaList>
                 </div>
             </div>
         </div>
@@ -225,7 +225,14 @@
         this.showSearchTagResult = true;
         this.showPopUp = false;
         return this.$store.dispatch('main/SEARCH_TAGS');
-      }
+      },
+
+      goDetail(id) {
+        console.log(id);
+        this.$router.push({
+          path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${id}`
+        });
+      },
     },
   }
 </script>
