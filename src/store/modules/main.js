@@ -1,5 +1,7 @@
 import {ACTIONS, GETTERS, MUTATIONS} from '@/store/types';
 import {getSession} from '@/api/sessionApi';
+import {createNewIdea, getIdea} from '@/api/ideaApi';
+import id from 'bootstrap-vue/esm/mixins/id';
 
 // 가독성을 위해 데이터 폼 표시
 const store = {
@@ -117,6 +119,10 @@ const store = {
 
         [GETTERS.GET_SEARCH_TAGS_FIRST_NAME]: (state) => {
           return state.selectedTags.length > 0? state.selectedTags[0].name : "";
+        },
+
+        [GETTERS.GET_NOW_SESSION_NUMBER]: (state) => {
+            return state.session.sessionNumber;
         }
     },
 
@@ -337,6 +343,22 @@ const store = {
           // 서버로 전송
           // 받아온 리스트 ideaList에 저장
         },
+
+        /**
+         * 아이디어/공지사항 작성
+         * @param context
+         * @param newIdea
+         */
+        [ACTIONS.CREATE_NEW_IEDA](context, newIdea) {
+            return createNewIdea(newIdea);
+        },
+
+        /**
+         * 아이디어 상세 조회
+         */
+        [ACTIONS.GET_IDEA](context, ideaId) {
+            return getIdea(ideaId);
+        }
     }
 };
 

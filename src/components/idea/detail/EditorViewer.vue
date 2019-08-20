@@ -17,10 +17,19 @@
         components: {
             'viewer': Viewer
         },
+        props: {
+            viewerText: {
+                type: String,
+                required: true
+            },
+        },
         data() {
             return {
-                viewerText: '아이디어 내용이 표시됩니다.',
+
             }
+        },
+
+        mounted() {
         }
     }
 </script>
