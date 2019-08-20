@@ -3,9 +3,12 @@
         <div style="display: flex">
             <div class="new-idea-title-wrap">
                 <input class="new-idea-title-contents"
-                       v-model="newIdeaTitle"
+                       v-model.trim="newIdeaTitle"
                        placeholder="아이디어를 한문장으로 요약해주세요."
                        ref="newIdeaTitle"
+                       maxlength="35"
+                       @keyup="keyupNewIdeaTitle"
+                       :class="typingTitleClass"
                 />
                 <div class="new-idea-title-border-line"></div>
             </div>
@@ -50,6 +53,7 @@
                 newIdeaTitle: '',
                 editorText: '',
                 editorOptions: defaultOptions,
+                typingTitleClass: '',
             }
         },
 
@@ -73,6 +77,25 @@
                 })
                 .catch(err => console.log(err));
             },
+
+            keyupNewIdeaTitle(event) {
+                const text = event.currentTarget.value;
+                if (text.length > 0) {
+                    this.typingTitleClass = 'on-typing-title';
+                } else {
+                    this.typingTitleClass = '';
+                }
+            },
+
+            // TODO: 제목 입력값 제한 (영문 및 한글 byte 고려)
+            // count(message) {
+            //     let totalByte = 0;
+            //     for (let index = 0, length = message.length; index < length; index++) {
+            //         let currentByte = message.charCodeAt(index);
+            //         (currentByte > 128) ? totalByte += 2 : totalByte++;
+            //     }
+            //     return totalByte;
+            // }
         },
 
         created() {
@@ -99,13 +122,22 @@
     }
 
     .new-idea-title-contents {
-        width: 444px;
+        width: 900px;
         height: 45px;
+        font-family: NotoSansCJKkr;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
         margin: 9px auto 10px 0px;
         font-size: 30px;
         font-weight: 300;
         letter-spacing: -1px;
         color: #9b9b9b;
+    }
+
+    .on-typing-title {
+        font-weight: normal;
+        color: #000000;
     }
 
     .new-idea-title-border-line {

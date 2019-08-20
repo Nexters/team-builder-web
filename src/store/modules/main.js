@@ -1,6 +1,7 @@
 import {ACTIONS, GETTERS, MUTATIONS} from '@/store/types';
 import {getSession} from '@/api/sessionApi';
-import {createNewIdea} from '@/api/ideaApi';
+import {createNewIdea, getIdea} from '@/api/ideaApi';
+import id from 'bootstrap-vue/esm/mixins/id';
 
 // 가독성을 위해 데이터 폼 표시
 const store = {
@@ -343,9 +344,21 @@ const store = {
           // 받아온 리스트 ideaList에 저장
         },
 
+        /**
+         * 아이디어/공지사항 작성
+         * @param context
+         * @param newIdea
+         */
         [ACTIONS.CREATE_NEW_IEDA](context, newIdea) {
             return createNewIdea(newIdea);
         },
+
+        /**
+         * 아이디어 상세 조회
+         */
+        [ACTIONS.GET_IDEA](context, ideaId) {
+            return getIdea(ideaId);
+        }
     }
 };
 

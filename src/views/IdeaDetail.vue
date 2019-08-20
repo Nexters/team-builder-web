@@ -5,13 +5,13 @@
                 <button class="prev-button" @click="movePrevIdeaDetail"><img class="prev-button-image" src="@/assets/img/prev_button_icon.png"/></button>
 
                 <div class="idea-detail-wrap">
-                    <IdeaDetailHeader></IdeaDetailHeader>
-                    <EditorViewer></EditorViewer>
+                    <IdeaDetailHeader :idea="idea"></IdeaDetailHeader>
+                    <EditorViewer :viewerText="idea.content"></EditorViewer>
                     <div class="tag-group-container">
                         <div class="tag-group-message">저는 이런 팀원이 필요해요</div>
                         <TagGroup :tags="tags"></TagGroup>
                     </div>
-                    <button class="idea-detail-move-list-button">
+                    <button class="idea-detail-move-list-button" @click="moveSession">
                         <span class="idea-detail-move-list-button-span">목록으로</span>
                     </button>
                 </div>
@@ -25,34 +25,51 @@
 <script>
     import Layout from '@/components/common/layout/Layout';
     import TagGroup from '@/components/common/tag/TagGroup';
-    import {TAG_TYPE} from '@/consts/Tag';
     import EditorViewer from '@/components/idea/detail/EditorViewer';
     import IdeaDetailHeader from '@/components/idea/detail/IdeaDetailHeader';
+    import { ACTIONS } from '@/store/types';
+    import {createNamespacedHelpers} from 'vuex';
+    const { mapActions } = createNamespacedHelpers('main');
+
     export default {
         name: "IdeaDetail",
         components: {IdeaDetailHeader, EditorViewer, TagGroup, Layout},
         data() {
             return {
-                tags: [
-                    {tagId: 1, name: 'GUI', type: TAG_TYPE.DESIGNER},
-                    {tagId: 1, name: 'UX', type: TAG_TYPE.DESIGNER},
-                    {tagId: 1, name: '개발자전용', type: TAG_TYPE.DEVELOPER},
-                    {tagId: 1, name: '서버개발자', type: TAG_TYPE.DEVELOPER},
-                    {tagId: 1, name: '웹개발자', type: TAG_TYPE.DEVELOPER},
-                ],
-
+                tags: [],
                 ideaId: this.$route.params.ideaId,
+                idea: {}
             }
         },
 
+        computed: {
+        },
+
         methods: {
+            ...mapActions({
+                getIdea: ACTIONS.GET_IDEA,
+            }),
+
             movePrevIdeaDetail() {
                 this.$router.push({name: 'IdeaDetail', params: {ideaId: Number(this.ideaId) - 1}});
             },
 
             moveNextIdeaDetail() {
                 this.$router.push({name: 'IdeaDetail', params: {ideaId: Number(this.ideaId) + 1}});
+            },
+
+            moveSession() {
+                this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}`});
             }
+        },
+
+        created() {
+            this.getIdea(this.ideaId)
+                .then(res => {
+                    this.idea = res.data;
+                    this.tags = this.idea.tags;
+                })
+                .catch(err => console.log(err));
         }
     }
 </script>
