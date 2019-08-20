@@ -2,8 +2,8 @@
     <Layout>
         <template v-slot:body>
             <div class="new-idea-wrap">
-                <NewIdeaHeader style="margin-top: 66px;"></NewIdeaHeader>
-                <Editor style="margin-top: 48px;"></Editor>
+                <NewIdeaEditor style="margin-top: 66px;"></NewIdeaEditor>
+
                 <div class="tag-group-container">
                     <div class="tag-group-message">저는 이런 팀원이 필요해요</div>
                     <div class="tag-group-message-hint">함께 일하고 싶은 팀원의 포지션을 선택해주세요. 최대 5개 까지의 태그를 선택할 수 있어요.</div>
@@ -17,12 +17,10 @@
 <script>
     import Layout from '@/components/common/layout/Layout';
     import TagGroup from '@/components/common/tag/TagGroup';
-    import Editor from '@/components/idea/new/Editor';
-    import NewIdeaHeader from '@/components/idea/new/NewIdeaHeader';
-    import {TAG_TYPE} from '@/consts/Tag';
+    import NewIdeaEditor from '@/components/idea/new/NewIdeaEditor';
     export default {
         name: "NewIdea",
-        components: {Layout, NewIdeaHeader, Editor, TagGroup},
+        components: {Layout, NewIdeaEditor, TagGroup},
         data() {
             return {
             }

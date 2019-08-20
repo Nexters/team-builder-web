@@ -28,7 +28,7 @@
         components: {SessionInfoDDay},
         methods: {
             moveNewIdea() {
-                this.$router.push({name: 'NewIdea'});
+                this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/new`});
             }
         }
     }
@@ -54,6 +54,7 @@
         width: 100%;
         height: 118px;
         font-family: NotoSansCJKkr;
+        line-height: normal;
         font-size: 40px;
         font-weight: 300;
         letter-spacing: -3px;
