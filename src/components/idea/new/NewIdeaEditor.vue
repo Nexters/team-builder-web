@@ -30,6 +30,10 @@
     import 'codemirror/lib/codemirror.css';
     import { Editor } from '@toast-ui/vue-editor';
 
+    import { ACTIONS } from '@/store/types';
+    import {createNamespacedHelpers} from 'vuex';
+    const { mapActions } = createNamespacedHelpers('main');
+
     const defaultOptions = {
         minHeight: '400px',
         language: 'ko_kr',
@@ -50,11 +54,25 @@
         },
 
         methods: {
-            onClickWriteFinish() {
-                console.log(this.newIdeaTitle);
-                console.log(this.editorText);
-            },
+            ...mapActions({
+                createNewIdea: ACTIONS.CREATE_NEW_IEDA,
+            }),
 
+            onClickWriteFinish() {
+                this.createNewIdea({
+                    content: this.editorText,
+                    // file: '',
+                    sessionId: this.$store.state.main.session.sessionId,
+                    tags: [],
+                    title: this.newIdeaTitle,
+                    type: this.$store.getters.isAdmin ? '' : 'IDEA',
+                })
+                .then(res => {
+                    const ideaId = res.data.ideaId;
+                    this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${ideaId}`});
+                })
+                .catch(err => console.log(err));
+            },
         },
 
         created() {

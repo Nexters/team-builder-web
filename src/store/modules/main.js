@@ -1,5 +1,6 @@
 import {ACTIONS, GETTERS, MUTATIONS} from '@/store/types';
 import {getSession} from '@/api/sessionApi';
+import {createNewIdea} from '@/api/ideaApi';
 
 // 가독성을 위해 데이터 폼 표시
 const store = {
@@ -340,6 +341,10 @@ const store = {
         [ACTIONS.SEARCH_TAGS](context) {
           // 서버로 전송
           // 받아온 리스트 ideaList에 저장
+        },
+
+        [ACTIONS.CREATE_NEW_IEDA](context, newIdea) {
+            return createNewIdea(newIdea);
         },
     }
 };
