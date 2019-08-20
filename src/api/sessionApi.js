@@ -1,5 +1,5 @@
 import api from './index';
-import {TAG_TYPE} from "@/consts/TagType";
+import {TAG_TYPE} from "@/consts/Tag";
 
 export function getSession({sessionNumber}) {
 
