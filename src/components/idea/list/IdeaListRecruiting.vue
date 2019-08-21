@@ -1,17 +1,17 @@
 <template>
     <div class="board">
-        <div v-for="idea in ideaListResult" :key="idea.orderNumber" @click="$emit('goDetail', idea.ideaId)">
+        <div v-for="idea in ideaListResult" :key="idea.orderNumber">
             <!-- NOTICE -->
             <div v-if="idea['type'] === 'NOTICE'" class="Rectangle list" style="border: solid 1.5px #dbdbdb;">
                 <!-- idea type -->
-                    <img src="@/assets/img/NOTICE.png"
-                         class="notice" />
+                <img src="@/assets/img/NOTICE.png"
+                     class="notice" />
                 <!-- order-number -->
                 <div class="order-number">
                     -
                 </div>
                 <!-- idea-name-->
-                <div class="idea-name">
+                <div class="idea-name" @click="$emit('goDetail', idea.ideaId)">
                     {{ idea['title'] }}
                 </div>
                 <!-- tags -->
@@ -27,7 +27,7 @@
                 </div>
                 <!-- created At -->
                 <div class="created-at">
-                    {{ dateFormat(idea['createdAt']) }}
+                    {{ idea['createdAt'] | formatDate }}
                 </div>
             </div>
 
@@ -47,7 +47,7 @@
                     {{ idea['orderNumber'] }}
                 </div>
                 <!-- idea-name-->
-                <div class="idea-name">
+                <div class="idea-name" @click="$emit('goDetail', idea.ideaId)">
                     {{ idea['title'] }}
                 </div>
                 <!-- tags -->
@@ -90,7 +90,7 @@
                 </div>
                 <!-- created At -->
                 <div class="created-at">
-                    {{ dateFormat(idea['createdAt']) }}
+                    {{ idea['createdAt'] | formatDate }}
                 </div>
             </div>
         </div>
@@ -98,6 +98,9 @@
 </template>
 
 <script>
+  import Vue from 'vue';
+  import moment from 'moment';
+
   import {ACTIONS, GETTERS} from "@/store/types";
   import {createNamespacedHelpers} from 'vuex';
   const {mapActions, mapGetters, mapState} = createNamespacedHelpers('main');
@@ -121,12 +124,6 @@
         if (popUp.className) {
           popUp.style.display = 'none';
         }
-      },
-
-      dateFormat(date) {
-        const parsingStr = date.split('T')[0];
-        const returnDate = parsingStr.split('-');
-        return returnDate[0] + '. ' + returnDate[1] + '. ' + returnDate[2]
       },
 
       clickFavorite(id, star) {
@@ -159,6 +156,12 @@
       })
     }
   };
+
+  Vue.filter('formatDate', function (value) {
+    if (value) {
+      return moment(value).format('YYYY.MM.DD')
+    }
+  })
 </script>
 
 <style src="./IdeaListRecruiting.css" scoped>

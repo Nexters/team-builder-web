@@ -5,8 +5,8 @@
         </template>
         <div class="border-line"></div>
         <template v-slot:body>
-            <!--<IdeaSection></IdeaSection>-->
-            <AdminIdeaListHeader></AdminIdeaListHeader>
+            <idea-section></idea-section>
+            <!--<admin-idea-list-section></admin-idea-list-section>-->
         </template>
     </Layout>
 </template>
@@ -15,11 +15,11 @@
     import Layout from '@/components/common/layout/Layout';
     import SessionInfo from '@/components/common/sessionInfo/SessionInfo';
     import IdeaSection from '@/components/idea/IdeaSection';
-    import AdminIdeaListHeader from "@/components/idea/admin/AdminIdeaListSection";
+    import AdminIdeaListSection from "@/components/idea/admin/AdminIdeaListSection";
 
     export default {
         name: "Main",
-        components: {AdminIdeaListHeader, IdeaSection, SessionInfo, Layout},
+        components: {AdminIdeaListSection, IdeaSection, SessionInfo, Layout},
         computed: {
             isAdmin() {
                 return this.$store.getters.isAdmin;

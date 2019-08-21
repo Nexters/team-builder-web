@@ -53,9 +53,13 @@
                         margin-left: 14px; margin-bottom: 1px;">번호</div>
                         <div class="title" style="width: 62px; margin-left: 18px">아이디어 명</div>
                         <div class="title" style="width: 24px; margin-left: 447px">태그</div>
-                        <!-- 클릭 시 안내 창-->
-                        <img src="../../assets/img/ico-table-tag@2x.png" class="ico_table_tag"
-                             style="cursor:pointer; margin-left: 6px;" />
+                        <el-popover
+                                placement="bottom"
+                                width="400"
+                                trigger="hover"
+                                content='태그 영역위에 마우스를 올리면 전체태그를 볼 수 있어요. 개발자태그는 그린박스, 디자이너태그는 옐로우박스예요.'>
+                            <img class="ico_table_tag" slot="reference" :src="require('../../assets/img/ico-table-tag@2x.png')">
+                        </el-popover>
                         <div class="title" style="width: 24px; margin-left: 291px">직군</div>
                         <img src="../../assets/img/group-10@2x.png" class="Group-10"
                              v-on:click="sorting('position')" style="cursor:pointer; margin-left: 6px;">
@@ -76,9 +80,13 @@
                         margin-left: 14px; margin-bottom: 1px;">번호</div>
                         <div class="title" style="width: 62px; margin-left: 18px">아이디어 명</div>
                         <div class="title" style="width: 24px; margin-left: 397px">태그</div>
-                        <!-- 클릭 시 안내 창-->
-                        <img src="../../assets/img/ico-table-tag@2x.png" class="ico_table_tag"
-                             style="cursor:pointer; margin-left: 6px;" />
+                        <el-popover
+                                placement="bottom"
+                                width="400"
+                                trigger="hover"
+                                content='태그 영역위에 마우스를 올리면 전체태그를 볼 수 있어요. 개발자태그는 그린박스, 디자이너태그는 옐로우박스예요.'>
+                            <img class="ico_table_tag" slot="reference" :src="require('../../assets/img/ico-table-tag@2x.png')">
+                        </el-popover>
                         <div class="title" style="width: 24px; margin-left: 291px">직군</div>
                         <img src="../../assets/img/group-10@2x.png" class="Group-10"
                              v-on:click="sorting('position')" style="cursor:pointer; margin-left: 6px;">
