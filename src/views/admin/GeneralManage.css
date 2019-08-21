@@ -14,6 +14,7 @@ p {
     line-height: normal;
     letter-spacing: -3px;
     color: #000000;
+    text-align: left;
 }
 
 .header-sub {
