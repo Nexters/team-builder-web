@@ -31,11 +31,9 @@
                     <b-form-group>
                     <div class="titles">
                         <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
-                        <div class="title" style="width: 46px; padding-left: 26px">
+                        <div class="title" style="width: 46px; padding-left: 28px">
                             <div class="custom-checkbox">
-                                <!--<b-form-checkbox v-model="allSelected" @change="togleAll"-->
-                                <!--style="width: 20px; border-radius: 3px; border: solid 1px #9b9b9b;-->
-                                <!--background-color: #ffffff;"/>-->
+                                <b-form-checkbox v-model="allSelected" @change="toggleAll"/>
                             </div>
                         </div>
                         <div class="title" style="width: 62px; margin-left: 26px">아이디어 명</div>
@@ -47,7 +45,7 @@
                              v-on:click="sorting" style="cursor:pointer; margin-left: 6px;">
                         <div class="title" style="width: 48px; margin-left: 20px">선정여부</div>
                     </div>
-                    <admin-idea-list @goDetail="goDetail"></admin-idea-list>
+                    <admin-idea-list @goDetail="goDetail" :allSelected.sync="allSelected"></admin-idea-list>
                     </b-form-group>
                 </div>
 
@@ -68,6 +66,7 @@
 </template>
 
 <script>
+  import {bus} from '@/main';
   import {ACTIONS, GETTERS, MUTATIONS} from "@/store/types";
   import {createNamespacedHelpers} from 'vuex';
   const {mapMutations, mapGetters, mapState, mapActions} = createNamespacedHelpers('main');
@@ -85,9 +84,7 @@
     data() {
       return {
         sortVoteNumberDESC: false,
-        selected: [],
         allSelected: false,
-
       }
     },
 
@@ -103,6 +100,7 @@
 
       ...mapGetters({
         ideaListLength: GETTERS.LIST_LENGTH,
+        ideaListResult: GETTERS.GET_LIST,
       }),
 
       ...mapState({
@@ -142,15 +140,7 @@
       },
 
       toggleAll(checked) {
-        let selected = [];
-        if (checked) {
-          this.ideaListResult.forEach(function (idea) {
-            if(idea.type !== 'NOTICE') {
-              return idea.ideaId;
-            }
-          })
-        }
-        this.selected = selected;
+        bus.$emit('toggleAll', checked);
       },
 
       goDetail(id) {
@@ -159,8 +149,11 @@
           path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${id}`
         });
       },
-
     },
+
+    created() {
+      this.$on('allSelected', this.allSelected);
+    }
   }
 </script>
 

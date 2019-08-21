@@ -77,6 +77,7 @@
                                             <b-form-checkbox
                                                     :value="user.id"
                                                     v-model="selected"
+                                                    @change="toggle"
                                                     stacked
                                             />
                                         </div>
@@ -153,6 +154,17 @@
                     });
                 }
                 this.selected = selected;
+            },
+            toggle(checked) {
+                if (checked) {
+                    if (this.users.length === this.selected.length + 1){
+                        this.allSelected = true;
+                        this.toggleAll(true)
+                    }
+                }
+                else {
+                    this.allSelected = false;
+                }
             },
             sorting(by) {
                 let isAsc = true;
