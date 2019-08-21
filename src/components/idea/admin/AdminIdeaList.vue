@@ -36,7 +36,8 @@
                     <div class="custom-checkbox">
                         <b-form-checkbox
                                 :value="idea.ideaId"
-                                v-model="checked"
+                                v-model="selected"
+                                @change="toggle"
                                 stacked
                         />
                     </div>
@@ -70,16 +71,17 @@
 </template>
 
 <script>
+  import {bus} from '@/main';
   import {ACTIONS, GETTERS} from "@/store/types";
   import {createNamespacedHelpers} from 'vuex';
   const {mapActions, mapGetters, mapState} = createNamespacedHelpers('main');
 
   export default {
     name: "AdminIdeaList",
+    props: ['allSelected'],
 
     data() {
       return {
-        allSelected: false,
         selected: [],
       }
     },
@@ -110,6 +112,30 @@
       //   return this.$store.state.main.candidateIdeas.findIndex(idea => (idea.ideaId === id)) <= -1;
       // },
 
+      toggle(checked) {
+        if (checked) {
+          if (this.ideaListResult.length === this.selected.length + 1){
+            this.$emit('update:allSelected', true);
+          }
+        }
+        else {
+          this.$emit('update:allSelected', false);
+        }
+      },
+    },
+
+    mounted() {
+      bus.$on('toggleAll', (checked) => {
+        let selected = [];
+        if (checked) {
+          this.ideaListResult.forEach(function (idea) {
+            if(idea.type !== 'NOTICE') {
+              selected.push(idea.ideaId);
+            }
+         })
+        }
+        this.selected = selected;
+      })
     },
 
     computed:  {
