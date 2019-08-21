@@ -9,7 +9,7 @@
                     </div>
                     <div class="ml-auto">
                         <button class="btn-apply" @click="infoChange()">
-                            적용하기
+                            수정하기
                         </button>
                     </div>
                 </div>
@@ -53,6 +53,7 @@
 
 <script>
     import Layout from '@/components/common/layout/Layout';
+    import {login} from "../../api/LoginAPI"
 
     export default {
         name: 'Info',
@@ -64,8 +65,16 @@
         },
         methods: {
             infoChange() {
-                // TO-DO
-                // Need to password check logic
+                login(this.$store.getters.getId, this.password)
+                    .then(res => {
+                        let token = res.data.data.accessToken;
+                        this.goToPages(token)
+                    })
+                    .catch(err => {
+                        alert('비밀번호를 확인해주세요!');
+                    });
+            },
+            goToPages(token) {
                 this.$router.push({
                     path: '/infoChange'
                 })
