@@ -1,5 +1,6 @@
 import store from '../store/index';
 import {put} from "./testAPI"
+import {ALL_USER_URL} from "../consts/userType";
 
 export function updateUserInfo(newPassword, nowPassword, position) {
     if (!newPassword || !nowPassword || !position) {
@@ -19,5 +20,5 @@ export function updateUserInfo(newPassword, nowPassword, position) {
         }
     };
 
-    return put('/apis/users', params, header);
+    return put(ALL_USER_URL, params, header);
 }
