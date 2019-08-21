@@ -1,13 +1,11 @@
-<!-- TO-DO column별로 정렬 기능 구현 -->
-<!-- TO-DO 작성자 검색 기능 구현 -->
 <template>
     <div class="board">
-        <div v-for="idea in ideaListResult" :key="idea.orderNumber" @click="$emit('goDetail', idea.ideaId)">
+        <div v-for="idea in ideaListResult" :key="idea.orderNumber"  @click="$emit('goDetail', idea.ideaId)">
             <!-- NOTICE -->
             <div v-if="idea['type'] === 'NOTICE'" class="Rectangle list" style="border: solid 1.5px #dbdbdb;">
                 <!-- idea type -->
-                    <img src="@/assets/img/NOTICE.png"
-                         class="notice" />
+                <img src="@/assets/img/NOTICE.png"
+                     class="notice" />
                 <!-- order-number -->
                 <div class="order-number">
                     -
@@ -39,7 +37,7 @@
                 <div class="favorite">
                     <img v-show="idea['favorite'] === true" @click="clickFavorite(idea.ideaId)"
                          src="@/assets/img/favourites-filled-star-symbol-copy@2x.png"
-                         class="favourites-filled-star-symbol-copy">
+                         class="favourites-filled-star-symbol-copy" />
                     <img v-show="idea['favorite'] === false" @click="clickFavorite(idea.ideaId)"
                          src="@/assets/img/favourites-filled-star-symbol@2x.png"
                          class="favourites-filled-star-symbol" />
@@ -53,7 +51,7 @@
                     {{ idea['title'] }}
                 </div>
                 <!-- tags -->
-                <div class="td" style="margin: 17px 0 17px 37px; width: 327px; position: relative;">
+                <div class="td" style="margin: 17px 0 17px 12px; width: 327px; height: 40px; position: relative;">
                     <div class="tags" v-for="(element, index) in idea['tags']" v-if="index < 3"
                          v-on:mouseover="viewAllTags" v-on:mouseout="closeAllTags">
                         <div class="tag" v-if="element.type === 'DEVELOPER'" style="background-color: #daf4ea;">
@@ -94,6 +92,18 @@
                 <div class="created-at">
                     {{ dateFormat(idea['createdAt']) }}
                 </div>
+                <!-- 투표 이미지 -->
+                <div v-show="nowPeriodType === 'IDEA_VOTE'" class="idea-button">
+                    <img src="../../../assets/img/group@2x.png"
+                         v-show="inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
+                    <img src="../../../assets/img/idea-minus.png"
+                         v-show="!inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
+                </div>
+                <!-- 선정 이미지 -->
+                <div v-show="nowPeriodType === 'IDEA_CHECK'" class="selection">
+                    <img src="@/assets/img/selection.png" v-show="idea['selected']">
+                    <img src="@/assets/img/non-selection.png" v-show="!idea['selected']">
+                </div>
             </div>
         </div>
     </div>
@@ -105,22 +115,19 @@
   const {mapActions, mapGetters, mapState} = createNamespacedHelpers('main');
 
   export default {
-    name: "IdeaList",
-    model: {
-      event: "change"
-    },
+    name: "IdeaListVoteAndCheck",
 
     methods: {
       viewAllTags(event) {
         const popUp = event.target.closest('.td').lastChild;
-        if (popUp.className) {
+        if(popUp.className) {
           popUp.style.display = 'flex';
         }
       },
 
       closeAllTags(event) {
         const popUp = event.target.closest('.td').lastChild;
-        if (popUp.className) {
+        if(popUp.className) {
           popUp.style.display = 'none';
         }
       },
@@ -136,11 +143,20 @@
       },
 
       positionFormat(position) {
-        if (position === 'DEVELOPER') {
+        if(position === 'DEVELOPER') {
           return '개발자';
         }
         return '디자이너';
       },
+
+      clickIdea(id) {
+        return this.$store.commit('main/CLICK_IDEAS', id);
+      },
+
+      inSelectedIdeas(id) {
+        return this.$store.state.main.candidateIdeas.findIndex(idea => (idea.ideaId === id)) <= -1;
+      },
+
     },
 
     computed:  {
@@ -150,11 +166,13 @@
 
       ...mapGetters({
         ideaListResult: GETTERS.GET_LIST,
-      })
+        nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
+
+      }),
     }
-  };
+  }
 </script>
 
-<style src="./ideaList.css" scoped>
+<style src="./IdeaListVoteAndCheck.css" scoped>
 
 </style>

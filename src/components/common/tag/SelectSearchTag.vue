@@ -1,11 +1,8 @@
 <template>
-    <!--<Layout>-->
-    <!--<template v-slot:body>-->
     <transition name="modal">
         <div class="mask">
             <div class="container">
                 <div class="Rectangle">
-                    <!--onclick-->
                     <div class="x-img" v-on:click="$emit('close')">
                         <img src="../../../assets/img/group-4@2x.png" class="Group-4">
                     </div>
@@ -14,28 +11,22 @@
                         <TagGroup :tags="allTags"></TagGroup>
                     </div>
                     <button class="search" @click="$emit('searchTags')"><span>검색하기</span></button>
-                    <!--onclick-->
                     <div class="selection-initialization" @click="initSelect">선택초기화</div>
                 </div>
             </div>
         </div>
     </transition>
-
-    <!--</template>-->
-    <!--</Layout>-->
 </template>
 
 <script>
   import TagGroup from "@/components/common/tag/TagGroup";
-  import Layout from "@/components/common/layout/Layout";
-  import {TAG_TYPE} from '@/consts/Tag';
   import {ACTIONS, GETTERS, MUTATIONS} from "@/store/types";
   import {createNamespacedHelpers} from 'vuex';
   const {mapMutations, mapGetters, mapState, mapActions} = createNamespacedHelpers('main');
 
   export default {
     name: "SelectSearchTag",
-    components: {Layout, TagGroup},
+    components: {TagGroup},
     data() {
       return {
         // allTags: [

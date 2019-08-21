@@ -27,7 +27,7 @@
                     </section>
                 </div>
 
-                <div class="card-body" v-show="teamBuildingMode">
+                <div class="card-body" v-show="!teamBuildingMode">
                     <b-form-group>
                     <div class="titles">
                         <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
@@ -47,11 +47,11 @@
                              v-on:click="sorting" style="cursor:pointer; margin-left: 6px;">
                         <div class="title" style="width: 48px; margin-left: 20px">선정여부</div>
                     </div>
-                    <AdminIdeaList></AdminIdeaList>
+                    <admin-idea-list @goDetail="goDetail"></admin-idea-list>
                     </b-form-group>
                 </div>
 
-                <div class="card-body" v-show="!teamBuildingMode">
+                <div class="card-body" v-show="teamBuildingMode">
                     <div class="titles">
                         <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
                         <div class="title" style="width: 62px; margin-left: 20px">아이디어 명</div>
@@ -60,7 +60,7 @@
                         <div class="title" style="width: 24px; margin-left: 30px">날짜</div>
                         <div class="title" style="width: 48px; margin-left: 66px">파일첨부</div>
                     </div>
-                    <team-building-list-default></team-building-list-default>
+                    <team-building-list-default @goDetail="goDetail"></team-building-list-default>
                 </div>
             </div>
         </div>
@@ -152,6 +152,14 @@
         }
         this.selected = selected;
       },
+
+      goDetail(id) {
+        console.log(id);
+        this.$router.push({
+          path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${id}`
+        });
+      },
+
     },
   }
 </script>

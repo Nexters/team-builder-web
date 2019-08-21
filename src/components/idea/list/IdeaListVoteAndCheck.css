@@ -14,11 +14,10 @@
 }
 
 .favorite {
+	margin: 26px 16px 25px 22px;
 	width: 24px;
 	height: 23px;
-	object-fit: contain;
 	cursor: pointer;
-	margin: 26px 12px 25px 22px;
 }
 
 .favourites-filled-star-symbol, .favourites-filled-star-symbol-copy {
@@ -27,15 +26,9 @@
 	object-fit: contain;
 }
 
-.notice {
-	width: 42px;
-	height: 29px;
-	object-fit: contain;
-
-	margin: 22.5px 1px 22.5px 15px;
-}
-
 .order-number {
+	display: inline-block;
+	margin: 29px 7px 29px 7px;
 	width: 30px;
 	height: 16px;
 	font-family: Roboto;
@@ -47,8 +40,6 @@
 	letter-spacing: -0.88px;
 	text-align: center;
 	color: #9b9b9b;
-	margin: 29px 7px 29px 12px;
-	display: inline-block;
 }
 
 .idea-name {
@@ -56,7 +47,7 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 
-	margin: 26px 40px 24px 7px;
+	margin: 26px 15px 24px 7px;
 
 	width: 429px;
 	height: 24px;
@@ -81,6 +72,7 @@
 	border: 0;
 	display: inline-block;
 	cursor: pointer;
+	clear: both;
 }
 
 .tag {
@@ -89,6 +81,8 @@
 	vertical-align: center;
 	padding: 8px 15px;
 	width: 100%;
+	flex: 1 1 auto;
+	clear: both;
 }
 
 .tag-name {
@@ -105,16 +99,17 @@
 }
 
 .tag-popUp {
-	width: auto;
 	height: 74px;
 	border-radius: 6px;
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.09);
 	background-color: #ffffff;
-	display: inline-block;
+	display: flex;
 	padding: 17px 10px;
-	/*object-fit: contain;*/
-	/*overflow: hidden;*/
-	float: right;
+	right: 10px;
+	top: 65px;
+	position: absolute;
+	clear: both;
+	z-index: 2;
 }
 
 .position {
@@ -129,7 +124,8 @@
 	letter-spacing: -1px;
 	text-align: left;
 	color: #1c1c1c;
-	margin: 25px 5px 25px 11px;
+
+	margin: 25px 5px 25px 13px;
 }
 
 .author {
@@ -144,7 +140,7 @@
 	letter-spacing: -1px;
 	text-align: left;
 	color: #1c1c1c;
-	margin: 25px 5px 25px 10px;
+	margin: 25px 5px 25px 7px;
 }
 
 .created-at {
@@ -158,7 +154,21 @@
 	line-height: normal;
 	letter-spacing: -1px;
 	color: #1c1c1c;
-	margin: 27px 18px 28px 10px;
+	margin: 27px 10px 28px 5px;
 }
 
+.idea-button > img {
+	width: 30px;
+	height: 30px;
+	object-fit: contain;
+	margin: 22px 22px 22px 13px;
+	cursor: pointer;
+}
 
+.selection > img {
+	width: 45px;
+	height: 29px;
+	object-fit: contain;
+
+	margin: 23px 13px 22px 6px;
+}

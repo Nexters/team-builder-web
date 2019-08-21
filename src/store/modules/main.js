@@ -44,6 +44,14 @@ const store = {
                     createdAt:'',
                     updatedAt:''
                 }
+            ],
+            periods: [
+              {
+                periodType: '',
+                now: true,
+                endDate: '',
+                startDate: '',
+              },
             ]
         },
         // search : {
@@ -96,34 +104,41 @@ const store = {
     },
 
     getters: {
-        [GETTERS.GET_LIST]: state => {
-            return state.ideaList;
-        },
+      [GETTERS.GET_LIST]: state => {
+        return state.ideaList;
+      },
 
-        [GETTERS.LIST_LENGTH]: (state, getters) => {
-          return getters.GET_LIST.length;
-        },
+      [GETTERS.LIST_LENGTH]: (state, getters) => {
+        return getters.GET_LIST.length;
+      },
 
-        [GETTERS.GET_FAVORITE]: (state, orderNumber) => {
-          return state.ideaList.filter(idea => (idea.orderNumber === orderNumber))
-            .favorite;
-        },
+      [GETTERS.GET_FAVORITE]: (state, orderNumber) => {
+        return state.ideaList.filter(idea => (idea.orderNumber === orderNumber))
+          .favorite;
+      },
 
-        [GETTERS.GET_TAGS]: (state) => {
-           return state.session.tags;
-        },
+      [GETTERS.GET_TAGS]: (state) => {
+        return state.session.tags;
+      },
 
-        [GETTERS.SEARCH_TAG_LIST_LENGTH]: (state) => {
-          return state.selectedTags.length;
-        },
+      [GETTERS.SEARCH_TAG_LIST_LENGTH]: (state) => {
+        return state.selectedTags.length;
+      },
 
-        [GETTERS.GET_SEARCH_TAGS_FIRST_NAME]: (state) => {
-          return state.selectedTags.length > 0? state.selectedTags[0].name : "";
-        },
+      [GETTERS.GET_SEARCH_TAGS_FIRST_NAME]: (state) => {
+        return state.selectedTags.length > 0 ? state.selectedTags[0].name : "";
+      },
 
-        [GETTERS.GET_NOW_SESSION_NUMBER]: (state) => {
-            return state.session.sessionNumber;
-        }
+      [GETTERS.GET_NOW_SESSION_NUMBER]: (state) => {
+        return state.session.sessionNumber;
+      },
+
+      [GETTERS.GET_PERIOD_TYPE_NOW]: (state) => {
+        const period = state.session.periods.find(element => {
+          return element.now;
+        });
+        return period === undefined ? '' : period.periodType;
+      },
     },
 
     mutations: {
@@ -132,6 +147,10 @@ const store = {
         state.session = session;
         state.searchTerm = '';
         state.ideaList = session.ideas.sort((idea1, idea2) => {
+          const idea1Type = idea1.type;
+          const idea2Type = idea2.type;
+          if(idea1Type > idea2Type) return -1;
+          if(idea1Type < idea2Type) return 1;
           return idea2.orderNumber - idea1.orderNumber;
         });
         state.searchAttrs = state.ideaList.map(function (idea) {
@@ -318,7 +337,6 @@ const store = {
         })
       },
 
-      // 서버 연동 => 실제로 변경
       [MUTATIONS.SET_FAVORITE_OPPOSITE]: (state, id) => {
         const changeElement = state.ideaList.find(idea => (idea.ideaId === id));
         changeElement.favorite = !changeElement.favorite
@@ -335,6 +353,11 @@ const store = {
         state.selectedTags =  [];
       },
 
+      /**
+       * 아이디어 투표할 때, 이미 클릭한 아이디어면 투표 후보 배열에서 제거 / 아니면 추가
+       * @param state
+       * @param id  idea.ideaId
+       */
       [MUTATIONS.CLICK_IDEAS]: (state, id) => {
         const idx = state.candidateIdeas.findIndex(idea => (idea.ideaId === id));
         // 이미 선택된 아이디어일 경우
@@ -345,6 +368,17 @@ const store = {
         // 선택 되지 않은 아이디어라면,
         const selectedIdea = state.ideaList.find(idea => (idea.ideaId === id));
         state.candidateIdeas.push({ideaId: id, title: selectedIdea.title});
+      },
+
+      [MUTATIONS.SORT_LIST_BY_VOTE_NUMBER_DESC]: (state) => {
+        state.ideaList = state.ideaList.sort((idea1, idea2) => {
+          const idea1Type = idea1.type;
+          const idea2Type = idea2.type;
+          if(idea1Type > idea2Type) return -1;
+          if(idea1Type < idea2Type) return 1;
+          return idea2.voteNumber === idea1.voteNumber ? idea2.orderNumber - idea1.orderNumber
+          : idea2.voteNumber - idea1.voteNumber;
+        })
       },
 
     },

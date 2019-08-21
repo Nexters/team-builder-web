@@ -1,7 +1,7 @@
 <template>
     <div class="board">
         <b-form-group>
-            <div v-for="idea in ideaListResult" :key="idea.orderNumber">
+            <div v-for="idea in ideaListResult" :key="idea.orderNumber" @click="$emit('goDetail', idea.ideaId)">
                 <!-- NOTICE -->
                 <div v-if="idea['type'] === 'NOTICE'" class="Rectangle list" style="border: solid 1.5px #dbdbdb;">
                     <!-- idea type -->
@@ -32,12 +32,11 @@
                 </div>
                 <!-- IDEA -->
                 <div v-else class="Rectangle list">
-                    <!-- table column의 index, favorite이 0으로 시작 -->
                     <!-- idea type -->
                     <div class="custom-checkbox">
                         <b-form-checkbox
                                 :value="idea.ideaId"
-                                v-model="selected"
+                                v-model="checked"
                                 stacked
                         />
                     </div>
@@ -103,15 +102,13 @@
         return n > 9 ? "" + n : "0" + n;
       },
 
-      clickIdea(id) {
-        return this.$store.commit('main/CLICK_IDEAS', id);
-      },
+      // clickIdea(id) {
+      //   return this.$store.commit('main/CLICK_IDEAS', id);
+      // },
 
-      inSelectedIdeas(id) {
-        return this.$store.state.main.candidateIdeas.findIndex(idea => (idea.ideaId === id)) <= -1;
-      },
-
-
+      // inSelectedIdeas(id) {
+      //   return this.$store.state.main.candidateIdeas.findIndex(idea => (idea.ideaId === id)) <= -1;
+      // },
 
     },
 
