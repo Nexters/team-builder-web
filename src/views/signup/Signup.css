@@ -149,6 +149,18 @@
     box-shadow: none;
 }
 
+.password-confirm-box {
+    height: 20px;
+    font-family: NotoSansCJKkr;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.39px;
+    color: #ff1c16;
+}
+
 .btn-complete {
     width: 240px;
     height: 65px;
