@@ -1,4 +1,12 @@
-import {SET_AUTH, SET_ID, SET_NAME, SET_NEXTERS_NUMBER, SET_POSITION, SET_ROLE, SET_TOKEN} from "../../consts/userType";
+import {
+    SET_ID,
+    SET_NAME,
+    SET_NEXTERS_NUMBER,
+    SET_POSITION,
+    SET_ROLE,
+    SET_TOKEN,
+    SET_AUTH
+} from "../../consts/userType";
 import {ROLL_TYPE} from '@/consts/rollType';
 
 const store = {
