@@ -12,15 +12,15 @@
                         </div>
                         <div v-else-if="!showSearchTagResult">
                             <div class="list-info">
-                                <div id="view-all" style="display: inline;">전체 아이디어 </div>
-                                <div id="view-star" style="display: none;">즐겨찾기한 아이디어</div>
+                                <div id="view-all" v-show="!favorite">전체 아이디어 </div>
+                                <div id="view-star" v-show="favorite">즐겨찾기한 아이디어</div>
                                 <div style="display: inline">{{ ideaListLength }}건</div>
                             </div>
                             |
                             <div class="theme" style="cursor:pointer"
                                  v-on:click="showFavorite(favorite = !favorite)">
-                                <div id="all" style="display: none;">전체 아이디어 보기</div>
-                                <div id="star" style="display: inline-block">즐겨찾기만 보기</div>
+                                <div id="all" v-show="favorite">전체 아이디어 보기</div>
+                                <div id="star" v-show="!favorite">즐겨찾기만 보기</div>
                             </div>
                         </div>
                     </section>
@@ -39,20 +39,6 @@
                                    placeholder="제목과 작성자를 검색해주세요."
                                    @keyup="filterData()"
                             />
-
-                            <!-- 검색 박스 다른 버전 -->
-                            <!--<img src="../../../assets/img/ico-search@2x.png" class="ico_search" />-->
-                            <!--&gt;-->
-                            <!--<img src="../../../assets/img/ico-search@2x.png" class="ico_search"/>-->
-                            <!--<div contenteditable="true"-->
-                            <!--class="search-input Rectangle"-->
-                            <!--v-model="searchTerm"-->
-                            <!--placeholder="제목과 작성자를 검색해주세요."-->
-                            <!--@keyup="filterData()">-->
-                            <!--<img src="../../../assets/img/ico-search@2x.png"-->
-                            <!--class="ico_search">-->
-                            <!--</div>-->
-
                         </div>
                     </section>
                 </div>
@@ -130,10 +116,6 @@
         sortPositionASC: false,
         sortDateASC: false,
         favorite: false,
-        origin: 'all',
-        change: 'star',
-        viewOrigin: 'view-all',
-        viewChange: 'view-star',
         showPopUp: false,
         showSearchTagResult: false,
 
@@ -172,26 +154,20 @@
 
       sorting(by) {
         if (by === 'position') {
-          this.sortPositionASC = !this.sortPositionASC;
-          if (this.sortPositionASC) {
-            return this.$store.commit('main/SORT_LIST_BY_POSITION_ASC');
+            this.sortPositionASC = !this.sortPositionASC;
+            if(this.sortPositionASC) {
+              return this.$store.commit('main/SORT_LIST_BY_POSITION_ASC');
+            }
+          return this.$store.commit('main/SORT_LIST_BY_POSITION_DESC');
           }
-          if(this.origin === 'star') {
-            return this.$store.commit('main/SORT_LIST_BY_POSITION_DESC');
-          }
-        }
 
         if (by === 'date') {
           this.sortDateASC = !this.sortDateASC;
           if (this.sortDateASC) {
             return this.$store.commit('main/SORT_LIST_BY_DATE_ASC');
           }
-          if(this.origin === 'star') {
-            return this.$store.commit('main/SORT_LIST_BY_DATE_DESC');
-          }
+          return this.$store.commit('main/SORT_LIST_BY_DATE_DESC');
         }
-
-        return this.$store.dispatch('main/SHOW_ORIGIN_LIST');
       },
 
       filterData() {
@@ -204,14 +180,8 @@
       },
 
       showFavorite(star) {
-        [this.origin, this.change] = [this.change, this.origin];
-        document.getElementById(this.origin).style.display = 'none';
-        document.getElementById(this.change).style.display = 'inline-block';
-
-        [this.viewOrigin, this.viewChange] = [this.viewChange, this.viewOrigin];
-        document.getElementById(this.viewOrigin).style.display = 'inline';
-        document.getElementById(this.viewChange).style.display = 'none';
-
+        this.sortPositionASC = false;
+        this.sortDateASC = false;
         return star ? this.$store.commit('main/SET_FAVORITE_LIST')
           : this.$store.dispatch('main/SHOW_ORIGIN_LIST')
       },

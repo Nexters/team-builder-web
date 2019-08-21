@@ -3,52 +3,15 @@
 }
 
 .list {
-	height: 74px;
+	height: 134px;
 	margin-bottom: 12px;
 	text-align: left;
 	border-radius: 6px;
 	border: solid 1px #eeeeee;
 	background-color: #ffffff;
-	display: flex;
+	/*display: flex;*/
 	cursor: pointer;
-}
-
-.favorite {
-	width: 24px;
-	height: 23px;
-	object-fit: contain;
-	cursor: pointer;
-	margin: 26px 12px 25px 22px;
-}
-
-.favourites-filled-star-symbol, .favourites-filled-star-symbol-copy {
-	width: 24px;
-	height: 23px;
-	object-fit: contain;
-}
-
-.notice {
-	width: 42px;
-	height: 29px;
-	object-fit: contain;
-
-	margin: 22.5px 1px 22.5px 15px;
-}
-
-.order-number {
-	width: 30px;
-	height: 16px;
-	font-family: Roboto;
-	font-size: 14px;
-	font-weight: 500;
-	font-style: normal;
-	font-stretch: normal;
-	line-height: normal;
-	letter-spacing: -0.88px;
-	text-align: center;
-	color: #9b9b9b;
-	margin: 29px 7px 29px 12px;
-	display: inline-block;
+	clear: both;
 }
 
 .idea-name {
@@ -56,7 +19,7 @@
 	text-overflow: ellipsis;
 	white-space: nowrap;
 
-	margin: 26px 40px 24px 7px;
+	margin: 26px 230px 23.5px 20px;
 
 	width: 429px;
 	height: 24px;
@@ -67,8 +30,8 @@
 	font-stretch: normal;
 	line-height: normal;
 	letter-spacing: -0.89px;
-	color: #1c1c1c;;
-
+	color: #1c1c1c;
+	display: inline-block;
 }
 
 .tags {
@@ -112,8 +75,6 @@
 	background-color: #ffffff;
 	display: inline-block;
 	padding: 17px 10px;
-	/*object-fit: contain;*/
-	/*overflow: hidden;*/
 	float: right;
 }
 
@@ -129,7 +90,8 @@
 	letter-spacing: -1px;
 	text-align: left;
 	color: #1c1c1c;
-	margin: 25px 5px 25px 11px;
+	margin: 25px 5px 24.5px 231px;
+	display: inline-block;
 }
 
 .author {
@@ -144,7 +106,8 @@
 	letter-spacing: -1px;
 	text-align: left;
 	color: #1c1c1c;
-	margin: 25px 5px 25px 10px;
+	margin: 25px 5px 24.5px 5px;
+	display: inline-block;
 }
 
 .created-at {
@@ -158,7 +121,36 @@
 	line-height: normal;
 	letter-spacing: -1px;
 	color: #1c1c1c;
-	margin: 27px 18px 28px 10px;
+	margin: 27px 5px 28px 5px;
+	display: inline-block;
 }
 
+.attached {
+	width: 45px;
+	height: 29px;
+	object-fit: contain;
+	margin: 23px 21px 21.5px 7px;
+	display: inline-block;
+}
 
+.half-line {
+	border-bottom: solid 1px #dbdbdb;
+	width: 100%;
+	height: 73.5px;
+
+}
+
+.member {
+	width: 40px;
+	height: 18px;
+	font-family: NotoSansCJKkr;
+	font-size: 14px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: 1.29;
+	letter-spacing: -1px;
+	color: #4a4a4a;
+
+	margin: 22px 19.5px 0 1138px;
+}

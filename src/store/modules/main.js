@@ -153,6 +153,10 @@ const store = {
 
       [MUTATIONS.SORT_LIST_BY_ORDER_NUMBER]: (state) => {
         state.ideaList.sort((idea1, idea2) => {
+          const idea1Type = idea1.type;
+          const idea2Type = idea2.type;
+          if(idea1Type > idea2Type) return -1;
+          if(idea1Type < idea2Type) return 1;
           return idea2.orderNumber - idea1.orderNumber;
         })
       },
@@ -248,17 +252,30 @@ const store = {
           const position1 = idea1.author.position.toUpperCase();
           const position2 = idea2.author.position.toUpperCase();
 
-          if (position1 < position2) return -1;
-          if (position1 > position2) return 1;
-          return idea2.orderNumber - idea1.orderNumber;
+          if(position1 === '관리자') return -1;
+          if(position2 === '관리자') return 1;
+          return position1 === position2 ? idea2.orderNumber - idea1.orderNumber
+            : (position1 < position2 ? -1 : 1);
+          // if (position1 < position2 || position1 === '관리자') return -1;
+          // if (position1 > position2 || position2 === '관리자') return 1;
+          // return idea2.orderNumber - idea1.orderNumber;
         })
       },
 
       [MUTATIONS.SORT_LIST_BY_DATE_ASC](state) {
         state.ideaList = state.ideaList.sort((idea1, idea2) => {
-          const minusDate = new Date(idea1.createdAt) - new Date(idea2.createdAt);
-          return minusDate === 0 ?
-            idea2.orderNumber - idea1.orderNumber : minusDate;
+          const idea1Type = idea1.type;
+          const idea2Type = idea2.type;
+
+          if(idea1Type > idea2Type) return -1;
+          if(idea1Type < idea2Type) return 1;
+
+          // const minusDate = new Date(idea1.createdAt) - new Date(idea2.createdAt);
+          return new Date(idea1.createdAt) - new Date(idea2.createdAt);
+
+          // 0은 false
+          // return idea1Type === 'NOTICE' ? -1
+          //   : (minusDate ? minusDate : idea2.orderNumber - idea1.orderNumber)
         });
       },
 
@@ -266,17 +283,32 @@ const store = {
         state.ideaList = state.ideaList.sort((idea1, idea2) => {
           const position1 = idea1.author.position.toUpperCase();
           const position2 = idea2.author.position.toUpperCase();
-          if (position2 < position1) return -1;
-          if (position2 > position1) return 1;
-          return idea2.orderNumber - idea1.orderNumber;
+
+          if(position2 === '관리자') return -1;
+          if(position1 === '관리자') return 1;
+          return position2 < position1 ? -1
+            : (position2 > position1 ? 1 : idea2.orderNumber - idea1.orderNumber);
+          // if (position2 < position1) return -1;
+          // if (position2 > position1) return 1;
+          // return idea2.orderNumber - idea1.orderNumber;
         })
       },
 
       [MUTATIONS.SORT_LIST_BY_DATE_DESC](state) {
         state.ideaList = state.ideaList.sort((idea1, idea2) => {
-          const minusDate = new Date(idea2.createdAt) - new Date(idea1.createdAt);
-          return minusDate === 0 ?
-            idea2.orderNumber - idea1.orderNumber : minusDate;
+          const idea1Type = idea1.type;
+          const idea2Type = idea2.type;
+
+          if(idea1Type > idea2Type) return -1;
+          if(idea1Type < idea2Type) return 1;
+
+          // const minusDate = new Date(idea2.createdAt) - new Date(idea1.createdAt);
+          return new Date(idea2.createdAt) - new Date(idea1.createdAt);
+          // return minusDate ? minusDate : idea2.orderNumber - idea1.orderNumber;
+          //
+          // const minusDate = new Date(idea2.createdAt) - new Date(idea1.createdAt);
+          // return minusDate === 0 ?
+          //   idea2.orderNumber - idea1.orderNumber : minusDate;
         })
       },
 
@@ -323,6 +355,11 @@ const store = {
                 .then(data => context.commit(MUTATIONS.SET_INIT_DATA, data));
         },
 
+      /**
+       * 검색 결과 값을 포함한 리스트를 최신순으로 정렬
+       * @param context
+       * @returns {number}
+       */
         [ACTIONS.ENTER_SEARCH_TERM](context) {
           return setTimeout(function () {
             context.commit(MUTATIONS.FILTER_DATA);
@@ -330,11 +367,20 @@ const store = {
           });
         },
 
+      /**
+       * 기존 아이디어 리스트를 최신순으로 정렬
+       * @param context
+       */
         [ACTIONS.SHOW_ORIGIN_LIST](context) {
           context.commit(MUTATIONS.SAVE_ORIGIN_LIST);
           context.commit(MUTATIONS.SORT_LIST_BY_ORDER_NUMBER);
         },
 
+      /**
+       * 아이디어 즐겨찾기 상태 변화
+       * @param context
+       * @param id  ideaId
+       */
         [ACTIONS.FAVORITE_CHANGE](context, id) {
           context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE, id);
         },

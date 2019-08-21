@@ -32,6 +32,10 @@
 	margin-top: 38px;
 }
 
+#view-all, #view-star, #all, #star {
+	display: inline;
+}
+
 .tag-result {
 	width: 248px;
 	height: 24px;
