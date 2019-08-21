@@ -44,6 +44,14 @@ const store = {
                     createdAt:'',
                     updatedAt:''
                 }
+            ],
+            periods: [
+              {
+                periodType: '',
+                now: true,
+                endDate: '',
+                startDate: '',
+              },
             ]
         },
         // search : {
@@ -96,34 +104,41 @@ const store = {
     },
 
     getters: {
-        [GETTERS.GET_LIST]: state => {
-            return state.ideaList;
-        },
+      [GETTERS.GET_LIST]: state => {
+        return state.ideaList;
+      },
 
-        [GETTERS.LIST_LENGTH]: (state, getters) => {
-          return getters.GET_LIST.length;
-        },
+      [GETTERS.LIST_LENGTH]: (state, getters) => {
+        return getters.GET_LIST.length;
+      },
 
-        [GETTERS.GET_FAVORITE]: (state, orderNumber) => {
-          return state.ideaList.filter(idea => (idea.orderNumber === orderNumber))
-            .favorite;
-        },
+      [GETTERS.GET_FAVORITE]: (state, orderNumber) => {
+        return state.ideaList.filter(idea => (idea.orderNumber === orderNumber))
+          .favorite;
+      },
 
-        [GETTERS.GET_TAGS]: (state) => {
-           return state.session.tags;
-        },
+      [GETTERS.GET_TAGS]: (state) => {
+        return state.session.tags;
+      },
 
-        [GETTERS.SEARCH_TAG_LIST_LENGTH]: (state) => {
-          return state.selectedTags.length;
-        },
+      [GETTERS.SEARCH_TAG_LIST_LENGTH]: (state) => {
+        return state.selectedTags.length;
+      },
 
-        [GETTERS.GET_SEARCH_TAGS_FIRST_NAME]: (state) => {
-          return state.selectedTags.length > 0? state.selectedTags[0].name : "";
-        },
+      [GETTERS.GET_SEARCH_TAGS_FIRST_NAME]: (state) => {
+        return state.selectedTags.length > 0 ? state.selectedTags[0].name : "";
+      },
 
-        [GETTERS.GET_NOW_SESSION_NUMBER]: (state) => {
-            return state.session.sessionNumber;
-        }
+      [GETTERS.GET_NOW_SESSION_NUMBER]: (state) => {
+        return state.session.sessionNumber;
+      },
+
+      [GETTERS.GET_PERIOD_TYPE_NOW]: (state) => {
+        const period = state.session.periods.find(element => {
+          return element.now;
+        });
+        return period === undefined ? '' : period.periodType;
+      },
     },
 
     mutations: {
@@ -132,6 +147,10 @@ const store = {
         state.session = session;
         state.searchTerm = '';
         state.ideaList = session.ideas.sort((idea1, idea2) => {
+          const idea1Type = idea1.type;
+          const idea2Type = idea2.type;
+          if(idea1Type > idea2Type) return -1;
+          if(idea1Type < idea2Type) return 1;
           return idea2.orderNumber - idea1.orderNumber;
         });
         state.searchAttrs = state.ideaList.map(function (idea) {
@@ -153,6 +172,10 @@ const store = {
 
       [MUTATIONS.SORT_LIST_BY_ORDER_NUMBER]: (state) => {
         state.ideaList.sort((idea1, idea2) => {
+          const idea1Type = idea1.type;
+          const idea2Type = idea2.type;
+          if(idea1Type > idea2Type) return -1;
+          if(idea1Type < idea2Type) return 1;
           return idea2.orderNumber - idea1.orderNumber;
         })
       },
@@ -248,17 +271,30 @@ const store = {
           const position1 = idea1.author.position.toUpperCase();
           const position2 = idea2.author.position.toUpperCase();
 
-          if (position1 < position2) return -1;
-          if (position1 > position2) return 1;
-          return idea2.orderNumber - idea1.orderNumber;
+          if(position1 === '관리자') return -1;
+          if(position2 === '관리자') return 1;
+          return position1 === position2 ? idea2.orderNumber - idea1.orderNumber
+            : (position1 < position2 ? -1 : 1);
+          // if (position1 < position2 || position1 === '관리자') return -1;
+          // if (position1 > position2 || position2 === '관리자') return 1;
+          // return idea2.orderNumber - idea1.orderNumber;
         })
       },
 
       [MUTATIONS.SORT_LIST_BY_DATE_ASC](state) {
         state.ideaList = state.ideaList.sort((idea1, idea2) => {
-          const minusDate = new Date(idea1.createdAt) - new Date(idea2.createdAt);
-          return minusDate === 0 ?
-            idea2.orderNumber - idea1.orderNumber : minusDate;
+          const idea1Type = idea1.type;
+          const idea2Type = idea2.type;
+
+          if(idea1Type > idea2Type) return -1;
+          if(idea1Type < idea2Type) return 1;
+
+          // const minusDate = new Date(idea1.createdAt) - new Date(idea2.createdAt);
+          return new Date(idea1.createdAt) - new Date(idea2.createdAt);
+
+          // 0은 false
+          // return idea1Type === 'NOTICE' ? -1
+          //   : (minusDate ? minusDate : idea2.orderNumber - idea1.orderNumber)
         });
       },
 
@@ -266,17 +302,32 @@ const store = {
         state.ideaList = state.ideaList.sort((idea1, idea2) => {
           const position1 = idea1.author.position.toUpperCase();
           const position2 = idea2.author.position.toUpperCase();
-          if (position2 < position1) return -1;
-          if (position2 > position1) return 1;
-          return idea2.orderNumber - idea1.orderNumber;
+
+          if(position2 === '관리자') return -1;
+          if(position1 === '관리자') return 1;
+          return position2 < position1 ? -1
+            : (position2 > position1 ? 1 : idea2.orderNumber - idea1.orderNumber);
+          // if (position2 < position1) return -1;
+          // if (position2 > position1) return 1;
+          // return idea2.orderNumber - idea1.orderNumber;
         })
       },
 
       [MUTATIONS.SORT_LIST_BY_DATE_DESC](state) {
         state.ideaList = state.ideaList.sort((idea1, idea2) => {
-          const minusDate = new Date(idea2.createdAt) - new Date(idea1.createdAt);
-          return minusDate === 0 ?
-            idea2.orderNumber - idea1.orderNumber : minusDate;
+          const idea1Type = idea1.type;
+          const idea2Type = idea2.type;
+
+          if(idea1Type > idea2Type) return -1;
+          if(idea1Type < idea2Type) return 1;
+
+          // const minusDate = new Date(idea2.createdAt) - new Date(idea1.createdAt);
+          return new Date(idea2.createdAt) - new Date(idea1.createdAt);
+          // return minusDate ? minusDate : idea2.orderNumber - idea1.orderNumber;
+          //
+          // const minusDate = new Date(idea2.createdAt) - new Date(idea1.createdAt);
+          // return minusDate === 0 ?
+          //   idea2.orderNumber - idea1.orderNumber : minusDate;
         })
       },
 
@@ -286,7 +337,6 @@ const store = {
         })
       },
 
-      // 서버 연동 => 실제로 변경
       [MUTATIONS.SET_FAVORITE_OPPOSITE]: (state, id) => {
         const changeElement = state.ideaList.find(idea => (idea.ideaId === id));
         changeElement.favorite = !changeElement.favorite
@@ -303,6 +353,11 @@ const store = {
         state.selectedTags =  [];
       },
 
+      /**
+       * 아이디어 투표할 때, 이미 클릭한 아이디어면 투표 후보 배열에서 제거 / 아니면 추가
+       * @param state
+       * @param id  idea.ideaId
+       */
       [MUTATIONS.CLICK_IDEAS]: (state, id) => {
         const idx = state.candidateIdeas.findIndex(idea => (idea.ideaId === id));
         // 이미 선택된 아이디어일 경우
@@ -315,6 +370,17 @@ const store = {
         state.candidateIdeas.push({ideaId: id, title: selectedIdea.title});
       },
 
+      [MUTATIONS.SORT_LIST_BY_VOTE_NUMBER_DESC]: (state) => {
+        state.ideaList = state.ideaList.sort((idea1, idea2) => {
+          const idea1Type = idea1.type;
+          const idea2Type = idea2.type;
+          if(idea1Type > idea2Type) return -1;
+          if(idea1Type < idea2Type) return 1;
+          return idea2.voteNumber === idea1.voteNumber ? idea2.orderNumber - idea1.orderNumber
+          : idea2.voteNumber - idea1.voteNumber;
+        })
+      },
+
     },
 
     actions: {
@@ -323,6 +389,11 @@ const store = {
                 .then(data => context.commit(MUTATIONS.SET_INIT_DATA, data));
         },
 
+      /**
+       * 검색 결과 값을 포함한 리스트를 최신순으로 정렬
+       * @param context
+       * @returns {number}
+       */
         [ACTIONS.ENTER_SEARCH_TERM](context) {
           return setTimeout(function () {
             context.commit(MUTATIONS.FILTER_DATA);
@@ -330,11 +401,20 @@ const store = {
           });
         },
 
+      /**
+       * 기존 아이디어 리스트를 최신순으로 정렬
+       * @param context
+       */
         [ACTIONS.SHOW_ORIGIN_LIST](context) {
           context.commit(MUTATIONS.SAVE_ORIGIN_LIST);
           context.commit(MUTATIONS.SORT_LIST_BY_ORDER_NUMBER);
         },
 
+      /**
+       * 아이디어 즐겨찾기 상태 변화
+       * @param context
+       * @param id  ideaId
+       */
         [ACTIONS.FAVORITE_CHANGE](context, id) {
           context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE, id);
         },
