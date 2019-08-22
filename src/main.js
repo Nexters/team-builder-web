@@ -18,6 +18,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import ToggleButton from 'vue-js-toggle-button'
 import locale from 'element-ui/lib/locale/lang/en'
 
+export const bus = new Vue();
+
 Vue.use(ToggleButton);
 Vue.use(VeeValidate);
 Vue.use(BootstrapVue);

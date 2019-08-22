@@ -22,27 +22,19 @@
                                 <b-form class="row">
                                     <b-form>
                                         <b-form-input class="input-box" v-validate="'required|min:8'" type="password"
-                                                      v-model="password" name="password"
-                                                      placeholder="비밀번호를 입력해주세요." ref="password"></b-form-input>
+                                                      v-model="password" placeholder="비밀번호를 입력해주세요."></b-form-input>
+                                        <p v-if="0 < password.length && password.length < 8"
+                                           class="password-confirm-box">영문,숫자 8자
+                                            이상 입력하세요.</p>
                                     </b-form>
-                                    <b-form>
-                                        <b-form-input class="input-box" v-validate="'required|confirmed:password'"
-                                                      type="password" v-model="confirmPassword"
-                                                      name="password_confirmation" placeholder="비밀번호를 다시 입력해주세요."
-                                                      data-vv-as="password" style="margin-left: 15px;"></b-form-input>
-                                    </b-form>
-                                    <b-form>
-                                        <div class="alert-danger" v-show="errors.any()">
-                                            <div v-if="errors.has('password')">
-                                                {{ errors.first('password') }}
-                                            </div>
-                                            <div v-if="errors.has('password_confirmation')">
-                                                {{ errors.first('password_confirmation') }}
-                                            </div>
-                                        </div>
+                                    <b-form style="margin-left: 15px;">
+                                        <b-form-input class="input-box" type="password" v-model="confirmPassword"
+                                                      placeholder="비밀번호를 다시 입력해주세요."></b-form-input>
+                                        <p v-if="0 < confirmPassword.length  && confirmPassword !== password"
+                                           class="password-confirm-box">
+                                            비밀번호가 일치하지 않습니다.</p>
                                     </b-form>
                                 </b-form>
-                                <p class="password-check-info">영문,숫자 8자 이상 입력하세요.</p>
                             </b-form-group>
                         </div>
                     </div>
@@ -68,7 +60,8 @@
                                         </b-form-select>
                                     </b-form>
                                     <b-form>
-                                        <b-form-select v-model="positionSelect" :options="positionOptions" class="position-select">
+                                        <b-form-select v-model="positionSelect" :options="positionOptions"
+                                                       class="position-select">
                                             <template slot="first">
                                                 <option :value="null" disabled>직군선택</option>
                                             </template>

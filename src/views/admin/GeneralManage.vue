@@ -27,7 +27,7 @@
                     <input class="logo-input-box" v-model="imageUrl" disabled="">
                     <div class="filebox">
                         <label for="filename">업로드</label>
-                        <input type="file" id="filename" class="upload-hidden" @change="onFileChange">
+                        <input type="file" id="filename" class="upload-hidden" @change="onFileChange($event)">
                     </div>
                 </div>
 
@@ -112,7 +112,8 @@
                                     width="400"
                                     trigger="hover"
                                     content='팀빌딩 모드는 기간에 상관 없이 투표 기능을 제외한 모든 기능이 활성화됩니다.  오프라인 팀빌딩 시 생성된 아이디어를 위한 기능입니다.'>
-                                <img class="claim_mark" slot="reference" :src="require('../../assets/img/ico-table-tag@2x.png')">
+                                <img class="claim_mark" slot="reference"
+                                     :src="require('../../assets/img/ico-table-tag@2x.png')">
                             </el-popover>
                         </p>
 
@@ -139,6 +140,7 @@
 <script>
     import Layout from '@/components/common/layout/Layout';
     import "vue-rocker-switch/dist/vue-rocker-switch.css";
+    import {upload_logo} from "../../api/FileAPI";
 
     export default {
         data() {
@@ -168,10 +170,14 @@
         },
         methods: {
             onFileChange(e) {
-                //const file = e.target.files[0];
-                //this.imageUrl = URL.createObjectURL(file);
-                this.imageUrl = e.target.files[0].name
-                console.log(e)
+                upload_logo(e.target.files[0].name, e.target.files[0], this.$store.getters.getId)
+                    .then(res => {
+                        alert('이미지 업로드 성공!')
+                        this.imageUrl = e.target.files[0].name;
+                    })
+                    .catch(err => {
+                        alert('이미지 업로드 실패 ㅜㅜ');
+                    });
             }
         },
         created() {
