@@ -141,7 +141,7 @@ const store = {
       },
 
       [GETTERS.SELECTED_IDEA_LIST_LENGTH]: (state) => {
-        debugger
+        // debugger
         return state.ideaList.filter(idea => idea.selected).length;
       }
     },

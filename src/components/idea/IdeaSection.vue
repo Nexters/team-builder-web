@@ -71,7 +71,7 @@
                     <idea-list-recruiting @goDetail="goDetail"></idea-list-recruiting>
                 </div>
 
-                <div v-show="nowPeriodType === 'IDEA_VOTE' || nowPeriodType.periodType === 'IDEA_CHECK'" class="card-body">
+                <div v-show="nowPeriodType === 'IDEA_VOTE' || nowPeriodType === 'IDEA_CHECK'" class="card-body">
                     <div class="titles">
                         <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
                         <div class="title" style="width: 48px; height: 18px; line-height: 1.29;
