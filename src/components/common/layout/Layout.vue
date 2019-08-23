@@ -64,10 +64,14 @@
         width: 100%;
         height: 1px;
         background-color: #eeeeee;
+        position: fixed;
+        top: 72px;
+        z-index: 98;
     }
 
     .slot-wrap {
         width: 100%;
+        margin-top: 71px;
         display: flex;
         flex-direction: column;
     }
