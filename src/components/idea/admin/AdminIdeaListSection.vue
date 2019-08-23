@@ -6,7 +6,7 @@
                     <section class="header-left">
                         <div class="list-info">
                             <div v-show="this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING')" id="view-all" style="display: inline;">전체 아이디어 </div>
-                            <div v-show="!(this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING'))" style="display: inline;">선정 아이디어</div>
+                            <div v-show="!(this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING'))" style="display: inline;">선정 아이디어 </div>
                             <div style="display: inline">{{ selectedIdeaListLength }}건</div>
                         </div>
                     </section>
@@ -137,7 +137,6 @@
           this.$store.dispatch('main/SHOW_ORIGIN_LIST');
           return;
         }
-        console.log('검색어 입력')
         this.$store.dispatch('main/ENTER_SEARCH_TERM');
       },
 
