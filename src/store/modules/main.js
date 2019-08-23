@@ -174,7 +174,14 @@ const store = {
             tagsId: idea.tags.map(tag => tag.tagId)
           }
         });
-        state.session.tags = session.tags;
+        state.session.tags = session.tags.map(function (tag) {
+          return {
+            name: tag.name,
+            tagId: tag.tagId,
+            type: tag.type,
+            state: false
+          }
+        });
         state.candidateIdeas = [];
         state.selectedTags = [];
       },
@@ -261,34 +268,6 @@ const store = {
         });
       },
 
-      [MUTATIONS.SORT_LIST_BY_POSITION_DESC](state) {
-        state.ideaList = state.ideaList.sort((idea1, idea2) => {
-          const idea1Type = idea1.type;
-          const idea2Type = idea2.type;
-
-          if(idea1Type > idea2Type) return -1;
-          if(idea1Type < idea2Type) return 1;
-
-          const position1 = idea1.author.position.toUpperCase();
-          const position2 = idea2.author.position.toUpperCase();
-
-          return position2 === position1 ? idea2.orderNumber - idea1.orderNumber
-            : (position2 > position1 ? -1 : 1);
-        })
-      },
-
-      [MUTATIONS.SORT_LIST_BY_DATE_DESC](state) {
-        state.ideaList = state.ideaList.sort((idea1, idea2) => {
-          const idea1Type = idea1.type;
-          const idea2Type = idea2.type;
-
-          if(idea1Type > idea2Type) return -1;
-          if(idea1Type < idea2Type) return 1;
-
-          return new Date(idea2.createdAt) - new Date(idea1.createdAt);
-        })
-      },
-
       [MUTATIONS.SET_FAVORITE_LIST](state) {
         state.ideaList = state.session.ideas.filter(idea => {
           return idea.favorite;
@@ -346,20 +325,13 @@ const store = {
       },
 
       [MUTATIONS.SET_IDEAS_SELECTED_TRUE]: (state, ideas) => {
-        console.log('mutation');
         state.ideaList.forEach(function (idea) {
           ideas.forEach(function (selectedIdea) {
-            console.log('forEach', selectedIdea);
             if(idea.ideaId === selectedIdea.ideaId) {
               idea.selected = true;
-              console.log(
-                '@@@@'
-              )
             }
           })
         })
-
-        console.log(state.ideaList);
       },
 
     },
@@ -430,13 +402,16 @@ const store = {
 
         [ACTIONS.SELECTION_IDEAS]: (context, ideas) => {
             ideas.forEach(function (idea) {
-              console.log(idea);
               updateIdea(idea)
                 // .then(this.$forceUpdate())
                 .catch(err => console.log(err));
             });
 
           return context.commit(MUTATIONS.SET_IDEAS_SELECTED_TRUE, ideas);
+        },
+
+        [ACTIONS.SORT_BY_DEFAULT]: (context) => {
+          context.commit(MUTATIONS.SORT_LIST_BY_ORDER_NUMBER)
         }
     }
 };

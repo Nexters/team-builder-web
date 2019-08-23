@@ -169,7 +169,6 @@
             if(this.sortPositionASC) {
               return this.$store.commit('main/SORT_LIST_BY_POSITION_ASC');
             }
-          return this.$store.commit('main/SORT_LIST_BY_POSITION_DESC');
           }
 
         if (by === 'date') {
@@ -177,8 +176,8 @@
           if (this.sortDateASC) {
             return this.$store.commit('main/SORT_LIST_BY_DATE_ASC');
           }
-          return this.$store.commit('main/SORT_LIST_BY_DATE_DESC');
         }
+        return this.$store.dispatch('main/SORT_BY_DEFAULT');
       },
 
       filterData() {

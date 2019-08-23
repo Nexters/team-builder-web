@@ -5,7 +5,7 @@
                      :name="tag.name"
                      :type="tag.type"
                      :state="tag.state"
-        @click="onClick">
+                     @click="onClick">
         </PositionTag>
     </div>
 </template>
