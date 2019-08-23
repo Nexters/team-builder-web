@@ -5,15 +5,15 @@
                 <div class="card-header">
                     <section class="header-left">
                         <div class="list-info">
-                            <div v-show="teamBuildingMode" id="view-all" style="display: inline;">전체 아이디어 </div>
-                            <div v-show="!teamBuildingMode" style="display: inline;">선정 아이디어</div>
-                            <div style="display: inline">{{ ideaListLength }}건</div>
+                            <div v-show="teamBuildingMode || (getTypeNow === 'TEAM_BUILDING')" id="view-all" style="display: inline;">전체 아이디어 </div>
+                            <div v-show="!(teamBuildingMode || (getTypeNow === 'TEAM_BUILDING'))" style="display: inline;">선정 아이디어</div>
+                            <div style="display: inline">{{ selectedIdeaListLength }}건</div>
                         </div>
                     </section>
                     <section class="header-right">
-                        <div class="idea-management" v-show="teamBuildingMode">
-                            <button class="Rectangle-Copy" @click=""><span>아이디어 선정</span></button>
-                            <button class="Rectangle-Copy Rectangle-Black" @click=""><span>아이디어 삭제</span></button>
+                        <div class="idea-management" v-show="getTypeNow !== 'IDEA_COLLECT'">
+                            <button class="Rectangle-Copy" @click="clickSelection"><span>아이디어 선정</span></button>
+                            <button class="Rectangle-Copy Rectangle-Black" @click="clickDeletion"><span>아이디어 삭제</span></button>
                             <!-- 검색 기능 -->
                         </div>
                         <div class="search">
@@ -27,7 +27,7 @@
                     </section>
                 </div>
 
-                <div class="card-body" v-show="!teamBuildingMode">
+                <div class="card-body" v-show="!(teamBuildingMode || (getTypeNow === 'TEAM_BUILDING'))">
                     <b-form-group>
                     <div class="titles">
                         <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
@@ -45,11 +45,11 @@
                              v-on:click="sorting" style="cursor:pointer; margin-left: 6px;">
                         <div class="title" style="width: 48px; margin-left: 20px">선정여부</div>
                     </div>
-                    <admin-idea-list @goDetail="goDetail" :allSelected.sync="allSelected"></admin-idea-list>
+                    <admin-idea-list @goDetail="goDetail" :allSelected.sync="allSelected" :select="select"></admin-idea-list>
                     </b-form-group>
                 </div>
 
-                <div class="card-body" v-show="teamBuildingMode">
+                <div class="card-body" v-show="teamBuildingMode || (getTypeNow === 'TEAM_BUILDING')">
                     <div class="titles">
                         <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
                         <div class="title" style="width: 62px; margin-left: 20px">아이디어 명</div>
@@ -85,6 +85,7 @@
       return {
         sortVoteNumberDESC: false,
         allSelected: false,
+        select: [],
       }
     },
 
@@ -99,12 +100,13 @@
       },
 
       ...mapGetters({
-        ideaListLength: GETTERS.LIST_LENGTH,
+        selectedIdeaListLength: GETTERS.SELECTED_IDEA_LIST_LENGTH,
         ideaListResult: GETTERS.GET_LIST,
+        getTypeNow: GETTERS.GET_PERIOD_TYPE_NOW,
       }),
 
       ...mapState({
-        teamBuildingMode: 'session.teamBuildingMode',
+        teamBuildingMode: 'main.session.teamBuildingMode',
       })
 
       // ...mapMutations([
@@ -142,6 +144,28 @@
       toggleAll(checked) {
         bus.$emit('toggleAll', checked);
       },
+
+      // selectedIdeas(ideas) {
+      //   this.select = ideas;
+      // },
+
+      selectIdeas(ideas) {
+
+        // if(this.select.findIndex(idea) === -1) {
+        //   this.select.push(idea);
+        //   return;
+        // }
+        // this.select
+      },
+
+      clickSelection() {
+        bus.$emit('clickSelection');
+      },
+      //
+      clickDeletion() {
+      },
+
+
 
       goDetail(id) {
         console.log(id);

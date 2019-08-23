@@ -1,6 +1,6 @@
 import {ACTIONS, GETTERS, MUTATIONS} from '@/store/types';
 import {getSession} from '@/api/sessionApi';
-import {createNewIdea, getIdea} from '@/api/ideaApi';
+import {createNewIdea, deleteIdea, getIdea, updateIdea} from '@/api/ideaApi';
 import id from 'bootstrap-vue/esm/mixins/id';
 
 // 가독성을 위해 데이터 폼 표시
@@ -139,6 +139,11 @@ const store = {
         });
         return period === undefined ? '' : period.periodType;
       },
+
+      [GETTERS.SELECTED_IDEA_LIST_LENGTH]: (state) => {
+        debugger
+        return state.ideaList.filter(idea => idea.selected).length;
+      }
     },
 
     mutations: {
@@ -151,6 +156,15 @@ const store = {
           const idea2Type = idea2.type;
           if(idea1Type > idea2Type) return -1;
           if(idea1Type < idea2Type) return 1;
+
+          const periodCheck = session.periods.find(element => element.periodType === 'IDEA_CHECK').now;
+          if(periodCheck) {
+            const idea1Selected = idea1.selected;
+            const idea2Selected = idea2.selected;
+            if(idea1Selected && !idea2Selected) return -1;
+            if(!idea1Selected && idea2Selected) return 1;
+          }
+
           return idea2.orderNumber - idea1.orderNumber;
         });
         state.searchAttrs = state.ideaList.map(function (idea) {
@@ -176,6 +190,12 @@ const store = {
           const idea2Type = idea2.type;
           if(idea1Type > idea2Type) return -1;
           if(idea1Type < idea2Type) return 1;
+
+          const idea1Selected = idea1.selected;
+          const idea2Selected = idea2.selected;
+          if(idea1Selected && !idea2Selected) return -1;
+          if(!idea1Selected && idea2Selected) return 1;
+
           return idea2.orderNumber - idea1.orderNumber;
         })
       },
@@ -268,16 +288,17 @@ const store = {
 
       [MUTATIONS.SORT_LIST_BY_POSITION_ASC](state) {
         state.ideaList = state.ideaList.sort((idea1, idea2) => {
+          const idea1Type = idea1.type;
+          const idea2Type = idea2.type;
+
+          if(idea1Type > idea2Type) return -1;
+          if(idea1Type < idea2Type) return 1;
+
           const position1 = idea1.author.position.toUpperCase();
           const position2 = idea2.author.position.toUpperCase();
 
-          if(position1 === '관리자') return -1;
-          if(position2 === '관리자') return 1;
           return position1 === position2 ? idea2.orderNumber - idea1.orderNumber
             : (position1 < position2 ? -1 : 1);
-          // if (position1 < position2 || position1 === '관리자') return -1;
-          // if (position1 > position2 || position2 === '관리자') return 1;
-          // return idea2.orderNumber - idea1.orderNumber;
         })
       },
 
@@ -289,27 +310,23 @@ const store = {
           if(idea1Type > idea2Type) return -1;
           if(idea1Type < idea2Type) return 1;
 
-          // const minusDate = new Date(idea1.createdAt) - new Date(idea2.createdAt);
           return new Date(idea1.createdAt) - new Date(idea2.createdAt);
-
-          // 0은 false
-          // return idea1Type === 'NOTICE' ? -1
-          //   : (minusDate ? minusDate : idea2.orderNumber - idea1.orderNumber)
         });
       },
 
       [MUTATIONS.SORT_LIST_BY_POSITION_DESC](state) {
         state.ideaList = state.ideaList.sort((idea1, idea2) => {
+          const idea1Type = idea1.type;
+          const idea2Type = idea2.type;
+
+          if(idea1Type > idea2Type) return -1;
+          if(idea1Type < idea2Type) return 1;
+
           const position1 = idea1.author.position.toUpperCase();
           const position2 = idea2.author.position.toUpperCase();
 
-          if(position2 === '관리자') return -1;
-          if(position1 === '관리자') return 1;
-          return position2 < position1 ? -1
-            : (position2 > position1 ? 1 : idea2.orderNumber - idea1.orderNumber);
-          // if (position2 < position1) return -1;
-          // if (position2 > position1) return 1;
-          // return idea2.orderNumber - idea1.orderNumber;
+          return position2 === position1 ? idea2.orderNumber - idea1.orderNumber
+            : (position2 > position1 ? -1 : 1);
         })
       },
 
@@ -321,13 +338,7 @@ const store = {
           if(idea1Type > idea2Type) return -1;
           if(idea1Type < idea2Type) return 1;
 
-          // const minusDate = new Date(idea2.createdAt) - new Date(idea1.createdAt);
           return new Date(idea2.createdAt) - new Date(idea1.createdAt);
-          // return minusDate ? minusDate : idea2.orderNumber - idea1.orderNumber;
-          //
-          // const minusDate = new Date(idea2.createdAt) - new Date(idea1.createdAt);
-          // return minusDate === 0 ?
-          //   idea2.orderNumber - idea1.orderNumber : minusDate;
         })
       },
 
@@ -378,6 +389,26 @@ const store = {
           if(idea1Type < idea2Type) return 1;
           return idea2.voteNumber === idea1.voteNumber ? idea2.orderNumber - idea1.orderNumber
           : idea2.voteNumber - idea1.voteNumber;
+        })
+      },
+
+      [MUTATIONS.REMOVE_IDEAS_FROM_IDEA_LIST]: (state, ideas) => {
+        state.ideaList = state.ideaList.filter(idea => {
+          ideas.forEach(function (deleteIdea) {
+            return idea.ideaId !== deleteIdea
+          })
+        })
+      },
+
+      [MUTATIONS.SET_IDEAS_SELECTED_TRUE]: (state, ideas) => {
+        console.log('mutation');
+        state.ideaList = state.ideaList.forEach(function (idea) {
+          ideas.forEach(function (selectedIdea) {
+            console.log('forEach', selectedIdea);
+            if(idea.ideaId === selectedIdea.ideaId) {
+              idea.seleted = true;
+            }
+          })
         })
       },
 
@@ -438,6 +469,26 @@ const store = {
          */
         [ACTIONS.GET_IDEA](context, ideaId) {
             return getIdea(ideaId);
+        },
+
+        [ACTIONS.DELETE_IDEAS]: (context, ideas) => {
+          ideas.forEach(function (idea) {
+            deleteIdea(idea.ideaId);
+          })
+          return context.commit(MUTATIONS.REMOVE_IDEAS_FROM_IDEA_LIST, ideas);
+        },
+
+        [ACTIONS.SELECTION_IDEAS]: (context, ideas) => {
+          console.log('action start')
+          console.log(ideas);
+          // if(typeof ideas === 'object') {
+            ideas.forEach(function (idea) {
+              console.log(idea);
+              updateIdea(idea).catch(err => console.log(err));
+            });
+
+
+          return context.commit(MUTATIONS.SET_IDEAS_SELECTED_TRUE, ideas);
         }
     }
 };

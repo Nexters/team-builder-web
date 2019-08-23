@@ -10,7 +10,6 @@
 	border: solid 1px #eeeeee;
 	background-color: #ffffff;
 	display: flex;
-	cursor: pointer;
 }
 
 .favorite {
@@ -68,7 +67,7 @@
 	line-height: normal;
 	letter-spacing: -0.89px;
 	color: #1c1c1c;;
-
+	cursor: pointer;
 }
 
 .tags {
