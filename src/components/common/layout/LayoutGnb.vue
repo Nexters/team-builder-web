@@ -24,10 +24,8 @@
                 </span>
             </button>
 
-            <button @click="onClickMyPage" class="gnb-logout">
-                <span class="gnb-my-page-name">
-                    로
-                </span>
+            <button @click="onClickLogout" class="gnb-logout">
+                <img class="gnb-logout-img" src="@/assets/img/gnb_logout_icon.png" />
             </button>
         </div>
         <div v-show="isOpenSessionGroup" class="layout-session-group" style="margin-top: 72px; padding-top: 7px">
@@ -75,7 +73,8 @@
             },
             moveSession(sessionNumber) {
                 this.isOpenSessionGroup = false;
-                this.$router.push({path: `/session/${sessionNumber}`});
+                // this.$router.push({path: `/session/${sessionNumber}`});
+                window.location.href = `/session/${sessionNumber}`;
             },
             onClickMyPage() {
                 this.$router.push({path: '/info'});
@@ -89,7 +88,12 @@
                 }
                 return '';
             },
-        }
+            onClickLogout() {
+                sessionStorage.clear();
+                this.$router.push({path: '/login'});
+            }
+        },
+
     }
 </script>
 
@@ -209,6 +213,12 @@
         letter-spacing: -1px;
         color: #93a3ea;
         margin: 8px 40px 8px 39px;
+    }
+
+    .gnb-logout-img {
+        width: 21px;
+        height: 22px;
+        object-fit: contain;
     }
 
     .now-session {
