@@ -101,6 +101,7 @@ const store = {
             updatedAt:''
           }
         ],
+      nowPeriod: {},
     },
 
     getters: {
@@ -184,6 +185,7 @@ const store = {
         });
         state.candidateIdeas = [];
         state.selectedTags = [];
+        state.nowPeriod = session.periods.find(period => period.now);
       },
 
       [MUTATIONS.SET_SEARCH_TERM]: (state, value) => {

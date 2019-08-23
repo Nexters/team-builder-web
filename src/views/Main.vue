@@ -1,7 +1,7 @@
 <template>
     <Layout>
         <template v-slot:session-info>
-            <SessionInfo></SessionInfo>
+            <SessionInfoWrap></SessionInfoWrap>
         </template>
         <div class="border-line"></div>
         <template v-slot:body>
@@ -13,13 +13,13 @@
 
 <script>
     import Layout from '@/components/common/layout/Layout';
-    import SessionInfo from '@/components/common/sessionInfo/SessionInfo';
+    import SessionInfoWrap from '@/components/common/sessionInfo/SessionInfoWrap';
     import IdeaSection from '@/components/idea/IdeaSection';
     import AdminIdeaListSection from "@/components/idea/admin/AdminIdeaListSection";
 
     export default {
         name: "Main",
-        components: {AdminIdeaListSection, IdeaSection, SessionInfo, Layout},
+        components: {AdminIdeaListSection, IdeaSection, SessionInfoWrap, Layout},
         computed: {
             isAdmin() {
                 return this.$store.getters.isAdmin;
