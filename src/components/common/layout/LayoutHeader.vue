@@ -80,7 +80,12 @@
                 this.$router.push({path: `/session/${this.$route.params.sessionNumber}`});
             },
             moveToTeamBuilding() {
-                this.$router.push({path: `/session/${this.$route.params.sessionNumber}/teambuilding`});
+                // 오픈준비중
+                // this.$router.push({path: `/session/${this.$route.params.sessionNumber}/teambuilding`});
+                this.$alert('오픈 준비중입니다.', '팀빌딩', {
+                        confirmButtonText: '확인'
+                    }
+                )
             },
             moveToUserManage() {
                 this.$router.push({path: `/session/${this.$route.params.sessionNumber}/user-manage`});
@@ -99,6 +104,11 @@
         height: 72px;
         display: flex;
         justify-content: center;
+        position: fixed;
+        top: 0px;
+        left: -35px;
+        background-color: white;
+        z-index: 98;
     }
 
     .header-contents-wrap {

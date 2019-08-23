@@ -7,7 +7,7 @@
                 <div class="idea-detail-wrap">
                     <IdeaDetailHeader :idea="idea"></IdeaDetailHeader>
                     <EditorViewer :viewerText="idea.content"></EditorViewer>
-                    <div class="tag-group-container">
+                    <div class="tag-group-container" v-show="tags.length > 0">
                         <div class="tag-group-message">저는 이런 팀원이 필요해요</div>
                         <TagGroup :tags="tags"></TagGroup>
                     </div>
@@ -42,34 +42,43 @@
             }
         },
 
-        computed: {
-        },
-
         methods: {
             ...mapActions({
                 getIdea: ACTIONS.GET_IDEA,
             }),
 
             movePrevIdeaDetail() {
-                this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${Number(this.ideaId) - 1}`});
+                const prevIdeaId = Number(this.ideaId) - 1; //TODO: 검색된 목록에서 가져와야함
+
+                this.$router.push({path:`/session/${this.$store.state.main.session.sessionNumber}/idea/${prevIdeaId}`});
+                this.ideaId = prevIdeaId;
+                this.getIdeaDetail();
             },
 
             moveNextIdeaDetail() {
-                this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${Number(this.ideaId) + 1}`});
+                const nextIdeaId = Number(this.ideaId) + 1; //TODO: 검색된 목록에서 가져와야함
+
+                this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${nextIdeaId}`});
+                this.ideaId = nextIdeaId;
+                this.getIdeaDetail();
             },
 
             moveSession() {
                 this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}`});
+            },
+
+            getIdeaDetail() {
+                this.getIdea(this.ideaId)
+                    .then(res => {
+                        this.idea = res.data;
+                        this.tags = this.idea.tags;
+                    })
+                    .catch(err => console.log(err));
             }
         },
 
         created() {
-            this.getIdea(this.ideaId)
-                .then(res => {
-                    this.idea = res.data;
-                    this.tags = this.idea.tags;
-                })
-                .catch(err => console.log(err));
+            this.getIdeaDetail();
         },
     }
 </script>
