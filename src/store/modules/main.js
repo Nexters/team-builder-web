@@ -109,6 +109,7 @@ const store = {
       },
 
       [GETTERS.LIST_LENGTH]: (state, getters) => {
+        debugger
         return getters.GET_LIST.length;
       },
 
@@ -141,7 +142,7 @@ const store = {
       },
 
       [GETTERS.SELECTED_IDEA_LIST_LENGTH]: (state) => {
-        // debugger
+        debugger
         return state.ideaList.filter(idea => idea.selected).length;
       }
     },
@@ -394,22 +395,25 @@ const store = {
 
       [MUTATIONS.REMOVE_IDEAS_FROM_IDEA_LIST]: (state, ideas) => {
         state.ideaList = state.ideaList.filter(idea => {
-          ideas.forEach(function (deleteIdea) {
-            return idea.ideaId !== deleteIdea
-          })
+          return ideas.findIndex(deletedIdea => idea.ideaId === deletedIdea.ideaId) === -1;
         })
       },
 
       [MUTATIONS.SET_IDEAS_SELECTED_TRUE]: (state, ideas) => {
         console.log('mutation');
-        state.ideaList = state.ideaList.forEach(function (idea) {
+        state.ideaList.forEach(function (idea) {
           ideas.forEach(function (selectedIdea) {
             console.log('forEach', selectedIdea);
             if(idea.ideaId === selectedIdea.ideaId) {
-              idea.seleted = true;
+              idea.selected = true;
+              console.log(
+                '@@@@'
+              )
             }
           })
         })
+
+        console.log(state.ideaList);
       },
 
     },
@@ -479,14 +483,12 @@ const store = {
         },
 
         [ACTIONS.SELECTION_IDEAS]: (context, ideas) => {
-          console.log('action start')
-          console.log(ideas);
-          // if(typeof ideas === 'object') {
             ideas.forEach(function (idea) {
               console.log(idea);
-              updateIdea(idea).catch(err => console.log(err));
+              updateIdea(idea)
+                // .then(this.$forceUpdate())
+                .catch(err => console.log(err));
             });
-
 
           return context.commit(MUTATIONS.SET_IDEAS_SELECTED_TRUE, ideas);
         }
