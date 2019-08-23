@@ -7,7 +7,7 @@
                         <p class="header">넥스터즈 {{$store.state.main.session.sessionNumber}}기 활동 일반관리</p>
                     </div>
                     <div class="ml-auto">
-                        <button class="btn-apply">
+                        <button class="btn-apply" @click="apply">
                             적용하기
                         </button>
                     </div>
@@ -79,7 +79,7 @@
 
                         <p class="sub-title" style="margin-left: 50px">아이디어 투표 횟수</p>
 
-                        <b-form-select class="select-idea-vote-count" v-model="classSelect" :options="classOptions">
+                        <b-form-select class="select-idea-vote-count" v-model="maxVoteCount" :options="maxVoteCountOptions">
                             <template slot="first">
                             </template>
                         </b-form-select>
@@ -139,8 +139,9 @@
 
 <script>
     import Layout from '@/components/common/layout/Layout';
-    import "vue-rocker-switch/dist/vue-rocker-switch.css";
     import {upload_logo} from "../../api/FileAPI";
+    import {getSession, putSession} from "../../api/sessionApi";
+    import moment from 'moment';
 
     export default {
         data() {
@@ -154,8 +155,8 @@
                 ideaSelectCheckStart: '',
                 ideaSelectCheckEnd: '',
                 teamBuildingDate: '',
-                classSelect: '2',
-                classOptions: [
+                maxVoteCount: '2',
+                maxVoteCountOptions: [
                     {value: '1', text: '1'},
                     {value: '2', text: '2'},
                     {value: '3', text: '3'},
@@ -169,6 +170,7 @@
             Layout
         },
         methods: {
+            moment,
             onFileChange(e) {
                 upload_logo(e.target.files[0].name, e.target.files[0], this.$store.getters.getId)
                     .then(res => {
@@ -178,10 +180,66 @@
                     .catch(err => {
                         alert('이미지 업로드 실패 ㅜㅜ');
                     });
+            },
+            loadData() {
+                getSession({sessionNumber: this.$route.params.sessionNumber})
+                    .then(res => {
+                        this.imageUrl = res.data.logoImageUrl;
+                        this.maxVoteCount = res.data.maxVoteCount;
+                        res.data.periods.forEach(period => {
+                            if (period.periodType === 'IDEA_COLLECT') {
+                                this.ideaRecruitStart = moment(period.startDate).format('YYYY-MM-DD');
+                                this.ideaRecruitEnd = moment(period.endDate).format('YYYY-MM-DD');
+                            } else if (period.periodType === 'IDEA_VOTE') {
+                                this.ideaVoteStart = moment(period.startDate).format('YYYY-MM-DD');
+                                this.ideaVoteEnd = moment(period.endDate).format('YYYY-MM-DD');
+                            } else if (period.periodType === 'IDEA_CHECK') {
+                                this.ideaSelectCheckStart = moment(period.startDate).format('YYYY-MM-DD');
+                                this.ideaSelectCheckEnd = moment(period.endDate).format('YYYY-MM-DD');
+                            } else if (period.periodType === 'TEAM_BUILDING') {
+                                this.teamBuildingDate = moment(period.startDate).format('YYYY-MM-DD');
+                            }
+                        });
+                        this.teamBuildingSwitch = res.data.teamBuildingMode;
+                    })
+            },
+            apply() {
+                let body = {
+                    "logoImageUrl": this.imageUrl,
+                    "maxVoteCount": this.maxVoteCount,
+                    "periods": [
+                        {
+                            "periodType": "IDEA_COLLECT",
+                            "startDate": moment(this.ideaRecruitStart).format(),
+                            "endDate": moment(this.ideaRecruitEnd).format()
+                        },
+                        {
+                            "periodType": "IDEA_VOTE",
+                            "startDate": moment(this.ideaVoteStart).format(),
+                            "endDate": moment(this.ideaVoteEnd).format()
+                        },
+                        {
+                            "periodType": "IDEA_CHECK",
+                            "startDate": moment(this.ideaSelectCheckStart).format(),
+                            "endDate": moment(this.ideaSelectCheckEnd).format()
+                        },
+                        {
+                            "periodType": "TEAM_BUILDING",
+                            "startDate": moment(this.teamBuildingDate).format()
+                        }
+                    ],
+                    "sessionNumber": this.$route.params.sessionNumber,
+                    "teamBuildingMode": this.teamBuildingSwitch
+                };
+                putSession({sessionNumber: this.$route.params.sessionNumber, body: JSON.stringify(body)})
+                    .then(res => {
+                        alert('적용완료!')
+                    })
             }
         },
         created() {
             this.imageUrl = require('@/assets/logo.png');
+            this.loadData();
         }
     }
 </script>
