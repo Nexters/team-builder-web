@@ -1,6 +1,6 @@
 <template>
-    <button class="position-tag-wrap" :class="wrapClassName" :id="tag.tagId" v-on:click="selected(tag)">
-        <span class="position-tag-span" :class="spanClassName">{{ tag.name }}</span>
+    <button class="position-tag-wrap" :class="wrapClassName" :id="tagId" v-on:click="selected()">
+        <span class="position-tag-span" :class="spanClassName">{{ name }}</span>
     </button>
 </template>
 
@@ -10,26 +10,26 @@
     export default {
         name: "PositionTag",
         props: {
-          tag: Object,
-            // tagId: {
-            //     type: Number,
-            //     required: true
-            // },
-            //
-            // name: {
-            //     type: String,
-            //     required: true
-            // },
-            //
-            // type: {
-            //     type: String,
-            //     required: true
-            // },
-            //
-            // state: {
-            //     type: Boolean,
-            //     required: false
-            // }
+          // tag: Object,
+            tagId: {
+                type: Number,
+                required: true
+            },
+
+            name: {
+                type: String,
+                required: true
+            },
+
+            type: {
+                type: String,
+                required: true
+            },
+
+            state: {
+                type: Boolean,
+                required: false
+            }
         },
 
         data() {
@@ -64,8 +64,6 @@
 
         methods: {
           selected(tag) {
-            console.log(tag);
-            console.log(tag.tagId);
             const index = this.selectedTagsArray.findIndex(select => select === tag);
             console.log('index', index);
             if(index === -1) {
