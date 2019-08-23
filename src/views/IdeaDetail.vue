@@ -87,6 +87,7 @@
     /* 이전/다음 아이디어 버튼 영역 포함 */
     .idea-detail-wrap-include-move-button {
         width: 1340px;
+        min-height: 837px;
         margin-left: 70px;
         display: flex;
     }
