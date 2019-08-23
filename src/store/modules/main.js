@@ -1,6 +1,6 @@
 import {ACTIONS, GETTERS, MUTATIONS} from '@/store/types';
 import {getSession} from '@/api/sessionApi';
-import {createNewIdea, getIdea} from '@/api/ideaApi';
+import {createNewIdea, deleteIdea, getIdea, updateIdea} from '@/api/ideaApi';
 import id from 'bootstrap-vue/esm/mixins/id';
 
 // 가독성을 위해 데이터 폼 표시
@@ -139,6 +139,10 @@ const store = {
         });
         return period === undefined ? '' : period.periodType;
       },
+
+      [GETTERS.SELECTED_IDEA_LIST_LENGTH]: (state) => {
+        return state.ideaList.filter(idea => idea.selected).length;
+      }
     },
 
     mutations: {
@@ -387,6 +391,26 @@ const store = {
         })
       },
 
+      [MUTATIONS.REMOVE_IDEAS_FROM_IDEA_LIST]: (state, ideas) => {
+        state.ideaList = state.ideaList.filter(idea => {
+          ideas.forEach(function (deleteIdea) {
+            return idea.ideaId !== deleteIdea
+          })
+        })
+      },
+
+      [MUTATIONS.SET_IDEAS_SELECTED_TRUE]: (state, ideas) => {
+        console.log('mutation');
+        state.ideaList = state.ideaList.forEach(function (idea) {
+          ideas.forEach(function (selectedIdea) {
+            console.log('forEach', selectedIdea);
+            if(idea.ideaId === selectedIdea.ideaId) {
+              idea.seleted = true;
+            }
+          })
+        })
+      },
+
     },
 
     actions: {
@@ -444,6 +468,30 @@ const store = {
          */
         [ACTIONS.GET_IDEA](context, ideaId) {
             return getIdea(ideaId);
+        },
+
+        [ACTIONS.DELETE_IDEAS]: (context, ideas) => {
+          ideas.forEach(function (idea) {
+            deleteIdea(idea.ideaId);
+          })
+          return context.commit(MUTATIONS.REMOVE_IDEAS_FROM_IDEA_LIST, ideas);
+        },
+
+        [ACTIONS.SELECTION_IDEAS]: (context, ideas) => {
+          console.log('action start')
+          ideas.forEach(function (idea) {
+            console.log(idea);
+            updateIdea({
+              content: idea.content,
+              file: idea.file,
+              selected: true,
+              sessionId: idea.sessionId,
+              tags: idea.tags, // ?
+              title: idea.title,
+              type: idea.type
+            })
+          });
+          return context.commit(MUTATIONS.SET_IDEAS_SELECTED_TRUE, ideas);
         }
     }
 };

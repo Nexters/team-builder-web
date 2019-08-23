@@ -21,7 +21,7 @@
                     </div>
                     <!-- created At -->
                     <div class="created-at">
-                        {{ dateFormat(idea['createdAt']) }}
+                        {{ idea['createdAt'] | formatDate }}
                     </div>
                     <!-- vote number-->
                     <div class="vote-number">
@@ -35,12 +35,9 @@
                     <!-- idea type -->
                     <div class="custom-checkbox">
                         <b-form-checkbox
-                                :value="idea.ideaId"
+                                :value="idea"
                                 v-model="selected"
-<<<<<<< HEAD
-=======
                                 @change="toggle"
->>>>>>> develop
                                 stacked
                         />
                     </div>
@@ -135,7 +132,11 @@
          })
         }
         this.selected = selected;
-      })
+      });
+
+      bus.$on('clickSelection', selectionIdeas(this.selected));
+
+      bus.$on('clickDeletion', deleteIdeas(this.selected));
     },
 
     computed:  {
@@ -148,6 +149,8 @@
       }),
 
       ...mapActions({
+        deleteIdeas: ACTIONS.DELETE_IDEAS,
+        selectionIdeas: ACTIONS.SELECTION_IDEAS,
 
       })
     }

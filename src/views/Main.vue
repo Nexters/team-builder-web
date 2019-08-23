@@ -5,8 +5,8 @@
         </template>
         <div class="border-line"></div>
         <template v-slot:body>
-            <idea-section></idea-section>
-            <!--<admin-idea-list-section></admin-idea-list-section>-->
+            <!--<idea-section></idea-section>-->
+            <admin-idea-list-section></admin-idea-list-section>
         </template>
     </Layout>
 </template>
