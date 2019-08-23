@@ -1,5 +1,5 @@
 <template>
-    <div style="display: flex; justify-content: center; flex-direction: column">
+    <div style="display: flex; justify-content: center; flex-direction: column; align-items: center">
         <div class="session-info-wrap">
             <div class="session-info-main">
                 <div class="session-info-title">
@@ -43,7 +43,7 @@
 <style scoped>
     .session-info-wrap {
         min-width: 1200px;
-        margin-left: 388px;
+        margin-left: 70px;
         height: 400px;
         background-color: white;
         display: flex;

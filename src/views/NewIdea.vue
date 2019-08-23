@@ -37,6 +37,7 @@
 <style scoped>
     .new-idea-wrap {
         width: 1200px;
+        min-height: 837px;
         margin-left: 70px;
         display: flex;
         flex-direction: column;

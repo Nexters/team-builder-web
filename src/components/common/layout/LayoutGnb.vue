@@ -28,17 +28,23 @@
                 <img class="gnb-logout-img" src="@/assets/img/gnb_logout_icon.png" />
             </button>
         </div>
-        <div v-show="isOpenSessionGroup" class="layout-session-group" style="margin-top: 72px; padding-top: 7px">
-            <button @click="moveSession(sessionNumber)" v-for="sessionNumber in sessionNumbers" class="layout-session-group-one" :class="nowSessionClass(sessionNumber)">
-                {{ sessionNumber }}
-            </button>
-        </div>
+        <SlideXLeftTransition :duration="500">
+            <div v-show="isOpenSessionGroup" class="layout-session-group" style="margin-top: 72px; padding-top: 7px">
+                <button @click="moveSession(sessionNumber)" v-for="sessionNumber in sessionNumbers" class="layout-session-group-one" :class="nowSessionClass(sessionNumber)">
+                    {{ sessionNumber }}
+                </button>
+            </div>
+        </SlideXLeftTransition>
+
     </div>
 </template>
 
 <script>
+    import {SlideXLeftTransition} from 'vue2-transitions';
+
     export default {
         name: "LayoutGnb",
+        components: {SlideXLeftTransition},
         data() {
             return {
                 isOpenSessionGroup: false,
@@ -66,14 +72,13 @@
 
         methods: {
             onClickLogo() {
-                this.$router.push({path: `/`});
+                this.$router.push({path: `/session/${this.sessionNumber}`});
             },
             openSessionGroup() {
                 this.isOpenSessionGroup = !this.isOpenSessionGroup;
             },
             moveSession(sessionNumber) {
                 this.isOpenSessionGroup = false;
-                // this.$router.push({path: `/session/${sessionNumber}`});
                 window.location.href = `/session/${sessionNumber}`;
             },
             onClickMyPage() {
