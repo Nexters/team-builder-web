@@ -4,7 +4,8 @@
                      :tag-id="tag.tagId"
                      :name="tag.name"
                      :type="tag.type"
-                     :state="tag.state">
+                     :state="tag.state"
+        @click="onClick">
         </PositionTag>
     </div>
 </template>
@@ -23,6 +24,11 @@
         },
         data() {
             return { }
+        },
+        methods: {
+          onClick() {
+            console.log('11');
+          }
         }
     }
 </script>

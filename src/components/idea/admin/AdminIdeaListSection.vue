@@ -45,7 +45,7 @@
                              v-on:click="sorting" style="cursor:pointer; margin-left: 6px;">
                         <div class="title" style="width: 48px; margin-left: 20px">선정여부</div>
                     </div>
-                    <admin-idea-list @goDetail="goDetail" :allSelected.sync="allSelected"></admin-idea-list>
+                    <admin-idea-list @goDetail="goDetail" :allSelected.sync="allSelected" :select="select"></admin-idea-list>
                     </b-form-group>
                 </div>
 
@@ -85,6 +85,7 @@
       return {
         sortVoteNumberDESC: false,
         allSelected: false,
+        select: [],
       }
     },
 
@@ -144,12 +145,24 @@
         bus.$emit('toggleAll', checked);
       },
 
+      // selectedIdeas(ideas) {
+      //   this.select = ideas;
+      // },
+
+      selectIdeas(ideas) {
+
+        // if(this.select.findIndex(idea) === -1) {
+        //   this.select.push(idea);
+        //   return;
+        // }
+        // this.select
+      },
+
       clickSelection() {
         bus.$emit('clickSelection');
       },
-
+      //
       clickDeletion() {
-        bus.$emit('clickDeletion');
       },
 
 

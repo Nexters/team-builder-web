@@ -141,6 +141,7 @@ const store = {
       },
 
       [GETTERS.SELECTED_IDEA_LIST_LENGTH]: (state) => {
+        debugger
         return state.ideaList.filter(idea => idea.selected).length;
       }
     },
@@ -479,18 +480,14 @@ const store = {
 
         [ACTIONS.SELECTION_IDEAS]: (context, ideas) => {
           console.log('action start')
-          ideas.forEach(function (idea) {
-            console.log(idea);
-            updateIdea({
-              content: idea.content,
-              file: idea.file,
-              selected: true,
-              sessionId: idea.sessionId,
-              tags: idea.tags, // ?
-              title: idea.title,
-              type: idea.type
-            })
-          });
+          console.log(ideas);
+          // if(typeof ideas === 'object') {
+            ideas.forEach(function (idea) {
+              console.log(idea);
+              updateIdea(idea).catch(err => console.log(err));
+            });
+
+
           return context.commit(MUTATIONS.SET_IDEAS_SELECTED_TRUE, ideas);
         }
     }

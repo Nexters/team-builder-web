@@ -81,7 +81,7 @@
 
   export default {
     name: "AdminIdeaList",
-    props: ['allSelected'],
+    props: ['allSelected', 'select'],
 
     data() {
       return {
@@ -118,6 +118,9 @@
         else {
           this.$emit('update:allSelected', false);
         }
+        console.log('selected ' + this.selected);
+        // this.$parent.select = this.selected;
+        // console.log('select ' + this.$parent.select);
       },
     },
 
@@ -127,16 +130,23 @@
         if (checked) {
           this.ideaListResult.forEach(function (idea) {
             if(idea.type !== 'NOTICE') {
-              selected.push(idea.ideaId);
+              selected.push(idea);
             }
          })
         }
         this.selected = selected;
+      }),
+
+      bus.$on('clickSelection', () => {
+        console.log('adminIdeaList bus on');
+        console.log('selected ', this.selected);
+        this.$store.dispatch('main/SELECTION_IDEAS', this.selected);
       });
 
-      bus.$on('clickSelection', selectionIdeas(this.selected));
 
-      bus.$on('clickDeletion', deleteIdeas(this.selected));
+        // this.$store.dispatch(this.selectionIdeas, this.selected));
+      //
+      // bus.$on('clickDeletion', deleteIdeas(this.selected));
     },
 
     computed:  {
