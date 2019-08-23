@@ -7,7 +7,7 @@
 
             <div class="slot-wrap">
                 <slot name="session-info"></slot> <!-- session 정보(하얀색), 없으면 미노출 -->
-                <div class="slot-body-wrap">
+                <div class="slot-body-wrap" :style="{ minHeight: (innerHeight - diffHeight) + 'px' }">
                     <slot name="body"></slot> <!-- 회색 영역, 내부에서 width: 1200px; 지정 필요 -->
                 </div>
             </div>
@@ -32,8 +32,19 @@
         data() {
             return {
                 loading: true,
+                innerHeight: window.innerHeight
             }
         },
+
+        computed: {
+            diffHeight() {
+                if (this.$route.name === 'Session') {
+                    return 542;
+                }
+                return 141;
+            }
+        },
+
         methods: {
             ...mapActions({
                 loadInitData: ACTIONS.LOAD_INIT_DATA,

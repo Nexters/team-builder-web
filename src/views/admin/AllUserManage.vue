@@ -1,7 +1,7 @@
 <template>
     <Layout>
         <template v-slot:body>
-            <div style="width: 1200px">
+            <div style="width: 1200px; margin-left: 70px;">
                 <div class="header">
                     <p>인증코드 설정 및 전체 회원관리 설정</p>
                 </div>
