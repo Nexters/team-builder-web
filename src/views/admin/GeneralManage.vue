@@ -52,7 +52,8 @@
                             <el-date-picker
                                     v-model="ideaRecruitEnd"
                                     type="date"
-                                    placeholder="종료일을 선택해주세요">
+                                    placeholder="종료일을 선택해주세요"
+                                    @change="endDateCheck('ideaRecruit')">
                             </el-date-picker>
                         </div>
                     </div>
@@ -65,7 +66,7 @@
                                     v-model="ideaVoteStart"
                                     type="date"
                                     placeholder="시작일을 선택해주세요"
-                                    format="yyyy-MM-dd">
+                                    @change="startDateCheck('ideaVote')">
                             </el-date-picker>
                         </div>
                         <div class="date-picker" style="margin-left: 20px">
@@ -73,13 +74,14 @@
                                     v-model="ideaVoteEnd"
                                     type="date"
                                     placeholder="종료일을 선택해주세요"
-                                    format="yyyy-MM-dd">
+                                    @change="endDateCheck('ideaVote')">>
                             </el-date-picker>
                         </div>
 
                         <p class="sub-title" style="margin-left: 50px">아이디어 투표 횟수</p>
 
-                        <b-form-select class="select-idea-vote-count" v-model="maxVoteCount" :options="maxVoteCountOptions">
+                        <b-form-select class="select-idea-vote-count" v-model="maxVoteCount"
+                                       :options="maxVoteCountOptions">
                             <template slot="first">
                             </template>
                         </b-form-select>
@@ -92,14 +94,16 @@
                             <el-date-picker
                                     v-model="ideaSelectCheckStart"
                                     type="date"
-                                    placeholder="시작일을 선택해주세요">
+                                    placeholder="시작일을 선택해주세요"
+                                    @change="startDateCheck('ideaSelectCheck')">
                             </el-date-picker>
                         </div>
                         <div class="date-picker" style="margin-left: 20px">
                             <el-date-picker
                                     v-model="ideaSelectCheckEnd"
                                     type="date"
-                                    placeholder="종료일을 선택해주세요">
+                                    placeholder="종료일을 선택해주세요"
+                                    @change="endDateCheck('ideaSelectCheck')">
                             </el-date-picker>
                         </div>
                     </div>
@@ -235,6 +239,76 @@
                     .then(res => {
                         alert('적용완료!')
                     })
+            },
+            startDateCheck(value) {
+                if (value === 'ideaVote') {
+                    let originFormat = moment(this.ideaVoteStart).format();
+                    let beforeCompareFormat = moment(this.ideaRecruitEnd).format();
+                    let afterCompareFormat = moment(this.ideaVoteEnd).format();
+
+                    if (beforeCompareFormat >= originFormat) {
+                        alert('모집기간보다 빠른 날짜를 설정하실 수 없습니다.');
+                        let beforeDay = new Date(beforeCompareFormat);
+                        beforeDay.setDate(beforeDay.getDate() + 1);
+                        this.ideaVoteStart = beforeDay;
+                    }
+                    if (originFormat >= afterCompareFormat) {
+                        alert('종료일보다 클수 없습니다.');
+                        let afterDay = new Date(afterCompareFormat);
+                        afterDay.setDate(afterDay.getDate() - 1);
+                        this.ideaVoteStart = afterDay;
+                    }
+                } else if (value === 'ideaSelectCheck') {
+                    let originFormat = moment(this.ideaSelectCheckStart).format();
+                    let beforeCompareFormat = moment(this.ideaVoteEnd).format();
+                    let afterCompareFormat = moment(this.ideaSelectCheckEnd).format();
+
+                    if (beforeCompareFormat >= originFormat) {
+                        alert('투표기간보다 빠른 날짜를 설정하실 수 없습니다.');
+                        let beforeDay = new Date(beforeCompareFormat);
+                        beforeDay.setDate(beforeDay.getDate() + 1);
+                        this.ideaSelectCheckStart = beforeDay;
+                    }
+                    if (originFormat >= afterCompareFormat) {
+                        alert('종료일보다 클수 없습니다.');
+                        let afterDay = new Date(afterCompareFormat);
+                        afterDay.setDate(afterDay.getDate() - 1);
+                        this.ideaSelectCheckStart = afterDay;
+                    }
+                }
+            },
+            endDateCheck(value) {
+                if (value === 'ideaRecruit') {
+                    let originFormat = moment(this.ideaRecruitEnd).format();
+                    let compareFormat = moment(this.ideaRecruitStart).format();
+
+                    if (compareFormat >= originFormat) {
+                        alert('시작일보다 작을수 없습니다.');
+                        let nextDay = new Date(compareFormat);
+                        nextDay.setDate(nextDay.getDate() + 1);
+                        this.ideaRecruitEnd = nextDay;
+                    }
+                } else if (value === 'ideaVote') {
+                    let originFormat = moment(this.ideaVoteEnd).format();
+                    let compareFormat = moment(this.ideaVoteStart).format();
+
+                    if (compareFormat >= originFormat) {
+                        alert('시작일보다 작을수 없습니다.');
+                        let nextDay = new Date(compareFormat);
+                        nextDay.setDate(nextDay.getDate() + 1);
+                        this.ideaVoteEnd = nextDay;
+                    }
+                } else if (value === 'ideaSelectCheck') {
+                    let originFormat = moment(this.ideaSelectCheckEnd).format();
+                    let compareFormat = moment(this.ideaSelectCheckStart).format();
+
+                    if (compareFormat >= originFormat) {
+                        alert('시작일보다 작을수 없습니다.');
+                        let nextDay = new Date(compareFormat);
+                        nextDay.setDate(nextDay.getDate() + 1);
+                        this.ideaSelectCheckEnd = nextDay;
+                    }
+                }
             }
         },
         created() {
