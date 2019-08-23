@@ -28,7 +28,7 @@
                         </div>
                     </div>
                     <div class="login-logo">
-                        <img src="@/assets/logo.png" width="100%" height="100%">
+                        <img src="@/assets/img/login-banner.png" width="100%" height="100%">
                     </div>
                 </div>
             </div>

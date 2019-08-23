@@ -12,7 +12,7 @@
                 <div class="user-manage-tab d-flex">
                     <p>{{$store.state.main.session.sessionNumber}}기 활동회원 {{users.length}}명</p>
                     <div class="ml-auto">
-                        <button class="btn-user-remove">
+                        <button class="btn-user-remove" @click="deleteActiveUsers">
                             활동회원제거
                         </button>
                         <input class="search-box" placeholder="회원명과 아이디를 검색해주세요." v-model="search">
@@ -67,7 +67,7 @@
                                         style="width: 78px; height: 20px; padding-left: 26px; padding-bottom: 5px">
                                         <div class="custom-checkbox">
                                             <b-form-checkbox
-                                                    :value="user.id"
+                                                    :value="user.uuid"
                                                     v-model="selected"
                                                     @change="toggle"
                                                     stacked
@@ -75,11 +75,17 @@
                                         </div>
                                     </td>
                                     <td style="width: 100px;">
-                                        <div class="row-item" style="width: 100px; padding-left: 27px">{{user.nextersNumber}}</div>
+                                        <div class="row-item" style="width: 100px; padding-left: 27px">
+                                            {{user.nextersNumber}}
+                                        </div>
                                     </td>
                                     <td style="width: 86px;">
-                                        <div v-if="user.position === 'DEVELOPER'" class="row-item" style="width: 100px">개발자</div>
-                                        <div v-else-if="user.position === 'DESIGNER'" class="row-item" style="width: 100px">디자이너</div>
+                                        <div v-if="user.position === 'DEVELOPER'" class="row-item" style="width: 100px">
+                                            개발자
+                                        </div>
+                                        <div v-else-if="user.position === 'DESIGNER'" class="row-item"
+                                             style="width: 100px">디자이너
+                                        </div>
                                     </td>
                                     <td style="width: 86px;">
                                         <div class="row-item" style="width: 86px">{{user.name}}</div>
@@ -88,18 +94,27 @@
                                         <div class="row-item" style="width: 424px">{{user.id}}</div>
                                     </td>
                                     <td style="width: 140px;">
-                                        <div class="select-box">
+                                        <div v-if="user.submitIdea" class="select-box">
                                             <p>작성</p>
+                                        </div>
+                                        <div v-else class="unselect-box">
+                                            <p>미작성</p>
                                         </div>
                                     </td>
                                     <td style="width: 140px;">
-                                        <div class="select-box">
+                                        <div v-if="user.voted" class="select-box">
                                             <p>투표</p>
+                                        </div>
+                                        <div v-else class="unselect-box">
+                                            <p>미투표</p>
                                         </div>
                                     </td>
                                     <td style="width: 146px">
-                                        <div class="select-box">
+                                        <div v-if="user.hasTeam" class="select-box">
                                             <p>완료</p>
+                                        </div>
+                                        <div v-else class="unselect-box">
+                                            <p>미완료</p>
                                         </div>
                                     </td>
                                 </tr>
@@ -115,7 +130,7 @@
 
 <script>
     import Layout from '@/components/common/layout/Layout';
-    import {getAllUsers} from "../../api/UserAPI";
+    import {deleteActiveUsers, getActiveUsers} from "../../api/UserAPI";
 
     export default {
         name: "AllUserManage",
@@ -129,36 +144,41 @@
                 sortPositionASC: false,
                 sortIsActiveASC: false,
                 sortJoinDateASC: false,
-                ideaListLength: 3,
-                accessCode: '1521',
                 selected: [],
                 allSelected: false,
             }
         },
         methods: {
-            loadAllUsers() {
-                getAllUsers()
+            loadActiveUsers() {
+                getActiveUsers({sessionNumber: this.$route.params.sessionNumber})
                     .then(res => {
-                        this.users = res.data.data;
+                        this.users = res.data;
+
+                    });
+            },
+            deleteActiveUsers() {
+                deleteActiveUsers({sessionNumber: this.$route.params.sessionNumber, uuids: this.selected})
+                    .then(res => {
+                        alert(this.selected.length + '명의 활동회원을 제거하였습니다.')
+                        window.location.reload()
                     });
             },
             toggleAll(checked) {
                 let selected = [];
                 if (checked) {
                     this.users.forEach(function (user) {
-                        selected.push(user.id);
+                        selected.push(user.uuid);
                     });
                 }
                 this.selected = selected;
             },
             toggle(checked) {
                 if (checked) {
-                    if (this.users.length === this.selected.length + 1){
+                    if (this.users.length === this.selected.length + 1) {
                         this.allSelected = true;
                         this.toggleAll(true)
                     }
-                }
-                else {
+                } else {
                     this.allSelected = false;
                 }
             },
@@ -201,7 +221,7 @@
             }
         },
         created() {
-            this.loadAllUsers();
+            this.loadActiveUsers();
         }
     }
 </script>

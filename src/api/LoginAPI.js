@@ -1,5 +1,6 @@
-import {GET_ME_INFO, LOGIN_URL} from "../consts/userType"
-import {post, get} from "./testAPI"
+import {GET_ME_INFO, LOGIN_URL} from "../consts/userType";
+import {post, get} from "./testAPI";
+import store from '@/store/index';
 
 export async function login(uid, password) {
     if (!uid || !password) {
@@ -26,4 +27,8 @@ export async function info(token) {
     }
 
     return get(GET_ME_INFO, header)
+}
+
+export function getAuthToken() {
+    return store.getters.getToken;
 }

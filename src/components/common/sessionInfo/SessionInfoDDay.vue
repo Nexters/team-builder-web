@@ -1,18 +1,36 @@
 <template>
     <div class="session-info-d-day">
-        <img class="exclamation-mark-icon" src="../../../assets/img/exclamation-mark-icon.png"/>
+        <img class="exclamation-mark-icon" src="@/assets/img/exclamation-mark-icon.png"/>
         <div class="apply-state-massage">
             <span>미제출</span>
         </div>
         <div class="d-day-info-message">
-            <span>마감까지 3일 8시간 남았습니다.</span>
+            <span>마감까지 {{ remainDay }}일 {{ remainHour }}시간 남았습니다.</span>
         </div>
     </div>
 </template>
 
 <script>
+    import {PERIOD_TYPE} from '@/consts/periodType';
+    import moment from 'moment';
+
     export default {
-        name: "SessionInfoDDay"
+        name: "SessionInfoDDay",
+        data() {
+            return {
+                remainDay: 0,
+                remainHour: 0,
+            }
+        },
+        created() {
+            const period = this.$store.state.main.session.periods
+                                .find(period => period.periodType === PERIOD_TYPE.IDEA_COLLECT);
+            const endDate = moment(period.endDate);
+            const nowDate = moment();
+
+            this.remainDay = moment(endDate, 'YYYY-MM').diff(nowDate, 'day');
+            this.remainHour = moment(endDate, 'YYYY-MM-HH').diff(nowDate, 'hour') % 24;
+        }
     }
 </script>
 

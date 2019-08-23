@@ -132,7 +132,6 @@
                 sortPositionASC: false,
                 sortIsActiveASC: false,
                 sortJoinDateASC: false,
-                ideaListLength: 3,
                 accessCode: '1521',
                 selected: [],
                 allSelected: false,
