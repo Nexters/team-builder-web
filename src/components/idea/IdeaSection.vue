@@ -186,7 +186,6 @@
           this.$store.dispatch('main/SHOW_ORIGIN_LIST');
           return;
         }
-        console.log('검색어 입력')
         this.$store.dispatch('main/ENTER_SEARCH_TERM');
       },
 

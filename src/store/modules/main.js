@@ -109,7 +109,6 @@ const store = {
       },
 
       [GETTERS.LIST_LENGTH]: (state, getters) => {
-        debugger
         return getters.GET_LIST.length;
       },
 
@@ -142,7 +141,6 @@ const store = {
       },
 
       [GETTERS.SELECTED_IDEA_LIST_LENGTH]: (state) => {
-        debugger
         return state.ideaList.filter(idea => idea.selected).length;
       }
     },
@@ -206,84 +204,32 @@ const store = {
       },
 
       [MUTATIONS.FILTER_DATA]: (state) => {
-        console.log('Mutation')
-        // 검색어에 영어가 포함될 경우
+        // 한글
         if (state.searchTerm.match('^[ㄱ-ㅎ가-힣]*$')) {
-          console.log('한글이얌')
-          // 검색어에 한글이 포함될 경우
           const ChosungSearch = require('hangul-chosung-search-js');
-          let titleAndNameArray = state.searchAttrs.map((element) => {
-            return element.title
-          })
-            .concat(state.searchAttrs.map((element) => {
-              return element.name
-            }));
-
-          console.log('titleAndNameArray :' + titleAndNameArray);
-          console.log('state.searchAttrs :' + state.searchAttrs)
+          // 타이틀과 작성자 이름만 따로 저장 -> 여기서 검색어로 필터할 예정
+          const titleAndNameArray = state.searchAttrs.map(element => element.title)
+              .concat(state.searchAttrs.map(element => element.authorName));
 
           const filteredList = ChosungSearch.searchList(state.searchTerm, titleAndNameArray, true);
-          // const temp = state.searchAttrs.map(attr => {
-          //   filteredList.some((element) => {
-          //     console.log(element);
-          //     console.log(attr);
-          //     if(attr.title === element || attr.name === element) {
-          //       return parseInt(attr.id + '', 10);
-          //     }
-          //   })
-          // });
 
-          const temp = state.searchAttrs.map(attr => {
-            filteredList.map(filtered => {
-              if (filtered === attr.title || filtered === attr.authorName) {
-                return attr.ideaId;
-              }
-            })
-          });
-
-
-          console.log('element');
-          console.log(temp.length);
-
-          // filter((attr) => {
-          //   filteredList.forEach(function (element) {
-          //     if(element === attr.name || element === attr.title) {
-          //       return attr;
-          //     }
-          //   })
-          // });
-          console.log('temp: ' + temp);
-          // state.ideaList = state.session.ideas.filter(idea => {
-          //   if(idea.id === temp.id) {return true}
-          // });
-          // state.ideaList = state.session.ideas.filter((idea) => {
-          //   filteredList.some((attr) => {
-          //     // if(attr === idea.author.name || attr === idea.title) return true;
-          //     return idea.author.name === attr || idea.title === attr
-          //   })
-          // });
-          console.log('1: ' + filteredList);
-          console.log('2: ' + state.ideaList);
-          return;
-        }
-        console.log('요긴 영어')
-        const searchQuery = state.searchTerm.toLowerCase();
-        console.log(searchQuery)
-        const search = state.searchAttrs.filter(element => {
-          ['title', 'name'].some(key => {
-            const char = element[key].replace(/^[A-Za-z+]*$/gi).toLowerCase();
-            console.log('char: ' + char);
-            // element[key].toLowerCase().includes(searchQuery))
-            if (char.indexOf(searchQuery) !== -1) {
+          state.ideaList = state.session.ideas.filter(idea => {
+            // 인덱스 찾기
+            let index = filteredList.findIndex(element => element === idea.title);
+            if(index !== -1) {
               return true;
             }
-          })
-        });
-        console.log(search);
+            index = filteredList.findIndex(element => element === idea.author.name);
+            return index !== -1;
+          });
+          return;
+        }
+
+        // 영어 검색어 입력 시
+        const searchQuery = state.searchTerm.toLowerCase();
         state.ideaList = state.session.ideas.filter(idea => {
-          if (idea.id === search.id) {
-            return true;
-          }
+          if(idea.title.toLowerCase().includes(searchQuery)) return true;
+          if(idea.author.name.toLowerCase().includes(searchQuery)) return true;
         })
       },
 

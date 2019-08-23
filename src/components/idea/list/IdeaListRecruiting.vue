@@ -35,12 +35,16 @@
             <div v-else class="Rectangle list">
                 <!-- favorite -->
                 <div class="favorite">
-                    <img v-show="idea['favorite'] === true" @click="clickFavorite(idea.ideaId, idea['favorite'])"
-                         src="@/assets/img/favourites-filled-star-symbol-copy@2x.png"
-                         class="favourites-filled-star-symbol-copy">
-                    <img v-show="idea['favorite'] === false" @click="clickFavorite(idea.ideaId, idea['favorite'])"
+                    <!--<img v-show="idea['favorite'] === true" @click="clickFavorite(idea.ideaId, idea['favorite'])"-->
+                         <!--src="@/assets/img/favourites-filled-star-symbol-copy@2x.png"-->
+                         <!--class="favourites-filled-star-symbol-copy">-->
+                    <!--<img v-show="idea['favorite'] === false" @click="clickFavorite(idea.ideaId, idea['favorite'])"-->
+                         <!--src="@/assets/img/favourites-filled-star-symbol@2x.png"-->
+                         <!--class="favourites-filled-star-symbol" />-->
+                    <img v-show="true" @click="clickFavorite(idea.ideaId, idea['favorite'])"
                          src="@/assets/img/favourites-filled-star-symbol@2x.png"
                          class="favourites-filled-star-symbol" />
+
                 </div>
                 <!-- order-number -->
                 <div class="order-number">
