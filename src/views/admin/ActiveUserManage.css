@@ -10,7 +10,6 @@
 }
 
 .header {
-    width: 428px;
     height: 59px;
     font-family: NotoSansCJKkr;
     font-size: 40px;
@@ -215,28 +214,6 @@
     width: 120px;
     height: 40px;
     border-radius: 6px;
-    border: solid 1.5px #ff5000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.select-box > p {
-    font-family: NotoSansCJKkr;
-    font-size: 16px;
-    font-weight: bold;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: -1px;
-    color: #ff5000;
-    margin-bottom: 0;
-}
-
-.unselect-box {
-    width: 120px;
-    height: 40px;
-    border-radius: 6px;
     border: solid 1.5px #dbdbdb;
     background-color: #ffffff;
     display: flex;
@@ -244,7 +221,7 @@
     justify-content: center;
 }
 
-.unselect-box > p {
+.select-box > p {
     font-family: NotoSansCJKkr;
     font-size: 16px;
     font-weight: normal;
@@ -254,6 +231,28 @@
     letter-spacing: -1px;
     color: #9b9b9b;
     margin: auto;
+}
+
+.unselect-box {
+    width: 120px;
+    height: 40px;
+    border-radius: 6px;
+    border: solid 1.5px #ff5000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.unselect-box > p {
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #ff5000;
+    margin-bottom: 0;
 }
 
 .search {
