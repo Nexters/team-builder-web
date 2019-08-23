@@ -176,7 +176,6 @@
 
     .main-idea-contents-wrap {
         width: 1200px;
-        min-height: 538px;
     }
 
     .card {
