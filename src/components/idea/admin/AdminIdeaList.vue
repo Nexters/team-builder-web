@@ -101,14 +101,6 @@
         return n > 9 ? "" + n : "0" + n;
       },
 
-      // clickIdea(id) {
-      //   return this.$store.commit('main/CLICK_IDEAS', id);
-      // },
-
-      // inSelectedIdeas(id) {
-      //   return this.$store.state.main.candidateIdeas.findIndex(idea => (idea.ideaId === id)) <= -1;
-      // },
-
       toggle(checked) {
         if (checked) {
           if (this.ideaListResult.length === this.selected.length + 1){
@@ -118,9 +110,6 @@
         else {
           this.$emit('update:allSelected', false);
         }
-        console.log('selected ' + this.selected);
-        // this.$parent.select = this.selected;
-        // console.log('select ' + this.$parent.select);
       },
     },
 
@@ -138,31 +127,18 @@
       }),
 
       bus.$on('clickSelection', () => {
-        console.log('adminIdeaList bus on');
-        console.log('selected ', this.selected);
         this.$store.dispatch('main/SELECTION_IDEAS', this.selected);
-      });
+      }),
 
-
-        // this.$store.dispatch(this.selectionIdeas, this.selected));
-      //
-      // bus.$on('clickDeletion', deleteIdeas(this.selected));
+      bus.$on('clickDeletion', () => {
+        this.$store.dispatch('main/DELETE_IDEAS', this.selected);
+      })
     },
 
     computed:  {
-      // ...mapState([
-      //   'ideaList',
-      // ]),
-
       ...mapGetters({
         ideaListResult: GETTERS.GET_LIST,
       }),
-
-      ...mapActions({
-        deleteIdeas: ACTIONS.DELETE_IDEAS,
-        selectionIdeas: ACTIONS.SELECTION_IDEAS,
-
-      })
     }
   }
 

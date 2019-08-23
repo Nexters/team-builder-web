@@ -5,8 +5,8 @@
                 <div class="card-header">
                     <section class="header-left">
                         <div class="list-info">
-                            <div v-show="teamBuildingMode || (getTypeNow === 'TEAM_BUILDING')" id="view-all" style="display: inline;">전체 아이디어 </div>
-                            <div v-show="!(teamBuildingMode || (getTypeNow === 'TEAM_BUILDING'))" style="display: inline;">선정 아이디어</div>
+                            <div v-show="this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING')" id="view-all" style="display: inline;">전체 아이디어 </div>
+                            <div v-show="!(this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING'))" style="display: inline;">선정 아이디어</div>
                             <div style="display: inline">{{ selectedIdeaListLength }}건</div>
                         </div>
                     </section>
@@ -27,7 +27,7 @@
                     </section>
                 </div>
 
-                <div class="card-body" v-show="!(teamBuildingMode || (getTypeNow === 'TEAM_BUILDING'))">
+                <div class="card-body" v-show="!(this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING'))">
                     <b-form-group>
                     <div class="titles">
                         <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
@@ -49,7 +49,7 @@
                     </b-form-group>
                 </div>
 
-                <div class="card-body" v-show="teamBuildingMode || (getTypeNow === 'TEAM_BUILDING')">
+                <div class="card-body" v-show="this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING')">
                     <div class="titles">
                         <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
                         <div class="title" style="width: 62px; margin-left: 20px">아이디어 명</div>
@@ -106,7 +106,7 @@
       }),
 
       ...mapState({
-        teamBuildingMode: 'main.session.teamBuildingMode',
+        teamBuildingMode: state => state.session.teamBuildingMode,
       })
 
       // ...mapMutations([
@@ -145,27 +145,13 @@
         bus.$emit('toggleAll', checked);
       },
 
-      // selectedIdeas(ideas) {
-      //   this.select = ideas;
-      // },
-
-      selectIdeas(ideas) {
-
-        // if(this.select.findIndex(idea) === -1) {
-        //   this.select.push(idea);
-        //   return;
-        // }
-        // this.select
-      },
-
       clickSelection() {
         bus.$emit('clickSelection');
       },
-      //
+
       clickDeletion() {
+        bus.$emit('clickDeletion');
       },
-
-
 
       goDetail(id) {
         console.log(id);
