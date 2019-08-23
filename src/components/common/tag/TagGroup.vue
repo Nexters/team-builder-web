@@ -1,12 +1,13 @@
 <template>
     <div class="tag-group-wrap">
         <PositionTag v-for="tag in this.tags"
-                     :tag-id="tag.tagId"
-                     :name="tag.name"
-                     :type="tag.type"
-                     :state="tag.state"
-        @click="onClick">
+                     :tag="tag"
+                     @click="onClick">
         </PositionTag>
+        <!--:tag-id="tag.tagId"-->
+        <!--:name="tag.name"-->
+        <!--:type="tag.type"-->
+        <!--:state="tag.state"-->
     </div>
 </template>
 

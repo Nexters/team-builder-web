@@ -174,7 +174,14 @@ const store = {
             tagsId: idea.tags.map(tag => tag.tagId)
           }
         });
-        state.session.tags = session.tags;
+        state.session.tags = session.tags.map(function (tag) {
+          return {
+            name: tag.name,
+            tagId: tag.tagId,
+            type: tag.type,
+            state: false
+          }
+        });
         state.candidateIdeas = [];
         state.selectedTags = [];
       },
@@ -346,20 +353,13 @@ const store = {
       },
 
       [MUTATIONS.SET_IDEAS_SELECTED_TRUE]: (state, ideas) => {
-        console.log('mutation');
         state.ideaList.forEach(function (idea) {
           ideas.forEach(function (selectedIdea) {
-            console.log('forEach', selectedIdea);
             if(idea.ideaId === selectedIdea.ideaId) {
               idea.selected = true;
-              console.log(
-                '@@@@'
-              )
             }
           })
         })
-
-        console.log(state.ideaList);
       },
 
     },
@@ -430,7 +430,6 @@ const store = {
 
         [ACTIONS.SELECTION_IDEAS]: (context, ideas) => {
             ideas.forEach(function (idea) {
-              console.log(idea);
               updateIdea(idea)
                 // .then(this.$forceUpdate())
                 .catch(err => console.log(err));

@@ -1,6 +1,6 @@
 <template>
-    <button class="position-tag-wrap" :class="wrapClassName" :id="tagId" v-on:click="selected(tagId)">
-        <span class="position-tag-span" :class="spanClassName">{{ name }}</span>
+    <button class="position-tag-wrap" :class="wrapClassName" :id="tag.tagId" v-on:click="selected(tag)">
+        <span class="position-tag-span" :class="spanClassName">{{ tag.name }}</span>
     </button>
 </template>
 
@@ -10,29 +10,32 @@
     export default {
         name: "PositionTag",
         props: {
-            tagId: {
-                type: Number,
-                required: true
-            },
-
-            name: {
-                type: String,
-                required: true
-            },
-
-            type: {
-                type: String,
-                required: true
-            },
-
-            state: {
-                type: String,
-                required: false
-            }
+          tag: Object,
+            // tagId: {
+            //     type: Number,
+            //     required: true
+            // },
+            //
+            // name: {
+            //     type: String,
+            //     required: true
+            // },
+            //
+            // type: {
+            //     type: String,
+            //     required: true
+            // },
+            //
+            // state: {
+            //     type: Boolean,
+            //     required: false
+            // }
         },
 
         data() {
-            return { }
+            return {
+              selectedTagsArray: [],
+            }
         },
 
         computed: {
@@ -60,9 +63,18 @@
         },
 
         methods: {
-          selected(id) {
-            console.log(id);
-            return this.$store.commit('main/SELECT_TAG', id);
+          selected(tag) {
+            console.log(tag);
+            console.log(tag.tagId);
+            const index = this.selectedTagsArray.findIndex(select => select === tag);
+            console.log('index', index);
+            if(index === -1) {
+              this.selectedTagsArray.push(tag);
+              console.log(this.selectedTagsArray);
+              return
+            }
+
+            return this.selectedTagsArray.splice(index, 1);
           }
         }
     }
