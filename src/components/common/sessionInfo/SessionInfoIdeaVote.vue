@@ -33,7 +33,7 @@
         </div>
         <div class="session-info-idea-vote-image-wrap">
             <div class="session-info-idea-vote-image-box">
-                <img />
+                <img class="session-info-idea-vote-image" src="@/assets/img/session_ingo_idea_vote_image.png"/>
             </div>
             <div v-show="!voteDone" class="session-info-idea-vote-button-box">
                 <button @click="voteSummit()" class="session-info-idea-vote-button" :class="availableVoteButtonClass" :disabled="!isAvailableVote">
@@ -270,6 +270,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 2;
     }
 
     .session-info-idea-vote-candidateIdeas-text {
@@ -277,6 +278,7 @@
         height: 27px;
         text-overflow: ellipsis;
         overflow-x: hidden;
+        overflow-y: hidden;
         white-space: nowrap;
         font-family: NotoSansCJKkr;
         font-size: 18px;
@@ -312,4 +314,17 @@
         color: #000000;
     }
 
+    .session-info-idea-vote-image-box {
+        width: 560px;
+        height: 399px;
+        position: absolute;
+        top: 19px;
+        right: -50px;
+    }
+
+    .session-info-idea-vote-image {
+        width: 550px;
+        height: 340px;
+        object-fit: contain;
+    }
 </style>

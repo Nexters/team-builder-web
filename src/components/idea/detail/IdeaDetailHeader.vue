@@ -2,8 +2,8 @@
     <div class="idea-detail-header-wrap">
         <div class="idea-detail-header-main">
             <button class="favorite-button">
-                <img v-show="!isFavorite" @click="toggleFavorite" class="favorite-button-image-off" src="@/assets/img/favourites-filled-star-symbol@2x.png"/>
-                <img v-show="isFavorite" @click="toggleFavorite" class="favorite-button-image-on" src="@/assets/img/favourites-filled-star-symbol-copy@2x.png"/>
+                <img v-show="!idea.favorite" @click="toggleFavorite" class="favorite-button-image-off" src="@/assets/img/favourites-filled-star-symbol@2x.png"/>
+                <img v-show="idea.favorite" @click="toggleFavorite" class="favorite-button-image-on" src="@/assets/img/favourites-filled-star-symbol-copy@2x.png"/>
             </button>
             <span class="idea-detail-header-title">{{idea.title}}</span>
             <button v-if="" class="idea-detail-header-modify-button">
@@ -25,9 +25,7 @@
     export default {
         name: "IdeaDetailHeader",
         data() {
-            return {
-                isFavorite: false,
-            }
+            return { }
         },
         props: {
             idea: {
@@ -51,7 +49,7 @@
 
         methods: {
             toggleFavorite() {
-                this.isFavorite = !this.isFavorite;
+                this.$store.dispatch('main/FAVORITE_CHANGE', {ideaId: this.idea.ideaId, isFavorite: !this.idea.favorite});
             },
         },
 
