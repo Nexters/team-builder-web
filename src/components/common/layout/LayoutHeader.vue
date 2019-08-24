@@ -28,24 +28,28 @@
                 </template>
             </div>
 
-            <div class="header-period header-period-on">
-                <div class="period-step period-step-on">step1</div>
-                아이디어 모집
+            <div class="header-period" :class="{'now' : nowPeriodType === 'IDEA_COLLECT'}" :mouseover="!this.showIdeaCollect">
+                <div class="period-step" :class="{'period-step-on' : nowPeriodType === 'IDEA_COLLECT'}">step1</div>
+                <span v-show="!this.showIdeaCollect">아이디어 모집</span>
+                <span v-show="this.showIdeaCollect">{{ }}</span>
             </div>
             <img class="period-right-icon" src="@/assets/img/header-right-icon.png"/>
-            <div class="header-period">
-                <div class="period-step">step2</div>
-                아이디어 투표
+            <div class="header-period" :class="{'now' : nowPeriodType === 'IDEA_VOTE'}" :mouseover="!this.showIdeaVote">
+                <div class="period-step" :class="{'period-step-on' : nowPeriodType === 'IDEA_VOTE'}">step2</div>
+                <span v-show="!this.showIdeaVote">아이디어 투표</span>
+                <span v-show="this.showIdeaVote">{{ }}</span>
             </div>
             <img class="period-right-icon" src="@/assets/img/header-right-icon.png"/>
-            <div class="header-period">
-                <div class="period-step">step3</div>
-                선정아이디어 확인
+            <div class="header-period" :class="{'now' : nowPeriodType === 'IDEA_CHECK'}" :mouseover="!this.showIdeaCheck">
+                <div class="period-step" :class="{'period-step-on' : nowPeriodType === 'IDEA_CHECK'}">step3</div>
+                <span v-show="!this.showIdeaCheck">선정아이디어 확인</span>
+                <span v-show="this.showIdeaCheck">{{ }}</span>
             </div>
             <img class="period-right-icon" src="@/assets/img/header-right-icon.png"/>
-            <div class="header-period">
-                <div class="period-step">step4</div>
-                팀빌딩
+            <div class="header-period" :class="{'now' : nowPeriodType === 'TEAM_BUILDING'}" :mouseover="!this.showTeamBuilding">
+                <div class="period-step" :class="{'period-step-on' : nowPeriodType === 'TEAM_BUILDING'}">step4</div>
+                <span v-show="!this.showTeamBuilding">팀빌딩</span>
+                <span v-show="this.showTeamBuilding">{{ }}</span>
             </div>
         </div>
     </div>
@@ -53,6 +57,10 @@
 
 <script>
     import {GENERAL_MANAGE, USER_MANAGE} from '@/consts/adminType';
+    import {ACTIONS, GETTERS, MUTATIONS} from "@/store/types";
+    import {createNamespacedHelpers} from 'vuex';
+    const {mapMutations, mapGetters, mapState, mapActions} = createNamespacedHelpers('main');
+
 
     export default {
         name: "LayoutHeader",
@@ -64,6 +72,12 @@
                 // mode: GENERAL_MANAGE,
                 USER_MANAGE: USER_MANAGE,
                 GENERAL_MANAGE: GENERAL_MANAGE,
+                showIdeaCollect: false,
+                showIdeaVote: false,
+                showIdeaCheck: false,
+                showTeamBuilding: false,
+
+
 
                 isTeambuildingPeriod: false, //팀빌딩 모드 전환이 가능한지 여부! padlock img 노출용
             }
@@ -75,7 +89,15 @@
             },
             sessionNumber() {
                 return this.$store.state.main.session.sessionNumber || this.$route.params.sessionNumber;
-            }
+            },
+
+          // ...mapState({
+          //   nowPeriodType: state => state.session.nowPeriod,
+          // }),
+
+          ...mapGetters({
+            nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW
+          })
         },
 
         methods: {
@@ -212,7 +234,7 @@
         position: relative;
     }
 
-    .header-period-on {
+    .now {
         color: #000000;
     }
 
