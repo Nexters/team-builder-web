@@ -41,12 +41,17 @@
 	color: #9b9b9b;
 }
 
+.idea-name-wrapper {
+	width: 451px;
+	height: inherit;
+	padding: 26px 15px 24px 7px;
+	cursor: pointer;
+ }
+
 .idea-name {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
-
-	margin: 26px 15px 24px 7px;
 
 	width: 429px;
 	height: 24px;
@@ -58,7 +63,7 @@
 	line-height: normal;
 	letter-spacing: -0.89px;
 	color: #1c1c1c;
-	cursor: pointer;
+	display: inline-block;
 }
 
 .tags {

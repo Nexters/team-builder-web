@@ -10,8 +10,10 @@
                     -
                 </div>
                 <!-- idea-name-->
-                <div class="idea-name" @click="$emit('goDetail', idea.ideaId)">
-                    {{ idea['title'] }}
+                <div class="idea-name-wrapper" @click="$emit('goDetail', idea.ideaId)">
+                    <div class="idea-name">
+                        {{ idea['title'] }}
+                    </div>
                 </div>
                 <!-- tags -->
                 <div class="td" style="margin: 17px 0 17px 37px; width: 327px; position: relative;">
@@ -34,10 +36,10 @@
             <div v-else class="Rectangle list">
                 <!-- favorite -->
                 <div class="favorite">
-                    <img v-show="idea['favorite'] === true" @click="clickFavorite(idea.ideaId)"
+                    <img v-show="idea['favorite'] === true" @click="clickFavorite(idea)"
                          src="@/assets/img/favourites-filled-star-symbol-copy@2x.png"
-                         class="favourites-filled-star-symbol-copy" />
-                    <img v-show="idea['favorite'] === false" @click="clickFavorite(idea.ideaId)"
+                         class="favourites-filled-star-symbol-copy">
+                    <img v-show="idea['favorite'] === false" @click="clickFavorite(idea)"
                          src="@/assets/img/favourites-filled-star-symbol@2x.png"
                          class="favourites-filled-star-symbol" />
                     <!--<img v-show="true" @click="clickFavorite(idea.ideaId)"-->
@@ -49,8 +51,10 @@
                     {{ idea['orderNumber'] }}
                 </div>
                 <!-- idea-name-->
-                <div class="idea-name" @click="$emit('goDetail', idea.ideaId)">
-                    {{ idea['title'] }}
+                <div class="idea-name-wrapper" @click="$emit('goDetail', idea.ideaId)">
+                    <div class="idea-name">
+                        {{ idea['title'] }}
+                    </div>
                 </div>
                 <!-- tags -->
                 <div class="td" style="margin: 17px 0 17px 12px; width: 327px; height: 40px; position: relative;">
@@ -137,8 +141,8 @@
         }
       },
 
-      clickFavorite: function (id) {
-        return this.$store.dispatch('main/FAVORITE_CHANGE', id);
+      clickFavorite: function (idea) {
+        return this.$store.dispatch('main/FAVORITE_CHANGE', {ideaId: idea.ideaId, isFavorite: idea.favorite});
       },
 
       positionFormat(position) {
