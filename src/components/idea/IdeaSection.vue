@@ -27,7 +27,7 @@
 
                     <section class="header-right">
                         <div class="search">
-                            <button class="Rectangle-Copy" @click="showPopUp = true"><span>태그검색</span></button>
+                            <button class="Rectangle-Copy" @click="openInfo"><span>태그검색</span></button>
                             <SelectSearchTag v-if="showPopUp"
                                              @close="showPopUp = false"
                                              @searchTags="searchTags">
@@ -199,6 +199,14 @@
         this.showSearchTagResult = true;
         this.showPopUp = false;
         return this.$store.dispatch('main/SEARCH_TAGS');
+      },
+
+      openInfo() {
+          // 태그 검색 막아놓음
+          this.$alert('오픈 준비중입니다.', '태그검색', {
+                  confirmButtonText: '확인'
+              }
+          )
       },
 
       goDetail(id) {
