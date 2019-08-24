@@ -1,7 +1,7 @@
 <template>
     <Layout>
         <template v-slot:body>
-            <div style="width: 1200px">
+            <div style="width: 1200px; margin-left: 70px;">
                 <div class="header">
                     <p>넥스터즈 {{$store.state.main.session.sessionNumber}}기 활동 회원관리</p>
                 </div>
@@ -152,8 +152,8 @@
             loadActiveUsers() {
                 getActiveUsers({sessionNumber: this.$route.params.sessionNumber})
                     .then(res => {
+                        console.log(res)
                         this.users = res.data;
-
                     });
             },
             deleteActiveUsers() {

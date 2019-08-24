@@ -24,6 +24,7 @@
     "vue-loader": "^15.7.1",
     "vue-rocker-switch": "^1.2.4",
     "vue-router": "^3.0.3",
+    "vue2-transitions": "^0.3.0",
     "vuex": "^3.0.1",
     "vuex-persistedstate": "^2.5.4"
   },

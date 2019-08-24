@@ -72,12 +72,15 @@
         computed: {
             isAdmin() {
                 return this.$store.getters.isAdmin;
+            },
+            sessionNumber() {
+                return this.$store.state.main.session.sessionNumber || this.$route.params.sessionNumber;
             }
         },
 
         methods: {
             moveToSession() {
-                this.$router.push({path: `/session/${this.$route.params.sessionNumber}`});
+                this.$router.push({path: `/session/${this.sessionNumber}`});
             },
             moveToTeamBuilding() {
                 // 오픈준비중
@@ -88,10 +91,10 @@
                 )
             },
             moveToUserManage() {
-                this.$router.push({path: `/session/${this.$route.params.sessionNumber}/user-manage`});
+                this.$router.push({path: `/session/${this.sessionNumber}/user-manage`});
             },
             moveToGeneralManage() {
-                this.$router.push({path: `/session/${this.$route.params.sessionNumber}/general-manage`});
+                this.$router.push({path: `/session/${this.sessionNumber}/general-manage`});
             }
         }
     }
@@ -112,7 +115,7 @@
     }
 
     .header-contents-wrap {
-        width: 1200px;
+        min-width: 1200px;
         height: 70px;
         display: flex;
     }

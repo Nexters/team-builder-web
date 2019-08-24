@@ -30,3 +30,13 @@ export function deleteActiveUsers({sessionNumber, uuids}) {
 
     return api.put(`apis/sessions/${sessionNumber}/delete-users`, params);
 }
+
+export function addActiveUsers({sessionNumber, uuids}) {
+    const token = store.getters.getToken;
+    Object.assign(api.defaults, {headers: {authorization: token}});
+
+    let params = new URLSearchParams();
+    params.append('uuids', uuids);
+
+    return api.put(`apis/sessions/${sessionNumber}/add-users`, params);
+}

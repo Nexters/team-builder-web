@@ -2,34 +2,47 @@
     <div class="session-info-d-day">
         <img class="exclamation-mark-icon" src="@/assets/img/exclamation-mark-icon.png"/>
         <div class="apply-state-massage">
-            <span>미제출</span>
+            <span>{{ stateMessage }}</span>
         </div>
         <div class="d-day-info-message">
-            <span>마감까지 {{ remainDay }}일 {{ remainHour }}시간 남았습니다.</span>
+            <span>{{ ddayMessage }}</span>
         </div>
     </div>
 </template>
 
 <script>
-    import {PERIOD_TYPE} from '@/consts/periodType';
     import moment from 'moment';
+    import {PERIOD_TYPE} from '@/consts/periodType';
 
     export default {
         name: "SessionInfoDDay",
         data() {
             return {
-                remainDay: 0,
-                remainHour: 0,
+                stateMessage: '',
+                ddayMessage: '',
+                nowPeriod: this.$store.state.main.nowPeriod,
             }
         },
         created() {
-            const period = this.$store.state.main.session.periods
-                                .find(period => period.periodType === PERIOD_TYPE.IDEA_COLLECT);
-            const endDate = moment(period.endDate);
-            const nowDate = moment();
+            this.stateMessage = this.nowPeriod === PERIOD_TYPE.IDEA_COLLECT ? '미제출' : '미투표';
 
-            this.remainDay = moment(endDate, 'YYYY-MM').diff(nowDate, 'day');
-            this.remainHour = moment(endDate, 'YYYY-MM-HH').diff(nowDate, 'hour') % 24;
+            const endDate = moment(this.nowPeriod.endDate);
+            const nowDate = moment();
+            const remainDayNumber = moment(endDate, 'YYYY-MM').diff(nowDate, 'day');
+            const remainHourNumber = moment(endDate, 'YYYY-MM-HH').diff(nowDate, 'hour') % 24;
+
+            if (nowDate.isAfter(endDate)) {
+                this.ddayMessage = '마감되었습니다.';
+                return;
+            }
+
+            const remainDay = remainDayNumber === 0 ? '' : (remainDayNumber + '일');
+            let remainHour = remainHourNumber === 0 ? '' : (remainHourNumber + '시간');
+            if (!remainHour) {
+                remainHour = moment(endDate, 'YYYY-MM-HH-MM').diff(nowDate, 'minute') + '분';
+            }
+
+            this.ddayMessage = `마감까지 ${remainDay} ${remainHour} 남았습니다.`;
         }
     }
 </script>
@@ -59,7 +72,8 @@
     }
 
     .d-day-info-message {
-        width: 199px;
+        width: 230px;
+        text-align: left;
         padding: 2px 0px 0px 0px;
         font-family: NotoSansCJKkr;
         font-size: 16px;

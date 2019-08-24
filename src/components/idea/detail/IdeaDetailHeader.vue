@@ -26,7 +26,7 @@
         name: "IdeaDetailHeader",
         data() {
             return {
-                isFavorite: true,
+                isFavorite: false,
             }
         },
         props: {

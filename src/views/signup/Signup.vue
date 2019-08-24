@@ -157,7 +157,7 @@
                 })
             },
             idDuplicateCheck() {
-                alert("사용중인 아이디입니다.")
+                alert("업데이트 예정인 기능입니다.")
             }
         },
         computed: {

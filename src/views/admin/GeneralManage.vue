@@ -1,7 +1,7 @@
 <template>
     <Layout>
         <template v-slot:body>
-            <div style="width: 1200px">
+            <div style="width: 1200px; margin-left: 70px;">
                 <div class="d-flex" style="margin-top: 30px">
                     <div>
                         <p class="header">넥스터즈 {{$store.state.main.session.sessionNumber}}기 활동 일반관리</p>

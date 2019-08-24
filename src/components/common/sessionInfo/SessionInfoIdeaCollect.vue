@@ -1,37 +1,42 @@
 <template>
-    <div style="display: flex; justify-content: center; flex-direction: column">
-        <div class="session-info-wrap">
-            <div class="session-info-main">
-                <div class="session-info-title">
-                    <span>넥스터즈 {{sessionNumber}}기의<br>다양한 아이디어를 모집해요</span>
-                </div>
-                <SessionInfoDDay></SessionInfoDDay>
-
-                <div class="session-info-idea-write-wrap">
-                    <button class="session-info-idea-write-button" @click="moveNewIdea">
-                        <span class="session-info-idea-write-message">아이디어 작성하기</span>
-                    </button>
-                </div>
+    <div class="session-info-wrap">
+        <div class="session-info-main">
+            <div class="session-info-title">
+                <span>넥스터즈 {{sessionNumber}}기의<br>{{ mainTitle }}</span>
             </div>
+            <SessionInfoDDay></SessionInfoDDay>
 
-            <div class="session-info-image-wrap">
-                <img class="session-info-image" src="@/assets/img/session_ingo_idea_collect_image.png"/>
+            <div class="session-info-idea-write-wrap">
+                <button class="session-info-idea-write-button" @click="moveNewIdea">
+                    <span class="session-info-idea-write-message">아이디어 작성하기</span>
+                </button>
             </div>
         </div>
-        <div class="border-line"></div>
+
+        <div class="session-info-image-wrap">
+            <img class="session-info-image" src="@/assets/img/session_ingo_idea_collect_image.png"/>
+        </div>
     </div>
 </template>
 
 <script>
     import SessionInfoDDay from '@/components/common/sessionInfo/SessionInfoDDay';
     export default {
-        name: "SessionInfo",
+        name: "SessionInfoIdeaCollect",
         components: {SessionInfoDDay},
         data() {
             return {
                 sessionNumber: this.$store.state.main.session.sessionNumber,
+                nowPeriodType: this.$store.state.main.nowPeriod.periodType,
             }
         },
+
+        computed: {
+            mainTitle() {
+                return '다양한 아이디어를 모집해요';
+            }
+        },
+
         methods: {
             moveNewIdea() {
                 this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/new`});
@@ -43,7 +48,7 @@
 <style scoped>
     .session-info-wrap {
         min-width: 1200px;
-        margin-left: 388px;
+        margin-left: 70px;
         height: 400px;
         background-color: white;
         display: flex;
@@ -99,12 +104,6 @@
         width: 381.4px;
         height: 306px;
         margin: 41px 60.8px 52px 117.8px;
-    }
-
-    .border-line {
-        width: 100%;
-        height: 1px;
-        background-color: #eeeeee;
     }
 
 </style>
