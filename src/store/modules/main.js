@@ -1,6 +1,6 @@
 import {ACTIONS, GETTERS, MUTATIONS} from '@/store/types';
 import {getSession} from '@/api/sessionApi';
-import {createNewIdea, deleteIdea, getIdea, updateIdea} from '@/api/ideaApi';
+import {createNewIdea, deleteIdea, getIdea, updateIdea, putVoteIdea} from '@/api/ideaApi';
 import id from 'bootstrap-vue/esm/mixins/id';
 
 // 가독성을 위해 데이터 폼 표시
@@ -184,6 +184,24 @@ const store = {
           }
         });
         state.candidateIdeas = [];
+
+        // 투표예시데이터
+        // state.candidateIdeas = [
+        //   {
+        //     id: '1',
+        //     title: '일이삼사오육칠팔구십일이'
+        //   },
+        //   {
+        //     id: '2',
+        //     title: '일이삼사오육칠팔구십일이일이삼사오육칠팔구십일이'
+        //   },
+        //   {
+        //     id: '3',
+        //     title: '일이삼사오육칠팔구십일이일이삼사오육칠팔구십일이'
+        //   }
+        // ];
+
+
         state.selectedTags = [];
         state.nowPeriod = session.periods.find(period => period.now);
       },
@@ -336,6 +354,10 @@ const store = {
         })
       },
 
+      [MUTATIONS.REMOVE_CANDIDATE_IDEA]: (state, ideaId) => {
+        const removeIdeaIndex = state.candidateIdeas.findIndex(idea => idea.id === ideaId);
+        state.candidateIdeas.splice(removeIdeaIndex, 1);
+      }
     },
 
     actions: {
@@ -414,6 +436,20 @@ const store = {
 
         [ACTIONS.SORT_BY_DEFAULT]: (context) => {
           context.commit(MUTATIONS.SORT_LIST_BY_ORDER_NUMBER)
+        },
+
+        [ACTIONS.REMOVE_CANDIDATE_IDEA]: ({commit}, ideaId) => {
+          return commit(MUTATIONS.REMOVE_CANDIDATE_IDEA, ideaId);
+        },
+
+        [ACTIONS.VOTE_SUMMIT]: (context) => {
+          const candidateIdeas = context.state.candidateIdeas;
+          candidateIdeas.forEach(idea => {
+            putVoteIdea(idea.id)
+                .then()
+                .catch(err => Promise.reject(err));
+          });
+          return Promise.resolve(); //TODO 비동기처리 해줘야함. 모든 투표 정상완료되어야 resolve되도록!
         }
     }
 };

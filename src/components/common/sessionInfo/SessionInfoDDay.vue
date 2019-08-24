@@ -2,7 +2,7 @@
     <div class="session-info-d-day">
         <img class="exclamation-mark-icon" src="@/assets/img/exclamation-mark-icon.png"/>
         <div class="apply-state-massage">
-            <span>미제출</span>
+            <span>{{ stateMessage }}</span>
         </div>
         <div class="d-day-info-message">
             <span>{{ ddayMessage }}</span>
@@ -12,16 +12,20 @@
 
 <script>
     import moment from 'moment';
+    import {PERIOD_TYPE} from '@/consts/periodType';
 
     export default {
         name: "SessionInfoDDay",
         data() {
             return {
+                stateMessage: '',
                 ddayMessage: '',
                 nowPeriod: this.$store.state.main.nowPeriod,
             }
         },
         created() {
+            this.stateMessage = this.nowPeriod === PERIOD_TYPE.IDEA_COLLECT ? '미제출' : '미투표';
+
             const endDate = moment(this.nowPeriod.endDate);
             const nowDate = moment();
             const remainDayNumber = moment(endDate, 'YYYY-MM').diff(nowDate, 'day');

@@ -30,7 +30,7 @@
 
         computed: {
             mainTitle() {
-                return '아이디어가 선정되었어요.';
+                return '아이디어가 선정되었어요';
             }
         },
 
