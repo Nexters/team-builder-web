@@ -47,3 +47,8 @@ export function deleteIdea(ideaId) {
   Object.assign(api.defaults, {headers: {authorization: getAuthToken()}});
   return api.delete(`/apis/ideas/${ideaId}`);
 }
+
+export function putVoteIdea(ideaId) {
+    Object.assign(api.defaults, {headers: {authorization: getAuthToken()}});
+    return api.put(`/apis/ideas/${ideaId}/vote`);
+}
