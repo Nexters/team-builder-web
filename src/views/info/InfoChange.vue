@@ -89,6 +89,7 @@
                 updateUserInfo(this.newPassword, this.password, this.positionSelect)
                     .then(res => {
                         alert("수정 완료!")
+                        this.$emit('update:isAccess', false)
                     })
                     .catch(err => {
                         alert('수정 실패 ㅜ');
