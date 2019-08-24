@@ -1,6 +1,6 @@
 import {ACTIONS, GETTERS, MUTATIONS} from '@/store/types';
 import {getSession} from '@/api/sessionApi';
-import {createNewIdea, deleteIdea, getIdea, updateIdea, putVoteIdea} from '@/api/ideaApi';
+import {createNewIdea, deleteFavorite, deleteIdea, getIdea, putVoteIdea, setFavorite, updateIdea} from '@/api/ideaApi';
 import id from 'bootstrap-vue/esm/mixins/id';
 
 // 가독성을 위해 데이터 폼 표시
@@ -392,13 +392,20 @@ const store = {
        * @param context
        * @param id  ideaId
        */
-        [ACTIONS.FAVORITE_CHANGE](context, id) {
-          context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE, id);
+        [ACTIONS.FAVORITE_CHANGE](context, payload) {
+          context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE, payload.ideaId);
+
+          if(!payload.isFavorite) {
+            setFavorite(payload.ideaId).catch(err => console.log(err));
+            return;
+          }
+          deleteFavorite(payload.ideaId).catch(err => console.log(err));
         },
 
         [ACTIONS.SEARCH_TAGS](context) {
           // 서버로 전송
           // 받아온 리스트 ideaList에 저장
+          context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE);
         },
 
         /**

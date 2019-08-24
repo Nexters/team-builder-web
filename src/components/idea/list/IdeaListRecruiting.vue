@@ -11,8 +11,10 @@
                     -
                 </div>
                 <!-- idea-name-->
-                <div class="idea-name" @click="$emit('goDetail', idea.ideaId)">
-                    {{ idea['title'] }}
+                <div class="idea-name-wrapper" @click="$emit('goDetail', idea.ideaId)">
+                    <div class="idea-name">
+                        {{ idea['title'] }}
+                    </div>
                 </div>
                 <!-- tags -->
                 <div class="td" style="margin: 17px 0 17px 37px; width: 327px; position: relative;">
@@ -35,24 +37,25 @@
             <div v-else class="Rectangle list">
                 <!-- favorite -->
                 <div class="favorite">
-                    <img v-show="idea['favorite'] === true" @click="clickFavorite(idea.ideaId, idea['favorite'])"
+                    <img v-show="idea['favorite'] === true" @click="clickFavorite(idea)"
                          src="@/assets/img/favourites-filled-star-symbol-copy@2x.png"
                          class="favourites-filled-star-symbol-copy">
-                    <img v-show="idea['favorite'] === false" @click="clickFavorite(idea.ideaId, idea['favorite'])"
+                    <img v-show="idea['favorite'] === false" @click="clickFavorite(idea)"
                          src="@/assets/img/favourites-filled-star-symbol@2x.png"
                          class="favourites-filled-star-symbol" />
                     <!--<img v-show="true" @click="clickFavorite(idea.ideaId, idea['favorite'])"-->
                          <!--src="@/assets/img/favourites-filled-star-symbol@2x.png"-->
                          <!--class="favourites-filled-star-symbol" />-->
-
                 </div>
                 <!-- order-number -->
                 <div class="order-number">
                     {{ idea['orderNumber'] }}
                 </div>
                 <!-- idea-name-->
-                <div class="idea-name" @click="$emit('goDetail', idea.ideaId)">
-                    {{ idea['title'] }}
+                <div class="idea-name-wrapper" @click="$emit('goDetail', idea.ideaId)">
+                    <div class="idea-name">
+                        {{ idea['title'] }}
+                    </div>
                 </div>
                 <!-- tags -->
                 <div class="td" style="margin: 17px 0 17px 37px; width: 327px; position: relative;">
@@ -130,16 +133,16 @@
         }
       },
 
-      clickFavorite(id, star) {
-        this.$store.dispatch('main/FAVORITE_CHANGE', id);
-        if(star) {
-          this.setFavorite({
-            ideaId: id,
-          }).catch(err => console.log(err));
-          return;
-        }
-
-        this.deleteFavorite({id}).catch(err => console.log(err));
+      clickFavorite(idea) {
+        this.$store.dispatch('main/FAVORITE_CHANGE', {ideaId: idea.ideaId, isFavorite: idea.favorite});
+        // if(star) {
+        //   this.setFavorite({
+        //     ideaId: id,
+        //   }).catch(err => console.log(err));
+        //   return;
+        // }
+        //
+        // this.deleteFavorite({id}).catch(err => console.log(err));
       },
 
       positionFormat(position) {

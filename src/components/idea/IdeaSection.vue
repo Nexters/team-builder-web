@@ -148,11 +148,6 @@
         getSearchTagName: GETTERS.GET_SEARCH_TAGS_FIRST_NAME,
         nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
       }),
-
-      // ...mapMutations([
-      //   'SET_SEARCH_TERM'
-      // ])
-
     },
 
     methods: {
