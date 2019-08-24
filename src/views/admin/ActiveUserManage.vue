@@ -12,7 +12,7 @@
                 <div class="user-manage-tab d-flex">
                     <p>{{$store.state.main.session.sessionNumber}}기 활동회원 {{users.length}}명</p>
                     <div class="ml-auto">
-                        <button class="btn-user-remove"` @click="deleteActiveUsers"`>
+                        <button class="btn-user-remove" @click="deleteActiveUsers">
                             활동회원제거
                         </button>
                         <input class="search-box" placeholder="회원명과 아이디를 검색해주세요." v-model="search">
@@ -152,8 +152,8 @@
             loadActiveUsers() {
                 getActiveUsers({sessionNumber: this.$route.params.sessionNumber})
                     .then(res => {
+                        console.log(res)
                         this.users = res.data;
-
                     });
             },
             deleteActiveUsers() {

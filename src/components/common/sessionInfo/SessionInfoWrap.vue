@@ -25,7 +25,7 @@
                 nowPeriodType: this.$store.state.main.nowPeriod.periodType,
 
                 isIdeaCollect: false,
-                isIdeaVote: true, //TODO: 선정기간으로 바꿔야함
+                isIdeaVote: false,
                 isIdeaCheck: false,
                 isTeamBuilding: false,
             }
