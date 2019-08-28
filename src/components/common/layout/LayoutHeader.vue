@@ -164,7 +164,6 @@
                 }
             },
 
-
         }
     }
 </script>
@@ -210,7 +209,7 @@
         width: 47px;
         height: 27px;
         margin: 26px 6px 17px 0px;
-        font-family: NotoSansCJKkr;
+        font-family: Roboto;
         color: #9b9b9b;
         font-size: 18px;
         letter-spacing: -1px;
