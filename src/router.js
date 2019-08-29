@@ -64,6 +64,12 @@ export default new Router({
             component: () => import(/* webpackChunkName: "Main" */ './views/NewIdea.vue'),
         },
         {
+            path: '/session/:sessionNumber/idea/:ideaId/modify',
+            name: 'IdeaModify',
+            beforeEnter: requireAuth(),
+            component: () => import(/* webpackChunkName: "Main" */ './views/IdeaModify.vue'),
+        },
+        {
             path: '/session/:sessionNumber/idea/:ideaId',
             name: 'IdeaDetail',
             beforeEnter: requireAuth(),

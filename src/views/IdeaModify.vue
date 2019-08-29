@@ -7,7 +7,7 @@
                 <div class="tag-group-container">
                     <div class="tag-group-message">저는 이런 팀원이 필요해요</div>
                     <div class="tag-group-message-hint">함께 일하고 싶은 팀원의 포지션을 선택해주세요. 최대 5개 까지의 태그를 선택할 수 있어요.</div>
-                    <TagGroup :tags="allTags"></TagGroup>
+                    <TagGroup :tags="tags"></TagGroup>
                 </div>
             </div>
         </template>
@@ -18,8 +18,12 @@
     import Layout from '@/components/common/layout/Layout';
     import TagGroup from '@/components/common/tag/TagGroup';
     import IdeaEditor from '@/components/idea/new/IdeaEditor';
+    import { ACTIONS } from '@/store/types';
+    import {createNamespacedHelpers} from 'vuex';
+    const { mapActions } = createNamespacedHelpers('main');
+
     export default {
-        name: "NewIdea",
+        name: "IdeaModify",
         components: {Layout, IdeaEditor, TagGroup},
         data() {
             return {
@@ -27,14 +31,58 @@
                     ideaTitle: '',
                     editorText: '',
                 },
+                tags: []
             }
         },
 
         computed: {
             allTags() {
                 return this.$store.state.main.session.tags;
+            },
+
+            availableEditIdea() {
+                return this.isAdmin || this.isOwner;
+            },
+
+            isAdmin() {
+                return this.$store.getters.isAdmin;
+            },
+
+            isOwner() {
+                return this.$store.getters.getUuid === this.idea.author.uuid;
             }
         },
+
+        methods: {
+            ...mapActions({
+                getIdea: ACTIONS.GET_IDEA,
+            }),
+
+            getIdeaDetail(ideaId) {
+                this.getIdea(ideaId)
+                    .then(res => {
+                        this.idea = {
+                            ...res.data,
+                            ideaTitle: res.data.title,
+                            editorText: res.data.content,
+                        };
+                        this.tags = res.data.tags;
+
+                        if (!this.availableEditIdea) {
+                            this.$alert('접근권한이 없습니다.', '아이디어 수정', {
+                                    confirmButtonText: '확인'
+                                }
+                            );
+                            this.$router.push({path: '/'});
+                        }
+                    })
+                    .catch(err => console.log(err));
+            }
+        },
+
+        created() {
+            this.getIdeaDetail(this.$route.params.ideaId);
+        }
     }
 </script>
 

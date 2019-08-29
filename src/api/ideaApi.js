@@ -18,6 +18,18 @@ export function createNewIdea(newIdea) {
     })
 }
 
+export function modifyIdea(idea) {
+    Object.assign(api.defaults, {headers: {authorization: getAuthToken()}});
+    return api.put(`/apis/ideas/${idea.ideaId}`, {
+        content: idea.content,
+        // file: '',
+        sessionId: idea.sessionId,
+        tags: idea.tags,
+        title: idea.title,
+        type: idea.type,
+    })
+}
+
 export function setFavorite(ideaId) {
   Object.assign(api.defaults, {headers: {authorization: getAuthToken()}});
   return api.post('/apis/favorites', {

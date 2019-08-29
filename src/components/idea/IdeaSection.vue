@@ -210,7 +210,6 @@
       },
 
       goDetail(id) {
-        console.log(id);
         this.$router.push({
           path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${id}`
         });
