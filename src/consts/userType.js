@@ -7,6 +7,7 @@ export const SET_ROLE = 'setRole';
 export const SET_POSITION = 'setPosition';
 export const SET_AUTH = 'setAuth';
 export const SET_TOKEN = 'setToken';
+export const SET_UUID = 'setUuid';
 
 export const LOGIN_URL =  process.env.VUE_APP_API_URL + '/users/sign-in';
 export const SIGNUP_URL =  process.env.VUE_APP_API_URL + '/users/sign-up';

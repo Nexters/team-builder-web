@@ -6,7 +6,7 @@
                 <img v-show="idea.favorite" @click="toggleFavorite" class="favorite-button-image-on" src="@/assets/img/favourites-filled-star-symbol-copy@2x.png"/>
             </button>
             <span class="idea-detail-header-title">{{idea.title}}</span>
-            <button v-if="" class="idea-detail-header-modify-button">
+            <button v-if="availableEditIdea" @click="onClickEditIdea(idea.ideaId)" class="idea-detail-header-modify-button">
                 <span class="idea-detail-header-modify-button-span">수정하기</span>
             </button>
         </div>
@@ -44,6 +44,18 @@
 
             updateTime() {
                 return moment(this.idea.updatedAt).locale('ko').format('YYYY.MM.DD  a hh:mm').toString();
+            },
+
+            availableEditIdea() {
+                return this.isAdmin || this.isOwner;
+            },
+
+            isAdmin() {
+                return this.$store.getters.isAdmin;
+            },
+
+            isOwner() {
+                return this.$store.getters.getUuid === this.idea.author.uuid;
             }
         },
 
@@ -51,6 +63,10 @@
             toggleFavorite() {
                 this.$store.dispatch('main/FAVORITE_CHANGE', {ideaId: this.idea.ideaId, isFavorite: !this.idea.favorite});
             },
+
+            onClickEditIdea(ideaId) {
+                this.$router.push({path:`/session/${this.$store.state.main.session.sessionNumber}/idea/${this.idea.ideaId}/modify`});
+            }
         },
 
     }
@@ -105,7 +121,6 @@
         border-radius: 6px;
         border-style: none;
         background-color: #ff5000;
-        display: none;
     }
 
     .idea-detail-header-modify-button-span {

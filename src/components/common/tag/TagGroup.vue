@@ -19,7 +19,7 @@
         props: {
             tags: {
                 type: Array,
-                required: true
+                required: false
             }
         },
         data() {
