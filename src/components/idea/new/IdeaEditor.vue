@@ -63,22 +63,42 @@
         methods: {
             ...mapActions({
                 createNewIdea: ACTIONS.CREATE_NEW_IEDA,
+                modifyIdea: ACTIONS.MODIFY_IEDA,
             }),
 
             onClickWriteFinish() {
-                this.createNewIdea({
+                const data = {
                     content: this.editorText,
                     // file: '',
                     sessionId: this.$store.state.main.session.sessionId,
                     tags: [],
                     title: this.ideaTitle,
                     type: this.$store.getters.isAdmin ? '' : 'IDEA',
-                })
-                .then(res => {
-                    const ideaId = res.data.ideaId;
-                    this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${ideaId}`});
-                })
-                .catch(err => console.log(err));
+                }
+
+                //기존 아이디어 수정
+                if (this.idea.ideaId) {
+                    this.modifyIdea({
+                        ...data,
+                        ideaId: this.idea.ideaId
+                    })
+                    .then(res => {
+                        const ideaId = res.data.ideaId;
+                        this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${ideaId}`});
+                    })
+                }
+
+                else {
+                    //새 아이디어 생성
+                    this.createNewIdea({
+                        ...data
+                    })
+                    .then(res => {
+                        const ideaId = res.data.ideaId;
+                        this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${ideaId}`});
+                    })
+                    .catch(err => console.log(err));
+                }
             },
 
             // TODO: 제목 입력값 제한 (영문 및 한글 byte 고려)

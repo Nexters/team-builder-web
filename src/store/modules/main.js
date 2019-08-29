@@ -1,7 +1,6 @@
 import {ACTIONS, GETTERS, MUTATIONS} from '@/store/types';
 import {getSession} from '@/api/sessionApi';
-import {createNewIdea, deleteFavorite, deleteIdea, getIdea, putVoteIdea, setFavorite, updateIdea} from '@/api/ideaApi';
-import id from 'bootstrap-vue/esm/mixins/id';
+import {createNewIdea, deleteFavorite, deleteIdea, getIdea, putVoteIdea, setFavorite, updateIdea, modifyIdea} from '@/api/ideaApi';
 
 // 가독성을 위해 데이터 폼 표시
 const store = {
@@ -415,6 +414,15 @@ const store = {
          */
         [ACTIONS.CREATE_NEW_IEDA](context, newIdea) {
             return createNewIdea(newIdea);
+        },
+
+      /**
+       * 아이디어/공지사항 수정
+       * @param context
+       * @param idea
+       */
+        [ACTIONS.MODIFY_IEDA](context, idea) {
+            return modifyIdea(idea);
         },
 
         /**

@@ -49,7 +49,6 @@
             },
 
             isOwner() {
-                debugger
                 return this.$store.getters.getUuid === this.idea.author.uuid;
             }
         },
