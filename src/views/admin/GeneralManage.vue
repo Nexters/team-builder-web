@@ -143,7 +143,7 @@
 
 <script>
     import Layout from '@/components/common/layout/Layout';
-    import {upload_logo} from "../../api/FileAPI";
+    import {uploadFiles} from "../../api/FileAPI";
     import {getSession, putSession} from "../../api/sessionApi";
     import moment from 'moment';
 
@@ -176,10 +176,10 @@
         methods: {
             moment,
             onFileChange(e) {
-                upload_logo(e.target.files[0].name, e.target.files[0], this.$store.getters.getId)
-                    .then(res => {
+                uploadFiles(e.target.files[0].name, e.target.files[0], this.$store.getters.getId)
+                    .then(fileUrls => {
                         alert('이미지 업로드 성공!')
-                        this.imageUrl = e.target.files[0].name;
+                        this.imageUrl = fileUrls[0];
                     })
                     .catch(err => {
                         alert('이미지 업로드 실패 ㅜㅜ');

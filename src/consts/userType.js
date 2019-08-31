@@ -14,5 +14,3 @@ export const SIGNUP_URL =  process.env.VUE_APP_API_URL + '/users/sign-up';
 export const GET_ME_INFO =  process.env.VUE_APP_API_URL + '/apis/me';
 
 export const ALL_USER_URL = process.env.VUE_APP_API_URL + '/apis/users';
-
-export const UPLOAD_LOGO_URL = process.env.VUE_APP_API_URL + '/files/upload';

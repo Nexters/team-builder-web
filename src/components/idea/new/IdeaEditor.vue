@@ -18,6 +18,7 @@
 
         <div class="tui-editor-wrap">
             <editor
+                    ref="tuiEditor"
                     v-model="editorText"
                     :options="editorOptions"
                     mode="wysiwyg"
@@ -35,6 +36,7 @@
 
     import { ACTIONS } from '@/store/types';
     import {createNamespacedHelpers} from 'vuex';
+    import {uploadFiles} from '@/api/FileAPI';
     const { mapActions } = createNamespacedHelpers('main');
 
     export default {
@@ -56,6 +58,20 @@
                     useCommandShortcut: true,
                     useDefaultHTMLSanitizer: true,
                     hideModeSwitch: true,
+                    hooks: {
+                        addImageBlobHook: function (fileOrBlob, callback) {
+                            uploadFiles(fileOrBlob.name, fileOrBlob, 'idea')
+                                .then(fileUrls => {
+                                    callback(fileUrls[0], '');
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                    alert('이미지 업로드 실패');
+                                });
+
+                            return false;
+                        }
+                    }
                 },
             }
         },
@@ -110,10 +126,6 @@
             //     }
             //     return totalByte;
             // }
-        },
-
-        created() {
-
         },
 
         mounted() {
