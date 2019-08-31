@@ -1,24 +1,23 @@
-import {UPLOAD_LOGO_URL} from "../consts/userType"
-import {post} from "./testAPI"
-import store from "../store";
+import api from './index';
+import {getAuthToken} from './LoginAPI';
 
-export async function upload_logo(filename, images, targetPath) {
-    if (!filename | !images | !targetPath) {
+export async function uploadFiles(filename, files, targetPath) {
+    if (!filename | !files | !targetPath) {
         return false
     }
 
     let formData = new FormData();
     formData.append('filename', filename);
-    formData.append('images', images);
-    formData.append('targetPath', targetPath);
+    formData.append('images', files);
+    formData.append('targetPath', `${targetPath}/${Date.now()}`);
 
     let header = {
         params: {},
         headers: {
             'Content-Type': 'multipart/form-data',
-            'Authorization': store.getters.getToken
+            'Authorization': getAuthToken()
         }
     };
 
-    return post(UPLOAD_LOGO_URL, formData, header)
+    return api.post('/files/upload', formData, header)
 }

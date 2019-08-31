@@ -3,7 +3,7 @@
         <div class="layout-gnb">
             <button class="gnb-logo-wrap" @click="onClickLogo">
                 <div class="gnb-logo-image">
-                    <img style="width: 48px; height: 48px;" src="@/assets/img/nexters_15th_logo.png"/>
+                    <img style="width: 48px; height: 48px;" :src="logoImageUrl"/>
                 </div>
             </button>
             <button @click="openSessionGroup" class="gnb-session-wrap">
@@ -41,6 +41,7 @@
 
 <script>
     import {SlideXLeftTransition} from 'vue2-transitions';
+    import {DEFAULT_LOGO_URL} from '@/consts/common';
 
     export default {
         name: "LayoutGnb",
@@ -52,6 +53,11 @@
         },
 
         computed: {
+            logoImageUrl() {
+                const logoImageUrl = this.$store.state.main.session.logoImageUrl;
+                return logoImageUrl !== 'https:image.url' ? logoImageUrl : DEFAULT_LOGO_URL;
+            },
+
             isAdmin() {
                 return this.$store.getters.isAdmin;
             },
