@@ -17,18 +17,18 @@
                     <div class="file-upload-message-box">
                         <span class="file-upload-message-text">아이디어 선정자는 발표용 파일을 첨부해주세요.</span>
                     </div>
+
                     <div v-show="!hasFile" class="file-upload-button-box">
                         <label for="file-upload" class="file-upload-button-label">
                             <span class="file-upload-button-text">파일첨부하기</span>
                         </label>
                         <input id="file-upload" type="file" @change="onFileChange($event)" class="file-upload-button" />
                     </div>
-
                     <div v-show="hasFile" class="file-upload-has-file-wrap">
-                        <div class="file-upload-has-file-text-box">
+                        <a :href="idea.file" :download="fileName" target="_blank" class="file-upload-has-file-text-box">
                             <span class="file-upload-has-file-text">{{ fileName }}</span>
-                        </div>
-                        <button class="file-upload-has-file-remove-icon-box">
+                        </a>
+                        <button @click="removeFile()" class="file-upload-has-file-remove-icon-box">
                             <img src="@/assets/img/cancellation.png" class="file-upload-has-file-remove-icon"/>
                         </button>
                     </div>
@@ -45,6 +45,7 @@
     import { ACTIONS } from '@/store/types';
     import {createNamespacedHelpers} from 'vuex';
     import {uploadFiles} from '@/api/FileAPI';
+    import {getFileName} from '@/utils/file';
     const { mapActions } = createNamespacedHelpers('main');
 
     export default {
@@ -55,10 +56,8 @@
                 idea: {
                     ideaTitle: '',
                     editorText: '',
-                    fileUrl: '',
                 },
                 tags: [],
-                fileName: '아이디어의 발표 피피티.pdf',
             }
         },
 
@@ -81,6 +80,10 @@
 
             hasFile() {
                 return this.idea.file;
+            },
+
+            fileName() {
+                return getFileName(this.idea.file);
             }
         },
 
@@ -88,6 +91,10 @@
             ...mapActions({
                 getIdea: ACTIONS.GET_IDEA,
             }),
+
+            removeFile() {
+                this.idea.file = '';
+            },
 
             getIdeaDetail(ideaId) {
                 this.getIdea(ideaId)
@@ -114,7 +121,7 @@
                 uploadFiles(event.target.files[0].name, event.target.files[0], 'idea')
                     .then(fileUrls => {
                         alert('파일 업로드 성공!');
-                        this.idea.fileUrl = fileUrls[0];
+                        this.idea.file = fileUrls[0];
                     })
                     .catch(err => {
                         console.log(err);
