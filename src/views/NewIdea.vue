@@ -49,7 +49,7 @@
 
     .tag-group-container {
         width: 100%;
-        margin: 50px 0px;
+        margin: 50px 0px 44px 0px;
         display: flex;
         flex-direction: column;
     }
