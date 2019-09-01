@@ -85,7 +85,7 @@
             onClickWriteFinish() {
                 const data = {
                     content: this.editorText,
-                    // file: '',
+                    file: this.idea.file,
                     sessionId: this.$store.state.main.session.sessionId,
                     tags: [],
                     title: this.ideaTitle,

@@ -11,6 +11,22 @@
                         <div class="tag-group-message">저는 이런 팀원이 필요해요</div>
                         <TagGroup :tags="tags"></TagGroup>
                     </div>
+
+
+                    <div class="file-upload-wrap">
+                        <div class="file-upload-title-box">
+                            <span class="file-upload-title-text">첨부파일</span>
+                        </div>
+                        <div v-show="hasFile" class="file-upload-has-file-wrap">
+                            <div class="file-upload-has-file-text-box">
+                                <span class="file-upload-has-file-text">{{ fileName }}</span>
+                            </div>
+                            <a :href="idea.file" :download="fileName" target="_blank" class="file-upload-has-file-download-icon-box">
+                                <img src="@/assets/img/icon_download.png" class="file-upload-has-file-download-icon"/>
+                            </a>
+                        </div>
+                    </div>
+
                     <button class="idea-detail-move-list-button" @click="moveSession">
                         <span class="idea-detail-move-list-button-span">목록으로</span>
                     </button>
@@ -29,6 +45,7 @@
     import IdeaDetailHeader from '@/components/idea/detail/IdeaDetailHeader';
     import { ACTIONS } from '@/store/types';
     import {createNamespacedHelpers} from 'vuex';
+    import {getFileName} from '@/utils/file';
     const { mapActions } = createNamespacedHelpers('main');
 
     export default {
@@ -39,6 +56,16 @@
                 tags: [],
                 ideaId: this.$route.params.ideaId,
                 idea: {}
+            }
+        },
+
+        computed: {
+            hasFile() {
+                return this.idea.file;
+            },
+
+            fileName() {
+                return getFileName(this.idea.file);
             }
         },
 
@@ -152,5 +179,69 @@
         font-size: 18px;
         letter-spacing: -0.82px;
         color: #ffffff;
+    }
+
+    .file-upload-wrap {
+        width: 100%;
+        height: 130px;
+        margin-top: 60px;
+        text-align: left;
+    }
+
+    .file-upload-title-box {
+        width: 72px;
+        height: 29px;
+    }
+
+    .file-upload-title-text {
+        font-family: NotoSansCJKkr;
+        font-size: 20px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.6px;
+        color: #000000;
+    }
+
+    .file-upload-has-file-wrap {
+        width: 280px;
+        height: 57px;
+        margin-top: 30px;
+        border-radius: 6px;
+        border: solid 1px #dbdbdb;
+        background-color: #ffffff;
+        display: flex;
+    }
+
+    .file-upload-has-file-text-box {
+        width: 177px;
+        height: 24px;
+        margin: 17px 0px 16px 20px;
+        text-align: left;
+    }
+
+    .file-upload-has-file-text {
+        font-family: NotoSansCJKkr;
+        font-size: 16px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.48px;
+        color: #000000;
+    }
+
+    .file-upload-has-file-download-icon-box {
+        height: 20px;
+        width: 20px;
+        margin: 16px 16px 21px auto;
+        ackground-color: #9b9b9b;
+    }
+
+    .file-upload-has-file-download-icon {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
     }
 </style>

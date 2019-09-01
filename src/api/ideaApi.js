@@ -10,7 +10,7 @@ export function createNewIdea(newIdea) {
     Object.assign(api.defaults, {headers: {authorization: getAuthToken()}});
     return api.post('/apis/ideas', {
         content: newIdea.content,
-        // file: '',
+        file: newIdea.file,
         sessionId: newIdea.sessionId,
         tags: newIdea.tags,
         title: newIdea.title,
@@ -22,7 +22,7 @@ export function modifyIdea(idea) {
     Object.assign(api.defaults, {headers: {authorization: getAuthToken()}});
     return api.put(`/apis/ideas/${idea.ideaId}`, {
         content: idea.content,
-        // file: '',
+        file: idea.file,
         sessionId: idea.sessionId,
         tags: idea.tags,
         title: idea.title,
