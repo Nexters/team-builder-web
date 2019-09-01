@@ -17,11 +17,20 @@
                     <div class="file-upload-message-box">
                         <span class="file-upload-message-text">아이디어 선정자는 발표용 파일을 첨부해주세요.</span>
                     </div>
-                    <div class="file-upload-button-box">
+                    <div v-show="!hasFile" class="file-upload-button-box">
                         <label for="file-upload" class="file-upload-button-label">
                             <span class="file-upload-button-text">파일첨부하기</span>
                         </label>
-                        <input id="file-upload" type="file" class="file-upload-button" />
+                        <input id="file-upload" type="file" @change="onFileChange($event)" class="file-upload-button" />
+                    </div>
+
+                    <div v-show="hasFile" class="file-upload-has-file-wrap">
+                        <div class="file-upload-has-file-text-box">
+                            <span class="file-upload-has-file-text">{{ fileName }}</span>
+                        </div>
+                        <button class="file-upload-has-file-remove-icon-box">
+                            <img src="@/assets/img/cancellation.png" class="file-upload-has-file-remove-icon"/>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -35,6 +44,7 @@
     import IdeaEditor from '@/components/idea/new/IdeaEditor';
     import { ACTIONS } from '@/store/types';
     import {createNamespacedHelpers} from 'vuex';
+    import {uploadFiles} from '@/api/FileAPI';
     const { mapActions } = createNamespacedHelpers('main');
 
     export default {
@@ -45,8 +55,10 @@
                 idea: {
                     ideaTitle: '',
                     editorText: '',
+                    fileUrl: '',
                 },
-                tags: []
+                tags: [],
+                fileName: '아이디어의 발표 피피티.pdf',
             }
         },
 
@@ -65,6 +77,10 @@
 
             isOwner() {
                 return this.$store.getters.getUuid === this.idea.author.uuid;
+            },
+
+            hasFile() {
+                return this.idea.file;
             }
         },
 
@@ -92,7 +108,19 @@
                         }
                     })
                     .catch(err => console.log(err));
-            }
+            },
+
+            onFileChange(event) {
+                uploadFiles(event.target.files[0].name, event.target.files[0], 'idea')
+                    .then(fileUrls => {
+                        alert('파일 업로드 성공!');
+                        this.idea.fileUrl = fileUrls[0];
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        alert('파일 업로드 실패');
+                    });
+            },
         },
 
         created() {
@@ -207,5 +235,45 @@
     .file-upload-button {
         display: none;
     }
+
+    .file-upload-has-file-wrap {
+        width: 280px;
+        height: 57px;
+        margin-top: 30px;
+        border-radius: 6px;
+        border: solid 1px #dbdbdb;
+        background-color: #ffffff;
+        display: flex;
+    }
+
+    .file-upload-has-file-text-box {
+        width: 177px;
+        height: 24px;
+        margin: 17px 0px 16px 20px;
+    }
+
+    .file-upload-has-file-text {
+        font-family: NotoSansCJKkr;
+        font-size: 16px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.48px;
+        color: #000000;
+    }
+
+    .file-upload-has-file-remove-icon-box {
+        height: 20px;
+        width: 20px;
+        margin: 16px 16px 21px auto;
+    }
+
+    .file-upload-has-file-remove-icon {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+    }
+
 
 </style>
