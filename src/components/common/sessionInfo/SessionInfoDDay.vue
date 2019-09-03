@@ -54,6 +54,9 @@
             }
 
             this.ddayMessage = `마감까지 ${remainDay} ${remainHour} 남았습니다.`;
+
+            const userInfo = this.getUserSessionInfo({uuid: this.$store.getters.getUuid});
+            //TODO: userInfo에서 submitIdea, voted, hasTeam 여부 확인해서 유저의 세션상태 노출
         }
     }
 </script>

@@ -1,6 +1,7 @@
 import {ACTIONS, GETTERS, MUTATIONS} from '@/store/types';
 import {getSession} from '@/api/sessionApi';
 import {createNewIdea, deleteFavorite, deleteIdea, getIdea, putVoteIdea, setFavorite, updateIdea, modifyIdea} from '@/api/ideaApi';
+import {getUserSessionInfo} from '@/api/UserAPI';
 
 // 가독성을 위해 데이터 폼 표시
 const store = {
@@ -467,8 +468,9 @@ const store = {
           return Promise.resolve(); //TODO 비동기처리 해줘야함. 모든 투표 정상완료되어야 resolve되도록!
         },
 
-        [ACTIONS.GET_USER_SESSION_INFO]: (context) => {
-          const     
+        async [ACTIONS.GET_USER_SESSION_INFO](context, {uuid}) {
+          const sessionNumber = context.state.session.sessionNumber;
+          return await getUserSessionInfo({sessionNumber, uuid});
         }
     }
 };

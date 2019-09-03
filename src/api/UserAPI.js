@@ -1,4 +1,4 @@
-import {ALL_USER_URL, ACTIVE_USER_URL} from "../consts/userType"
+import {ALL_USER_URL} from "../consts/userType"
 import {get} from "./testAPI";
 import api from "./index";
 import store from '../store/index';
@@ -39,4 +39,11 @@ export function addActiveUsers({sessionNumber, uuids}) {
     params.append('uuids', uuids);
 
     return api.put(`apis/sessions/${sessionNumber}/add-users`, params);
+}
+
+export async function getUserSessionInfo({sessionNumber, uuid}) {
+    const token = store.getters.getToken;
+    Object.assign(api.defaults, {headers: {authorization: token}});
+
+    return await api.get(`apis/sessions/${sessionNumber}/users/${uuid}`);
 }
