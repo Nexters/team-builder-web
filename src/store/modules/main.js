@@ -360,9 +360,9 @@ const store = {
     },
 
     actions: {
-        [ACTIONS.LOAD_INIT_DATA](context, {sessionNumber}) {
-            return getSession({sessionNumber: sessionNumber})
-                .then(data => context.commit(MUTATIONS.SET_INIT_DATA, data));
+        async [ACTIONS.LOAD_INIT_DATA] (context, {sessionNumber}) {
+            const data = await getSession({sessionNumber: sessionNumber});
+            context.commit(MUTATIONS.SET_INIT_DATA, data);
         },
 
       /**
@@ -465,6 +465,10 @@ const store = {
                 .catch(err => Promise.reject(err));
           });
           return Promise.resolve(); //TODO 비동기처리 해줘야함. 모든 투표 정상완료되어야 resolve되도록!
+        },
+
+        [ACTIONS.GET_USER_SESSION_INFO]: (context) => {
+          const     
         }
     }
 };

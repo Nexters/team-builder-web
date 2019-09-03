@@ -13,6 +13,9 @@
 <script>
     import moment from 'moment';
     import {PERIOD_TYPE} from '@/consts/periodType';
+    import { ACTIONS } from '@/store/types';
+    import {createNamespacedHelpers} from 'vuex';
+    const { mapActions } = createNamespacedHelpers('main');
 
     export default {
         name: "SessionInfoDDay",
@@ -23,6 +26,14 @@
                 nowPeriod: this.$store.state.main.nowPeriod,
             }
         },
+
+        methods: {
+            ...mapActions({
+                getUserSessionInfo: ACTIONS.GET_USER_SESSION_INFO,
+            }),
+
+        },
+
         created() {
             this.stateMessage = this.nowPeriod === PERIOD_TYPE.IDEA_COLLECT ? '미제출' : '미투표';
 

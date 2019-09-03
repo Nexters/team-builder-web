@@ -3,9 +3,9 @@ import store from '../store/index';
 
 import {getAuthToken} from '@/api/LoginAPI';
 
-export function getSession({sessionNumber}) {
+export async function getSession({sessionNumber}) {
     Object.assign(api.defaults, {headers: {authorization: getAuthToken()}});
-    return api.get(`apis/sessions/${sessionNumber}`);
+    return await api.get(`apis/sessions/${sessionNumber}`);
 }
 
 export function putSession({sessionNumber, body}) {
