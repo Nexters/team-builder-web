@@ -145,8 +145,8 @@
             moment,
             loadAllUsers() {
                 getAllUsers()
-                    .then(res => {
-                        this.users = res.data.data;
+                    .then(data => {
+                        this.users = data.data;
                     });
             },
             addActiveUsers() {

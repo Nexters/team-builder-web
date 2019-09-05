@@ -151,9 +151,9 @@
         methods: {
             loadActiveUsers() {
                 getActiveUsers({sessionNumber: this.$route.params.sessionNumber})
-                    .then(res => {
-                        console.log(res)
-                        this.users = res.data;
+                    .then(data => {
+                        console.log(data);
+                        this.users = data;
                     });
             },
             deleteActiveUsers() {
