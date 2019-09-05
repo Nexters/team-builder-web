@@ -24,11 +24,11 @@ basicApi.interceptors.response.use(
 function api(headers) {
     Object.assign(basicApi.defaults, {
         headers: {
-            'Content-Type': 'application/json',
-            ...headers,
             authorization: store.getters.getToken,
+            ...headers,
         }
     });
+
     return basicApi;
 }
 
