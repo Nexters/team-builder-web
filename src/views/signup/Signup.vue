@@ -137,12 +137,12 @@
                 }
 
                 signup(uid, upassword, uname, nextersNumber, position, accessCode)
-                    .then(res => {
-                        this.goToPages(res.data)
+                    .then(data => {
+                        this.goToPages(data)
                     })
                     .catch(err => {
                         alert('Signup fail!', err);
-                        this.duringLogin = false
+                        this.duringLogin = false;
                     });
 
                 this.duringLogin = true;
