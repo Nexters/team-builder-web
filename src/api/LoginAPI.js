@@ -17,5 +17,11 @@ export async function info(token) {
     if (!token) {
         return false;
     }
-    return GET(GET_ME_INFO);
+
+    const headers = {
+        authorization: token,
+    };
+
+    return GET(GET_ME_INFO, headers);
+
 }
