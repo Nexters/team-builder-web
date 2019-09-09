@@ -69,11 +69,11 @@
                 }
 
                 login(uid, password)
-                    .then(res => {
-                        let token = res.data.data.accessToken;
+                    .then(data => {
+                        let token = data.data.accessToken;
                         info(token)
-                            .then(res => {
-                                this.goToPages(token, res.data.data)
+                            .then(data => {
+                                this.goToPages(token, data.data)
                             })
                     })
                     .catch(err => {

@@ -1,16 +1,9 @@
-import api from './index';
-import store from '../store/index';
-
-import {getAuthToken} from '@/api/LoginAPI';
+import {GET, PUT} from './index';
 
 export function getSession({sessionNumber}) {
-    Object.assign(api.defaults, {headers: {authorization: getAuthToken()}});
-    return api.get(`apis/sessions/${sessionNumber}`);
+    return GET(`apis/sessions/${sessionNumber}`);
 }
 
 export function putSession({sessionNumber, body}) {
-    const token = store.getters.getToken;
-    Object.assign(api.defaults, {headers: {authorization: token, 'Content-Type': 'application/json'}});
-
-    return api.put(`apis/sessions/${sessionNumber}`, body);
+    return PUT(`apis/sessions/${sessionNumber}`, body);
 }

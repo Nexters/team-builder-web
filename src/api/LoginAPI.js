@@ -1,34 +1,27 @@
 import {GET_ME_INFO, LOGIN_URL} from "../consts/userType";
-import {post, get} from "./testAPI";
-import store from '@/store/index';
+import {GET, POST} from '@/api/index';
 
 export async function login(uid, password) {
     if (!uid || !password) {
-        return false
+        return false;
     }
 
     let params = new URLSearchParams();
     params.append('id', uid);
     params.append('password', password);
 
-    return post(LOGIN_URL, params)
+    return POST(LOGIN_URL, params);
 }
 
 export async function info(token) {
     if (!token) {
-        return false
+        return false;
     }
 
-    let header = {
-        params: {},
-        headers: {
-            'Authorization': token
-        }
-    }
+    const headers = {
+        authorization: token,
+    };
 
-    return get(GET_ME_INFO, header)
-}
+    return GET(GET_ME_INFO, headers);
 
-export function getAuthToken() {
-    return store.getters.getToken;
 }

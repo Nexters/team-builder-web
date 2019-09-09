@@ -151,7 +151,7 @@
             loadAllUsers() {
                 getAllUsers()
                     .then(res => {
-                        this.users = this.userViewList = res.data.data;
+                        this.users = this.userViewList = res.data;
                     });
             },
             addActiveUsers() {

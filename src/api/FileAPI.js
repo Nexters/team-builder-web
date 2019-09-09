@@ -1,5 +1,4 @@
-import api from './index';
-import {getAuthToken} from './LoginAPI';
+import {POST} from './index';
 
 export async function uploadFiles(filename, files, targetPath) {
     if (!filename | !files | !targetPath) {
@@ -11,13 +10,7 @@ export async function uploadFiles(filename, files, targetPath) {
     formData.append('images', files);
     formData.append('targetPath', `${targetPath}/${Date.now()}`);
 
-    let header = {
-        params: {},
-        headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': getAuthToken()
-        }
-    };
-
-    return api.post('/files/upload', formData, header)
+    return POST('/files/upload', formData, {
+        'Content-Type': 'multipart/form-data'
+    })
 }

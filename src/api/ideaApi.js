@@ -1,14 +1,11 @@
-import api from './index';
-import {getAuthToken} from './LoginAPI';
+import {GET, POST, PUT, DELETE} from '@/api/index';
 
 export function getIdea(ideaId) {
-    Object.assign(api.defaults, {headers: {authorization: getAuthToken()}});
-    return api.get(`apis/ideas/${ideaId}`);
+    return GET(`apis/ideas/${ideaId}`);
 }
 
 export function createNewIdea(newIdea) {
-    Object.assign(api.defaults, {headers: {authorization: getAuthToken()}});
-    return api.post('/apis/ideas', {
+    return POST('/apis/ideas', {
         content: newIdea.content,
         file: newIdea.file,
         sessionId: newIdea.sessionId,
@@ -19,8 +16,7 @@ export function createNewIdea(newIdea) {
 }
 
 export function modifyIdea(idea) {
-    Object.assign(api.defaults, {headers: {authorization: getAuthToken()}});
-    return api.put(`/apis/ideas/${idea.ideaId}`, {
+    return PUT(`/apis/ideas/${idea.ideaId}`, {
         content: idea.content,
         file: idea.file,
         sessionId: idea.sessionId,
@@ -31,20 +27,17 @@ export function modifyIdea(idea) {
 }
 
 export function setFavorite(ideaId) {
-  Object.assign(api.defaults, {headers: {authorization: getAuthToken()}});
-  return api.post('/apis/favorites', {
+  return POST('/apis/favorites', {
     ideaId: ideaId
   })
 }
 
 export function deleteFavorite(ideaId) {
-  Object.assign(api.defaults, {headers: {authorization: getAuthToken()}});
-  return api.delete(`/apis/favorites/${ideaId}`)
+  return DELETE(`/apis/favorites/${ideaId}`)
 }
 
 export function updateIdea(idea) {
-  Object.assign(api.defaults, {headers: {authorization: getAuthToken()}});
-  return api.put(`/apis/ideas/${idea.ideaId}`, {
+  return PUT(`/apis/ideas/${idea.ideaId}`, {
     content: idea.content,
     file: idea.file,
     selected: true,
@@ -56,11 +49,9 @@ export function updateIdea(idea) {
 }
 
 export function deleteIdea(ideaId) {
-  Object.assign(api.defaults, {headers: {authorization: getAuthToken()}});
-  return api.delete(`/apis/ideas/${ideaId}`);
+  return DELETE(`/apis/ideas/${ideaId}`);
 }
 
 export function putVoteIdea(ideaId) {
-    Object.assign(api.defaults, {headers: {authorization: getAuthToken()}});
-    return api.put(`/apis/ideas/${ideaId}/vote`);
+    return PUT(`/apis/ideas/${ideaId}/vote`);
 }
