@@ -15,7 +15,10 @@
                         <button class="btn-user-remove" @click="deleteActiveUsers">
                             활동회원제거
                         </button>
-                        <input class="search-box" placeholder="회원명과 아이디를 검색해주세요." v-model="search">
+                        <input class="search-box"
+                               placeholder="회원명과 아이디를 검색해주세요."
+                               v-on:input="search = $event.target.value"
+                               @keyup="filtering()">
                     </div>
                 </div>
 
@@ -139,6 +142,7 @@
             return {
                 sessionNumber: this.$route.params.sessionNumber,
                 users: [],
+                userViewList: [],
                 search: '',
                 sortActiveSessionASC: false,
                 sortPositionASC: false,
@@ -152,8 +156,7 @@
             loadActiveUsers() {
                 getActiveUsers({sessionNumber: this.$route.params.sessionNumber})
                     .then(res => {
-                        console.log(res)
-                        this.users = res.data;
+                        this.users = this.userViewList = res.data;
                     });
             },
             deleteActiveUsers() {
@@ -210,14 +213,33 @@
                         if (position1 > position2) return -1;
                     }
                 })
+            },
+            filtering() {
+                // 한글
+                if (this.search.match('^[ㄱ-ㅎ가-힣]*$')) {
+                    const ChosungSearch = require('hangul-chosung-search-js');
+                    const filterArray = this.users.map(element => element.name)
+                        .concat(this.users.map(element => element.id));
+
+                    const filteredList = ChosungSearch.searchList(this.search, filterArray, true);
+
+                    this.userViewList = this.users.filter(post => {
+                        return filteredList.includes(post.id) || filteredList.includes(post.name)
+                    });
+                    return;
+                }
+
+                // 영어
+                const searchQuery = this.search.toLowerCase();
+                this.userViewList = this.users.filter(idea => {
+                    if (idea.id.toLowerCase().includes(searchQuery)) return true;
+                    if (idea.name.toLowerCase().includes(searchQuery)) return true;
+                })
             }
         },
         computed: {
             filteredUsers() {
-                return this.users.filter(post => {
-                    return post.name.toLowerCase().includes(this.search.toLowerCase()) ||
-                        post.id.toLowerCase().includes(this.search.toLowerCase())
-                })
+                return this.userViewList;
             }
         },
         created() {
