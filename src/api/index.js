@@ -8,14 +8,16 @@ const basicApi = axios.create({
 basicApi.interceptors.response.use(
     //요청 성공시
     response => {
-
         return response.data;
     },
 
     //요청 실패시
     error => {
-        /*error status, code, message*/
-        //Error 공통 처리 (ex. error 공통 modal or notification)
+        window.vm.$notify.error({
+            title: '오류가 발생했습니다',
+            message: error,
+            position: 'bottom-right'
+        });
 
         return Promise.reject(error);
     }
