@@ -392,13 +392,26 @@ const store = {
        * @param id  ideaId
        */
         [ACTIONS.FAVORITE_CHANGE](context, payload) {
-          context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE, payload.ideaId);
-
           if(!payload.isFavorite) {
-            setFavorite(payload.ideaId).catch(err => console.log(err));
-            return;
+              setFavorite(payload.ideaId)
+                  .then(() => {
+                    context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE, payload.ideaId);
+                    window.vm.$message({
+                      message: '아이디어를 즐겨찾기에 추가했습니다.',
+                      type: 'success'
+                    });
+                  });
+              return;
           }
-          deleteFavorite(payload.ideaId).catch(err => console.log(err));
+
+          deleteFavorite(payload.ideaId)
+              .then(() => {
+                context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE, payload.ideaId);
+                window.vm.$message({
+                  message: '아이디어를 즐겨찾기에서 해제했습니다.',
+                  type: 'info'
+                });
+              });
         },
 
         [ACTIONS.SEARCH_TAGS](context) {
