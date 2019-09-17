@@ -4,14 +4,14 @@
             <img class="footer-moimmoim-icon" src="@/assets/img/moimmoim_icon.png"/>
             <span class="footer-message">© 2019 Moim-construct Corp. All rights reserved.</span>
             <div class="footer-sns-group">
-                <div class="sns-nexters-icon-wrap">
-                    <a target="_blank" href="http://teamnexters.com/"><img class="sns-nexters-icon" src="@/assets/img/nexters-icon.png"/></a>
+                <div class="sns-nexters-icon-wrap" @mouseover="nextersIconHover = true" @mouseleave="nextersIconHover = false">
+                    <a target="_blank" href="http://teamnexters.com/"><img class="sns-nexters-icon" :src="nextersIconUrl"/></a>
                 </div>
-                <div class="sns-facebook-icon-wrap">
-                    <a target="_blank" href="https://www.facebook.com/Nexterspage/"><img class="sns-facebook-icon" src="../../../assets/img/facebook-icon.png"/></a>
+                <div class="sns-facebook-icon-wrap" @mouseover="facebookIconHover = true" @mouseleave="facebookIconHover = false">
+                    <a target="_blank" href="https://www.facebook.com/Nexterspage/"><img class="sns-facebook-icon" :src="facebookIconUrl"/></a>
                 </div>
-                <div class="sns-instagram-icon-wrap">
-                    <a target="_blank" href="https://www.instagram.com/team_nexters/"><img class="sns-instagram-icon" src="../../../assets/img/instagram-icon.png"/></a>
+                <div class="sns-instagram-icon-wrap" @mouseover="instagramIconHover = true" @mouseleave="instagramIconHover = false">
+                    <a target="_blank" href="https://www.instagram.com/team_nexters/"><img class="sns-instagram-icon" :src="instagramIconUrl"/></a>
                 </div>
             </div>
         </div>
@@ -19,8 +19,30 @@
 </template>
 
 <script>
+    import {getImgUrl} from '@/utils/image';
+
     export default {
-        name: "LayoutFooter"
+        name: "LayoutFooter",
+        data() {
+            return {
+                nextersIconHover: false,
+                facebookIconHover: false,
+                instagramIconHover: false,
+            }
+        },
+        computed: {
+            nextersIconUrl() {
+                return this.nextersIconHover ? getImgUrl('nexters-hover-icon') : getImgUrl('nexters-icon');
+            },
+
+            facebookIconUrl() {
+                return this.facebookIconHover ? getImgUrl('facebook-hover-icon') : getImgUrl('facebook-icon');
+            },
+
+            instagramIconUrl() {
+                return this.instagramIconHover ? getImgUrl('instagram-hover-icon') : getImgUrl('instagram-icon');
+            }
+        },
     }
 </script>
 

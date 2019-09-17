@@ -1,1 +1,1 @@
-export const DEFAULT_LOGO_URL = 'https://d14veoa90g9l0u.cloudfront.net/admin/1567262765849/nexters-icon.png.png';
+export const DEFAULT_LOGO_URL = 'https://d14veoa90g9l0u.cloudfront.net/idea/1568639071682/ico-nexters@2x.png.png';
