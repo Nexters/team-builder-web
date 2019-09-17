@@ -13,9 +13,9 @@ basicApi.interceptors.response.use(
 
     //요청 실패시
     error => {
-        window.vm.$message({
-            message: error,
-            type: 'warning'
+        window.vm.$notify.error({
+            title: '오류가 발생했습니다️',
+            message: error
         });
 
         return Promise.reject(error);
