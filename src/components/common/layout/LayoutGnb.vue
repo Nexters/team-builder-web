@@ -14,17 +14,17 @@
                 <img v-show="isOpenSessionGroup" class="gnb-session-open-icon" src="@/assets/img/gnb_close_icon.png" />
             </button>
 
-            <button v-if="isAdmin" @click="onClickAllUserManage" class="gnb-all-user-manage">
+            <button v-if="isAdmin" @click="onClickAllUserManage" class="gnb-all-user-manage btn-gnb-bottom">
                 <img class="gnb-all-user-manage-img" src="@/assets/img/gnb_all_user_manage_icon.png" />
             </button>
 
-            <button @click="onClickMyPage" class="gnb-my-page">
+            <button @click="onClickMyPage" class="gnb-my-page btn-gnb-bottom">
                 <span class="gnb-my-page-name">
                     {{ userLastName }}
                 </span>
             </button>
 
-            <button @click="onClickLogout" class="gnb-logout">
+            <button @click="onClickLogout" class="gnb-logout btn-gnb-bottom">
                 <img class="gnb-logout-img" src="@/assets/img/gnb_logout_icon.png" />
             </button>
         </div>
@@ -226,6 +226,10 @@
         margin: 8px 40px 8px 39px;
     }
 
+    .layout-session-group-one:hover {
+        color: #ffffff;
+    }
+
     .gnb-logout-img {
         width: 21px;
         height: 22px;
@@ -234,5 +238,9 @@
 
     .now-session {
         color: #ffffff;
+    }
+
+    .btn-gnb-bottom:hover {
+        background-color: #354ec1;
     }
 </style>
