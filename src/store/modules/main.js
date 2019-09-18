@@ -393,7 +393,7 @@ const store = {
        */
         [ACTIONS.FAVORITE_CHANGE](context, payload) {
           if(!payload.isFavorite) {
-              setFavorite(payload.ideaId)
+              return setFavorite(payload.ideaId)
                   .then(() => {
                     context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE, payload.ideaId);
                     window.vm.$notify.info({
@@ -401,10 +401,9 @@ const store = {
                       message: '아이디어를 즐겨찾기에 추가했습니다.️',
                     });
                   });
-              return;
           }
 
-          deleteFavorite(payload.ideaId)
+          return deleteFavorite(payload.ideaId)
               .then(() => {
                 context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE, payload.ideaId);
                 window.vm.$notify.info({

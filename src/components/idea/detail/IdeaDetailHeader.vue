@@ -61,7 +61,13 @@
 
         methods: {
             toggleFavorite() {
-                this.$store.dispatch('main/FAVORITE_CHANGE', {ideaId: this.idea.ideaId, isFavorite: !this.idea.favorite});
+                this.$store.dispatch('main/FAVORITE_CHANGE', {ideaId: this.idea.ideaId, isFavorite: !this.idea.favorite})
+                    .catch(error => {
+                        this.$notify.error({
+                            title: '오류가 발생했습니다️',
+                            message: error
+                        });
+                    });
             },
 
             onClickEditIdea(ideaId) {
