@@ -20,7 +20,7 @@
 
             <button @click="onClickMyPage" class="gnb-my-page btn-gnb-bottom">
                 <span class="gnb-my-page-name">
-                    {{ userLastName }}
+                    <img class="gnb-my-page-img" src="@/assets/img/gnb_my_page_icon.png" />
                 </span>
             </button>
 
@@ -69,10 +69,6 @@
             sessionNumbers() {
                 return this.$store.state.main.session.sessionNumbers.map(session => session.sessionNumber).sort((a, b) => b - a);
             },
-
-            userLastName() {
-                return this.$store.state.auth.name.slice(0, 1);
-            }
 
         },
 
@@ -167,13 +163,10 @@
         background-color: #4c64cf;
     }
 
-    .gnb-my-page-name  {
-        width: 18px;
-        height: 29px;
-        margin: 8px 13px 7px 13px;
-        font-size: 20px;
-        letter-spacing: -1px;
-        color: #ffffff;
+    .gnb-my-page-img {
+        width: 22px;
+        height: 24px;
+        object-fit: contain;
     }
 
     .gnb-logout {
