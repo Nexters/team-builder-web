@@ -13,11 +13,6 @@ basicApi.interceptors.response.use(
 
     //요청 실패시
     error => {
-        window.vm.$message({
-            message: error,
-            type: 'warning'
-        });
-
         return Promise.reject(error);
     }
 );

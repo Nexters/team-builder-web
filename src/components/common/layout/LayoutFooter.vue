@@ -94,8 +94,8 @@
     }
 
     .sns-nexters-icon {
-        width: 24px;
-        height: 19px;
+        width: 36px;
+        height: 36px;
     }
 
     .sns-facebook-icon-wrap {
@@ -109,8 +109,8 @@
     }
 
     .sns-facebook-icon {
-        width: 12px;
-        height: 24px;
+        width: 36px;
+        height: 36px;
     }
 
     .sns-instagram-icon-wrap {
@@ -123,8 +123,8 @@
     }
 
     .sns-instagram-icon {
-        width: 23px;
-        height: 23px;
+        width: 36px;
+        height: 36px;
     }
 
 </style>
