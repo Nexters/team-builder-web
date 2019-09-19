@@ -45,7 +45,7 @@
         SET_NEXTERS_NUMBER,
         SET_POSITION,
         SET_ROLE,
-        SET_TOKEN
+        SET_TOKEN, SET_UUID
     } from "../../consts/userType";
 
     export default {
@@ -69,11 +69,11 @@
                 }
 
                 login(uid, password)
-                    .then(res => {
-                        let token = res.data.data.accessToken;
+                    .then(data => {
+                        let token = data.data.accessToken;
                         info(token)
-                            .then(res => {
-                                this.goToPages(token, res.data.data)
+                            .then(data => {
+                                this.goToPages(token, data.data)
                             })
                     })
                     .catch(err => {
@@ -92,6 +92,7 @@
                 this.$store.commit(SET_POSITION, info.position);
                 this.$store.commit(SET_AUTH, true);
                 this.$store.commit(SET_TOKEN, token);
+                this.$store.commit(SET_UUID, info.uuid);
                 this.$router.push({
                     path: '/session/latest'
                 })

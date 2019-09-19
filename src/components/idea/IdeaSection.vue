@@ -27,7 +27,7 @@
 
                     <section class="header-right">
                         <div class="search">
-                            <button class="Rectangle-Copy" @click="showPopUp = true"><span>태그검색</span></button>
+                            <button class="Rectangle-Copy" @click="openInfo"><span>태그검색</span></button>
                             <SelectSearchTag v-if="showPopUp"
                                              @close="showPopUp = false"
                                              @searchTags="searchTags">
@@ -150,64 +150,70 @@
       }),
     },
 
-      methods: {
-        // ...mapActions([
-        //   'ACTIONS.ENTER_SEARCH_TERM',
-        //   'ACTIONS.POSITION_SORT_LIST',
-        //   'ACTIONS.DATE_SORT_LIST',
-        //   'ACTIONS.SHOW_ORIGIN_LIST',
-        // ])
+    methods: {
+      // ...mapActions([
+      //   'ACTIONS.ENTER_SEARCH_TERM',
+      //   'ACTIONS.POSITION_SORT_LIST',
+      //   'ACTIONS.DATE_SORT_LIST',
+      //   'ACTIONS.SHOW_ORIGIN_LIST',
+      // ])
 
-        sorting(by) {
-          if (by === 'position') {
-            this.sortPositionASC = !this.sortPositionASC;
-            if (this.sortPositionASC) {
-              return this.$store.commit('main/SORT_LIST_BY_POSITION_ASC');
-            }
+      sorting(by) {
+        if (by === 'position') {
+          this.sortPositionASC = !this.sortPositionASC;
+          if (this.sortPositionASC) {
+            return this.$store.commit('main/SORT_LIST_BY_POSITION_ASC');
           }
+        }
 
-          if (by === 'date') {
-            this.sortDateASC = !this.sortDateASC;
-            if (this.sortDateASC) {
-              return this.$store.commit('main/SORT_LIST_BY_DATE_ASC');
-            }
+        if (by === 'date') {
+          this.sortDateASC = !this.sortDateASC;
+          if (this.sortDateASC) {
+            return this.$store.commit('main/SORT_LIST_BY_DATE_ASC');
           }
-          return this.$store.dispatch('main/SORT_BY_DEFAULT');
-        },
-
-        filterData() {
-          if (this.searchTerm === '') {
-            this.$store.dispatch('main/SHOW_ORIGIN_LIST');
-            return;
-          }
-          this.$store.dispatch('main/ENTER_SEARCH_TERM');
-        },
-
-        showFavorite(star) {
-          this.sortPositionASC = false;
-          this.sortDateASC = false;
-          return star ? this.$store.commit('main/SET_FAVORITE_LIST')
-            : this.$store.dispatch('main/SHOW_ORIGIN_LIST')
-        },
-
-        cancelTagSearch() {
-          this.showSearchTagResult = false;
-          return this.$store.commit('main/SAVE_ORIGIN_LIST');
-        },
-
-        searchTags() {
-          this.showSearchTagResult = true;
-          this.showPopUp = false;
-          return this.$store.dispatch('main/SEARCH_TAGS');
-        },
-
-        goDetail(id) {
-          console.log(id);
-          this.$router.push({
-            path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${id}`
-          });
-        },
+        }
+        return this.$store.dispatch('main/SORT_BY_DEFAULT');
       },
+
+      filterData() {
+        if (this.searchTerm === '') {
+          this.$store.dispatch('main/SHOW_ORIGIN_LIST');
+          return;
+        }
+        this.$store.dispatch('main/ENTER_SEARCH_TERM');
+      },
+
+      showFavorite(star) {
+        this.sortPositionASC = false;
+        this.sortDateASC = false;
+        return star ? this.$store.commit('main/SET_FAVORITE_LIST')
+          : this.$store.dispatch('main/SHOW_ORIGIN_LIST')
+      },
+
+      cancelTagSearch() {
+        this.showSearchTagResult = false;
+        return this.$store.commit('main/SAVE_ORIGIN_LIST');
+      },
+
+      searchTags() {
+        this.showSearchTagResult = true;
+        this.showPopUp = false;
+        return this.$store.dispatch('main/SEARCH_TAGS');
+      },
+      openInfo() {
+        // 태그 검색 막아놓음
+        this.$alert('오픈 준비중입니다.', '태그검색', {
+            confirmButtonText: '확인'
+          }
+        )
+      },
+
+      goDetail(id) {
+        this.$router.push({
+          path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${id}`
+        });
+      },
+    }
   }
 </script>
 

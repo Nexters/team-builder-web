@@ -28,28 +28,24 @@
                 </template>
             </div>
 
-            <div class="header-period" :class="{'now' : nowPeriodType === 'IDEA_COLLECT'}" @mouseover="!this.showIdeaCollect">
-                <div class="period-step" :class="{'period-step-on' : nowPeriodType === 'IDEA_COLLECT'}">step1</div>
-                <span v-show="!this.showIdeaCollect">아이디어 모집</span>
-                <span v-show="this.showIdeaCollect">{{ }}</span>
+            <div class="header-period" :class="{'now' : nowPeriodType === PERIOD_TYPE.IDEA_COLLECT}">
+                <div class="period-step" :class="{'period-step-on' : nowPeriodType === PERIOD_TYPE.IDEA_COLLECT}">step1</div>
+                <span @mouseover="mouseroverPeriod(PERIOD_TYPE.IDEA_COLLECT)" @mouseleave="mouseleavePeriod(PERIOD_TYPE.IDEA_COLLECT)">{{ periodTypeIdeaCollectText }}</span>
             </div>
             <img class="period-right-icon" src="@/assets/img/header-right-icon.png"/>
-            <div class="header-period" :class="{'now' : nowPeriodType === 'IDEA_VOTE'}" @mouseover="!this.showIdeaVote">
-                <div class="period-step" :class="{'period-step-on' : nowPeriodType === 'IDEA_VOTE'}">step2</div>
-                <span v-show="!this.showIdeaVote">아이디어 투표</span>
-                <span v-show="this.showIdeaVote">{{ }}</span>
+            <div class="header-period" :class="{'now' : nowPeriodType === PERIOD_TYPE.IDEA_VOTE}">
+                <div class="period-step" :class="{'period-step-on' : nowPeriodType === PERIOD_TYPE.IDEA_VOTE}">step2</div>
+                <span @mouseover="mouseroverPeriod(PERIOD_TYPE.IDEA_VOTE)" @mouseleave="mouseleavePeriod(PERIOD_TYPE.IDEA_VOTE)">{{ periodTypeIdeaVoteText }}</span>
             </div>
             <img class="period-right-icon" src="@/assets/img/header-right-icon.png"/>
-            <div class="header-period" :class="{'now' : nowPeriodType === 'IDEA_CHECK'}" @mouseover="!this.showIdeaCheck">
-                <div class="period-step" :class="{'period-step-on' : nowPeriodType === 'IDEA_CHECK'}">step3</div>
-                <span v-show="!this.showIdeaCheck">선정아이디어 확인</span>
-                <span v-show="this.showIdeaCheck">{{ }}</span>
+            <div class="header-period" :class="{'now' : nowPeriodType === PERIOD_TYPE.IDEA_CHECK}">
+                <div class="period-step" :class="{'period-step-on' : nowPeriodType === PERIOD_TYPE.IDEA_CHECK}">step3</div>
+                <span @mouseover="mouseroverPeriod(PERIOD_TYPE.IDEA_CHECK)" @mouseleave="mouseleavePeriod(PERIOD_TYPE.IDEA_CHECK)">{{ periodTypeIdeaCheckText }}</span>
             </div>
             <img class="period-right-icon" src="@/assets/img/header-right-icon.png"/>
-            <div class="header-period" :class="{'now' : nowPeriodType === 'TEAM_BUILDING'}" @mouseover="!this.showTeamBuilding">
-                <div class="period-step" :class="{'period-step-on' : nowPeriodType === 'TEAM_BUILDING'}">step4</div>
-                <span v-show="!this.showTeamBuilding">팀빌딩</span>
-                <span v-show="this.showTeamBuilding">{{ }}</span>
+            <div class="header-period" :class="{'now' : nowPeriodType === PERIOD_TYPE.TEAM_BUILDING}">
+                <div class="period-step" :class="{'period-step-on' : nowPeriodType === PERIOD_TYPE.TEAM_BUILDING}">step4</div>
+                <span @mouseover="mouseroverPeriod(PERIOD_TYPE.TEAM_BUILDING)" @mouseleave="mouseleavePeriod(PERIOD_TYPE.TEAM_BUILDING)">{{ periodTypeTeamBuildingText }}</span>
             </div>
         </div>
     </div>
@@ -57,10 +53,11 @@
 
 <script>
     import {GENERAL_MANAGE, USER_MANAGE} from '@/consts/adminType';
-    import {ACTIONS, GETTERS, MUTATIONS} from "@/store/types";
+    import {GETTERS} from "@/store/types";
     import {createNamespacedHelpers} from 'vuex';
-    const {mapMutations, mapGetters, mapState, mapActions} = createNamespacedHelpers('main');
-
+    import {PERIOD_TYPE} from '@/consts/periodType';
+    import moment from 'moment';
+    const {mapState, mapGetters, mapActions} = createNamespacedHelpers('main');
 
     export default {
         name: "LayoutHeader",
@@ -70,34 +67,39 @@
                 // mode: 'TEAMBUILDING',
                 // mode: USER_MANAGE,
                 // mode: GENERAL_MANAGE,
+
+                PERIOD_TYPE: {
+                    IDEA_COLLECT: PERIOD_TYPE.IDEA_COLLECT,
+                    IDEA_VOTE: PERIOD_TYPE.IDEA_VOTE,
+                    IDEA_CHECK: PERIOD_TYPE.IDEA_CHECK,
+                    TEAM_BUILDING: PERIOD_TYPE.TEAM_BUILDING
+                },
+
                 USER_MANAGE: USER_MANAGE,
                 GENERAL_MANAGE: GENERAL_MANAGE,
-                showIdeaCollect: false,
-                showIdeaVote: false,
-                showIdeaCheck: false,
-                showTeamBuilding: false,
-
-
-
-                isTeambuildingPeriod: false, //팀빌딩 모드 전환이 가능한지 여부! padlock img 노출용
+                isTeambuildingPeriod: false, //팀빌딩 모드 전환이 가능한지 여부! padlock img 노출용,
+                periodTypeIdeaCollectText: '아이디어 모집',
+                periodTypeIdeaVoteText: '아이디어 투표',
+                periodTypeIdeaCheckText: '아이디어 선정',
+                periodTypeTeamBuildingText: '팀빌딩',
             }
         },
 
         computed: {
+            ...mapState({
+                periods: state => state.session.periods,
+            }),
+
+            ...mapGetters({
+                nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
+            }),
+
             isAdmin() {
                 return this.$store.getters.isAdmin;
             },
             sessionNumber() {
                 return this.$store.state.main.session.sessionNumber || this.$route.params.sessionNumber;
             },
-
-          // ...mapState({
-          //   nowPeriodType: state => state.session.nowPeriod,
-          // }),
-
-          ...mapGetters({
-            nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW
-          })
         },
 
         methods: {
@@ -117,7 +119,51 @@
             },
             moveToGeneralManage() {
                 this.$router.push({path: `/session/${this.sessionNumber}/general-manage`});
-            }
+            },
+
+            mouseroverPeriod(mouseoverPeriodType) {
+                const period = this.periods.find(period => period.periodType === mouseoverPeriodType);
+                switch (mouseoverPeriodType) {
+                    case PERIOD_TYPE.IDEA_COLLECT:
+                        this.periodTypeIdeaCollectText = this.makePeriodTypeDateText(period);
+                        break;
+                    case PERIOD_TYPE.IDEA_VOTE:
+                        this.periodTypeIdeaVoteText = this.makePeriodTypeDateText(period);
+                        break;
+                    case PERIOD_TYPE.IDEA_CHECK:
+                        this.periodTypeIdeaCheckText = this.makePeriodTypeDateText(period);
+                        break;
+                    case PERIOD_TYPE.TEAM_BUILDING:
+                        this.periodTypeTeamBuildingText = this.makePeriodTypeDateText(period);
+                        break;
+                }
+            },
+
+            makePeriodTypeDateText(period) {
+                if (period.periodType === PERIOD_TYPE.TEAM_BUILDING) {
+                    return `${moment(period.startDate).format('MM.DD')}`;
+                }
+
+                return `${moment(period.startDate).format('MM.DD')} ~ ${moment(period.endDate).format('MM.DD')}`;
+            },
+
+            mouseleavePeriod(mouseleavePeriodType) {
+                switch (mouseleavePeriodType) {
+                    case PERIOD_TYPE.IDEA_COLLECT:
+                        this.periodTypeIdeaCollectText = '아이디어 모집';
+                        break;
+                    case PERIOD_TYPE.IDEA_VOTE:
+                        this.periodTypeIdeaVoteText = '아이디어 투표';
+                        break;
+                    case PERIOD_TYPE.IDEA_CHECK:
+                        this.periodTypeIdeaCheckText = '아이디어 선정';
+                        break;
+                    case PERIOD_TYPE.TEAM_BUILDING:
+                        this.periodTypeTeamBuildingText = '팀빌딩';
+                        break;
+                }
+            },
+
         }
     }
 </script>
@@ -163,7 +209,7 @@
         width: 47px;
         height: 27px;
         margin: 26px 6px 17px 0px;
-        font-family: NotoSansCJKkr;
+        font-family: Roboto;
         color: #9b9b9b;
         font-size: 18px;
         letter-spacing: -1px;

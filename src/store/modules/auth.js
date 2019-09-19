@@ -5,7 +5,8 @@ import {
     SET_POSITION,
     SET_ROLE,
     SET_TOKEN,
-    SET_AUTH
+    SET_AUTH,
+    SET_UUID
 } from "../../consts/userType";
 import {ROLL_TYPE} from '@/consts/rollType';
 
@@ -17,7 +18,8 @@ const store = {
         role: '',
         position: '',
         auth: false,
-        token: ''
+        token: '',
+        uuid: '',
     },
     getters: {
         getId(state) {
@@ -40,6 +42,9 @@ const store = {
         },
         getToken(state) {
             return state.token
+        },
+        getUuid(state) {
+            return state.uuid;
         },
         isAdmin(state) {
             return state.role === ROLL_TYPE.ADMIN;
@@ -66,6 +71,9 @@ const store = {
         },
         [SET_TOKEN](state, token) {
             state.token = token
+        },
+        [SET_UUID](state, uuid) {
+            state.uuid = uuid;
         }
     }
 };

@@ -2,7 +2,7 @@
     <Layout>
         <template v-slot:body>
             <div class="new-idea-wrap">
-                <NewIdeaEditor style="margin-top: 66px;"></NewIdeaEditor>
+                <IdeaEditor :idea="idea" style="margin-top: 66px;"></IdeaEditor>
 
                 <div class="tag-group-container">
                     <div class="tag-group-message">저는 이런 팀원이 필요해요</div>
@@ -17,12 +17,16 @@
 <script>
     import Layout from '@/components/common/layout/Layout';
     import TagGroup from '@/components/common/tag/TagGroup';
-    import NewIdeaEditor from '@/components/idea/new/NewIdeaEditor';
+    import IdeaEditor from '@/components/idea/new/IdeaEditor';
     export default {
         name: "NewIdea",
-        components: {Layout, NewIdeaEditor, TagGroup},
+        components: {Layout, IdeaEditor, TagGroup},
         data() {
             return {
+                idea: {
+                    ideaTitle: '',
+                    editorText: '',
+                },
             }
         },
 
@@ -30,7 +34,7 @@
             allTags() {
                 return this.$store.state.main.session.tags;
             }
-        }
+        },
     }
 </script>
 
@@ -45,7 +49,7 @@
 
     .tag-group-container {
         width: 100%;
-        margin: 50px 0px;
+        margin: 50px 0px 44px 0px;
         display: flex;
         flex-direction: column;
     }

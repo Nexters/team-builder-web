@@ -3,22 +3,22 @@
         <div style="display: flex">
             <div class="new-idea-title-wrap">
                 <input class="new-idea-title-contents"
-                       v-model.trim="newIdeaTitle"
+                       v-model.trim="ideaTitle"
                        placeholder="아이디어를 한문장으로 요약해주세요."
-                       ref="newIdeaTitle"
+                       ref="ideaTitle"
                        maxlength="35"
-                       @keyup="keyupNewIdeaTitle"
-                       :class="typingTitleClass"
+                       :class="{'on-typing-title': !!ideaTitle}"
                 />
                 <div class="new-idea-title-border-line"></div>
             </div>
             <button class="new-idea-finish-button-wrap" @click="onClickWriteFinish">
-                <span class="new-idea-finish-button">작성완료</span>
+                <span class="new-idea-finish-button">{{ idea.ideaId ? '수정완료' : '작성완료'}}</span>
             </button>
         </div>
 
         <div class="tui-editor-wrap">
             <editor
+                    ref="tuiEditor"
                     v-model="editorText"
                     :options="editorOptions"
                     mode="wysiwyg"
@@ -36,55 +36,84 @@
 
     import { ACTIONS } from '@/store/types';
     import {createNamespacedHelpers} from 'vuex';
+    import {uploadFiles} from '@/api/FileAPI';
     const { mapActions } = createNamespacedHelpers('main');
 
-    const defaultOptions = {
-        minHeight: '400px',
-        language: 'ko_kr',
-        useCommandShortcut: true,
-        useDefaultHTMLSanitizer: true,
-        hideModeSwitch: true,
-    };
-
     export default {
-        name: "NewIdeaEditor",
+        name: "IdeaEditor",
         components: {'editor': Editor},
+        props: {
+            idea: {
+                type: Object,
+                required: true
+            }
+        },
         data() {
             return {
-                newIdeaTitle: '',
-                editorText: '',
-                editorOptions: defaultOptions,
-                typingTitleClass: '',
+                ideaTitle: this.idea.ideaTitle,
+                editorText: this.idea.editorText,
+                editorOptions: {
+                    minHeight: '400px',
+                    language: 'ko_kr',
+                    useCommandShortcut: true,
+                    useDefaultHTMLSanitizer: true,
+                    hideModeSwitch: true,
+                    hooks: {
+                        addImageBlobHook: function (fileOrBlob, callback) {
+                            uploadFiles(fileOrBlob.name, fileOrBlob, 'idea')
+                                .then(fileUrls => {
+                                    callback(fileUrls[0], '');
+                                })
+                                .catch(err => {
+                                    console.log(err);
+                                    alert('이미지 업로드 실패');
+                                });
+
+                            return false;
+                        }
+                    }
+                },
             }
         },
 
         methods: {
             ...mapActions({
                 createNewIdea: ACTIONS.CREATE_NEW_IEDA,
+                modifyIdea: ACTIONS.MODIFY_IEDA,
             }),
 
             onClickWriteFinish() {
-                this.createNewIdea({
+                const data = {
                     content: this.editorText,
-                    // file: '',
+                    file: this.idea.file,
                     sessionId: this.$store.state.main.session.sessionId,
                     tags: [],
-                    title: this.newIdeaTitle,
+                    title: this.ideaTitle,
                     type: this.$store.getters.isAdmin ? '' : 'IDEA',
-                })
-                .then(res => {
-                    const ideaId = res.data.ideaId;
-                    this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${ideaId}`});
-                })
-                .catch(err => console.log(err));
-            },
+                }
 
-            keyupNewIdeaTitle(event) {
-                const text = event.currentTarget.value;
-                if (text.length > 0) {
-                    this.typingTitleClass = 'on-typing-title';
-                } else {
-                    this.typingTitleClass = '';
+                //기존 아이디어 수정
+                if (this.idea.ideaId) {
+                    this.modifyIdea({
+                        ...data,
+                        ideaId: this.idea.ideaId
+                    })
+                    .then(res => {
+                        const ideaId = res.data.ideaId;
+                        this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${ideaId}`});
+                    })
+                }
+
+                else {
+                    //새 아이디어 생성
+                    this.createNewIdea({
+                        ...data
+                    })
+                    .then(res => {
+                        const ideaId = res.data.ideaId;
+                        this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${ideaId}`});
+                    })
+                    .catch(err => console.log(err));
                 }
             },
 
@@ -99,12 +128,8 @@
             // }
         },
 
-        created() {
-
-        },
-
         mounted() {
-            this.$refs.newIdeaTitle.focus();
+            this.$refs.ideaTitle.focus();
         }
     }
 </script>

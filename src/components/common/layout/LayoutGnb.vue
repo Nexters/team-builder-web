@@ -3,7 +3,7 @@
         <div class="layout-gnb">
             <button class="gnb-logo-wrap" @click="onClickLogo">
                 <div class="gnb-logo-image">
-                    <img style="width: 48px; height: 48px;" src="@/assets/img/nexters_15th_logo.png"/>
+                    <img style="width: 48px; height: 48px;padding: 7px;" :src="logoImageUrl"/>
                 </div>
             </button>
             <button @click="openSessionGroup" class="gnb-session-wrap">
@@ -14,17 +14,17 @@
                 <img v-show="isOpenSessionGroup" class="gnb-session-open-icon" src="@/assets/img/gnb_close_icon.png" />
             </button>
 
-            <button v-if="isAdmin" @click="onClickAllUserManage" class="gnb-all-user-manage">
+            <button v-if="isAdmin" @click="onClickAllUserManage" class="gnb-all-user-manage btn-gnb-bottom">
                 <img class="gnb-all-user-manage-img" src="@/assets/img/gnb_all_user_manage_icon.png" />
             </button>
 
-            <button @click="onClickMyPage" class="gnb-my-page">
+            <button @click="onClickMyPage" class="gnb-my-page btn-gnb-bottom">
                 <span class="gnb-my-page-name">
-                    {{ userLastName }}
+                    <img class="gnb-my-page-img" src="@/assets/img/gnb_my_page_icon.png" />
                 </span>
             </button>
 
-            <button @click="onClickLogout" class="gnb-logout">
+            <button @click="onClickLogout" class="gnb-logout btn-gnb-bottom">
                 <img class="gnb-logout-img" src="@/assets/img/gnb_logout_icon.png" />
             </button>
         </div>
@@ -41,6 +41,7 @@
 
 <script>
     import {SlideXLeftTransition} from 'vue2-transitions';
+    import {DEFAULT_LOGO_URL} from '@/consts/common';
 
     export default {
         name: "LayoutGnb",
@@ -52,6 +53,11 @@
         },
 
         computed: {
+            logoImageUrl() {
+                const logoImageUrl = this.$store.state.main.session.logoImageUrl;
+                return logoImageUrl !== 'https:image.url' ? logoImageUrl : DEFAULT_LOGO_URL;
+            },
+
             isAdmin() {
                 return this.$store.getters.isAdmin;
             },
@@ -63,10 +69,6 @@
             sessionNumbers() {
                 return this.$store.state.main.session.sessionNumbers.map(session => session.sessionNumber).sort((a, b) => b - a);
             },
-
-            userLastName() {
-                return this.$store.state.auth.name.slice(0, 1);
-            }
 
         },
 
@@ -161,13 +163,10 @@
         background-color: #4c64cf;
     }
 
-    .gnb-my-page-name  {
-        width: 18px;
-        height: 29px;
-        margin: 8px 13px 7px 13px;
-        font-size: 20px;
-        letter-spacing: -1px;
-        color: #ffffff;
+    .gnb-my-page-img {
+        width: 22px;
+        height: 24px;
+        object-fit: contain;
     }
 
     .gnb-logout {
@@ -220,6 +219,10 @@
         margin: 8px 40px 8px 39px;
     }
 
+    .layout-session-group-one:hover {
+        color: #ffffff;
+    }
+
     .gnb-logout-img {
         width: 21px;
         height: 22px;
@@ -228,5 +231,9 @@
 
     .now-session {
         color: #ffffff;
+    }
+
+    .btn-gnb-bottom:hover {
+        background-color: #354ec1;
     }
 </style>

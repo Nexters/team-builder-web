@@ -1,5 +1,5 @@
 import {SIGNUP_URL} from "../consts/userType"
-import {post} from "./testAPI"
+import {POST} from '@/api/index';
 
 export async function signup(uid, upassword, uname, nextersNumber, position, accessCode) {
     if (!uid || !upassword || !uname || !nextersNumber || !position || !accessCode) {
@@ -15,11 +15,5 @@ export async function signup(uid, upassword, uname, nextersNumber, position, acc
         'role': "ROLE_USER"
     });
 
-    let header = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
-
-    return post(SIGNUP_URL, params, header)
+    return POST(SIGNUP_URL, params);
 }

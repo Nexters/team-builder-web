@@ -1,7 +1,6 @@
 import {ACTIONS, GETTERS, MUTATIONS} from '@/store/types';
 import {getSession} from '@/api/sessionApi';
-import {createNewIdea, deleteFavorite, deleteIdea, getIdea, putVoteIdea, setFavorite, updateIdea} from '@/api/ideaApi';
-import id from 'bootstrap-vue/esm/mixins/id';
+import {createNewIdea, deleteFavorite, deleteIdea, getIdea, putVoteIdea, setFavorite, updateIdea, modifyIdea} from '@/api/ideaApi';
 
 // 가독성을 위해 데이터 폼 표시
 const store = {
@@ -393,13 +392,25 @@ const store = {
        * @param id  ideaId
        */
         [ACTIONS.FAVORITE_CHANGE](context, payload) {
-          context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE, payload.ideaId);
-
           if(!payload.isFavorite) {
-            setFavorite(payload.ideaId).catch(err => console.log(err));
-            return;
+              return setFavorite(payload.ideaId)
+                  .then(() => {
+                    context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE, payload.ideaId);
+                    window.vm.$notify.info({
+                      title: '즐겨찾기 추가',
+                      message: '아이디어를 즐겨찾기에 추가했습니다.️',
+                    });
+                  });
           }
-          deleteFavorite(payload.ideaId).catch(err => console.log(err));
+
+          return deleteFavorite(payload.ideaId)
+              .then(() => {
+                context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE, payload.ideaId);
+                window.vm.$notify.info({
+                  title: '즐겨찾기 해제',
+                  message: '아이디어를 즐겨찾기에서 해제했습니다.',
+                });
+              });
         },
 
         [ACTIONS.SEARCH_TAGS](context) {
@@ -415,6 +426,15 @@ const store = {
          */
         [ACTIONS.CREATE_NEW_IEDA](context, newIdea) {
             return createNewIdea(newIdea);
+        },
+
+      /**
+       * 아이디어/공지사항 수정
+       * @param context
+       * @param idea
+       */
+        [ACTIONS.MODIFY_IEDA](context, idea) {
+            return modifyIdea(idea);
         },
 
         /**

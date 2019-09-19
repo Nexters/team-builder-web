@@ -52,12 +52,6 @@ export default new Router({
             component: () => import(/* webpackChunkName: "editor" */ './views/info/Info.vue')
         },
         {
-            path: '*',
-            name: 'NotFound',
-            beforeEnter: requireAuth(),
-            component: () => import(/* webpackChunkName: "NotFound" */ './views/NotFound.vue')
-        },
-        {
             path: '/session/:sessionNumber',
             name: 'Session',
             beforeEnter: requireAuth(),
@@ -68,6 +62,12 @@ export default new Router({
             name: 'NewIdea',
             beforeEnter: requireAuth(),
             component: () => import(/* webpackChunkName: "Main" */ './views/NewIdea.vue'),
+        },
+        {
+            path: '/session/:sessionNumber/idea/:ideaId/modify',
+            name: 'IdeaModify',
+            beforeEnter: requireAuth(),
+            component: () => import(/* webpackChunkName: "Main" */ './views/IdeaModify.vue'),
         },
         {
             path: '/session/:sessionNumber/idea/:ideaId',
@@ -92,6 +92,11 @@ export default new Router({
             name: 'ActiveUserManage',
             beforeEnter: requireAuth(),
             component: () => import(/* webpackChunkName: "Main" */ './views/admin/ActiveUserManage.vue'),
+        },
+        {
+            path: '*',
+            name: 'ErrorPage404',
+            component: () => import(/* webpackChunkName: "Main" */ './views/error/ErrorPage404.vue')
         },
     ]
 })

@@ -1,6 +1,5 @@
-import store from '../store/index';
-import {put} from "./testAPI"
 import {ALL_USER_URL} from "../consts/userType";
+import {PUT} from '@/api/index';
 
 export function updateUserInfo(newPassword, nowPassword, position) {
     if (!newPassword || !nowPassword || !position) {
@@ -13,12 +12,5 @@ export function updateUserInfo(newPassword, nowPassword, position) {
         'position': position
     });
 
-    let header = {
-        headers: {
-            'Authorization': store.getters.getToken,
-            'Content-Type': 'application/json'
-        }
-    };
-
-    return put(ALL_USER_URL, params, header);
+    return PUT(ALL_USER_URL, params);
 }
