@@ -142,15 +142,15 @@ span {
 }
 
 .Rectangle {
-	width: 333px;
+	width: 325px;
 	height: 50px;
 	border-radius: 6px;
 	border: solid 1px #eeeeee;
 	background-color: #ffffff;
+	padding-right: 8px;
 }
 
 .ico_search {
-	/*float: right;*/
 	position: absolute;
 	left: 291px;
 	bottom: 11px;

@@ -73,7 +73,7 @@
 
                 <div v-show="nowPeriodType === 'IDEA_VOTE' || nowPeriodType === 'IDEA_CHECK'" class="card-body">
                     <div class="titles">
-                        <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
+                        <!--<div classse="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
                         <div class="title" style="width: 48px; height: 18px; line-height: 1.29;
                         margin-left: 10px; margin-bottom: 1px;">즐겨찾기</div>
                         <div class="title" style="width: 24px; height: 18px; line-height: 1.29;
@@ -134,7 +134,7 @@
 
     computed: {
       searchTerm: {
-        set (value) {
+        set(value) {
           this.$store.commit('main/SET_SEARCH_TERM', value);
         },
         get() {
@@ -156,15 +156,15 @@
       //   'ACTIONS.POSITION_SORT_LIST',
       //   'ACTIONS.DATE_SORT_LIST',
       //   'ACTIONS.SHOW_ORIGIN_LIST',
-      // ]),
+      // ])
 
       sorting(by) {
         if (by === 'position') {
-            this.sortPositionASC = !this.sortPositionASC;
-            if(this.sortPositionASC) {
-              return this.$store.commit('main/SORT_LIST_BY_POSITION_ASC');
-            }
+          this.sortPositionASC = !this.sortPositionASC;
+          if (this.sortPositionASC) {
+            return this.$store.commit('main/SORT_LIST_BY_POSITION_ASC');
           }
+        }
 
         if (by === 'date') {
           this.sortDateASC = !this.sortDateASC;
@@ -176,7 +176,7 @@
       },
 
       filterData() {
-        if(this.searchTerm === '') {
+        if (this.searchTerm === '') {
           this.$store.dispatch('main/SHOW_ORIGIN_LIST');
           return;
         }
@@ -200,13 +200,12 @@
         this.showPopUp = false;
         return this.$store.dispatch('main/SEARCH_TAGS');
       },
-
       openInfo() {
-          // 태그 검색 막아놓음
-          this.$alert('오픈 준비중입니다.', '태그검색', {
-                  confirmButtonText: '확인'
-              }
-          )
+        // 태그 검색 막아놓음
+        this.$alert('오픈 준비중입니다.', '태그검색', {
+            confirmButtonText: '확인'
+          }
+        )
       },
 
       goDetail(id) {
@@ -214,7 +213,7 @@
           path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${id}`
         });
       },
-    },
+    }
   }
 </script>
 

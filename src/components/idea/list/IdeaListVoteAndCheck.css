@@ -11,6 +11,17 @@
 	background-color: #ffffff;
 	display: flex;
 }
+.type-notice {
+	border: solid 1.5px #dbdbdb;
+}
+
+.notice {
+	width: 42px;
+	height: 29px;
+	object-fit: contain;
+
+	margin: 22.5px 1px 22.5px 15px;
+}
 
 .favorite {
 	margin: 26px 16px 25px 22px;
@@ -64,6 +75,21 @@
 	letter-spacing: -0.89px;
 	color: #1c1c1c;
 	display: inline-block;
+}
+
+.not-select-tags {
+	width: 160px;
+	height: 24px;
+	font-family: NotoSansCJKkr;
+	font-size: 16px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: -1px;
+	text-align: center;
+	color: #9b9b9b;
+	margin: 8px 0 8px 3px;
 }
 
 .tags {
