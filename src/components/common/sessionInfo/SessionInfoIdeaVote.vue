@@ -111,9 +111,11 @@
                     return;
                 }
 
-                this.voteSummitAction()
-                    .then(this.voteDone = true)
-                    .fail(err => console.log(err));
+                this.$store.dispatch('main/VOTE_SUMMIT');
+                this.voteDone = true;
+                // this.voteSummitAction()
+                //     .then(this.voteDone = true)
+                //     .fail(err => console.log(err));
             },
 
             removeCandidateIdea(ideaId) {

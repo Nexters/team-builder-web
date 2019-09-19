@@ -28,25 +28,25 @@
                 </template>
             </div>
 
-            <div class="header-period" :class="{'now' : nowPeriodType === 'IDEA_COLLECT'}" :mouseover="!this.showIdeaCollect">
+            <div class="header-period" :class="{'now' : nowPeriodType === 'IDEA_COLLECT'}" @mouseover="!this.showIdeaCollect">
                 <div class="period-step" :class="{'period-step-on' : nowPeriodType === 'IDEA_COLLECT'}">step1</div>
                 <span v-show="!this.showIdeaCollect">아이디어 모집</span>
                 <span v-show="this.showIdeaCollect">{{ }}</span>
             </div>
             <img class="period-right-icon" src="@/assets/img/header-right-icon.png"/>
-            <div class="header-period" :class="{'now' : nowPeriodType === 'IDEA_VOTE'}" :mouseover="!this.showIdeaVote">
+            <div class="header-period" :class="{'now' : nowPeriodType === 'IDEA_VOTE'}" @mouseover="!this.showIdeaVote">
                 <div class="period-step" :class="{'period-step-on' : nowPeriodType === 'IDEA_VOTE'}">step2</div>
                 <span v-show="!this.showIdeaVote">아이디어 투표</span>
                 <span v-show="this.showIdeaVote">{{ }}</span>
             </div>
             <img class="period-right-icon" src="@/assets/img/header-right-icon.png"/>
-            <div class="header-period" :class="{'now' : nowPeriodType === 'IDEA_CHECK'}" :mouseover="!this.showIdeaCheck">
+            <div class="header-period" :class="{'now' : nowPeriodType === 'IDEA_CHECK'}" @mouseover="!this.showIdeaCheck">
                 <div class="period-step" :class="{'period-step-on' : nowPeriodType === 'IDEA_CHECK'}">step3</div>
                 <span v-show="!this.showIdeaCheck">선정아이디어 확인</span>
                 <span v-show="this.showIdeaCheck">{{ }}</span>
             </div>
             <img class="period-right-icon" src="@/assets/img/header-right-icon.png"/>
-            <div class="header-period" :class="{'now' : nowPeriodType === 'TEAM_BUILDING'}" :mouseover="!this.showTeamBuilding">
+            <div class="header-period" :class="{'now' : nowPeriodType === 'TEAM_BUILDING'}" @mouseover="!this.showTeamBuilding">
                 <div class="period-step" :class="{'period-step-on' : nowPeriodType === 'TEAM_BUILDING'}">step4</div>
                 <span v-show="!this.showTeamBuilding">팀빌딩</span>
                 <span v-show="this.showTeamBuilding">{{ }}</span>

@@ -16,13 +16,18 @@
     import SessionInfoIdeaCheck from '@/components/common/sessionInfo/SessionInfoIdeaCheck';
     import SessionInfoTeamBuilding from '@/components/common/sessionInfo/SessionInfoTeamBuilding';
 
+    import {ACTIONS, GETTERS, MUTATIONS} from "@/store/types";
+    import {createNamespacedHelpers} from 'vuex';
+    const {mapMutations, mapGetters, mapState, mapActions} = createNamespacedHelpers('main');
+
+
     export default {
         name: "SessionInfoWrap",
         components: {SessionInfoTeamBuilding, SessionInfoIdeaCheck, SessionInfoIdeaCollect, SessionInfoIdeaVote},
         data() {
             return {
                 sessionNumber: this.$store.state.main.session.sessionNumber,
-                nowPeriodType: this.$store.state.main.nowPeriod.periodType,
+                // nowPeriodType: this.$store.state.main.nowPeriod.periodType,
 
                 isIdeaCollect: false,
                 isIdeaVote: false,
@@ -47,6 +52,13 @@
                     return;
             }
         },
+
+      computed: {
+        ...mapGetters({
+          nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW
+
+        })
+      }
 
     }
 </script>

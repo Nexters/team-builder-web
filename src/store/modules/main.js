@@ -452,7 +452,7 @@ const store = {
         [ACTIONS.VOTE_SUMMIT]: (context) => {
           const candidateIdeas = context.state.candidateIdeas;
           candidateIdeas.forEach(idea => {
-            putVoteIdea(idea.id)
+            putVoteIdea(idea.ideaId)
                 .then()
                 .catch(err => Promise.reject(err));
           });
