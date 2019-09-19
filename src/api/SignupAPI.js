@@ -15,5 +15,10 @@ export async function signup(uid, upassword, uname, nextersNumber, position, acc
         'role': "ROLE_USER"
     });
 
-    return POST(SIGNUP_URL, params);
+    const headers = {
+        'Content-Type': 'application/json',
+        'charset': 'UTF-8'
+    };
+
+    return POST(SIGNUP_URL, params, headers);
 }
