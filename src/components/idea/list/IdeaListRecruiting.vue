@@ -2,7 +2,7 @@
     <div class="board">
         <div v-for="idea in ideaListResult" :key="idea.orderNumber">
             <!-- NOTICE -->
-            <div v-if="idea['type'] === 'NOTICE'" class="Rectangle list" style="border: solid 1.5px #dbdbdb;">
+            <div v-if="idea['type'] === 'NOTICE'" class="Rectangle list type-notice">
                 <!-- idea type -->
                 <img src="@/assets/img/NOTICE.png"
                      class="notice" />
@@ -20,7 +20,7 @@
                 <div class="td" style="margin: 17px 0 17px 37px; width: 327px; position: relative;">
                 </div>
                 <!-- position -->
-                <div class="position" style="text-align: center">
+                <div class="position" style="padding-left: 8px">
                     -
                 </div>
                 <!-- author -->
@@ -43,9 +43,6 @@
                     <img v-show="idea['favorite'] === false" @click="clickFavorite(idea)"
                          src="@/assets/img/favourites-filled-star-symbol@2x.png"
                          class="favourites-filled-star-symbol" />
-                    <!--<img v-show="true" @click="clickFavorite(idea.ideaId, idea['favorite'])"-->
-                         <!--src="@/assets/img/favourites-filled-star-symbol@2x.png"-->
-                         <!--class="favourites-filled-star-symbol" />-->
                 </div>
                 <!-- order-number -->
                 <div class="order-number">
@@ -59,14 +56,17 @@
                 </div>
                 <!-- tags -->
                 <div class="td" style="margin: 17px 0 17px 37px; width: 327px; position: relative;">
-                    <div class="tags" v-for="(element, index) in idea['tags']" v-if="index < 3"
+                    <div v-show="idea['tags'].length === 0" class="not-select-tags">
+                        태그를 선택하지 않았어요.
+                    </div>
+                    <div v-show="idea['tags'].length > 0" class="tags" v-for="(element, index) in idea['tags']" v-if="index < 3"
                          v-on:mouseover="viewAllTags" v-on:mouseout="closeAllTags">
                         <div class="tag" v-if="element.type === 'DEVELOPER'" style="background-color: #daf4ea;">
                             <div class="tag-name" style="color: #208b84;">
                                 {{ element['name'] }}
                             </div>
                         </div>
-                        <div v-else class="tag" style=" background-color: #fff4d5;">
+                        <div v-else-if="element.type === 'DESIGNER'" class="tag" style=" background-color: #fff4d5;">
                             <div class="tag-name" style="color: #ff7205;">
                                 {{ element['name'] }}
                             </div>

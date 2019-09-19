@@ -12,6 +12,10 @@
 	display: flex;
 }
 
+.type-notice {
+	border: solid 1.5px #dbdbdb;
+}
+
 .favorite {
 	width: 24px;
 	height: 23px;
@@ -55,6 +59,7 @@
 	height: inherit;
 	padding: 26px 15px 24px 7px;
 	cursor: pointer;
+	margin-right: 28px;
 }
 
 .idea-name {
@@ -73,6 +78,21 @@
 	letter-spacing: -0.89px;
 	color: #1c1c1c;
 	display: inline-block;
+}
+
+.not-select-tags {
+	width: 160px;
+	height: 24px;
+	font-family: NotoSansCJKkr;
+	font-size: 16px;
+	font-weight: normal;
+	font-style: normal;
+	font-stretch: normal;
+	line-height: normal;
+	letter-spacing: -1px;
+	text-align: center;
+	color: #9b9b9b;
+	margin: 8px 0;
 }
 
 .tags {
