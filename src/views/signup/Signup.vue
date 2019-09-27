@@ -154,8 +154,8 @@
                 const accessCode = this.accessCode;
 
                 if (!uid || !upassword || !uname || !nextersNumber || !position || !accessCode || this.errors.any()) {
-                    alert('모든 항목을 채워주세요.')
-                    return false
+                    alert('모든 항목을 채워주세요.');
+                    return false;
                 }
 
                 signup(uid, upassword, uname, nextersNumber, position, accessCode)
@@ -163,7 +163,7 @@
                         this.goToPages(data)
                     })
                     .catch(err => {
-                        alert('Signup fail!', err);
+                        alert("서버 에러입니다. 관리자에게 문의해주세요.");
                         this.duringLogin = false;
                     });
 
