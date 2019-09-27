@@ -21,15 +21,31 @@
                             <b-form-group style="margin-top: 16px">
                                 <b-form class="row">
                                     <b-form>
-                                        <b-form-input class="input-box" v-validate="'required|min:8'" type="password"
-                                                      v-model="password" placeholder="비밀번호를 입력해주세요."></b-form-input>
+                                        <div class="password-circle row" v-bind:style="passwordBoxMouseHoverStyle">
+                                            <b-form-input class="input-box-password" v-validate="'required|min:8'"
+                                                          :type="passwordType" v-model="password"
+                                                          @focusin="passwordFocus('password')"
+                                                          @focusout="passwordFocusOut"
+                                                          placeholder="비밀번호를 입력해주세요."></b-form-input>
+                                            <img src="../../assets/img/ico-view@2x.png" width="18px" height="16px"
+                                                 @mouseover="visiblePassword('password')"
+                                                 @mouseleave="invisiblePassword">
+                                        </div>
                                         <p v-if="0 < password.length && password.length < 8"
-                                           class="password-confirm-box">영문,숫자 8자
-                                            이상 입력하세요.</p>
+                                           class="password-confirm-box">영문,숫자 8자 이상 입력하세요.</p>
                                     </b-form>
                                     <b-form style="margin-left: 15px;">
-                                        <b-form-input class="input-box" type="password" v-model="confirmPassword"
-                                                      placeholder="비밀번호를 다시 입력해주세요."></b-form-input>
+                                        <div class="password-circle row"
+                                             v-bind:style="confirmPasswordBoxMouseHoverStyle">
+                                            <b-form-input class="input-box-password" :type="confirmPasswordType"
+                                                          v-model="confirmPassword"
+                                                          @focusin="passwordFocus('confirmPassword')"
+                                                          @focusout="passwordFocusOut"
+                                                          placeholder="비밀번호를 다시 입력해주세요."></b-form-input>
+                                            <img src="../../assets/img/ico-view@2x.png" width="18px" height="16px"
+                                                 @mouseover="visiblePassword('confirmPassword')"
+                                                 @mouseleave="invisiblePassword">
+                                        </div>
                                         <p v-if="0 < confirmPassword.length  && confirmPassword !== password"
                                            class="password-confirm-box">
                                             비밀번호가 일치하지 않습니다.</p>
@@ -46,27 +62,25 @@
                                 <b-form class="row">
                                     <b-form-input class="input-box" type="text" v-model="name"
                                                   placeholder="이름을 적어주세요."></b-form-input>
+                                    <b-form-select v-model="nextersNumberSelect" :options="nextersNumberOptions"
+                                                   class="nexters-number-select" style="margin-left: 15px;">
+                                        <template slot="first">
+                                            <option :value="null" disabled>가입기수</option>
+                                        </template>
+                                    </b-form-select>
+                                    <b-form-select v-model="positionSelect" :options="positionOptions"
+                                                   class="position-select">
+                                        <template slot="first">
+                                            <option :value="null" disabled>직군선택</option>
+                                        </template>
+                                    </b-form-select>
                                 </b-form>
                             </b-form-group>
 
                             <b-form-group>
                                 <b-form class="row">
-                                    <b-form>
-                                        <b-form-select v-model="nextersNumberSelect" :options="nextersNumberOptions"
-                                                       class="nexters-number-select">
-                                            <template slot="first">
-                                                <option :value="null" disabled>기수</option>
-                                            </template>
-                                        </b-form-select>
-                                    </b-form>
-                                    <b-form>
-                                        <b-form-select v-model="positionSelect" :options="positionOptions"
-                                                       class="position-select">
-                                            <template slot="first">
-                                                <option :value="null" disabled>직군선택</option>
-                                            </template>
-                                        </b-form-select>
-                                    </b-form>
+                                    <b-form-input class="input-box" placeholder="이메일 주소를 입력해주세요."
+                                                  type="text" v-model="email"></b-form-input>
                                 </b-form>
                             </b-form-group>
                         </div>
@@ -108,9 +122,14 @@
                 uid: '',
                 password: '',
                 confirmPassword: '',
+                passwordBoxMouseHoverStyle: {},
+                confirmPasswordBoxMouseHoverStyle: {},
+                passwordType: 'password',
+                confirmPasswordType: 'password',
                 name: '',
                 accessCode: '',
                 duringLogin: false,
+                email: '',
                 nextersNumberSelect: null,
                 nextersNumberOptions: [
                     {text: '15기', value: 15},
@@ -133,6 +152,7 @@
                 const accessCode = this.accessCode;
 
                 if (!uid || !upassword || !uname || !nextersNumber || !position || !accessCode || this.errors.any()) {
+                    alert('모든 항목을 채워주세요.')
                     return false
                 }
 
@@ -158,6 +178,34 @@
             },
             idDuplicateCheck() {
                 alert("업데이트 예정인 기능입니다.")
+            },
+            visiblePassword(kind) {
+                if (kind === 'password') {
+                    this.passwordType = 'text';
+                } else if (kind === 'confirmPassword') {
+                    this.confirmPasswordType = 'text';
+                }
+            },
+            passwordFocus(kind){
+                if (kind === 'password') {
+                    this.passwordBoxMouseHoverStyle = {
+                        'outline': 'none',
+                        'border': '1px solid #273EA5',
+                        'box-shadow': 'none'
+                    };
+                } else if (kind === 'confirmPassword') {
+                    this.confirmPasswordBoxMouseHoverStyle = {
+                        'outline': 'none',
+                        'border': '1px solid #273EA5',
+                        'box-shadow': 'none'
+                    }
+                }
+            },
+            passwordFocusOut(){
+                this.passwordBoxMouseHoverStyle = this.confirmPasswordBoxMouseHoverStyle = {};
+            },
+            invisiblePassword() {
+                this.passwordType = this.confirmPasswordType = 'password';
             }
         },
         computed: {

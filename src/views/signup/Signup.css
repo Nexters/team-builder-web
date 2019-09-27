@@ -66,7 +66,7 @@
 }
 
 .input-box {
-    width: 320px;
+    width: 302px;
     height: 56px;
     border-radius: 6px;
     border: solid 1px #eeeeee;
@@ -75,7 +75,29 @@
     outline: none;
 }
 
-.input::placeholder {
+.password-circle {
+    width: 320px;
+    height: 56px;
+    border-radius: 6px;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    vertical-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-box-password, .input-box-password:focus {
+    width: 270px;
+    height: 100%;
+    padding: 0 0 0 8px;
+    border: 0;
+    box-shadow: none;
+}
+
+.input::placeholder{
     font-family: NotoSansCJKkr;
     font-size: 18px;
     font-weight: normal;
