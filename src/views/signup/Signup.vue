@@ -27,7 +27,7 @@
                                                           @focusin="passwordFocus('password')"
                                                           @focusout="passwordFocusOut"
                                                           placeholder="비밀번호를 입력해주세요."></b-form-input>
-                                            <img src="../../assets/img/ico-view@2x.png" width="18px" height="16px"
+                                            <img :src="passwordVisibleImage" width="18px" height="16px"
                                                  @mouseover="visiblePassword('password')"
                                                  @mouseleave="invisiblePassword">
                                         </div>
@@ -42,7 +42,7 @@
                                                           @focusin="passwordFocus('confirmPassword')"
                                                           @focusout="passwordFocusOut"
                                                           placeholder="비밀번호를 다시 입력해주세요."></b-form-input>
-                                            <img src="../../assets/img/ico-view@2x.png" width="18px" height="16px"
+                                            <img :src="confirmPasswordVisibleImage" width="18px" height="16px"
                                                  @mouseover="visiblePassword('confirmPassword')"
                                                  @mouseleave="invisiblePassword">
                                         </div>
@@ -126,6 +126,8 @@
                 confirmPasswordBoxMouseHoverStyle: {},
                 passwordType: 'password',
                 confirmPasswordType: 'password',
+                passwordVisibleImage: require('../../assets/img/ico-view@2x.png'),
+                confirmPasswordVisibleImage: require('../../assets/img/ico-view@2x.png'),
                 name: '',
                 accessCode: '',
                 duringLogin: false,
@@ -182,9 +184,15 @@
             visiblePassword(kind) {
                 if (kind === 'password') {
                     this.passwordType = 'text';
+                    this.passwordVisibleImage = require('../../assets/img/ico-view-copy@2x.png');
                 } else if (kind === 'confirmPassword') {
                     this.confirmPasswordType = 'text';
+                    this.confirmPasswordVisibleImage = require('../../assets/img/ico-view-copy@2x.png');
                 }
+            },
+            invisiblePassword() {
+                this.passwordType = this.confirmPasswordType = 'password';
+                this.passwordVisibleImage = require('../../assets/img/ico-view@2x.png');
             },
             passwordFocus(kind){
                 if (kind === 'password') {
@@ -203,9 +211,6 @@
             },
             passwordFocusOut(){
                 this.passwordBoxMouseHoverStyle = this.confirmPasswordBoxMouseHoverStyle = {};
-            },
-            invisiblePassword() {
-                this.passwordType = this.confirmPasswordType = 'password';
             }
         },
         computed: {
