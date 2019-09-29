@@ -20,7 +20,6 @@ export const bus = new Vue();
 Vue.use(ToggleButton);
 Vue.use(VeeValidate);
 Vue.use(BootstrapVue);
-Vue.use(VueSidebarMenu);
 
 Vue.use(ElementUI, { locale })
 
