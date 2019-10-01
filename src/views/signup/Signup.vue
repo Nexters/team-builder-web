@@ -110,7 +110,7 @@
 </template>
 
 <script>
-    import {signup} from "../../api/SignupAPI"
+    import {isIdDuplicate, signup} from "../../api/SignupAPI"
     import {SET_ID, SET_AUTH, SET_TOKEN} from "../../consts/userType"
 
     export default {
@@ -151,19 +151,24 @@
                 const uname = this.name;
                 const nextersNumber = this.nextersNumberSelect;
                 const position = this.positionSelect;
+                const email = this.email;
                 const accessCode = this.accessCode;
 
-                if (!uid || !upassword || !uname || !nextersNumber || !position || !accessCode || this.errors.any()) {
+                if (!uid || !upassword || !uname || !nextersNumber || !position || !accessCode || !email || this.errors.any()) {
                     alert('모든 항목을 채워주세요.');
                     return false;
                 }
 
-                signup(uid, upassword, uname, nextersNumber, position, accessCode)
+                if (this.validEmail(email) === false) {
+                    alert('이메일 형식을 맞춰주세요.')
+                }
+
+                signup(uid, upassword, uname, nextersNumber, position, email, accessCode)
                     .then(data => {
                         this.goToPages(data)
                     })
                     .catch(err => {
-                        alert("서버 에러입니다. 관리자에게 문의해주세요.");
+                        alert(err.response.data.message)
                         this.duringLogin = false;
                     });
 
@@ -179,7 +184,13 @@
                 })
             },
             idDuplicateCheck() {
-                alert("업데이트 예정인 기능입니다.")
+                isIdDuplicate(this.uid)
+                    .then(data => {
+                        alert(data)
+                    })
+                    .catch(err => {
+                        alert(err.response.data.message)
+                    });
             },
             visiblePassword(kind) {
                 if (kind === 'password') {
@@ -219,6 +230,10 @@
             },
             passwordFocusOut() {
                 this.passwordBoxMouseHoverStyle = this.confirmPasswordBoxMouseHoverStyle = {};
+            },
+            validEmail(email) {
+                let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(email);
             }
         },
         computed: {
