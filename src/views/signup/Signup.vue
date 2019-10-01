@@ -27,9 +27,8 @@
                                                           @focusin="passwordFocus('password')"
                                                           @focusout="passwordFocusOut"
                                                           placeholder="비밀번호를 입력해주세요."></b-form-input>
-                                            <img :src="passwordVisibleImage" width="18px" height="16px"
-                                                 @mouseover="visiblePassword('password')"
-                                                 @mouseleave="invisiblePassword">
+                                            <img :src="passwordVisibleImage" width="18px" height="14px"
+                                                 @click="visiblePassword('password')">
                                         </div>
                                         <p v-if="0 < password.length && password.length < 8"
                                            class="password-confirm-box">영문,숫자 8자 이상 입력하세요.</p>
@@ -42,9 +41,8 @@
                                                           @focusin="passwordFocus('confirmPassword')"
                                                           @focusout="passwordFocusOut"
                                                           placeholder="비밀번호를 다시 입력해주세요."></b-form-input>
-                                            <img :src="confirmPasswordVisibleImage" width="18px" height="16px"
-                                                 @mouseover="visiblePassword('confirmPassword')"
-                                                 @mouseleave="invisiblePassword">
+                                            <img :src="confirmPasswordVisibleImage" width="18px" height="14px"
+                                                 @click="visiblePassword('confirmPassword')">
                                         </div>
                                         <p v-if="0 < confirmPassword.length  && confirmPassword !== password"
                                            class="password-confirm-box">
@@ -122,6 +120,8 @@
                 uid: '',
                 password: '',
                 confirmPassword: '',
+                passwordVisible: false,
+                confirmPasswordVisible: false,
                 passwordBoxMouseHoverStyle: {},
                 confirmPasswordBoxMouseHoverStyle: {},
                 passwordType: 'password',
@@ -183,18 +183,26 @@
             },
             visiblePassword(kind) {
                 if (kind === 'password') {
-                    this.passwordType = 'text';
-                    this.passwordVisibleImage = require('../../assets/img/ico-view-copy@2x.png');
+                    if (this.passwordVisible) {
+                        this.passwordType = 'password';
+                        this.passwordVisibleImage = require('../../assets/img/ico-view@2x.png');
+                    } else {
+                        this.passwordType = 'text';
+                        this.passwordVisibleImage = require('../../assets/img/ico-view-copy@2x.png');
+                    }
+                    this.passwordVisible = !this.passwordVisible
                 } else if (kind === 'confirmPassword') {
-                    this.confirmPasswordType = 'text';
-                    this.confirmPasswordVisibleImage = require('../../assets/img/ico-view-copy@2x.png');
+                    if (this.confirmPasswordVisible) {
+                        this.confirmPasswordType = 'password';
+                        this.confirmPasswordVisibleImage = require('../../assets/img/ico-view@2x.png');
+                    } else {
+                        this.confirmPasswordType = 'text';
+                        this.confirmPasswordVisibleImage = require('../../assets/img/ico-view-copy@2x.png');
+                    }
+                    this.confirmPasswordVisible = !this.confirmPasswordVisible
                 }
             },
-            invisiblePassword() {
-                this.passwordType = this.confirmPasswordType = 'password';
-                this.passwordVisibleImage = require('../../assets/img/ico-view@2x.png');
-            },
-            passwordFocus(kind){
+            passwordFocus(kind) {
                 if (kind === 'password') {
                     this.passwordBoxMouseHoverStyle = {
                         'outline': 'none',
@@ -209,7 +217,7 @@
                     }
                 }
             },
-            passwordFocusOut(){
+            passwordFocusOut() {
                 this.passwordBoxMouseHoverStyle = this.confirmPasswordBoxMouseHoverStyle = {};
             }
         },
