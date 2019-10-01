@@ -11,11 +11,10 @@
 }
 
 .main-container {
-    border: solid 1px #eeeeee;
+    border: 0;
     width: 984px;
     height: 726px;
     border-radius: 6px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.09);
     background-color: #ffffff;
     margin: auto;
     text-align: left;
