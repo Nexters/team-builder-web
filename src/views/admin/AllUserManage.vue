@@ -13,7 +13,7 @@
                     <p>인증코드</p>
                     <div class="flex">
                         <input class="input-box" placeholder="인증코드를 입력해주세요" v-model="accessCode">
-                        <button type="submit" class="btn-certify-apply">
+                        <button v-on:click="updateCode" class="btn-certify-apply">
                             적용하기
                         </button>
                     </div>
@@ -125,7 +125,7 @@
 
 <script>
     import Layout from '@/components/common/layout/Layout';
-    import {addActiveUsers, getAllUsers} from "../../api/UserAPI";
+    import {addActiveUsers, getAllUsers, getAuthCode, updateAuthCode} from "../../api/UserAPI";
     import Vue from 'vue';
     import moment from 'moment';
 
@@ -141,7 +141,7 @@
                 sortPositionASC: false,
                 sortIsActiveASC: false,
                 sortJoinDateASC: false,
-                accessCode: '1521',
+                accessCode: '',
                 selected: [],
                 allSelected: false,
             }
@@ -152,6 +152,17 @@
                 getAllUsers()
                     .then(res => {
                         this.users = this.userViewList = res.data;
+                    });
+                getAuthCode()
+                    .then(res => {
+                        this.accessCode = res.data.authenticationCode;
+                    })
+            },
+            updateCode() {
+                updateAuthCode(this.accessCode)
+                    .then(res => {
+                        this.accessCode = res.data.authenticationCode;
+                        alert('성공적으로 업데이트 되었습니다.')
                     });
             },
             addActiveUsers() {
