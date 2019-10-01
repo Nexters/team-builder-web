@@ -11,6 +11,7 @@ export const SET_UUID = 'setUuid';
 
 export const LOGIN_URL =  process.env.VUE_APP_API_URL + '/users/sign-in';
 export const SIGNUP_URL =  process.env.VUE_APP_API_URL + '/users/sign-up';
+export const ID_DUPLICATE_CHECK_URL =  process.env.VUE_APP_API_URL + '/users/check-id';
 export const GET_ME_INFO =  process.env.VUE_APP_API_URL + '/apis/me';
 
 export const ALL_USER_URL = process.env.VUE_APP_API_URL + '/apis/users';

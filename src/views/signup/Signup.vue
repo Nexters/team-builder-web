@@ -27,9 +27,8 @@
                                                           @focusin="passwordFocus('password')"
                                                           @focusout="passwordFocusOut"
                                                           placeholder="비밀번호를 입력해주세요."></b-form-input>
-                                            <img :src="passwordVisibleImage" width="18px" height="16px"
-                                                 @mouseover="visiblePassword('password')"
-                                                 @mouseleave="invisiblePassword">
+                                            <img :src="passwordVisibleImage" width="18px" height="14px"
+                                                 @click="visiblePassword('password')">
                                         </div>
                                         <p v-if="0 < password.length && password.length < 8"
                                            class="password-confirm-box">영문,숫자 8자 이상 입력하세요.</p>
@@ -42,9 +41,8 @@
                                                           @focusin="passwordFocus('confirmPassword')"
                                                           @focusout="passwordFocusOut"
                                                           placeholder="비밀번호를 다시 입력해주세요."></b-form-input>
-                                            <img :src="confirmPasswordVisibleImage" width="18px" height="16px"
-                                                 @mouseover="visiblePassword('confirmPassword')"
-                                                 @mouseleave="invisiblePassword">
+                                            <img :src="confirmPasswordVisibleImage" width="18px" height="14px"
+                                                 @click="visiblePassword('confirmPassword')">
                                         </div>
                                         <p v-if="0 < confirmPassword.length  && confirmPassword !== password"
                                            class="password-confirm-box">
@@ -112,7 +110,7 @@
 </template>
 
 <script>
-    import {signup} from "../../api/SignupAPI"
+    import {isIdDuplicate, signup} from "../../api/SignupAPI"
     import {SET_ID, SET_AUTH, SET_TOKEN} from "../../consts/userType"
 
     export default {
@@ -122,6 +120,8 @@
                 uid: '',
                 password: '',
                 confirmPassword: '',
+                passwordVisible: false,
+                confirmPasswordVisible: false,
                 passwordBoxMouseHoverStyle: {},
                 confirmPasswordBoxMouseHoverStyle: {},
                 passwordType: 'password',
@@ -151,19 +151,24 @@
                 const uname = this.name;
                 const nextersNumber = this.nextersNumberSelect;
                 const position = this.positionSelect;
+                const email = this.email;
                 const accessCode = this.accessCode;
 
-                if (!uid || !upassword || !uname || !nextersNumber || !position || !accessCode || this.errors.any()) {
+                if (!uid || !upassword || !uname || !nextersNumber || !position || !accessCode || !email || this.errors.any()) {
                     alert('모든 항목을 채워주세요.');
                     return false;
                 }
 
-                signup(uid, upassword, uname, nextersNumber, position, accessCode)
+                if (this.validEmail(email) === false) {
+                    alert('이메일 형식을 맞춰주세요.')
+                }
+
+                signup(uid, upassword, uname, nextersNumber, position, email, accessCode)
                     .then(data => {
                         this.goToPages(data)
                     })
                     .catch(err => {
-                        alert("서버 에러입니다. 관리자에게 문의해주세요.");
+                        alert(err.response.data.message)
                         this.duringLogin = false;
                     });
 
@@ -179,22 +184,36 @@
                 })
             },
             idDuplicateCheck() {
-                alert("업데이트 예정인 기능입니다.")
+                isIdDuplicate(this.uid)
+                    .then(data => {
+                        alert(data)
+                    })
+                    .catch(err => {
+                        alert(err.response.data.message)
+                    });
             },
             visiblePassword(kind) {
                 if (kind === 'password') {
-                    this.passwordType = 'text';
-                    this.passwordVisibleImage = require('../../assets/img/ico-view-copy@2x.png');
+                    if (this.passwordVisible) {
+                        this.passwordType = 'password';
+                        this.passwordVisibleImage = require('../../assets/img/ico-view@2x.png');
+                    } else {
+                        this.passwordType = 'text';
+                        this.passwordVisibleImage = require('../../assets/img/ico-view-copy@2x.png');
+                    }
+                    this.passwordVisible = !this.passwordVisible
                 } else if (kind === 'confirmPassword') {
-                    this.confirmPasswordType = 'text';
-                    this.confirmPasswordVisibleImage = require('../../assets/img/ico-view-copy@2x.png');
+                    if (this.confirmPasswordVisible) {
+                        this.confirmPasswordType = 'password';
+                        this.confirmPasswordVisibleImage = require('../../assets/img/ico-view@2x.png');
+                    } else {
+                        this.confirmPasswordType = 'text';
+                        this.confirmPasswordVisibleImage = require('../../assets/img/ico-view-copy@2x.png');
+                    }
+                    this.confirmPasswordVisible = !this.confirmPasswordVisible
                 }
             },
-            invisiblePassword() {
-                this.passwordType = this.confirmPasswordType = 'password';
-                this.passwordVisibleImage = require('../../assets/img/ico-view@2x.png');
-            },
-            passwordFocus(kind){
+            passwordFocus(kind) {
                 if (kind === 'password') {
                     this.passwordBoxMouseHoverStyle = {
                         'outline': 'none',
@@ -209,8 +228,12 @@
                     }
                 }
             },
-            passwordFocusOut(){
+            passwordFocusOut() {
                 this.passwordBoxMouseHoverStyle = this.confirmPasswordBoxMouseHoverStyle = {};
+            },
+            validEmail(email) {
+                let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                return re.test(email);
             }
         },
         computed: {
