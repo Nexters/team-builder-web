@@ -4,17 +4,18 @@
             <div style="width: 1200px; margin-left: 70px;">
                 <div class="d-flex" style="margin-top: 30px">
                     <div>
-                        <p class="header">넥스터즈 {{$store.state.main.session.sessionNumber}}기 활동 일반관리</p>
+                        <p class="header">넥스터즈 새로운 기수 추가하기</p>
                     </div>
                     <div class="ml-auto">
                         <button class="btn-apply" @click="apply">
-                            적용하기
+                            추가하기
                         </button>
                     </div>
                 </div>
 
                 <div>
-                    <p class="header-sub">활동기수의 로고 변경 및 아이디어 모집부터 팀빌딩까지 일정을 정할 수 있어요.</p>
+                    <p class="header-sub">넥스터즈의 새로운 기수를 추가합니다. 로고를 추가할 수 있고, 아이디어 모집부터 팀빌딩 기간까지 날짜 설정이 가능합니다.
+                        나중에 추가도 가능합니다.</p>
                 </div>
 
                 <div class="d-flex" style="margin-top: 70px">
@@ -24,10 +25,13 @@
                 </div>
 
                 <div class="d-flex" style="margin-top: 12px">
-                    <input class="logo-input-box" v-model="imageUrl" disabled="">
-                    <div class="filebox">
-                        <label for="filename">업로드</label>
-                        <input type="file" id="filename" class="upload-hidden" @change="onFileChange($event)">
+                    <img v-if="imageUrl" :src="imageUrl" style="width: 300px; height: 300px"/>
+                    <div class="file-button-group">
+                        <div class="filebox">
+                            <label for="filename">로고변경</label>
+                            <input type="file" id="filename" class="upload-hidden" @change="onFileChange($event)">
+                        </div>
+                        <input type="button" value="삭제" class="file-delete-button" @change="onFileChange($event)">
                     </div>
                 </div>
 
@@ -121,19 +125,12 @@
                             </el-popover>
                         </p>
 
-                        <div class="date-picker" style="margin-left: 32px">
-                            <el-date-picker
-                                    v-model="teamBuildingDate"
-                                    type="date"
-                                    placeholder="팀빌딩 날짜를 선택해주세요">
-                            </el-date-picker>
-                        </div>
                         <toggle-button :value="teamBuildingSwitch"
                                        :width="60"
                                        :height="32"
                                        color="#273EA5"
                                        @change="teamBuildingSwitch = $event.value"
-                                       style="margin: 0 0 0 20px"/>
+                                       style="margin: 0 0 0 32px"/>
                     </div>
                 </div>
             </div>
@@ -158,7 +155,6 @@
                 ideaVoteEnd: '',
                 ideaSelectCheckStart: '',
                 ideaSelectCheckEnd: '',
-                teamBuildingDate: '',
                 maxVoteCount: '2',
                 maxVoteCountOptions: [
                     {value: '1', text: '1'},
@@ -200,8 +196,6 @@
                             } else if (period.periodType === 'IDEA_CHECK') {
                                 this.ideaSelectCheckStart = moment(period.startDate).format('YYYY-MM-DD');
                                 this.ideaSelectCheckEnd = moment(period.endDate).format('YYYY-MM-DD');
-                            } else if (period.periodType === 'TEAM_BUILDING') {
-                                this.teamBuildingDate = moment(period.startDate).format('YYYY-MM-DD');
                             }
                         });
                         this.teamBuildingSwitch = res.data.teamBuildingMode;
@@ -226,10 +220,6 @@
                             "periodType": "IDEA_CHECK",
                             "startDate": moment(this.ideaSelectCheckStart).format(),
                             "endDate": moment(this.ideaSelectCheckEnd).format()
-                        },
-                        {
-                            "periodType": "TEAM_BUILDING",
-                            "startDate": moment(this.teamBuildingDate).format()
                         }
                     ],
                     "sessionNumber": this.$route.params.sessionNumber,

@@ -17,8 +17,8 @@ p {
 }
 
 .header-sub {
-    width: 486px;
-    height: 24px;
+    width: 760px;
+    height: 50px;
     font-family: NotoSansCJKkr;
     font-size: 16px;
     font-weight: normal;
@@ -27,6 +27,7 @@ p {
     line-height: normal;
     letter-spacing: -0.6px;
     color: #1c1c1c;
+    text-align: left;
     margin-top: 16px;
 }
 
@@ -115,6 +116,10 @@ p {
     border: 1px solid #ffffff;
 }
 
+.file-button-group {
+    padding-top: 196px;
+}
+
 .filebox {
     display: flex;
     align-items: flex-end;
@@ -128,7 +133,7 @@ p {
 
 .filebox label {
     width: 110px;
-    height: 56px;
+    height: 48px;
     border-radius: 6px;
     background-color: #273ea5;
     font-family: NotoSansCJKkr;
@@ -142,4 +147,24 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.file-delete-button {
+    width: 110px;
+    height: 48px;
+    border-radius: 6px;
+    background-color: #ff5000;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 15px;
 }
