@@ -6,7 +6,7 @@ import {
     SET_ROLE,
     SET_TOKEN,
     SET_AUTH,
-    SET_UUID
+    SET_UUID, SET_ACTIVATED
 } from "../../consts/userType";
 import {ROLL_TYPE} from '@/consts/rollType';
 
@@ -14,6 +14,7 @@ const store = {
     state: {
         id: '',
         name: '',
+        activated: '',
         nextersNumber: '',
         role: '',
         position: '',
@@ -27,6 +28,9 @@ const store = {
         },
         getName(state) {
             return state.name
+        },
+        getActivated(state) {
+            return state.activated
         },
         getNextersNumber(state) {
             return state.nextersNumber
@@ -56,6 +60,9 @@ const store = {
         },
         [SET_NAME](state, name) {
             state.name = name
+        },
+        [SET_ACTIVATED](state, activated) {
+            state.activated = activated
         },
         [SET_NEXTERS_NUMBER](state, nextersNumber) {
             state.nextersNumber = nextersNumber

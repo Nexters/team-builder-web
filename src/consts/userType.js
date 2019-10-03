@@ -2,6 +2,7 @@ export const LOGIN = 'login';
 export const SIGNUP = 'signup';
 export const SET_ID = 'setId';
 export const SET_NAME = 'setName';
+export const SET_ACTIVATED = 'setActivated';
 export const SET_NEXTERS_NUMBER = 'setNextersNumber';
 export const SET_ROLE = 'setRole';
 export const SET_POSITION = 'setPosition';

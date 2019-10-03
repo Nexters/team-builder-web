@@ -42,6 +42,7 @@
         SET_AUTH,
         SET_ID,
         SET_NAME,
+        SET_ACTIVATED,
         SET_NEXTERS_NUMBER,
         SET_POSITION,
         SET_ROLE,
@@ -87,6 +88,7 @@
             goToPages(token, info) {
                 this.$store.commit(SET_ID, info.id);
                 this.$store.commit(SET_NAME, info.name);
+                this.$store.commit(SET_ACTIVATED, info.activated);
                 this.$store.commit(SET_NEXTERS_NUMBER, info.nextersNumber);
                 this.$store.commit(SET_ROLE, info.role);
                 this.$store.commit(SET_POSITION, info.position);
