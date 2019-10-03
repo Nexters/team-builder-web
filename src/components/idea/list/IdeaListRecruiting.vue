@@ -135,14 +135,6 @@
 
       clickFavorite(idea) {
         this.$store.dispatch('main/FAVORITE_CHANGE', {ideaId: idea.ideaId, isFavorite: idea.favorite});
-        // if(star) {
-        //   this.setFavorite({
-        //     ideaId: id,
-        //   }).catch(err => console.log(err));
-        //   return;
-        // }
-        //
-        // this.deleteFavorite({id}).catch(err => console.log(err));
       },
 
       positionFormat(position) {

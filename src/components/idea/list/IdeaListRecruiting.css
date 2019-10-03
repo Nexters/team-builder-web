@@ -12,6 +12,10 @@
 	display: flex;
 }
 
+.list:hover {
+	border: solid 1px #dbdbdb;
+}
+
 .type-notice {
 	border: solid 1.5px #dbdbdb;
 }
