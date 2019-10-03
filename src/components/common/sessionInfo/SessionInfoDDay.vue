@@ -57,7 +57,7 @@
         width: 16px;
         height: 16px;
         object-fit: contain;
-        margin: auto 0px;
+        margin: 7px 0px;
     }
 
     .apply-state-massage {
@@ -72,7 +72,6 @@
     }
 
     .d-day-info-message {
-        width: 230px;
         text-align: left;
         padding: 2px 0px 0px 0px;
         font-family: NotoSansCJKkr;
