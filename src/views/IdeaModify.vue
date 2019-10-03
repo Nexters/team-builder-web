@@ -7,7 +7,7 @@
                 <div class="tag-group-container">
                     <div class="tag-group-message">저는 이런 팀원이 필요해요</div>
                     <div class="tag-group-message-hint">함께 일하고 싶은 팀원의 포지션을 선택해주세요. 최대 5개 까지의 태그를 선택할 수 있어요.</div>
-                    <TagGroup :tags="tags"></TagGroup>
+                    <TagGroup :allTags="allTags" :selectedTags="selectedTags" :fetchSelectedTags="fetchSelectedTags"></TagGroup>
                 </div>
 
                 <div class="file-upload-wrap">
@@ -56,14 +56,23 @@
                 idea: {
                     ideaTitle: '',
                     editorText: '',
+                    tags: []
                 },
-                tags: [],
             }
         },
 
         computed: {
             allTags() {
-                return this.$store.state.main.session.tags;
+                const allTagsCopy = JSON.parse(JSON.stringify(this.$store.state.main.session.tags));
+                return allTagsCopy.map(tag => {
+                    if (this.idea.tags.find(selectedTag => selectedTag.tagId === tag.tagId)) {
+                        return {
+                            ...tag,
+                            state: true
+                        };
+                    }
+                    return {...tag};
+                })
             },
 
             availableEditIdea() {
@@ -84,6 +93,15 @@
 
             fileName() {
                 return getFileName(this.idea.file);
+            },
+
+            selectedTags() {
+                return this.idea.tags.map(tag => {
+                    return {
+                        ...tag,
+                        state: true
+                    }
+                });
             }
         },
 
@@ -104,7 +122,6 @@
                             ideaTitle: res.data.title,
                             editorText: res.data.content,
                         };
-                        this.tags = res.data.tags;
 
                         if (!this.availableEditIdea) {
                             this.$alert('접근권한이 없습니다.', '아이디어 수정', {
@@ -128,6 +145,10 @@
                         alert('파일 업로드 실패');
                     });
             },
+
+            fetchSelectedTags(selectedTags) {
+                this.selectedTags = selectedTags.slice();
+            }
         },
 
         created() {

@@ -46,6 +46,9 @@
             idea: {
                 type: Object,
                 required: true
+            },
+            selectedTags: {
+                type: Array,
             }
         },
         data() {
@@ -83,14 +86,19 @@
             }),
 
             onClickWriteFinish() {
+                if (!this.ideaTitle) {
+                    alert('제목을 작성해주세요'); //TODO 공통 modal로 노출
+                    return;
+                }
+
                 const data = {
                     content: this.editorText,
                     file: this.idea.file,
                     sessionId: this.$store.state.main.session.sessionId,
-                    tags: [],
+                    tags: this.selectedTags.map(selectedTag => selectedTag.tagId),
                     title: this.ideaTitle,
                     type: this.$store.getters.isAdmin ? '' : 'IDEA',
-                }
+                };
 
                 //기존 아이디어 수정
                 if (this.idea.ideaId) {

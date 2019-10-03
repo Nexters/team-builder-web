@@ -1,5 +1,5 @@
 <template>
-    <button class="position-tag-wrap" :class="wrapClassName" :id="tagId" v-on:click="selected()">
+    <button class="position-tag-wrap" :class="wrapClassName" :id="tagId">
         <span class="position-tag-span" :class="spanClassName">{{ name }}</span>
     </button>
 </template>
@@ -10,7 +10,6 @@
     export default {
         name: "PositionTag",
         props: {
-          // tag: Object,
             tagId: {
                 type: Number,
                 required: true
@@ -32,49 +31,33 @@
             }
         },
 
-        data() {
-            return {
-              selectedTagsArray: [],
-            }
-        },
-
         computed: {
             wrapClassName() {
+                if (!this.state) {
+                    return 'disable-wrap';
+                }
+
                 switch (this.type) {
                     case TAG_TYPE.DESIGNER:
                         return 'designer-wrap';
                     case TAG_TYPE.DEVELOPER :
-                        return 'developer-wrap'
-                    default :
-                        return 'disable-wrap';
+                        return 'developer-wrap';
                 }
             },
 
             spanClassName() {
+                if (!this.state) {
+                    return 'disable-span';
+                }
+
                 switch (this.type) {
                     case TAG_TYPE.DESIGNER:
                         return 'designer-span';
                     case TAG_TYPE.DEVELOPER :
-                        return 'developer-span'
-                    default :
-                        return 'disable-span';
+                        return 'developer-span';
                 }
             }
         },
-
-        methods: {
-          selected(tag) {
-            const index = this.selectedTagsArray.findIndex(select => select === tag);
-            console.log('index', index);
-            if(index === -1) {
-              this.selectedTagsArray.push(tag);
-              console.log(this.selectedTagsArray);
-              return
-            }
-
-            return this.selectedTagsArray.splice(index, 1);
-          }
-        }
     }
 </script>
 
