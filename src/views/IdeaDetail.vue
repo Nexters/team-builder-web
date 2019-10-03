@@ -2,7 +2,12 @@
     <Layout>
         <template v-slot:body>
             <div class="idea-detail-wrap-include-move-button">
-                <button class="prev-button" @click="movePrevIdeaDetail"><img class="prev-button-image" src="@/assets/img/prev_button_icon.png"/></button>
+                <div v-show="showPrevButton" class="prev-button-wrap" @click="movePrevIdeaDetail">
+                    <button @mouseover="isHoverPrevButton = true" @mouseleave="isHoverPrevButton = false">
+                        <img v-if="!isHoverPrevButton" class="prev-button-image" src="@/assets/img/prev_button_icon.png"/>
+                        <img v-if="isHoverPrevButton" class="prev-button-image" style="transform: rotate(180deg)" src="@/assets/img/prev_button_icon_hover.png"/>
+                    </button>
+                </div>
 
                 <div class="idea-detail-wrap">
                     <IdeaDetailHeader :idea="idea"></IdeaDetailHeader>
@@ -13,7 +18,7 @@
                     </div>
 
 
-                    <div class="file-upload-wrap">
+                    <div v-if="showFile" class="file-upload-wrap">
                         <div class="file-upload-title-box">
                             <span class="file-upload-title-text">첨부파일</span>
                         </div>
@@ -25,6 +30,11 @@
                                 <img src="@/assets/img/icon_download.png" class="file-upload-has-file-download-icon"/>
                             </a>
                         </div>
+                        <div v-show="!hasFile">
+                            <div class="no-file-wrap">
+                                <span class="no-file-text">첨부파일이 없습니다.</span>
+                            </div>
+                        </div>
                     </div>
 
                     <button class="idea-detail-move-list-button" @click="moveSession">
@@ -32,7 +42,12 @@
                     </button>
                 </div>
 
-                <button class="next-button" @click="moveNextIdeaDetail"><img class="next-button-image" src="@/assets/img/next_button_icon.png"/></button>
+                <div v-show="showNextButton" class="next-button-wrap" @click="moveNextIdeaDetail">
+                    <button @mouseover="isHoverNextButton = true" @mouseleave="isHoverNextButton = false">
+                        <img v-if="!isHoverNextButton" class="next-button-image" style="transform: rotate(180deg)" src="@/assets/img/prev_button_icon.png"/>
+                        <img v-if="isHoverNextButton" class="next-button-image" src="@/assets/img/prev_button_icon_hover.png"/>
+                    </button>
+                </div>
             </div>
         </template>
     </Layout>
@@ -43,10 +58,11 @@
     import TagGroup from '@/components/common/tag/TagGroup';
     import EditorViewer from '@/components/idea/detail/EditorViewer';
     import IdeaDetailHeader from '@/components/idea/detail/IdeaDetailHeader';
-    import { ACTIONS } from '@/store/types';
+    import {ACTIONS, GETTERS} from '@/store/types';
     import {createNamespacedHelpers} from 'vuex';
     import {getFileName} from '@/utils/file';
-    const { mapActions } = createNamespacedHelpers('main');
+    import {PERIOD_TYPE} from '@/consts/periodType';
+    const { mapActions, mapGetters } = createNamespacedHelpers('main');
 
     export default {
         name: "IdeaDetail",
@@ -54,11 +70,18 @@
         data() {
             return {
                 ideaId: this.$route.params.ideaId,
-                idea: {}
+                idea: {},
+                isHoverPrevButton: false,
+                isHoverNextButton: false
             }
         },
 
         computed: {
+            ...mapGetters({
+                nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
+                ideaList: GETTERS.GET_LIST,
+            }),
+
             hasFile() {
                 return this.idea.file;
             },
@@ -74,6 +97,19 @@
                         state: true
                     }
                 });
+            },
+
+            showPrevButton() {
+                const ideaIndex = this.ideaList.findIndex(idea => idea.ideaId === this.idea.ideaId);
+                return ideaIndex !== -1 && ideaIndex !== this.ideaList.length - 1;
+            },
+            showNextButton() {
+                const ideaIndex = this.ideaList.findIndex(idea => idea.ideaId === this.idea.ideaId);
+                return ideaIndex > 0;
+            },
+
+            showFile() {
+                return this.nowPeriodType === PERIOD_TYPE.IDEA_CHECK || this.nowPeriodType === PERIOD_TYPE.TEAM_BUILDING;
             }
         },
 
@@ -83,7 +119,8 @@
             }),
 
             movePrevIdeaDetail() {
-                const prevIdeaId = Number(this.ideaId) - 1; //TODO: 검색된 목록에서 가져와야함
+                const ideaIndex = this.ideaList.findIndex(idea => idea.ideaId === this.idea.ideaId);
+                const prevIdeaId = this.ideaList[ideaIndex + 1].ideaId;
 
                 this.$router.push({path:`/session/${this.$store.state.main.session.sessionNumber}/idea/${prevIdeaId}`});
                 this.ideaId = prevIdeaId;
@@ -91,7 +128,8 @@
             },
 
             moveNextIdeaDetail() {
-                const nextIdeaId = Number(this.ideaId) + 1; //TODO: 검색된 목록에서 가져와야함
+                const ideaIndex = this.ideaList.findIndex(idea => idea.ideaId === this.idea.ideaId);
+                const nextIdeaId = this.ideaList[ideaIndex - 1].ideaId;
 
                 this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${nextIdeaId}`});
                 this.ideaId = nextIdeaId;
@@ -128,31 +166,30 @@
 
     .idea-detail-wrap {
         width: 1200px;
+        margin-left: 70px;
     }
 
-    .prev-button {
+    .prev-button-wrap {
+        position: fixed;
         margin-top: 343px;
-        margin-right: 50px;
-        width: 20px;
-        height: 40px;
     }
 
     .prev-button-image {
-        width: 20px;
-        height: 40px;
+        width: 64px;
+        height: 64px;
         object-fit: contain;
     }
 
-    .next-button {
+    .next-button-wrap {
+        position: fixed;
         margin-top: 343px;
         margin-left: 50px;
-        width: 20px;
-        height: 40px;
+        width: 2520px;
     }
 
     .next-button-image {
-        width: 20px;
-        height: 40px;
+        width: 64px;
+        height: 64px;
         object-fit: contain;
     }
 
@@ -250,5 +287,22 @@
         width: 20px;
         height: 20px;
         object-fit: contain;
+    }
+
+    .no-file-wrap {
+        margin-top: 30px;
+        width: 136px;
+        height: 24px;
+    }
+
+    .no-file-text {
+        font-family: NotoSansCJKkr;
+        font-size: 16px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.48px;
+        color: #9b9b9b;
     }
 </style>
