@@ -36,6 +36,7 @@
                             <!-- 검색 기능 -->
                             <input type="search"
                                    class="search-input Rectangle"
+                                   id="search"
                                    v-on:input="searchTerm = $event.target.value"
                                    placeholder="제목과 작성자를 검색해주세요."
                                    @keyup="filterData()"
@@ -209,6 +210,8 @@
       showFavorite(star) {
         this.sortPositionASC = false;
         this.sortDateASC = false;
+        document.getElementById('search').value = '';
+
         return star ? this.$store.commit('main/SET_FAVORITE_LIST')
           : this.$store.dispatch('main/SHOW_ORIGIN_LIST')
       },
