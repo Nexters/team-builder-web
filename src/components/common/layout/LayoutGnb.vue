@@ -30,6 +30,12 @@
         </div>
         <SlideXLeftTransition :duration="500">
             <div v-show="isOpenSessionGroup" class="layout-session-group" style="margin-top: 72px; padding-top: 7px">
+                <button v-if="isAdmin" @click="createNewSession()" class="layout-session-group-one now-session">
+                    <div style="position: absolute">
+                        <div style="width: 17px;height: 1px;border: solid 1.5px #ffffff;position: relative;top: 0px;left: 3px;"></div>
+                        <div style="width: 1px;height: 17px;border: solid 1.5px #ffffff;position: relative;left: 10px;top: -10px;"></div>
+                    </div>
+                </button>
                 <button @click="moveSession(sessionNumber)" v-for="sessionNumber in sessionNumbers" class="layout-session-group-one" :class="nowSessionClass(sessionNumber)">
                     {{ sessionNumber }}
                 </button>
@@ -98,6 +104,14 @@
             onClickLogout() {
                 sessionStorage.clear();
                 this.$router.push({path: '/login'});
+            },
+
+            /**
+             * 새로운 기수 추가
+             */
+            createNewSession() {
+                //TODO: 새로운 기수 생성시 이동 => url 수정필요 (새 기수 생성페이지)
+                this.$router.push({path: `/session/${this.sessionNumber}/general-manage`});
             }
         },
 
