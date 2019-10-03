@@ -22,8 +22,11 @@
                 <div class="user-manage-tab d-flex">
                     <p>전체회원 {{users.length}}명</p>
                     <div class="ml-auto">
-                        <button class="btn-active-user-add" @click="addActiveUsers">
+                        <button class="btn-active-user" @click="addActiveUsers">
                             활동회원추가
+                        </button>
+                        <button class="btn-deactive-user" @click="deleteActiveUsers">
+                            활동회원제거
                         </button>
                         <button class="btn-user-remove">
                             회원제거
@@ -104,8 +107,11 @@
                                         <div class="row-item" style="width: 594px">{{user.id}}</div>
                                     </td>
                                     <td style="width: 160px;">
-                                        <div class="row-item select-box">
+                                        <div v-if="user.activated" class="row-item select-box">
                                             <p>활동</p>
+                                        </div>
+                                        <div v-else class="row-item unselect-box">
+                                            <p>비활동</p>
                                         </div>
                                     </td>
                                     <td style="width: 96px;">
@@ -125,7 +131,7 @@
 
 <script>
     import Layout from '@/components/common/layout/Layout';
-    import {addActiveUsers, getAllUsers, getAuthCode, updateAuthCode} from "../../api/UserAPI";
+    import {addActiveUsers, deleteActiveUsers, getAllUsers, getAuthCode, updateAuthCode} from "../../api/UserAPI";
     import Vue from 'vue';
     import moment from 'moment';
 
@@ -152,6 +158,7 @@
                 getAllUsers()
                     .then(res => {
                         this.users = this.userViewList = res.data;
+                        console.log(this.users)
                     });
                 getAuthCode()
                     .then(res => {
@@ -166,10 +173,21 @@
                     });
             },
             addActiveUsers() {
-                addActiveUsers({sessionNumber: this.$route.params.sessionNumber, uuids: this.selected})
+                addActiveUsers(this.selected)
                     .then(res => {
-                        alert(this.selected.length + '명의 활동회원을 추가하였습니다.')
-                        window.location.reload()
+                        alert(this.selected.length + '명의 활동회원을 추가하였습니다.');
+                        this.loadAllUsers();
+                        this.toggleAll(false);
+                        this.allSelected = false;
+                    });
+            },
+            deleteActiveUsers() {
+                deleteActiveUsers(this.selected)
+                    .then(res => {
+                        alert(this.selected.length + '명의 활동회원을 제거하였습니다.');
+                        this.loadAllUsers();
+                        this.toggleAll(false);
+                        this.allSelected = false;
                     });
             },
             toggleAll(checked) {

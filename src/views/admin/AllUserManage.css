@@ -163,7 +163,7 @@
     margin-bottom: 0;
 }
 
-.btn-active-user-add {
+.btn-active-user {
     width: 144px;
     height: 46px;
     border-radius: 6px;
@@ -176,6 +176,22 @@
     line-height: normal;
     letter-spacing: -1px;
     color: #ffffff;
+}
+
+.btn-deactive-user {
+    width: 144px;
+    height: 46px;
+    border-radius: 6px;
+    background-color: #ff5000;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #ffffff;
+    margin-left: 16px;
 }
 
 .btn-user-remove {
