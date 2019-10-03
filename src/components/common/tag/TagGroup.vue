@@ -1,34 +1,64 @@
 <template>
     <div class="tag-group-wrap">
-        <PositionTag v-for="tag in this.tags"
+        <div v-for="tag in this.allTagsCopy" @click="onClickTag({tag})" style="display: inline-block">
+            <PositionTag
                      :tag-id="tag.tagId"
                      :name="tag.name"
                      :type="tag.type"
-                     :state="tag.state"
-                     @click="onClick">
-        </PositionTag>
+                     :state="tag.state">
+            </PositionTag>
+        </div>
     </div>
 </template>
 
 <script>
     import PositionTag from '@/components/common/tag/PositionTag';
-    import {TAG_TYPE} from '@/consts/Tag';
+
     export default {
         name: "TagGroup",
         components: {PositionTag},
         props: {
-            tags: {
+            allTags: {
                 type: Array,
-                required: false
+                required: true
+            },
+            selectedTags: {
+                type: Array,
+                default: function () {
+                    return [];
+                }
+            },
+            fetchSelectedTags: {
+                type: Function
             }
         },
         data() {
-            return { }
+            return {
+                allTagsCopy: [],
+                selectedTagsCopy: []
+            }
         },
         methods: {
-          onClick() {
-            console.log('11');
-          }
+            /**
+             * 태그 클릭시
+             * @param tagId
+             */
+            onClickTag({tag}) {
+                tag.state = !tag.state;
+
+                const index = this.selectedTagsCopy.findIndex(selectedTag => selectedTag.tagId === tag.tagId);
+                if (index === -1) {
+                    this.selectedTagsCopy.push(tag);
+                } else {
+                    this.selectedTagsCopy.splice(index, 1);
+                }
+                this.fetchSelectedTags(this.selectedTagsCopy);
+            }
+        },
+
+        created() {
+            this.allTagsCopy = JSON.parse(JSON.stringify(this.allTags));
+            this.selectedTagsCopy = JSON.parse(JSON.stringify(this.selectedTags));
         }
     }
 </script>

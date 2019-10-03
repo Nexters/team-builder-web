@@ -9,7 +9,7 @@
                     <EditorViewer :viewerText="idea.content"></EditorViewer>
                     <div class="tag-group-container" v-show="tags.length > 0">
                         <div class="tag-group-message">저는 이런 팀원이 필요해요</div>
-                        <TagGroup :tags="tags"></TagGroup>
+                        <TagGroup :allTags="tags"></TagGroup>
                     </div>
 
 
@@ -53,7 +53,6 @@
         components: {IdeaDetailHeader, EditorViewer, TagGroup, Layout},
         data() {
             return {
-                tags: [],
                 ideaId: this.$route.params.ideaId,
                 idea: {}
             }
@@ -66,6 +65,15 @@
 
             fileName() {
                 return getFileName(this.idea.file);
+            },
+
+            tags() {
+                return this.idea.tags.map(tag => {
+                    return {
+                        ...tag,
+                        state: true
+                    }
+                });
             }
         },
 
@@ -98,7 +106,6 @@
                 this.getIdea(this.ideaId)
                     .then(res => {
                         this.idea = res.data;
-                        this.tags = this.idea.tags;
                     })
                     .catch(err => console.log(err));
             }

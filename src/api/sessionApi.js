@@ -12,5 +12,5 @@ export function putSession({sessionNumber, body}) {
         'charset': 'UTF-8'
     };
 
-    return PUT(`apis/sessions/${sessionNumber}`, body, headers);
+    return PUT(`apis/sessions/${sessionNumber}`, body, {'Content-Type': 'application/json'});
 }
