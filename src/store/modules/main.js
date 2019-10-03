@@ -319,17 +319,11 @@ const store = {
       },
 
       /**
-       * 아이디어 투표할 때, 이미 클릭한 아이디어면 투표 후보 배열에서 제거 / 아니면 추가
+       * 아이디어 투표할 때, 추가
        * @param state
        * @param id  idea.ideaId
        */
-      [MUTATIONS.CLICK_IDEAS]: (state, id) => {
-        const idx = state.candidateIdeas.findIndex(idea => (idea.ideaId === id));
-        // 이미 선택된 아이디어일 경우
-        if (idx > -1) {
-          state.candidateIdeas.splice(idx, 1);
-          return;
-        }
+      [MUTATIONS.ADD_CANDIDATE_IDEA]: (state, id) => {
         // 선택 되지 않은 아이디어라면,
         const selectedIdea = state.ideaList.find(idea => (idea.ideaId === id));
         state.candidateIdeas.push({ideaId: id, title: selectedIdea.title});
