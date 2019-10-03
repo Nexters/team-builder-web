@@ -2,7 +2,12 @@
     <Layout>
         <template v-slot:body>
             <div class="idea-detail-wrap-include-move-button">
-                <button v-show="showPrevButton" class="prev-button" @click="movePrevIdeaDetail"><img class="prev-button-image" src="@/assets/img/prev_button_icon.png"/></button>
+                <div v-show="showPrevButton" class="prev-button-wrap" @click="movePrevIdeaDetail">
+                    <button @mouseover="isHoverPrevButton = true" @mouseleave="isHoverPrevButton = false">
+                        <img v-if="!isHoverPrevButton" class="prev-button-image" src="@/assets/img/prev_button_icon.png"/>
+                        <img v-if="isHoverPrevButton" class="prev-button-image" style="transform: rotate(180deg)" src="@/assets/img/prev_button_icon_hover.png"/>
+                    </button>
+                </div>
 
                 <div class="idea-detail-wrap">
                     <IdeaDetailHeader :idea="idea"></IdeaDetailHeader>
@@ -37,7 +42,12 @@
                     </button>
                 </div>
 
-                <button v-show="showNextButton" class="next-button" @click="moveNextIdeaDetail"><img class="next-button-image" src="@/assets/img/next_button_icon.png"/></button>
+                <div v-show="showNextButton" class="next-button-wrap" @click="moveNextIdeaDetail">
+                    <button @mouseover="isHoverNextButton = true" @mouseleave="isHoverNextButton = false">
+                        <img v-if="!isHoverNextButton" class="next-button-image" style="transform: rotate(180deg)" src="@/assets/img/prev_button_icon.png"/>
+                        <img v-if="isHoverNextButton" class="next-button-image" src="@/assets/img/prev_button_icon_hover.png"/>
+                    </button>
+                </div>
             </div>
         </template>
     </Layout>
@@ -60,7 +70,9 @@
         data() {
             return {
                 ideaId: this.$route.params.ideaId,
-                idea: {}
+                idea: {},
+                isHoverPrevButton: false,
+                isHoverNextButton: false
             }
         },
 
@@ -154,31 +166,30 @@
 
     .idea-detail-wrap {
         width: 1200px;
+        margin-left: 70px;
     }
 
-    .prev-button {
+    .prev-button-wrap {
+        position: fixed;
         margin-top: 343px;
-        margin-right: 50px;
-        width: 20px;
-        height: 40px;
     }
 
     .prev-button-image {
-        width: 20px;
-        height: 40px;
+        width: 64px;
+        height: 64px;
         object-fit: contain;
     }
 
-    .next-button {
+    .next-button-wrap {
+        position: fixed;
         margin-top: 343px;
         margin-left: 50px;
-        width: 20px;
-        height: 40px;
+        width: 2520px;
     }
 
     .next-button-image {
-        width: 20px;
-        height: 40px;
+        width: 64px;
+        height: 64px;
         object-fit: contain;
     }
 
