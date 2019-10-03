@@ -10,7 +10,7 @@
                     <TagGroup :allTags="allTags" :selectedTags="selectedTags" :fetchSelectedTags="fetchSelectedTags"></TagGroup>
                 </div>
 
-                <div class="file-upload-wrap">
+                <div v-if="isAvailableFileUpload" class="file-upload-wrap">
                     <div class="file-upload-title-box">
                         <span class="file-upload-title-text">첨부파일</span>
                     </div>
@@ -42,11 +42,12 @@
     import Layout from '@/components/common/layout/Layout';
     import TagGroup from '@/components/common/tag/TagGroup';
     import IdeaEditor from '@/components/idea/new/IdeaEditor';
-    import { ACTIONS } from '@/store/types';
+    import {ACTIONS, GETTERS} from '@/store/types';
     import {createNamespacedHelpers} from 'vuex';
     import {uploadFiles} from '@/api/FileAPI';
     import {getFileName} from '@/utils/file';
-    const { mapActions } = createNamespacedHelpers('main');
+    import {PERIOD_TYPE} from '@/consts/periodType';
+    const { mapActions, mapGetters } = createNamespacedHelpers('main');
 
     export default {
         name: "IdeaModify",
@@ -63,6 +64,10 @@
         },
 
         computed: {
+            ...mapGetters({
+                nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
+            }),
+
             allTags() {
                 const allTagsCopy = JSON.parse(JSON.stringify(this.$store.state.main.session.tags));
                 return allTagsCopy.map(tag => {
@@ -96,6 +101,9 @@
                 return getFileName(this.idea.file);
             },
 
+            isAvailableFileUpload() {
+                return this.nowPeriodType === PERIOD_TYPE.IDEA_CHECK || this.nowPeriodType === PERIOD_TYPE.TEAM_BUILDING;
+            }
         },
 
         methods: {
