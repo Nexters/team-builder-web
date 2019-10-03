@@ -103,11 +103,18 @@
                 </div>
                 <!-- 투표 이미지 -->
                 <div v-show="nowPeriodType === 'IDEA_VOTE'" class="idea-button">
-                    <img src="../../../assets/img/group@2x.png"
-                         v-show="inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
-                    <img src="../../../assets/img/idea-minus.png"
-                         v-show="!inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
+                    <div v-show="!getVoteDone">
+                        <img src="@/assets/img/group@2x.png"
+                             v-show="!inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
+                        <img src="@/assets/img/idea-minus.png"
+                             v-show="inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
+                    </div>
+                    <div v-show="getVoteDone" class="on">
+                        <img src="@/assets/img/voteEnd.png" v-show="!inSelectedIdeas(idea.ideaId)" style="cursor: default">
+                        <img src="@/assets/img/ideaVoteCheck.png" v-show="inSelectedIdeas(idea.ideaId)">
+                    </div>
                 </div>
+
                 <!-- 선정 이미지 -->
                 <div v-show="nowPeriodType === 'IDEA_CHECK'" class="selection">
                     <img src="@/assets/img/selection.png" v-show="idea['selected']">
@@ -126,8 +133,19 @@
   import {createNamespacedHelpers} from 'vuex';
   const {mapActions, mapGetters, mapState} = createNamespacedHelpers('main');
 
+  // 투표 api 나오면 제거
+  import { EventBus } from '@/components/common/sessionInfo/SessionInfoIdeaVote';
+
   export default {
     name: "IdeaListVoteAndCheck",
+
+    // 투표 api 나오면 제거
+    data() {
+      return {
+        voteDone: false,
+      }
+    },
+    //
 
     methods: {
       viewAllTags(event) {
@@ -156,11 +174,22 @@
       },
 
       clickIdea(id) {
-        return this.$store.commit('main/CLICK_IDEAS', id);
+        if(this.inSelectedIdeas(id)) {
+          return this.$store.commit('main/REMOVE_CANDIDATE_IDEA', id);
+        }
+
+        if(this.maxVoteCount === this.candidateIdeas.length) {
+          this.$alert(`최대 ${this.maxVoteCount}개까지 선택할 수 있어요.`, '아이디어 투표', {
+              confirmButtonText: '확인'
+            }
+          )
+          return;
+        }
+        return this.$store.commit('main/ADD_CANDIDATE_IDEA', id);
       },
 
       inSelectedIdeas(id) {
-        return this.$store.state.main.candidateIdeas.findIndex(idea => (idea.ideaId === id)) <= -1;
+        return this.candidateIdeas.findIndex(idea => (idea.ideaId === id)) > -1;
       },
 
     },
@@ -175,6 +204,23 @@
         nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
 
       }),
+
+      candidateIdeas() {
+        return this.$store.state.main.candidateIdeas
+      },
+
+      maxVoteCount() {
+        return this.$store.state.main.session.maxVoteCount;
+      },
+
+      // 여기도 제거
+      getVoteDone() {
+        EventBus.$on('voteDone', (voteDone) => {
+          this.voteDone = voteDone;
+        })
+        return this.voteDone;
+      },
+      //
     }
   }
 

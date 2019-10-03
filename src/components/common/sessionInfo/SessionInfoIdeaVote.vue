@@ -50,6 +50,11 @@
     import {createNamespacedHelpers} from 'vuex';
     const { mapActions } = createNamespacedHelpers('main');
 
+    // 투표 api 나올 때 제거할께요..!
+    import Vue from "vue";
+    export const EventBus = new Vue();
+    // 여기까지
+
     export default {
         name: "SessionInfoIdeaVote",
         components: {SessionInfoDDay},
@@ -96,7 +101,7 @@
             }
         },
 
-        methods: {
+       methods: {
             ...mapActions({
                 removeCandidateIdeaAction: ACTIONS.REMOVE_CANDIDATE_IDEA,
                 voteSummitAction: ACTIONS.VOTE_SUMMIT,
@@ -116,6 +121,9 @@
                 // this.voteSummitAction()
                 //     .then(this.voteDone = true)
                 //     .fail(err => console.log(err));
+
+              // 여기도 같이 제거 하겠습니당ㅎ
+              EventBus.$emit('voteDone', this.voteDone);
             },
 
             removeCandidateIdea(ideaId) {
