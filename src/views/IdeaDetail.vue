@@ -2,7 +2,7 @@
     <Layout>
         <template v-slot:body>
             <div class="idea-detail-wrap-include-move-button">
-                <button class="prev-button" @click="movePrevIdeaDetail"><img class="prev-button-image" src="@/assets/img/prev_button_icon.png"/></button>
+                <button v-show="showPrevButton" class="prev-button" @click="movePrevIdeaDetail"><img class="prev-button-image" src="@/assets/img/prev_button_icon.png"/></button>
 
                 <div class="idea-detail-wrap">
                     <IdeaDetailHeader :idea="idea"></IdeaDetailHeader>
@@ -37,7 +37,7 @@
                     </button>
                 </div>
 
-                <button class="next-button" @click="moveNextIdeaDetail"><img class="next-button-image" src="@/assets/img/next_button_icon.png"/></button>
+                <button v-show="showNextButton" class="next-button" @click="moveNextIdeaDetail"><img class="next-button-image" src="@/assets/img/next_button_icon.png"/></button>
             </div>
         </template>
     </Layout>
@@ -67,6 +67,7 @@
         computed: {
             ...mapGetters({
                 nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
+                ideaList: GETTERS.GET_LIST,
             }),
 
             hasFile() {
@@ -86,6 +87,15 @@
                 });
             },
 
+            showPrevButton() {
+                const ideaIndex = this.ideaList.findIndex(idea => idea.ideaId === this.idea.ideaId);
+                return ideaIndex !== -1 && ideaIndex !== this.ideaList.length - 1;
+            },
+            showNextButton() {
+                const ideaIndex = this.ideaList.findIndex(idea => idea.ideaId === this.idea.ideaId);
+                return ideaIndex > 0;
+            },
+
             showFile() {
                 return this.nowPeriodType === PERIOD_TYPE.IDEA_CHECK || this.nowPeriodType === PERIOD_TYPE.TEAM_BUILDING;
             }
@@ -97,7 +107,8 @@
             }),
 
             movePrevIdeaDetail() {
-                const prevIdeaId = Number(this.ideaId) - 1; //TODO: 검색된 목록에서 가져와야함
+                const ideaIndex = this.ideaList.findIndex(idea => idea.ideaId === this.idea.ideaId);
+                const prevIdeaId = this.ideaList[ideaIndex + 1].ideaId;
 
                 this.$router.push({path:`/session/${this.$store.state.main.session.sessionNumber}/idea/${prevIdeaId}`});
                 this.ideaId = prevIdeaId;
@@ -105,7 +116,8 @@
             },
 
             moveNextIdeaDetail() {
-                const nextIdeaId = Number(this.ideaId) + 1; //TODO: 검색된 목록에서 가져와야함
+                const ideaIndex = this.ideaList.findIndex(idea => idea.ideaId === this.idea.ideaId);
+                const nextIdeaId = this.ideaList[ideaIndex - 1].ideaId;
 
                 this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${nextIdeaId}`});
                 this.ideaId = nextIdeaId;
