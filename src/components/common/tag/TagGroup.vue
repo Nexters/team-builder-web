@@ -58,7 +58,7 @@
 
         created() {
             this.allTagsCopy = JSON.parse(JSON.stringify(this.allTags));
-            this.selectedTagsCopy = JSON.parse(JSON.stringify(this.selectedTags));
+            this.selectedTagsCopy = JSON.parse(JSON.stringify(this.allTags.filter(tag => tag.state)));
         }
     }
 </script>

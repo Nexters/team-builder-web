@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <!-- tags -->
-                <div class="td" style="margin: 17px 0 17px 37px; width: 327px; position: relative;">
+                <div class="td" style="margin: 17px 0 17px 34px; width: 327px; position: relative;">
                 </div>
                 <!-- position -->
                 <div class="position" style="padding-left: 8px">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <!-- tags -->
-                <div class="td" style="margin: 17px 0 17px 37px; width: 327px; position: relative;">
+                <div class="td" style="margin: 17px 0 17px 34px; width: 327px; position: relative;">
                     <div v-show="idea['tags'].length === 0" class="not-select-tags">
                         태그를 선택하지 않았어요.
                     </div>

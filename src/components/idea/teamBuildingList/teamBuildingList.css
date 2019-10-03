@@ -81,6 +81,8 @@
 	display: inline-block;
 	padding: 17px 10px;
 	float: right;
+	position: relative;
+	z-index: 2;
 }
 
 .position {
@@ -159,4 +161,8 @@
 	color: #4a4a4a;
 
 	margin: 22px 1138px 0 19.5px;
+}
+
+.list:hover{
+	border: solid 1px #DBDBDB;
 }

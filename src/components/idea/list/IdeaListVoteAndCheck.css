@@ -206,3 +206,7 @@
 
 	margin: 23px 13px 22px 6px;
 }
+
+.list:hover{
+	border: solid 1px #DBDBDB;
+}

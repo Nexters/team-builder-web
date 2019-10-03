@@ -8,9 +8,9 @@
                     </div>
                     <div class="title">태그검색</div>
                     <div class="section">
-                        <TagGroup :tags="allTags"></TagGroup>
+                        <TagGroup :allTags="allTags" :selectedTags="selectedTags" :fetchSelectedTags="fetchSelectedTags"></TagGroup>
                     </div>
-                    <button class="search" @click="$emit('searchTags')"><span>검색하기</span></button>
+                    <button class="search" @click="doSearch()"><span>검색하기</span></button>
                     <div class="selection-initialization" @click="initSelect">선택초기화</div>
                 </div>
             </div>
@@ -29,35 +29,45 @@
     components: {TagGroup},
     data() {
       return {
-        // allTags: [
-        //   {id: 1, name: '최대다섯자', type: TAG_TYPE.DISABLED},
-        //   {id: 2, name: '최대다섯자', type: TAG_TYPE.DISABLED},
-        //   {id: 3, name: '최대다섯자', type: TAG_TYPE.DISABLED},
-        //   {id: 4, name: '최대다섯자', type: TAG_TYPE.DISABLED},
-        //   {id: 5, name: '디자이너용', type: TAG_TYPE.DESIGNER},
-        //   {id: 6, name: 'GUI', type: TAG_TYPE.DESIGNER},
-        //   {id: 7, name: 'UX', type: TAG_TYPE.DESIGNER},
-        //   {id: 8, name: '개발자전용', type: TAG_TYPE.DEVELOPER},
-        //   {id: 9, name: '서버개발자', type: TAG_TYPE.DEVELOPER},
-        //   {id: 10, name: '웹개발자', type: TAG_TYPE.DEVELOPER},
-        //   {id: 11, name: 'iOS', type: TAG_TYPE.DEVELOPER},
-        //   {id: 12, name: 'Android', type: TAG_TYPE.DEVELOPER},
-        // ]
+          selectedTags: []
       }
     },
 
     computed: {
-      ...mapGetters({
-        allTags: GETTERS.GET_TAGS
-      })
+        allTags() {
+            const allTagsCopy = JSON.parse(JSON.stringify(this.$store.state.main.session.tags));
+            return allTagsCopy.map(tag => {
 
+                //TODO: 이미 검색한 태그 그대로 유지
+                // if (this.idea.tags.find(selectedTag => selectedTag.tagId === tag.tagId)) {
+                //     return {
+                //         ...tag,
+                //         state: true
+                //     };
+                // }
+                return {...tag};
+            })
+        },
     },
 
     methods: {
       initSelect() {
         return this.$store.commit('main/SET_INIT_SELECTED_TAGS');
       },
-    }
+
+    fetchSelectedTags(selectedTags) {
+        this.selectedTags = selectedTags.slice();
+    },
+
+        doSearch() {
+            if (this.selectedTags.length < 1) {
+                this.$emit('close');
+            }
+            this.$store.commit('main/SELECT_TAG', this.selectedTags);
+            this.$emit('searchTags');
+        }
+    },
+
   }
 </script>
 
