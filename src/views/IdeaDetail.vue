@@ -14,7 +14,7 @@
                     <EditorViewer :viewerText="idea.content"></EditorViewer>
                     <div class="tag-group-container" v-show="tags.length > 0">
                         <div class="tag-group-message">저는 이런 팀원이 필요해요</div>
-                        <TagGroup :allTags="tags"></TagGroup>
+                        <TagGroup :allTags="tags" :isDetailView="true"></TagGroup>
                     </div>
 
 

@@ -30,6 +30,10 @@
             },
             fetchSelectedTags: {
                 type: Function
+            },
+            isDetailView: {
+                type: Boolean,
+                default: false
             }
         },
         data() {
@@ -44,6 +48,9 @@
              * @param tagId
              */
             onClickTag({tag}) {
+                if (this.isDetailView) {
+                    return;
+                }
                 tag.state = !tag.state;
 
                 const index = this.selectedTagsCopy.findIndex(selectedTag => selectedTag.tagId === tag.tagId);
