@@ -96,23 +96,18 @@
 }
 
 .tags {
+	display: inline-block;
+}
+
+.tag {
 	width: 97px;
 	height: 40px;
 	text-align: center;
 	margin-right: 9px;
-	margin-left: 3px;
-	padding: 0;
-	border: 0;
-	display: inline-block;
-	cursor: pointer;
-}
-
-.tag {
 	border-radius: 6px;
 	display: inline-block;
 	vertical-align: center;
 	padding: 8px 15px;
-	width: 100%;
 }
 
 .tag-name {
