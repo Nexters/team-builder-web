@@ -186,7 +186,11 @@
             idDuplicateCheck() {
                 isIdDuplicate(this.uid)
                     .then(data => {
-                        alert(data)
+                        if (data.data.isIdUsable) {
+                            alert('사용 가능한 아이디입니다.')
+                        } else {
+                            alert('사용중인 아이디입니다.')
+                        }
                     })
                     .catch(err => {
                         alert(err.response.data.message)

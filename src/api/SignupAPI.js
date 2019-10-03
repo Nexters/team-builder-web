@@ -31,5 +31,5 @@ export async function isIdDuplicate(uid) {
         return false
     }
 
-    return GET(ID_DUPLICATE_CHECK_URL + '/id=' + uid);
+    return GET(ID_DUPLICATE_CHECK_URL + '?id=' + uid);
 }
