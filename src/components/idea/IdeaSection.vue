@@ -210,10 +210,13 @@
       showFavorite(star) {
         this.sortPositionASC = false;
         this.sortDateASC = false;
-        document.getElementById('search').value = '';
+
+        // 검색어 삭제
+        this.searchTerm = '';
+        document.getElementById('search').value = this.searchTerm;
 
         return star ? this.$store.commit('main/SET_FAVORITE_LIST')
-          : this.$store.dispatch('main/SHOW_ORIGIN_LIST')
+          : this.filterData()
       },
 
       cancelTagSearch() {
