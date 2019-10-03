@@ -2,7 +2,7 @@
     <Layout>
         <template v-slot:body>
             <div class="new-idea-wrap">
-                <IdeaEditor :idea="idea" style="margin-top: 66px;"></IdeaEditor>
+                <IdeaEditor :idea="idea" style="margin-top: 66px;" :selectedTags="selectedTags"></IdeaEditor>
 
                 <div class="tag-group-container">
                     <div class="tag-group-message">저는 이런 팀원이 필요해요</div>
@@ -56,8 +56,9 @@
                 idea: {
                     ideaTitle: '',
                     editorText: '',
-                    tags: []
+                    tags: [],
                 },
+                selectedTags: []
             }
         },
 
@@ -95,14 +96,6 @@
                 return getFileName(this.idea.file);
             },
 
-            selectedTags() {
-                return this.idea.tags.map(tag => {
-                    return {
-                        ...tag,
-                        state: true
-                    }
-                });
-            }
         },
 
         methods: {
@@ -149,6 +142,7 @@
             fetchSelectedTags(selectedTags) {
                 this.selectedTags = selectedTags.slice();
             }
+
         },
 
         created() {
