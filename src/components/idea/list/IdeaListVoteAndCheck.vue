@@ -103,11 +103,18 @@
                 </div>
                 <!-- 투표 이미지 -->
                 <div v-show="nowPeriodType === 'IDEA_VOTE'" class="idea-button">
-                    <img src="../../../assets/img/group@2x.png"
-                         v-show="!inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
-                    <img src="../../../assets/img/idea-minus.png"
-                         v-show="inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
+                    <div v-show="!getVoteDone">
+                        <img src="@/assets/img/group@2x.png"
+                             v-show="!inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
+                        <img src="@/assets/img/idea-minus.png"
+                             v-show="inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
+                    </div>
+                    <div v-show="getVoteDone" class="on">
+                        <img src="@/assets/img/voteEnd.png" v-show="!inSelectedIdeas(idea.ideaId)" style="cursor: default">
+                        <img src="@/assets/img/ideaVoteCheck.png" v-show="inSelectedIdeas(idea.ideaId)">
+                    </div>
                 </div>
+
                 <!-- 선정 이미지 -->
                 <div v-show="nowPeriodType === 'IDEA_CHECK'" class="selection">
                     <img src="@/assets/img/selection.png" v-show="idea['selected']">
@@ -126,8 +133,19 @@
   import {createNamespacedHelpers} from 'vuex';
   const {mapActions, mapGetters, mapState} = createNamespacedHelpers('main');
 
+  // 투표 api 나오면 제거
+  import { EventBus } from '@/components/common/sessionInfo/SessionInfoIdeaVote';
+
   export default {
     name: "IdeaListVoteAndCheck",
+
+    // 투표 api 나오면 제거
+    data() {
+      return {
+        voteDone: false,
+      }
+    },
+    //
 
     methods: {
       viewAllTags(event) {
@@ -193,7 +211,16 @@
 
       maxVoteCount() {
         return this.$store.state.main.session.maxVoteCount;
-      }
+      },
+
+      // 여기도 제거
+      getVoteDone() {
+        EventBus.$on('voteDone', (voteDone) => {
+          this.voteDone = voteDone;
+        })
+        return this.voteDone;
+      },
+      //
     }
   }
 

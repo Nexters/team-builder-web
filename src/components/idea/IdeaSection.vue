@@ -46,6 +46,7 @@
                 </div>
 
                 <!-- 아이디어 모집 기간에만 -->
+                <!--<div v-if="isActiveSession && getIsActivated"></div>-->
                 <div  v-show="isActiveSession && nowPeriodType === 'IDEA_COLLECT'" class="card-body">
                     <div class="default titles">
                         <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
@@ -155,12 +156,21 @@
           }
           return `태그 '${this.getSearchTagName}' 외 ${this.searchTagResult - 1}건 검색결과 ${this.ideaListLength}건`;
         },
+      //
+      // getters: {
+      //   getIsActivated() {
+      //     console.log(this.$store);
+      //     // console.
+      //     return this.$store.getters.auth.getActivated
+      //   }
+      // },
 
       ...mapGetters({
         ideaListLength: GETTERS.LIST_LENGTH,
         searchTagResult: GETTERS.SEARCH_TAG_LIST_LENGTH,
         getSearchTagName: GETTERS.GET_SEARCH_TAGS_FIRST_NAME,
         nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
+
       }),
 
       isActiveSession : function () {

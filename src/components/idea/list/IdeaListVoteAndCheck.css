@@ -12,10 +12,6 @@
 	display: flex;
 }
 
-.list:hover {
-	border: solid 1px #dbdbdb;
-}
-
 .type-notice {
 	border: solid 1.5px #dbdbdb;
 }
@@ -191,7 +187,7 @@
 	margin: 27px 10px 28px 5px;
 }
 
-.idea-button > img {
+.idea-button img {
 	width: 30px;
 	height: 30px;
 	object-fit: contain;
@@ -209,4 +205,8 @@
 
 .list:hover{
 	border: solid 1px #DBDBDB;
+}
+
+.idea-button .on > img {
+	cursor: default;
 }
