@@ -13,7 +13,7 @@
                     </div>
 
 
-                    <div class="file-upload-wrap">
+                    <div v-if="showFile" class="file-upload-wrap">
                         <div class="file-upload-title-box">
                             <span class="file-upload-title-text">첨부파일</span>
                         </div>
@@ -24,6 +24,11 @@
                             <a :href="idea.file" :download="fileName" target="_blank" class="file-upload-has-file-download-icon-box">
                                 <img src="@/assets/img/icon_download.png" class="file-upload-has-file-download-icon"/>
                             </a>
+                        </div>
+                        <div v-show="!hasFile">
+                            <div class="no-file-wrap">
+                                <span class="no-file-text">첨부파일이 없습니다.</span>
+                            </div>
                         </div>
                     </div>
 
@@ -43,10 +48,11 @@
     import TagGroup from '@/components/common/tag/TagGroup';
     import EditorViewer from '@/components/idea/detail/EditorViewer';
     import IdeaDetailHeader from '@/components/idea/detail/IdeaDetailHeader';
-    import { ACTIONS } from '@/store/types';
+    import {ACTIONS, GETTERS} from '@/store/types';
     import {createNamespacedHelpers} from 'vuex';
     import {getFileName} from '@/utils/file';
-    const { mapActions } = createNamespacedHelpers('main');
+    import {PERIOD_TYPE} from '@/consts/periodType';
+    const { mapActions, mapGetters } = createNamespacedHelpers('main');
 
     export default {
         name: "IdeaDetail",
@@ -59,6 +65,10 @@
         },
 
         computed: {
+            ...mapGetters({
+                nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
+            }),
+
             hasFile() {
                 return this.idea.file;
             },
@@ -74,6 +84,10 @@
                         state: true
                     }
                 });
+            },
+
+            showFile() {
+                return this.nowPeriodType === PERIOD_TYPE.IDEA_CHECK || this.nowPeriodType === PERIOD_TYPE.TEAM_BUILDING;
             }
         },
 
@@ -250,5 +264,22 @@
         width: 20px;
         height: 20px;
         object-fit: contain;
+    }
+
+    .no-file-wrap {
+        margin-top: 30px;
+        width: 136px;
+        height: 24px;
+    }
+
+    .no-file-text {
+        font-family: NotoSansCJKkr;
+        font-size: 16px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: -0.48px;
+        color: #9b9b9b;
     }
 </style>
