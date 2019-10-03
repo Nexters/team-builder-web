@@ -185,4 +185,6 @@
 	margin: 27px 18px 28px 10px;
 }
 
-
+.list:hover{
+	border: solid 1px #DBDBDB;
+}
