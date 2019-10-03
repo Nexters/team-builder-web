@@ -299,10 +299,19 @@ const store = {
         return changeElement.favorite
       },
 
-      [MUTATIONS.SELECT_TAG]: (state, id) => {
-        const tag = state.session.tags.find(tag => (tag.tagId === id));
-        state.selectedTags.push({tagId: id, name: tag.name});
+      [MUTATIONS.SELECT_TAG]: (state, tags) => {
+        state.selectedTags = tags;
         console.log(state.selectedTags);
+      },
+
+      [MUTATIONS.FILTER_SELECTED_TAG]: (state) => {
+        state.ideaList = state.session.ideas.filter(idea => {
+
+          return state.selectedTags.find(tag => {
+            return idea.tags.find(ideaTag => ideaTag.tagId === tag.tagId);
+          })
+
+        });
       },
 
       [MUTATIONS.SET_INIT_SELECTED_TAGS]: (state) => {
@@ -414,9 +423,8 @@ const store = {
         },
 
         [ACTIONS.SEARCH_TAGS](context) {
-          // 서버로 전송
-          // 받아온 리스트 ideaList에 저장
-          context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE);
+          context.commit(MUTATIONS.FILTER_SELECTED_TAG)
+              .then(() => context.commit(MUTATIONS.SET_FAVORITE_OPPOSITE));
         },
 
         /**

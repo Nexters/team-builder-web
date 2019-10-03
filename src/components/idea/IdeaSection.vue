@@ -6,7 +6,7 @@
                     <section class="header-left">
                         <div v-show="showSearchTagResult">
                             <div class="tag-result">
-                                태그 '{{ getSearchTagName }}' 외 {{ searchTagResult - 1 }}건 검색결과 {{ ideaListLength }}건
+                                {{ tagSearchResultMessage }}
                             </div>
                             <img src="@/assets/img/cancellation.png" class="cancellation" @click="cancelTagSearch">
                         </div>
@@ -27,7 +27,7 @@
 
                     <section class="header-right">
                         <div class="search">
-                            <button class="Rectangle-Copy" @click="openInfo"><span>태그검색</span></button>
+                            <button class="Rectangle-Copy" @click="showPopUp = true"><span>태그검색</span></button>
                             <SelectSearchTag v-if="showPopUp"
                                              @close="showPopUp = false"
                                              @searchTags="searchTags">
@@ -142,6 +142,13 @@
         }
       },
 
+        tagSearchResultMessage() {
+          if (this.searchTagResult === 1) {
+              return `태그 '${this.getSearchTagName}' 검색결과 ${this.ideaListLength}건`;
+          }
+          return `태그 '${this.getSearchTagName}' 외 ${this.searchTagResult - 1}건 검색결과 ${this.ideaListLength}건`;
+        },
+
       ...mapGetters({
         ideaListLength: GETTERS.LIST_LENGTH,
         searchTagResult: GETTERS.SEARCH_TAG_LIST_LENGTH,
@@ -199,13 +206,6 @@
         this.showSearchTagResult = true;
         this.showPopUp = false;
         return this.$store.dispatch('main/SEARCH_TAGS');
-      },
-      openInfo() {
-        // 태그 검색 막아놓음
-        this.$alert('오픈 준비중입니다.', '태그검색', {
-            confirmButtonText: '확인'
-          }
-        )
       },
 
       goDetail(id) {
