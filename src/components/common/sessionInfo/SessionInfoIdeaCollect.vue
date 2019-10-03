@@ -8,7 +8,7 @@
 
             <div class="session-info-idea-write-wrap">
                 <button class="session-info-idea-write-button" @click="moveNewIdea">
-                    <span class="session-info-idea-write-message">아이디어 작성하기</span>
+                    <span class="session-info-idea-write-message">{{ ideaWriteText }}</span>
                 </button>
             </div>
         </div>
@@ -28,6 +28,7 @@
             return {
                 sessionNumber: this.$store.state.main.session.sessionNumber,
                 nowPeriodType: this.$store.state.main.nowPeriod.periodType,
+                ideaWriteText: this.$store.getters.isAdmin ? '공지 작성하기' : '아이디어 작성하기'
             }
         },
 
