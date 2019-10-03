@@ -36,6 +36,7 @@
                             <!-- 검색 기능 -->
                             <input type="search"
                                    class="search-input Rectangle"
+                                   id="search"
                                    v-on:input="searchTerm = $event.target.value"
                                    placeholder="제목과 작성자를 검색해주세요."
                                    @keyup="filterData()"
@@ -44,7 +45,8 @@
                     </section>
                 </div>
 
-                <div  v-show="nowPeriodType === 'IDEA_COLLECT'" class="card-body">
+                <!-- 아이디어 모집 기간에만 -->
+                <div  v-show="isActiveSession && nowPeriodType === 'IDEA_COLLECT'" class="card-body">
                     <div class="default titles">
                         <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
                         <div class="title" style="width: 48px; height: 18px; line-height: 1.29;
@@ -71,7 +73,9 @@
                     <idea-list-recruiting @goDetail="goDetail"></idea-list-recruiting>
                 </div>
 
-                <div v-show="nowPeriodType === 'IDEA_VOTE' || nowPeriodType === 'IDEA_CHECK'" class="card-body">
+                <!-- 아이디어 모집 기간이 아닐 때 -->
+                <!-- 활동 기수가 아닐 때 -->
+                <div v-show="nowPeriodType !== 'IDEA_COLLECT' || !isActiveSession" class="card-body">
                     <div class="titles">
                         <!--<div classse="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
                         <div class="title" style="width: 48px; height: 18px; line-height: 1.29;
@@ -105,6 +109,8 @@
 </template>
 
 <script>
+  import {getLatestSession} from "@/api/sessionApi";
+
   import {ACTIONS, GETTERS, MUTATIONS} from "@/store/types";
   import {createNamespacedHelpers} from 'vuex';
   const {mapMutations, mapGetters, mapState, mapActions} = createNamespacedHelpers('main');
@@ -128,6 +134,7 @@
         favorite: false,
         showPopUp: false,
         showSearchTagResult: false,
+        isActive: false,
 
       }
     },
@@ -155,6 +162,16 @@
         getSearchTagName: GETTERS.GET_SEARCH_TAGS_FIRST_NAME,
         nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
       }),
+
+      isActiveSession : function () {
+        getLatestSession().then(res => {
+          this.isActive = (res.data.sessionNumber === this.$store.state.main.session.sessionNumber)
+        });
+
+        return this.isActive;
+      },
+
+
     },
 
     methods: {
@@ -193,8 +210,13 @@
       showFavorite(star) {
         this.sortPositionASC = false;
         this.sortDateASC = false;
+
+        // 검색어 삭제
+        this.searchTerm = '';
+        document.getElementById('search').value = this.searchTerm;
+
         return star ? this.$store.commit('main/SET_FAVORITE_LIST')
-          : this.$store.dispatch('main/SHOW_ORIGIN_LIST')
+          : this.filterData()
       },
 
       cancelTagSearch() {

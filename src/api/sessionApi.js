@@ -14,3 +14,7 @@ export function putSession({sessionNumber, body}) {
 
     return PUT(`apis/sessions/${sessionNumber}`, body, {'Content-Type': 'application/json'});
 }
+
+export function getLatestSession() {
+  return GET(`apis/sessions/latest`);
+}

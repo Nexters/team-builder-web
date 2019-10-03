@@ -20,6 +20,10 @@
 	display: flex;
 }
 
+.list:hover {
+	border: solid 1px #dbdbdb;
+}
+
 .custom-checkbox {
 	margin: 13px 13px 0 26px;
 	width: 20px;
