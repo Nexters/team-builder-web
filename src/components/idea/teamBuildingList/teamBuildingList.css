@@ -15,10 +15,6 @@
 	clear: both;
 }
 
-.list:hover {
-	border: solid 1px #dbdbdb;
-}
-
 .idea-name {
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -164,5 +160,5 @@
 }
 
 .list:hover{
-	border: solid 1px #DBDBDB;
+	border: solid 1px #CDCDCD;
 }
