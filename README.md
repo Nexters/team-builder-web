@@ -1,4 +1,6 @@
-![모임모임.com](./moimmoim.png)
+![모임모임.com](readme/moimmoim.png)
+
+![PPT](readme/readme-moimmoim-ppt.gif)
 
 ### NEXTERS 15th (주)모임건설
 *디자이너*
@@ -16,19 +18,5 @@
 - [오리진](https://github.com/Namkiwon)
 - [도더니](https://github.com/sojeongw)
 
----
-
-## 프로젝트 설정
-```
-npm install
-```
-
-### 개발모드
-```
-npm run serve
-```
-
-### 빌드
-```
-npm run build
-```
+### 동작화면 
+![동작화면](readme/readme-moimmoim.gif)
