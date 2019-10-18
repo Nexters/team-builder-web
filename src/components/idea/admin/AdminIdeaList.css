@@ -48,6 +48,11 @@
 
 }
 
+.notice-title {
+	font-weight: 500;
+	color: #ff5000;
+}
+
 .position {
 	width: 56px;
 	height: 24px;

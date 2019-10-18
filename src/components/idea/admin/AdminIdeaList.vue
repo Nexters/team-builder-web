@@ -8,12 +8,12 @@
                     <img src="@/assets/img/NOTICE.png"
                          class="notice" />
                     <!-- idea-name-->
-                    <div class="idea-name" @click="$emit('goDetail', idea.ideaId)" style="margin-right: 152px;">
+                    <div class="idea-name notice-title" @click="$emit('goDetail', idea.ideaId)" style="margin-right: 152px;">
                         {{ idea['title'] }}
                     </div>
                     <!-- position -->
                     <div class="position">
-                        &nbsp;-
+                        &nbsp;
                     </div>
                     <!-- author -->
                     <div class="author">

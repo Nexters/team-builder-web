@@ -8,11 +8,11 @@
                      class="notice" />
                 <!-- order-number -->
                 <div class="order-number">
-                    -
+
                 </div>
                 <!-- idea-name-->
                 <div class="idea-name-wrapper" @click="$emit('goDetail', idea.ideaId)">
-                    <div class="idea-name">
+                    <div class="idea-name notice-title">
                         {{ idea['title'] }}
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                 </div>
                 <!-- position -->
                 <div class="position" style="padding-left: 8px">
-                    -
+
                 </div>
                 <!-- author -->
                 <div class="author">
