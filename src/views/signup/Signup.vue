@@ -30,8 +30,9 @@
                                             <img :src="passwordVisibleImage" width="18px" height="14px"
                                                  @click="visiblePassword('password')">
                                         </div>
-                                        <p v-if="0 < password.length && password.length < 8"
-                                           class="password-confirm-box">영문,숫자 8자 이상 입력하세요.</p>
+                                        <div class="password-confirm-box">
+                                            <p v-if="0 < password.length && password.length < 8">영문,숫자 8자 이상 입력하세요.</p>
+                                        </div>
                                     </b-form>
                                     <b-form style="margin-left: 15px;">
                                         <div class="password-circle row"
@@ -44,9 +45,10 @@
                                             <img :src="confirmPasswordVisibleImage" width="18px" height="14px"
                                                  @click="visiblePassword('confirmPassword')">
                                         </div>
-                                        <p v-if="0 < confirmPassword.length  && confirmPassword !== password"
-                                           class="password-confirm-box">
-                                            비밀번호가 일치하지 않습니다.</p>
+                                        <div class="password-confirm-box">
+                                            <p v-if="0 < confirmPassword.length  && confirmPassword !== password">
+                                                비밀번호가 일치하지 않습니다.</p>
+                                        </div>
                                     </b-form>
                                 </b-form>
                             </b-form-group>
