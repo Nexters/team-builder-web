@@ -80,6 +80,11 @@
 	display: inline-block;
 }
 
+.notice-title {
+	font-weight: 500;
+	color: #ff5000;
+}
+
 .not-select-tags {
 	width: 160px;
 	height: 24px;
