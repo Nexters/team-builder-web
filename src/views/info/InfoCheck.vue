@@ -38,7 +38,8 @@
 
             <div class="row">
                 <div class="info-title">직무</div>
-                <div class="info-body">{{ $store.getters.getPosition }}</div>
+                <div v-if="this.$store.getters.isAdmin" class="info-body">Master</div>
+                <div v-else class="info-body">{{ $store.getters.getPosition }}</div>
             </div>
         </div>
     </div>
