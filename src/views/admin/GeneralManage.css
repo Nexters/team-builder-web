@@ -17,18 +17,92 @@ p {
 }
 
 .header-sub {
-    width: 760px;
+    width: 493px;
     height: 50px;
     font-family: NotoSansCJKkr;
     font-size: 16px;
     font-weight: normal;
-    font-style: normal;
     font-stretch: normal;
+    font-style: normal;
     line-height: normal;
     letter-spacing: -0.6px;
     color: #1c1c1c;
     text-align: left;
     margin-top: 16px;
+}
+
+.certify {
+    margin-top: 70px;
+    text-align: left;
+}
+
+.certify > p {
+    width: 110px;
+    height: 29px;
+    font-family: NotoSansCJKkr;
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.75px;
+    color: #1c1c1c;
+}
+
+.input-box {
+    width: 320px;
+    height: 56px;
+    border-radius: 6px;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: #9b9b9b;
+    padding-left: 18px;
+    margin-top: 12px;
+}
+
+.input-box::placeholder {
+    width: 57px;
+    height: 27px;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: #9b9b9b;
+    padding-left: 8px;
+}
+
+.input-box:focus {
+    outline: none;
+    border: 1px solid #273EA5;
+    box-shadow: none;
+}
+
+.btn-certify-apply {
+    width: 110px;
+    height: 56px;
+    border-radius: 6px;
+    border: solid 1px #273ea5;
+    background-color: #273ea5;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    margin-left: 16px;
+    margin-top: 12px;
 }
 
 .btn-apply {
@@ -65,14 +139,13 @@ p {
 }
 
 .main-title {
-    width: 71px;
+    width: 75px;
     height: 29px;
-    text-align: left;
     font-family: NotoSansCJKkr;
     font-size: 20px;
     font-weight: 500;
-    font-style: normal;
     font-stretch: normal;
+    font-style: normal;
     line-height: normal;
     letter-spacing: -0.75px;
     color: #1c1c1c;
@@ -117,7 +190,7 @@ p {
 }
 
 .file-button-group {
-    padding-top: 196px;
+    padding-top: 250px;
 }
 
 .filebox {

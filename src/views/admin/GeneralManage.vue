@@ -4,7 +4,7 @@
             <div style="width: 1200px; margin-left: 70px;">
                 <div class="d-flex" style="margin-top: 30px">
                     <div>
-                        <p class="header">넥스터즈 새로운 기수 추가하기</p>
+                        <p class="header">넥스터즈 {{$route.params.sessionNumber}}기 관리 및 설정</p>
                     </div>
                     <div class="ml-auto">
                         <button class="btn-apply" @click="apply">
@@ -14,13 +14,23 @@
                 </div>
 
                 <div>
-                    <p class="header-sub">넥스터즈의 새로운 기수를 추가합니다. 로고를 추가할 수 있고, 아이디어 모집부터 팀빌딩 기간까지 날짜 설정이 가능합니다.
-                        나중에 추가도 가능합니다.</p>
+                    <p class="header-sub">현재 기수를 관리합니다. 모임모임 가입을 위한 인증코드 설정을 할 수 있습니다.
+                        로고를 추가하고 아이디어 모집부터 팀빌딩 기간을 설정하세요.</p>
+                </div>
+
+                <div class="certify">
+                    <p>인증코드 설정</p>
+                    <div class="flex">
+                        <input class="input-box" placeholder="인증코드를 입력해주세요" v-model="accessCode">
+                        <button v-on:click="updateCode" class="btn-certify-apply">
+                            적용하기
+                        </button>
+                    </div>
                 </div>
 
                 <div class="d-flex" style="margin-top: 70px">
                     <div>
-                        <p class="main-title">로고관리</p>
+                        <p class="main-title">로고 설정</p>
                     </div>
                 </div>
 
@@ -31,7 +41,6 @@
                             <label for="filename">로고변경</label>
                             <input type="file" id="filename" class="upload-hidden" @change="onFileChange($event)">
                         </div>
-                        <input type="button" value="삭제" class="file-delete-button" @change="onFileChange($event)">
                     </div>
                 </div>
 
@@ -143,6 +152,7 @@
     import {uploadFiles} from "../../api/FileAPI";
     import {getSession, putSession} from "../../api/sessionApi";
     import moment from 'moment';
+    import {getAuthCode, updateAuthCode} from "../../api/UserAPI";
 
     export default {
         data() {
@@ -162,7 +172,8 @@
                     {value: '3', text: '3'},
                     {value: '4', text: '4'}
                 ],
-                teamBuildingSwitch: true
+                teamBuildingSwitch: true,
+                accessCode: ''
             }
         },
         name: "ActiveUser",
@@ -199,7 +210,11 @@
                             }
                         });
                         this.teamBuildingSwitch = res.data.teamBuildingMode;
-                    })
+                    });
+                getAuthCode()
+                    .then(res => {
+                        this.accessCode = res.data.authenticationCode;
+                    });
             },
             apply() {
                 let body = {
@@ -229,6 +244,13 @@
                     .then(res => {
                         alert('적용완료!')
                     })
+            },
+            updateCode() {
+                updateAuthCode(this.accessCode)
+                    .then(res => {
+                        this.accessCode = res.data.authenticationCode;
+                        alert('성공적으로 업데이트 되었습니다.')
+                    });
             },
             startDateCheck(value) {
                 if (value === 'ideaVote') {

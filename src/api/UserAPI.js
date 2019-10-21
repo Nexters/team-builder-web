@@ -26,14 +26,14 @@ export function getActiveUsers({sessionNumber}) {
     return GET(`apis/sessions/${sessionNumber}/users`);
 }
 
-export function addActiveUsers(uuids) {
+export function addActiveUser(uuids) {
     let params = new URLSearchParams();
     params.append('uuids', uuids);
 
     return PUT(ACTIVE_USER_URL, params);
 }
 
-export function deleteActiveUsers(uuids) {
+export function deleteActiveUser(uuids) {
     let params = new URLSearchParams();
     params.append('uuids', uuids);
 

@@ -3,20 +3,11 @@
         <template v-slot:body>
             <div style="width: 1200px; margin-left: 70px;">
                 <div class="header">
-                    <p>인증코드 설정 및 전체 회원관리 설정</p>
+                    <p>회원관리 및 설정</p>
                 </div>
                 <div class="header-sub">
-                    <p>회원가입 시 입력하는 인증코드를 변경할 수 있어요. 또한, 전체회원 리스트에서 현재 활동기수 회원을 추가할 수 있어요.</p>
-                </div>
-
-                <div class="certify">
-                    <p>인증코드</p>
-                    <div class="flex">
-                        <input class="input-box" placeholder="인증코드를 입력해주세요" v-model="accessCode">
-                        <button v-on:click="updateCode" class="btn-certify-apply">
-                            적용하기
-                        </button>
-                    </div>
+                    <p>넥스터즈 모임모임에 가입한  회원의 정보를 확인할 수 있고, 현재기수 활동 여부를 설정할 수 있습니다.
+회원의 모임모임 활동내역을 체크해서 아이디어를 관리하세요 !</p>
                 </div>
 
                 <div class="user-manage-tab d-flex">
@@ -29,7 +20,7 @@
                             활동회원제거
                         </button>
                         <button class="btn-user-remove">
-                            회원제거
+                            회원 제명
                         </button>
                         <input type="search"
                                class="search-box"
@@ -51,27 +42,42 @@
                                         />
                                     </div>
                                 </div>
-                                <div class="flex title" style="width: 100px">
+                                <div class="title" style="width: 90px; text-align: center">
+                                    가입날짜
+                                    <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
+                                         v-on:click="sorting('createdAt')">
+                                </div>
+                                <div class="flex title" style="width: 90px; text-align: center">
                                     가입기수
                                     <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
-                                         v-on:click="sorting('id')">
+                                         v-on:click="sorting('nextersNumber')">
                                 </div>
-                                <div class="title" style="width: 86px">
+                                <div class="title" style="width: 80px; text-align: center">
                                     직군
                                     <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
                                          v-on:click="sorting('position')">
                                 </div>
-                                <div class="title" style="width: 86px">이름</div>
-                                <div class="title" style="width: 594px">아이디</div>
-                                <div class="title" style="width: 135px; margin-left: 25px">
+                                <div class="title" style="width: 76px; margin-left: 10px">이름</div>
+                                <div class="title" style="width: 186px">아이디</div>
+                                <div class="title" style="width: 122px">
+                                    아이디어 작성여부
+                                    <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
+                                         v-on:click="sorting('submitIdea')">
+                                </div>
+                                <div class="title" style="width: 122px; margin-left: 18px">
+                                    아이디어 투표여부
+                                    <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
+                                         v-on:click="sorting('voted')">
+                                </div>
+                                <div class="title" style="width: 122px; margin-left: 24px">
+                                    팀빌딩 여부
+                                    <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
+                                         v-on:click="sorting('hasTeam')">
+                                </div>
+                                <div class="title" style="width: 173px; padding-left: 75px">
                                     활동여부
                                     <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
-                                         v-on:click="sorting('isActive')">
-                                </div>
-                                <div class="title" style="width: 91px; margin-left: 5px">
-                                    가입날짜
-                                    <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
-                                         v-on:click="sorting('joinDate')">
+                                         v-on:click="sorting('activated')">
                                 </div>
                             </div>
 
@@ -79,7 +85,7 @@
                                 <tbody>
                                 <tr class="list" v-for="user in filteredUsers" :key="user.id">
                                     <td class="flex"
-                                        style="width: 78px; height: 20px; padding-left: 26px; padding-bottom: 2px">
+                                        style="width: 70px; height: 20px; padding-left: 26px; padding-bottom: 2px">
                                         <div class="custom-checkbox">
                                             <b-form-checkbox
                                                     :value="user.uuid"
@@ -89,34 +95,58 @@
                                             />
                                         </div>
                                     </td>
-                                    <td style="width: 100px">
-                                        <div class="row-item" style="margin-left: 27px">{{user.nextersNumber}}</div>
+
+                                    <td style="width: 80px; text-align: center">
+                                        <div class="row-item" style="font-weight: 500">{{ user.createdAt | formatDate }}
+                                        </div>
                                     </td>
-                                    <td style="width: 86px;">
-                                        <div v-if="user.position === 'DEVELOPER'" class="row-item" style="width: 100px">
+                                    <td style="width: 76px; text-align: center">
+                                        <div class="row-item">{{user.nextersNumber}}</div>
+                                    </td>
+                                    <td style="width: 74px; text-align: center">
+                                        <div v-if="user.position === 'DEVELOPER'" class="row-item">
                                             개발자
                                         </div>
-                                        <div v-else-if="user.position === 'DESIGNER'" class="row-item"
-                                             style="width: 100px">디자이너
+                                        <div v-else-if="user.position === 'DESIGNER'" class="row-item">
+                                            디자이너
                                         </div>
                                     </td>
-                                    <td style="width: 86px;">
-                                        <div class="row-item" style="width: 86px">{{user.name}}</div>
+                                    <td style="width: 76px; padding-left: 10px">
+                                        <div class="row-item">{{user.name}}</div>
                                     </td>
-                                    <td style="width: 594px;">
-                                        <div class="row-item" style="width: 594px">{{user.id}}</div>
+                                    <td style="width: 166px">
+                                        <div class="row-item">{{user.id}}</div>
                                     </td>
-                                    <td style="width: 160px;">
-                                        <div v-if="user.activated" class="row-item select-box">
+                                    <td style="width: 120px;">
+                                        <div v-if="user.submitIdea" class="row-item select-box">
+                                            <p>작성</p>
+                                        </div>
+                                        <div v-else class="row-item unselect-box">
+                                            <p>미작성</p>
+                                        </div>
+                                    </td>
+                                    <td style="width: 120px; margin-left: 20px">
+                                        <div v-if="user.voted" class="row-item select-box">
+                                            <p>투표</p>
+                                        </div>
+                                        <div v-else class="row-item unselect-box">
+                                            <p>미투표</p>
+                                        </div>
+                                    </td>
+                                    <td style="width: 120px; margin-left: 20px">
+                                        <div v-if="user.hasTeam" class="row-item select-box">
                                             <p>활동</p>
                                         </div>
                                         <div v-else class="row-item unselect-box">
                                             <p>비활동</p>
                                         </div>
                                     </td>
-                                    <td style="width: 96px;">
-                                        <div class="row-item" style="width: 96px">{{ user.createdAt | formatDate }}
-                                        </div>
+                                    <td style="width: 163px; padding-left: 87px; margin-right: 32px">
+                                        <toggle-button :value="user.activated"
+                                                       :width="54"
+                                                       :height="32"
+                                                       color="#ff5000"
+                                                       @change="userActivate(user.uuid, $event.value)"/>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -131,7 +161,11 @@
 
 <script>
     import Layout from '@/components/common/layout/Layout';
-    import {addActiveUsers, deleteActiveUsers, getAllUsers, getAuthCode, updateAuthCode} from "../../api/UserAPI";
+    import {
+        addActiveUser,
+        deleteActiveUser,
+        getAllUsers
+    } from "../../api/UserAPI";
     import Vue from 'vue';
     import moment from 'moment';
 
@@ -143,11 +177,13 @@
                 users: [],
                 userViewList: [],
                 search: '',
-                sortActiveSessionASC: false,
+                sortCreatedAtASC: false,
+                sortNextersNumberASC: false,
                 sortPositionASC: false,
-                sortIsActiveASC: false,
-                sortJoinDateASC: false,
-                accessCode: '',
+                sortSubmitIdeaASC: false,
+                sortVotedASC: false,
+                sortHasTeamASC: false,
+                sortActivatedASC: false,
                 selected: [],
                 allSelected: false,
             }
@@ -158,22 +194,10 @@
                 getAllUsers()
                     .then(res => {
                         this.users = this.userViewList = res.data;
-                        console.log(this.users)
-                    });
-                getAuthCode()
-                    .then(res => {
-                        this.accessCode = res.data.authenticationCode;
-                    })
-            },
-            updateCode() {
-                updateAuthCode(this.accessCode)
-                    .then(res => {
-                        this.accessCode = res.data.authenticationCode;
-                        alert('성공적으로 업데이트 되었습니다.')
                     });
             },
             addActiveUsers() {
-                addActiveUsers(this.selected)
+                addActiveUser(this.selected)
                     .then(res => {
                         alert(this.selected.length + '명의 활동회원을 추가하였습니다.');
                         this.loadAllUsers();
@@ -182,7 +206,7 @@
                     });
             },
             deleteActiveUsers() {
-                deleteActiveUsers(this.selected)
+                deleteActiveUser(this.selected)
                     .then(res => {
                         alert(this.selected.length + '명의 활동회원을 제거하였습니다.');
                         this.loadAllUsers();
@@ -211,18 +235,27 @@
             },
             sorting(by) {
                 let isAsc = true;
-                if (by === 'id') {
-                    this.sortActiveSessionASC = !this.sortActiveSessionASC;
-                    isAsc = this.sortActiveSessionASC
+                if (by === 'createdAt') {
+                    this.sortCreatedAtASC = !this.sortCreatedAtASC;
+                    isAsc = this.sortCreatedAtASC
+                } else if (by === 'nextersNumber') {
+                    this.sortNextersNumberASC = !this.sortNextersNumberASC;
+                    isAsc = this.sortNextersNumberASC
                 } else if (by === 'position') {
                     this.sortPositionASC = !this.sortPositionASC;
                     isAsc = this.sortPositionASC
-                } else if (by === 'isActive') {
-                    this.sortIsActiveASC = !this.sortIsActiveASC;
-                    isAsc = this.sortIsActiveASC
-                } else if (by === 'joinDate') {
-                    this.sortJoinDateASC = !this.sortJoinDateASC;
-                    isAsc = this.sortJoinDateASC
+                } else if (by === 'submitIdea') {
+                    this.sortSubmitIdeaASC = !this.sortSubmitIdeaASC;
+                    isAsc = this.sortSubmitIdeaASC
+                } else if (by === 'voted') {
+                    this.sortVotedASC = !this.sortVotedASC;
+                    isAsc = this.sortVotedASC
+                } else if (by === 'hasTeam') {
+                    this.sortHasTeamASC = !this.sortHasTeamASC;
+                    isAsc = this.sortHasTeamASC
+                } else if (by === 'activated') {
+                    this.sortActivatedASC = !this.sortActivatedASC;
+                    isAsc = this.sortActivatedASC
                 }
 
                 this.users = this.users.sort((idea1, idea2) => {
@@ -237,6 +270,18 @@
                         if (position1 > position2) return -1;
                     }
                 })
+            },
+            userActivate(id, activated) {
+                console.log(id)
+                if (activated) {
+                    addActiveUser(id)
+                        .then(res => console.log(res))
+                        .catch(err => console.log(err))
+                } else {
+                    deleteActiveUser(id)
+                        .then(res => console.log(res))
+                        .catch(err => console.log(err))
+                }
             },
             filtering() {
                 // 한글
