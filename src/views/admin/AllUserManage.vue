@@ -135,10 +135,10 @@
                                     </td>
                                     <td style="width: 120px; margin-left: 20px">
                                         <div v-if="user.hasTeam" class="row-item select-box">
-                                            <p>활동</p>
+                                            <p>완료</p>
                                         </div>
                                         <div v-else class="row-item unselect-box">
-                                            <p>비활동</p>
+                                            <p>미완료</p>
                                         </div>
                                     </td>
                                     <td style="width: 163px; padding-left: 87px; margin-right: 32px">
