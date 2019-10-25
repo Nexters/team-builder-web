@@ -1,0 +1,77 @@
+.session {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 70px;
+}
+
+.session-info-wrap {
+    width: 1200px;
+    height: 400px;
+    background-color: white;
+    display: flex;
+}
+
+.session-info-main {
+    width: 418px;
+    height: 100%;
+    text-align: left;
+}
+
+.session-info-title {
+    width: 284px;
+    height: 118px;
+    font-family: NotoSansCJKkr;
+    font-size: 40px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -3px;
+    color: #000000;
+    text-align: left;
+    margin-top: 66px;
+}
+
+.session-info-sub-title {
+    width: 316px;
+    height: 24px;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.6px;
+    color: #1c1c1c;
+    margin-top: 16px;
+}
+
+.session-info-button {
+    width: 240px;
+    height: 64px;
+    border-radius: 6px;
+    background-color: #ff5000;
+    font-family: NotoSansCJKkr;
+    font-size: 22px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #ffffff;
+    margin-top: 39px;
+}
+
+.session-info-image-wrap {
+    width: 560px;
+    height: 100%;
+    margin-left: 221px;
+}
+
+.session-info-image {
+    width: 511px;
+    height: 292px;
+    margin: 66px 43px 0 0;
+}

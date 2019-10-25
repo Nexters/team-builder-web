@@ -89,9 +89,9 @@ export default new Router({
         },
         {
             path: '/session/:sessionNumber/user-manage',
-            name: 'ActiveUserManage',
+            name: 'TeamBuildingManage',
             beforeEnter: requireAuth(),
-            component: () => import(/* webpackChunkName: "Main" */ './views/admin/ActiveUserManage.vue'),
+            component: () => import(/* webpackChunkName: "Main" */ './views/admin/TeamBuildingManage.vue'),
         },
         {
             path: '*',
