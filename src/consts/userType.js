@@ -18,5 +18,5 @@ export const GET_ME_INFO =  process.env.VUE_APP_API_URL + '/apis/me';
 export const AUTH_CODE_URL = process.env.VUE_APP_API_URL + '/apis/commons';
 export const ALL_USER_URL = process.env.VUE_APP_API_URL + '/apis/users';
 
-export const ACTIVE_USER_URL = process.env.VUE_APP_API_URL + '/apis/users/activate';
-export const DEACTIVE_USER_URL = process.env.VUE_APP_API_URL + '/apis/users/deactivate';
+export const ACTIVE_USER_URL = process.env.VUE_APP_API_URL + '/apis/users/{0}/activate';
+export const DEACTIVE_USER_URL = process.env.VUE_APP_API_URL + '/apis/users/{0}/deactivate';
