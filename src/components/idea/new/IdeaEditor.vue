@@ -57,8 +57,8 @@
                 ideaTitle: this.idea.ideaTitle,
                 editorText: this.idea.editorText,
                 editorOptions: {
-                    height: '400px',
-                    minHeight: '400px',
+                    height: '370px',
+                    minHeight: '370px',
                     language: 'ko_kr',
                     useCommandShortcut: true,
                     useDefaultHTMLSanitizer: true,

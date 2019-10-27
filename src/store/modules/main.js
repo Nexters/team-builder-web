@@ -456,6 +456,10 @@ const store = {
             return getIdea(ideaId);
         },
 
+        [ACTIONS.DELETE_IDEA]: (context, {idea}) => {
+            return deleteIdea(idea.ideaId);
+        },
+
         [ACTIONS.DELETE_IDEAS]: (context, ideas) => {
             ideas.forEach(function (idea) {
                 deleteIdea(idea.ideaId);
@@ -507,7 +511,7 @@ const store = {
                 .then((s) => {
                     console.log(s);
                 })
-        }
+        },
     }
 };
 
