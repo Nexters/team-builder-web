@@ -6,6 +6,8 @@ const store = {
 
         showConfirm: false,
         confirmMessage: '',
+        confirmYesButtonText: '',
+        confirmNoButtonText: '',
         confirmYesFunction: null,
         confirmNoFunction: null
     },
@@ -21,16 +23,20 @@ const store = {
             state.alertMessage = '';
         },
 
-        showConfirm: (state, {confirmMessage, confirmYesFunction, confirmNoFunction}) => {
-            state.showComfirm = true;
+        showConfirm: (state, {confirmMessage, confirmYesButtonText, confirmNoButtonText, confirmYesFunction, confirmNoFunction}) => {
+            state.showConfirm = true;
             state.confirmMessage = confirmMessage;
+            state.confirmYesButtonText = confirmYesButtonText;
+            state.confirmNoButtonText = confirmNoButtonText;
             state.confirmYesFunction = confirmYesFunction;
             state.confirmNoFunction = confirmNoFunction;
         },
 
         closeConfirm: (state) => {
-            state.showComfirm = false;
+            state.showConfirm = false;
             state.confirmMessage = '';
+            state.confirmYesButtonText = '';
+            state.confirmNoButtonText = '';
             state.confirmYesFunction = null;
             state.confirmNoFunction = null;
         }

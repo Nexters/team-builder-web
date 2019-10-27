@@ -48,6 +48,7 @@
 <script>
     import {SlideXLeftTransition} from 'vue2-transitions';
     import {DEFAULT_LOGO_URL} from '@/consts/common';
+    import {ACTIONS} from '@/store/types';
 
     export default {
         name: "LayoutGnb",
@@ -110,8 +111,20 @@
              * 새로운 기수 추가
              */
             createNewSession() {
-                //TODO: 새로운 기수 생성시 이동 => url 수정필요 (새 기수 생성페이지)
-                this.$router.push({path: `/session/${this.sessionNumber}/general-manage`});
+                this.$store.commit('common/showConfirm', {
+                    confirmMessage: '기수를 추가하시면 지난 기수의\n' +
+                                    '일정관리는 불가능 합니다.\n' +
+                                    '새로운 기수를 추가 하시겠어요?',
+                    confirmYesButtonText: '만들기',
+                    confirmNoButtonText: '취소',
+                    confirmNoFunction: null,
+                    confirmYesFunction: () => {
+                        //TODO: 세션 생성하고 해당 세션으로 데이터 갱신 후 일반관리로 페이지로 이동
+                        // this.$store.dispatch(`main/${ACTIONS.CREATE_SESSION}`);
+                        // this.$router.push({path: `/session/${this.sessionNumber}/general-manage`});
+                    }
+                });
+                //
             }
         },
 

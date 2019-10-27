@@ -2,15 +2,17 @@
     <div id="app">
         <router-view/>
         <Alert />
+        <Confirm />
     </div>
 </template>
 
 <script>
     import Alert from '@/components/common/modal/Alert';
+    import Confirm from '@/components/common/modal/Confirm';
 
     export default {
         name: "App",
-        components: {Alert},
+        components: {Confirm, Alert},
     }
 </script>
 
