@@ -40,6 +40,11 @@
 
         methods: {
             moveNewIdea() {
+                if (!this.$store.state.auth.activated) {
+                    this.$store.commit('common/showAlert', {alertMessage: '해당 기수에 대한 권한이 없어요.\n운영진에게 해당 기수에 추가 요청하세요.'});
+                    return;
+                }
+
                 this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/new`});
             }
         }
