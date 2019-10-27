@@ -18,14 +18,34 @@
         name: "SessionInfoDDay",
         data() {
             return {
-                stateMessage: '',
                 ddayMessage: '',
                 nowPeriod: this.$store.state.main.nowPeriod,
             }
         },
-        created() {
-            this.stateMessage = this.nowPeriod === PERIOD_TYPE.IDEA_COLLECT ? '미제출' : '미투표';
 
+        computed: {
+            stateMessage() {
+                /**
+                 * 아이디어 모집기간
+                 */
+                if (this.nowPeriod.periodType === PERIOD_TYPE.IDEA_COLLECT) {
+                    if (this.$store.state.auth.submitIdea) {
+                        return '작성완료';
+                    }
+                    return '미작성';
+                }
+
+                /**
+                 * 아이디어 투표기간
+                 */
+                if (this.$store.state.auth.voted) {
+                    return '투표완료';
+                }
+                return '미투표';
+            }
+        },
+
+        created() {
             const endDate = moment(this.nowPeriod.endDate);
             const nowDate = moment();
             const remainDayNumber = moment(endDate, 'YYYY-MM').diff(nowDate, 'day');
@@ -43,7 +63,7 @@
             }
 
             this.ddayMessage = `마감까지 ${remainDay} ${remainHour} 남았습니다.`;
-        }
+        },
     }
 </script>
 
@@ -61,7 +81,7 @@
     }
 
     .apply-state-massage {
-        width: 43px;
+        width: 60px;
         font-family: NotoSansCJKkr;
         padding: 2px 0px 0px 0px;
         font-size: 16px;

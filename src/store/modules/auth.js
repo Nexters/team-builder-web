@@ -9,6 +9,7 @@ import {
     SET_UUID, SET_ACTIVATED
 } from "../../consts/userType";
 import {ROLL_TYPE} from '@/consts/rollType';
+import {SET_EMAIL, SET_HAS_TEAM, SET_SUBMIT_IDEA, SET_VOTE_COUNT, SET_VOTED} from '@/consts/userType';
 
 const store = {
     state: {
@@ -21,6 +22,11 @@ const store = {
         auth: false,
         token: '',
         uuid: '',
+        email: '',
+        hasTeam: false,
+        submitIdea: false,
+        voteCount: 0,
+        voted: false
     },
     getters: {
         getId(state) {
@@ -81,7 +87,22 @@ const store = {
         },
         [SET_UUID](state, uuid) {
             state.uuid = uuid;
-        }
+        },
+        [SET_EMAIL](state, email) {
+            state.email = email;
+        },
+        [SET_HAS_TEAM](state, hasTeam) {
+            state.hasTeam = hasTeam;
+        },
+        [SET_SUBMIT_IDEA](state, submitIdea) {
+            state.submitIdea = submitIdea;
+        },
+        [SET_VOTE_COUNT](state, voteCount) {
+            state.voteCount = voteCount;
+        },
+        [SET_VOTED](state, voted) {
+            state.voted = voted;
+        },
     }
 };
 

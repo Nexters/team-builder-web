@@ -25,7 +25,6 @@
         },
         data() {
             return {
-
             }
         },
 
@@ -44,5 +43,8 @@
         font-family: NotoSansCJKkr;
         padding: 20px;
         text-align: left;
+
+        overflow-x: scroll;
+        max-height: 370px;
     }
 </style>

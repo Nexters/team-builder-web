@@ -37,9 +37,15 @@
                         </div>
                     </div>
 
-                    <button class="idea-detail-move-list-button" @click="moveSession">
-                        <span class="idea-detail-move-list-button-span">목록으로</span>
-                    </button>
+                    <div class="buttons-wrap">
+                        <button v-if="availableRemoveIdea" class="idea-detail-remove-button" @click="removeIdea">
+                            <span class="idea-detail-remove-button-span">삭제하기</span>
+                        </button>
+
+                        <button class="idea-detail-move-list-button" @click="moveSession">
+                            <span class="idea-detail-move-list-button-span">목록으로</span>
+                        </button>
+                    </div>
                 </div>
 
                 <div v-show="showNextButton" class="next-button-wrap" @click="moveNextIdeaDetail">
@@ -110,7 +116,19 @@
 
             showFile() {
                 return this.nowPeriodType === PERIOD_TYPE.IDEA_CHECK || this.nowPeriodType === PERIOD_TYPE.TEAM_BUILDING;
-            }
+            },
+
+            isAdmin() {
+                return this.$store.getters.isAdmin;
+            },
+
+            isOwner() {
+                return this.$store.getters.getUuid === this.idea.author.uuid;
+            },
+
+            availableRemoveIdea() {
+                return this.isAdmin || this.isOwner;
+            },
         },
 
         methods: {
@@ -134,6 +152,27 @@
                 this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${nextIdeaId}`});
                 this.ideaId = nextIdeaId;
                 this.getIdeaDetail();
+            },
+
+            removeIdea() {
+                this.$store.commit('common/showConfirm', {
+                    confirmMessage: '아이디어를 삭제하시겠어요?',
+                    confirmYesButtonText: '삭제',
+                    confirmNoButtonText: '취소',
+                    confirmNoFunction: null,
+                    confirmYesFunction: () => {
+                        this.$store.dispatch(`main/${ACTIONS.DELETE_IDEA}`, {idea: this.idea})
+                            .then(() => {
+                                this.$store.commit('common/showAlert', {alertMessage: '아이디어가 삭제되었습니다.'});
+                                setTimeout(() => {
+                                    this.$store.commit('common/closeAlert');
+                                    this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}`});
+                                }, 1000);
+                            });
+                    }
+                });
+
+
             },
 
             moveSession() {
@@ -209,10 +248,32 @@
         color: #000000;
     }
 
+    .buttons-wrap {
+        width: 100%;
+        text-align: right;
+    }
+
+    .idea-detail-remove-button {
+        width: 200px;
+        height: 57px;
+        margin: 54px 0px 143px 0px;
+        border-radius: 6px;
+        background-color: #4a4a4a;
+    }
+
+    .idea-detail-remove-button-span {
+        width: 63px;
+        height: 27px;
+        font-family: NotoSansCJKkr;
+        font-size: 18px;
+        letter-spacing: -0.82px;
+        color: #ffffff;
+    }
+
     .idea-detail-move-list-button {
         width: 200px;
         height: 57px;
-        margin: 14px 0px 143px 1000px;
+        margin: 54px 0px 143px 20px;
         border-radius: 6px;
         background-color: #273ea5;
     }

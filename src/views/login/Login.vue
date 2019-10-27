@@ -55,6 +55,7 @@
         SET_TOKEN, SET_UUID
     } from "../../consts/userType";
     import MobileGuide from '@/components/common/MobileGuide';
+    import {SET_EMAIL, SET_HAS_TEAM, SET_SUBMIT_IDEA, SET_VOTE_COUNT, SET_VOTED} from '@/consts/userType';
 
     export default {
         name: 'Login',
@@ -103,6 +104,13 @@
                 this.$store.commit(SET_AUTH, true);
                 this.$store.commit(SET_TOKEN, token);
                 this.$store.commit(SET_UUID, info.uuid);
+
+                this.$store.commit(SET_EMAIL, info.email);
+                this.$store.commit(SET_HAS_TEAM, info.hasTeam);
+                this.$store.commit(SET_SUBMIT_IDEA, info.submitIdea);
+                this.$store.commit(SET_VOTE_COUNT, info.voteCount);
+                this.$store.commit(SET_VOTED, info.voted);
+
                 this.$router.push({
                     path: '/session/latest'
                 })

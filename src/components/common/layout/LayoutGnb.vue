@@ -124,7 +124,6 @@
                         // this.$router.push({path: `/session/${this.sessionNumber}/general-manage`});
                     }
                 });
-                //
             }
         },
 
