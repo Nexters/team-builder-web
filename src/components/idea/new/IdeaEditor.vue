@@ -4,7 +4,7 @@
             <div class="new-idea-title-wrap">
                 <input class="new-idea-title-contents"
                        v-model.trim="ideaTitle"
-                       placeholder="아이디어를 한문장으로 요약해주세요."
+                       :placeholder="ideaPlaceholder"
                        ref="ideaTitle"
                        maxlength="35"
                        :class="{'on-typing-title': !!ideaTitle}"
@@ -37,6 +37,7 @@
     import { ACTIONS } from '@/store/types';
     import {createNamespacedHelpers} from 'vuex';
     import {uploadFiles} from '@/api/FileAPI';
+    import {IDEA_TYPE} from '@/consts/IdeaType';
     const { mapActions } = createNamespacedHelpers('main');
 
     export default {
@@ -79,6 +80,12 @@
             }
         },
 
+        computed: {
+            ideaPlaceholder() {
+                return this.$store.getters.isAdmin ? '공지사항 제목을 입력해주세요.' : '아이디어를 한문장으로 요약해주세요.';
+            }
+        },
+
         methods: {
             ...mapActions({
                 createNewIdea: ACTIONS.CREATE_NEW_IEDA,
@@ -97,7 +104,7 @@
                     sessionId: this.$store.state.main.session.sessionId,
                     tags: this.selectedTags.map(selectedTag => selectedTag.tagId),
                     title: this.ideaTitle,
-                    type: this.$store.getters.isAdmin ? '' : 'IDEA',
+                    type: this.$store.getters.isAdmin ? IDEA_TYPE.NOTICE : IDEA_TYPE.IDEA,
                 };
 
                 //기존 아이디어 수정

@@ -125,10 +125,7 @@
                         };
 
                         if (!this.availableEditIdea) {
-                            this.$alert('접근권한이 없습니다.', '아이디어 수정', {
-                                    confirmButtonText: '확인'
-                                }
-                            );
+                            this.$store.commit('common/showAlert', {alertMessage: '접근권한이 없어요.'});
                             this.$router.push({path: '/'});
                         }
                     })
