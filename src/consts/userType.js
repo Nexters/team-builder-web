@@ -10,6 +10,12 @@ export const SET_AUTH = 'setAuth';
 export const SET_TOKEN = 'setToken';
 export const SET_UUID = 'setUuid';
 
+export const SET_EMAIL = 'setEmail';
+export const SET_HAS_TEAM = 'setHasTeam';
+export const SET_SUBMIT_IDEA = 'setSubmitIdea';
+export const SET_VOTE_COUNT = 'setVoteCount';
+export const SET_VOTED = 'setVoted';
+
 export const LOGIN_URL =  process.env.VUE_APP_API_URL + '/users/sign-in';
 export const SIGNUP_URL =  process.env.VUE_APP_API_URL + '/users/sign-up';
 export const ID_DUPLICATE_CHECK_URL =  process.env.VUE_APP_API_URL + '/users/check-id';
