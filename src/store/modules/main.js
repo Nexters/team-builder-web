@@ -155,6 +155,10 @@ const store = {
 
         [GETTERS.SELECTED_IDEA_LIST_LENGTH]: (state) => {
             return state.ideaList.filter(idea => idea.selected).length;
+        },
+
+        [GETTERS.GET_VOTED_IDEAS]: (state) => {
+            return state.session.votedIdeas;
         }
     },
 

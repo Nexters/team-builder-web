@@ -110,8 +110,8 @@
                              v-show="inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
                     </div>
                     <div v-show="voteDone" class="on">
-                        <img src="@/assets/img/voteEnd.png" v-show="!inSelectedIdeas(idea.ideaId)" style="cursor: default">
-                        <img src="@/assets/img/ideaVoteCheck.png" v-show="inSelectedIdeas(idea.ideaId)">
+                        <img src="@/assets/img/voteEnd.png" v-show="!votedIdea(idea.ideaId)" style="cursor: default">
+                        <img src="@/assets/img/ideaVoteCheck.png" v-show="votedIdea(idea.ideaId)">
                     </div>
                 </div>
 
@@ -132,9 +132,6 @@
   import {ACTIONS, GETTERS} from "@/store/types";
   import {createNamespacedHelpers} from 'vuex';
   const {mapActions, mapGetters, mapState} = createNamespacedHelpers('main');
-
-  // 투표 api 나오면 제거
-  import { EventBus } from '@/components/common/sessionInfo/SessionInfoIdeaVote';
 
   export default {
     name: "IdeaListVoteAndCheck",
@@ -184,16 +181,24 @@
         return this.candidateIdeas.findIndex(idea => (idea.ideaId === id)) > -1;
       },
 
+      votedIdea(id) {
+        return this.votedIdeas.findIndex(idea => (idea.ideaId === id)) > -1;
+      }
+
     },
 
     computed:  {
-      ...mapState([
-        'ideaList',
-      ]),
+      ...mapState({
+        ideaList : 'ideaList',
+        candidateIdeas: 'candidateIdeas',
+        maxVoteCount: 'maxVoteCount',
+
+      }),
 
       ...mapGetters({
         ideaListResult: GETTERS.GET_LIST,
         nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
+        votedIdeas: GETTERS.GET_VOTED_IDEAS,
 
       }),
 
@@ -201,13 +206,7 @@
           return this.$store.state.auth.voted;
       },
 
-      candidateIdeas() {
-        return this.$store.state.main.candidateIdeas
-      },
 
-      maxVoteCount() {
-        return this.$store.state.main.session.maxVoteCount;
-      },
     }
   }
 
