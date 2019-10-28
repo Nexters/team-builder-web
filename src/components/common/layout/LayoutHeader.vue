@@ -14,18 +14,6 @@
                     <div v-show="mode === 'TEAMBUILDING'" class="mode-team-building-bar"></div>
                 </div>
 
-                <template v-if="isAdmin">
-                    <div class="mode-team-admin-bar"></div>
-                    <div class="contents-mode">
-                        <button @click="moveToUserManage" class="mode-user-manage" :class="{'on': mode === USER_MANAGE}">회원관리</button>
-                        <div v-show="mode === USER_MANAGE" class="mode-team-building-bar" style="width: 63px"></div>
-                    </div>
-
-                    <div class="contents-mode" style="margin-left: 48.5px; margin-right: 100%">
-                        <button @click="moveToGeneralManage" class="mode-general-manage" :class="{'on': mode === GENERAL_MANAGE}">일반관리</button>
-                        <div v-show="mode === GENERAL_MANAGE" class="mode-team-building-bar" style="width: 63px"></div>
-                    </div>
-                </template>
             </div>
 
             <div class="header-period" :class="{'now' : nowPeriodType === PERIOD_TYPE.IDEA_COLLECT}">
@@ -65,8 +53,6 @@
             return {
                 mode: 'IDEA',
                 // mode: 'TEAMBUILDING',
-                // mode: USER_MANAGE,
-                // mode: GENERAL_MANAGE,
 
                 PERIOD_TYPE: {
                     IDEA_COLLECT: PERIOD_TYPE.IDEA_COLLECT,
@@ -114,13 +100,6 @@
                     }
                 )
             },
-            moveToUserManage() {
-                this.$router.push({path: `/session/${this.sessionNumber}/user-manage`});
-            },
-            moveToGeneralManage() {
-                this.$router.push({path: `/session/${this.sessionNumber}/general-manage`});
-            },
-
             mouseroverPeriod(mouseoverPeriodType) {
                 const period = this.periods.find(period => period.periodType === mouseoverPeriodType);
                 switch (mouseoverPeriodType) {
@@ -241,33 +220,6 @@
         width: 47px;
         height: 2px;
         background-color: #273ea5;
-    }
-
-    .mode-team-admin-bar {
-        width: 3px; /*2px은 노출이 안*/
-        height: 18px;
-        background-color: #d8d8d8;
-        margin: 30.5px 32.5px 23.5px 50px;
-    }
-
-    .mode-user-manage {
-        width: 63px;
-        height: 27px;
-        margin: 26px 6px 17px 0px;
-        font-family: NotoSansCJKkr;
-        font-size: 18px;
-        letter-spacing: -1px;
-        color: #9b9b9b;
-    }
-
-    .mode-general-manage {
-        width: 63px;
-        height: 27px;
-        margin: 26px 6px 17px 0px;
-        font-family: NotoSansCJKkr;
-        font-size: 18px;
-        letter-spacing: -1px;
-        color: #9b9b9b;
     }
 
     .header-period {
