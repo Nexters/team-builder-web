@@ -103,13 +103,13 @@
                 </div>
                 <!-- 투표 이미지 -->
                 <div v-show="nowPeriodType === 'IDEA_VOTE'" class="idea-button">
-                    <div v-show="!getVoteDone">
+                    <div v-show="!voteDone">
                         <img src="@/assets/img/group@2x.png"
                              v-show="!inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
                         <img src="@/assets/img/idea-minus.png"
                              v-show="inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
                     </div>
-                    <div v-show="getVoteDone" class="on">
+                    <div v-show="voteDone" class="on">
                         <img src="@/assets/img/voteEnd.png" v-show="!inSelectedIdeas(idea.ideaId)" style="cursor: default">
                         <img src="@/assets/img/ideaVoteCheck.png" v-show="inSelectedIdeas(idea.ideaId)">
                     </div>
@@ -138,14 +138,6 @@
 
   export default {
     name: "IdeaListVoteAndCheck",
-
-    // 투표 api 나오면 제거
-    data() {
-      return {
-        voteDone: false,
-      }
-    },
-    //
 
     methods: {
       viewAllTags(event) {
@@ -205,6 +197,10 @@
 
       }),
 
+      voteDone() {
+          return this.$store.state.auth.voted;
+      },
+
       candidateIdeas() {
         return this.$store.state.main.candidateIdeas
       },
@@ -212,15 +208,6 @@
       maxVoteCount() {
         return this.$store.state.main.session.maxVoteCount;
       },
-
-      // 여기도 제거
-      getVoteDone() {
-        EventBus.$on('voteDone', (voteDone) => {
-          this.voteDone = voteDone;
-        })
-        return this.voteDone;
-      },
-      //
     }
   }
 
