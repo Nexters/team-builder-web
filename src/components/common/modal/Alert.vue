@@ -70,9 +70,12 @@
     }
 
     .alertMessageTextWrap {
-        margin: 60px 122px 0px 122px;
+        margin: 0px 122px;
         width: 356px;
-        height: 66px;
+        height: 202px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .alertMessageText {
@@ -85,7 +88,6 @@
     }
 
     .alertCloseButton {
-        margin-top: 76px;
         width: 240px;
         height: 64px;
         border-radius: 6px;

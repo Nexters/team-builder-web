@@ -24,6 +24,7 @@
 
     import { ACTIONS } from '@/store/types';
     import {createNamespacedHelpers} from 'vuex';
+    import {RELOAD_AUTH} from '@/consts/userType';
     const { mapActions } = createNamespacedHelpers('main');
 
     export default {
@@ -53,7 +54,10 @@
         created() {
             const sessionNumber = this.$route.params.sessionNumber || this.$store.state.main.session.sessionNumber;
             this.loadInitData({sessionNumber: sessionNumber})
-                .then(() => this.loading = false)
+                .then(() => {
+                    this.loading = false;
+                    this.$store.commit(RELOAD_AUTH);
+                })
                 .catch(err => console.log(err)); //TODO 데이터 초기화 실패
         }
     }

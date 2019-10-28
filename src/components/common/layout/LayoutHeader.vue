@@ -118,12 +118,8 @@
                 this.$router.push({path: `/session/${this.sessionNumber}`});
             },
             moveToTeamBuilding() {
-                // 오픈준비중
                 // this.$router.push({path: `/session/${this.$route.params.sessionNumber}/teambuilding`});
-                this.$alert('오픈 준비중입니다.', '팀빌딩', {
-                        confirmButtonText: '확인'
-                    }
-                )
+                this.$store.commit('common/showAlert', {alertMessage: '오픈 준비중 입니다.'});
             },
 
             moveToUserManage() {

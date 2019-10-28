@@ -9,6 +9,7 @@ export const SET_POSITION = 'setPosition';
 export const SET_AUTH = 'setAuth';
 export const SET_TOKEN = 'setToken';
 export const SET_UUID = 'setUuid';
+export const RELOAD_AUTH = 'RELOAD_AUTH';
 
 export const SET_EMAIL = 'setEmail';
 export const SET_HAS_TEAM = 'setHasTeam';

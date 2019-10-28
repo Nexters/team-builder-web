@@ -83,10 +83,13 @@
     }
 
     .confirmMessageTextWrap {
-        margin: 60px 91px 0px 91px;
+        margin: 0px 91px;
         width: 418px;
-        height: 99px;
+        height: 202px;
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .confirmMessageText {
@@ -136,6 +139,6 @@
     }
 
     .confirm-button-group {
-        margin: 43px 85px 0px 85px;
+        margin: 0px 85px;
     }
 </style>

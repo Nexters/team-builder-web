@@ -38,6 +38,7 @@
     import {createNamespacedHelpers} from 'vuex';
     import {uploadFiles} from '@/api/FileAPI';
     import {IDEA_TYPE} from '@/consts/IdeaType';
+    import {RELOAD_AUTH} from '@/consts/userType';
     const { mapActions } = createNamespacedHelpers('main');
 
     export default {
@@ -115,6 +116,8 @@
                         ideaId: this.idea.ideaId
                     })
                     .then(res => {
+                        this.$store.commit(RELOAD_AUTH);
+
                         const ideaId = res.data.ideaId;
                         this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${ideaId}`});
                     })
@@ -126,6 +129,8 @@
                         ...data
                     })
                     .then(res => {
+                        this.$store.commit(RELOAD_AUTH);
+
                         const ideaId = res.data.ideaId;
                         this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${ideaId}`});
                     })
