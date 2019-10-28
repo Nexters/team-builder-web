@@ -61,6 +61,9 @@ const store = {
                     endDate: '',
                     startDate: '',
                 },
+            ],
+
+            votedIdeas : [
             ]
         },
         // search : {
@@ -152,6 +155,10 @@ const store = {
 
         [GETTERS.SELECTED_IDEA_LIST_LENGTH]: (state) => {
             return state.ideaList.filter(idea => idea.selected).length;
+        },
+
+        [GETTERS.GET_VOTED_IDEAS]: (state) => {
+            return state.session.votedIdeas;
         }
     },
 
@@ -369,7 +376,11 @@ const store = {
         [MUTATIONS.REMOVE_CANDIDATE_IDEA]: (state, ideaId) => {
             const removeIdeaIndex = state.candidateIdeas.findIndex(idea => idea.id === ideaId);
             state.candidateIdeas.splice(removeIdeaIndex, 1);
-        }
+        },
+
+        [MUTATIONS.CLEAR_CANDIDATE_IDEA]: (state) => {
+            state.candidateIdeas = [];
+        },
     },
 
     actions: {
@@ -487,12 +498,9 @@ const store = {
 
         [ACTIONS.VOTE_SUMMIT]: (context) => {
             const candidateIdeas = context.state.candidateIdeas;
-            candidateIdeas.forEach(idea => {
-                putVoteIdea(idea.ideaId)
-                    .then()
-                    .catch(err => Promise.reject(err));
-            });
-            return Promise.resolve(); //TODO 비동기처리 해줘야함. 모든 투표 정상완료되어야 resolve되도록!
+            const ideaIds = candidateIdeas.map(idea => idea.ideaId).join(',');
+            return putVoteIdea({ideaIds})
+                .then(context.commit(MUTATIONS.CLEAR_CANDIDATE_IDEA));
         },
 
         [ACTIONS.CREATE_SESSION]: context => {

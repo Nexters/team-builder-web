@@ -103,15 +103,15 @@
                 </div>
                 <!-- 투표 이미지 -->
                 <div v-show="nowPeriodType === 'IDEA_VOTE'" class="idea-button">
-                    <div v-show="!getVoteDone">
+                    <div v-show="!voteDone">
                         <img src="@/assets/img/group@2x.png"
                              v-show="!inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
                         <img src="@/assets/img/idea-minus.png"
                              v-show="inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
                     </div>
-                    <div v-show="getVoteDone" class="on">
-                        <img src="@/assets/img/voteEnd.png" v-show="!inSelectedIdeas(idea.ideaId)" style="cursor: default">
-                        <img src="@/assets/img/ideaVoteCheck.png" v-show="inSelectedIdeas(idea.ideaId)">
+                    <div v-show="voteDone" class="on">
+                        <img src="@/assets/img/voteEnd.png" v-show="!votedIdea(idea.ideaId)" style="cursor: default">
+                        <img src="@/assets/img/ideaVoteCheck.png" v-show="votedIdea(idea.ideaId)">
                     </div>
                 </div>
 
@@ -181,6 +181,10 @@
         return this.candidateIdeas.findIndex(idea => (idea.ideaId === id)) > -1;
       },
 
+      votedIdea(id) {
+        return this.votedIdeas.findIndex(idea => (idea.ideaId === id)) > -1;
+      }
+
     },
 
     computed:  {
@@ -194,12 +198,15 @@
       ...mapGetters({
         ideaListResult: GETTERS.GET_LIST,
         nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
+        votedIdeas: GETTERS.GET_VOTED_IDEAS,
 
       }),
 
-      getVoteDone() {
-        return this.$store.state.auth.voted;
-      }
+      voteDone() {
+          return this.$store.state.auth.voted;
+      },
+
+
     }
   }
 
