@@ -6,10 +6,12 @@ import {
     SET_ROLE,
     SET_TOKEN,
     SET_AUTH,
-    SET_UUID, SET_ACTIVATED
+    SET_UUID, SET_ACTIVATED,
+    RELOAD_AUTH
 } from "../../consts/userType";
 import {ROLL_TYPE} from '@/consts/rollType';
 import {SET_EMAIL, SET_HAS_TEAM, SET_SUBMIT_IDEA, SET_VOTE_COUNT, SET_VOTED} from '@/consts/userType';
+import {info} from '@/api/LoginAPI';
 
 const store = {
     state: {
@@ -103,6 +105,14 @@ const store = {
         [SET_VOTED](state, voted) {
             state.voted = voted;
         },
+
+        /**
+         * auth reload (아이디어 작성, 투표 시)
+         * @param state
+         */
+        [RELOAD_AUTH](state) {
+            state = info(state.token);
+        }
     }
 };
 

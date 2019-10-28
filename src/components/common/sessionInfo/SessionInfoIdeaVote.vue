@@ -56,6 +56,7 @@
     import SessionInfoDDay from '@/components/common/sessionInfo/SessionInfoDDay';
     import { ACTIONS } from '@/store/types';
     import {createNamespacedHelpers} from 'vuex';
+    import {RELOAD_AUTH} from '@/consts/userType';
     const { mapActions } = createNamespacedHelpers('main');
 
     export default {
@@ -127,7 +128,8 @@
                     return;
                 }
 
-                this.$store.dispatch('main/VOTE_SUMMIT');
+                this.$store.dispatch('main/VOTE_SUMMIT')
+                    .then(() => this.$store.commit(RELOAD_AUTH));
             },
 
             removeCandidateIdea(ideaId) {
