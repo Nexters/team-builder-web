@@ -6,7 +6,7 @@
 
                 <div class="tag-group-container">
                     <div class="tag-group-message">저는 이런 팀원이 필요해요</div>
-                    <div class="tag-group-message-hint">함께 일하고 싶은 팀원의 포지션을 선택해주세요. 최대 5개 까지의 태그를 선택할 수 있어요.</div>
+                    <div class="tag-group-message-hint">함께 일하고 싶은 팀원의 포지션을 선택해주세요. 최대 5개 까지의 태그를 선택할 수 있어요.  개발자태그는 그린박스, 디자이너태그는 옐로우박스예요.</div>
                     <TagGroup :allTags="allTags" :selectedTags="selectedTags" :fetchSelectedTags="fetchSelectedTags"></TagGroup>
                 </div>
 
@@ -182,7 +182,7 @@
 
     .tag-group-message-hint {
         text-align: left;
-        width: 496px;
+        width: 100%;
         height: 20px;
         margin: 4px 0px 40px 0px;
         font-size: 14px;

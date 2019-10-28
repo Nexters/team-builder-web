@@ -52,6 +52,6 @@ export function deleteIdea(ideaId) {
   return DELETE(`/apis/ideas/${ideaId}`);
 }
 
-export function putVoteIdea(ideaId) {
-    return PUT(`/apis/ideas/${ideaId}/vote`);
+export function putVoteIdea({ideaIds}) {
+    return PUT(`/apis/ideas/vote?ideaIds=${ideaIds}`);
 }

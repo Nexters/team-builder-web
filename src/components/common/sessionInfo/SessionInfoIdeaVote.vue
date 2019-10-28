@@ -7,35 +7,43 @@
 
             <SessionInfoDDay></SessionInfoDDay>
 
-            <div class="session-info-idea-put-basket-box">
-                <div v-show="!voteDone">
-                    <span class="session-info-idea-put-basket">아이디어 담기</span>
-                    <span class="session-info-idea-put-basket-count">{{ candidateIdeas.length }} / {{ maxVoteCount }}</span>
+            <div v-if="!isAdmin">
+                <div class="session-info-idea-put-basket-box">
+                    <div v-show="!voteDone">
+                        <span class="session-info-idea-put-basket">아이디어 담기</span>
+                        <span class="session-info-idea-put-basket-count">{{ candidateIdeas.length }} / {{ maxVoteCount }}</span>
+                    </div>
+                    <span v-show="voteDone" class="session-info-idea-put-basket">투표내역</span>
                 </div>
-                <span v-show="voteDone" class="session-info-idea-put-basket">투표내역</span>
-            </div>
 
-            <div v-show="!isAvailableVote" class="session-info-idea-vote-info-message-box">
-                <span class="session-info-idea-vote-info-message">아이디어 목록 오른쪽에 있는 </span>
-                <img class="session-info-idea-vote-info-message-plus-icon" src="@/assets/img/session-info-vote-plus-icon.png"/>
-                <span class="session-info-idea-vote-info-message"> 플러스 아이콘을 눌러 아이디어를 담고 투표를 확정해주세요.</span>
-            </div>
+                <div v-show="!voteDone && !isAvailableVote" class="session-info-idea-vote-info-message-box">
+                    <span class="session-info-idea-vote-info-message">아이디어 목록 오른쪽에 있는 </span>
+                    <img class="session-info-idea-vote-info-message-plus-icon" src="@/assets/img/session-info-vote-plus-icon.png"/>
+                    <span class="session-info-idea-vote-info-message"> 플러스 아이콘을 눌러 아이디어를 담고 투표를 확정해주세요.</span>
+                </div>
 
-            <div v-show="isAvailableVote" class="session-info-idea-vote-candidateIdeas-wrap">
-                <div v-for="idea in candidateIdeas" class="session-info-idea-vote-candidateIdeas-box">
-                    <span class="session-info-idea-vote-candidateIdeas-text" :style="voteDoneStyle">{{ idea.title }}</span>
-                    <button v-show="!voteDone" @click="removeCandidateIdea(idea.id)" class="session-info-idea-vote-candidateIdeas-idea-remove-button">
-                        <img class="session-info-idea-vote-candidateIdeas-idea-remove" src="@/assets/img/session-info-idea-vote-candidateIdeas-idea-remove-icon.png"/>
-                    </button>
+                <div v-show="!voteDone && isAvailableVote" class="session-info-idea-vote-candidateIdeas-wrap">
+                    <div v-for="idea in candidateIdeas" class="session-info-idea-vote-candidateIdeas-box">
+                        <span class="session-info-idea-vote-candidateIdeas-text">{{ idea.title }}</span>
+                        <button @click="removeCandidateIdea(idea.id)" class="session-info-idea-vote-candidateIdeas-idea-remove-button">
+                            <img class="session-info-idea-vote-candidateIdeas-idea-remove" src="@/assets/img/session-info-idea-vote-candidateIdeas-idea-remove-icon.png"/>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 투표완료한 경우 -->
+                <div v-show="voteDone" class="session-info-idea-vote-candidateIdeas-wrap">
+                    <div v-for="idea in votedIdeas" class="session-info-idea-vote-candidateIdeas-box">
+                        <span class="session-info-idea-vote-candidateIdeas-text" :style="voteDoneStyle">{{ idea.title }}</span>
+                    </div>
                 </div>
             </div>
-
         </div>
         <div class="session-info-idea-vote-image-wrap">
             <div class="session-info-idea-vote-image-box">
                 <img class="session-info-idea-vote-image" src="@/assets/img/session_ingo_idea_vote_image.png"/>
             </div>
-            <div v-show="!voteDone" class="session-info-idea-vote-button-box">
+            <div v-show="!isAdmin && !voteDone" class="session-info-idea-vote-button-box">
                 <button @click="voteSummit()" class="session-info-idea-vote-button" :class="availableVoteButtonClass" :disabled="!isAvailableVote">
                     <span class="session-info-idea-vote-button-text" :class="availableVoteButtonTextClass">아이디어 투표하기</span>
                 </button>
@@ -50,22 +58,28 @@
     import {createNamespacedHelpers} from 'vuex';
     const { mapActions } = createNamespacedHelpers('main');
 
-    // 투표 api 나올 때 제거할께요..!
-    import Vue from "vue";
-    export const EventBus = new Vue();
-    // 여기까지
-
     export default {
         name: "SessionInfoIdeaVote",
         components: {SessionInfoDDay},
         data() {
             return {
                 sessionNumber: this.$store.state.main.session.sessionNumber,
-                voteDone: false, //투표완료 여부
             }
         },
 
         computed: {
+            isAdmin() {
+                return this.$store.getters.isAdmin;
+            },
+
+            voteDone() {
+                return this.$store.state.auth.voted;
+            },
+
+            votedIdeas() {
+                return this.$store.state.main.session.votedIdeas;
+            },
+
             mainTitle() {
                 return '아이디어를 투표해요';
             },
@@ -109,21 +123,11 @@
 
             voteSummit() {
                 if (this.candidateIdeas.length !== this.maxVoteCount) {
-                    this.$alert(`${this.maxVoteCount}개까지 선택해 주세요.`, '아이디어 투표', {
-                            confirmButtonText: '확인'
-                        }
-                    )
+                    this.$store.commit('common/showAlert', {alertMessage: `${this.maxVoteCount}개까지 선택해 주세요.`});
                     return;
                 }
 
                 this.$store.dispatch('main/VOTE_SUMMIT');
-                this.voteDone = true;
-                // this.voteSummitAction()
-                //     .then(this.voteDone = true)
-                //     .fail(err => console.log(err));
-
-              // 여기도 같이 제거 하겠습니당ㅎ
-              EventBus.$emit('voteDone', this.voteDone);
             },
 
             removeCandidateIdea(ideaId) {

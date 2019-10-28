@@ -77,7 +77,7 @@
         width: 16px;
         height: 16px;
         object-fit: contain;
-        margin: 7px 0px;
+        margin: 3px 0px; /*서버상에서는 이 수치가 맞으니 수정하지 말 것*/
     }
 
     .apply-state-massage {
