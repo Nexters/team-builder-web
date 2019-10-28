@@ -92,6 +92,7 @@
     .confirmMessageText {
         font-family: NotoSansCJKkr;
         font-size: 22px;
+        font-weight: 300;
         line-height: 1.5;
         letter-spacing: -0.66px;
         color: #000000;

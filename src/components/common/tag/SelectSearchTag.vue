@@ -91,7 +91,7 @@
 
     .Rectangle {
         width: 716px;
-        height: 473px;
+        height: 404px;
         border-radius: 6px;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.09);
         background-color: #ffffff;
