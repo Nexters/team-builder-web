@@ -133,19 +133,8 @@
   import {createNamespacedHelpers} from 'vuex';
   const {mapActions, mapGetters, mapState} = createNamespacedHelpers('main');
 
-  // 투표 api 나오면 제거
-  import { EventBus } from '@/components/common/sessionInfo/SessionInfoIdeaVote';
-
   export default {
     name: "IdeaListVoteAndCheck",
-
-    // 투표 api 나오면 제거
-    data() {
-      return {
-        voteDone: false,
-      }
-    },
-    //
 
     methods: {
       viewAllTags(event) {
@@ -195,9 +184,12 @@
     },
 
     computed:  {
-      ...mapState([
-        'ideaList',
-      ]),
+      ...mapState({
+        ideaList : 'ideaList',
+        candidateIdeas: 'candidateIdeas',
+        maxVoteCount: 'maxVoteCount',
+
+      }),
 
       ...mapGetters({
         ideaListResult: GETTERS.GET_LIST,
@@ -205,22 +197,9 @@
 
       }),
 
-      candidateIdeas() {
-        return this.$store.state.main.candidateIdeas
-      },
-
-      maxVoteCount() {
-        return this.$store.state.main.session.maxVoteCount;
-      },
-
-      // 여기도 제거
       getVoteDone() {
-        EventBus.$on('voteDone', (voteDone) => {
-          this.voteDone = voteDone;
-        })
-        return this.voteDone;
-      },
-      //
+        return this.$store.state.auth.voted;
+      }
     }
   }
 
