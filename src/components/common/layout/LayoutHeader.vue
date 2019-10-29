@@ -97,6 +97,10 @@
                     return GENERAL_MANAGE;
                 }
 
+                if(/team-building/.test(this.$route.path)) {
+                    return 'TEAMBUILDING';
+                }
+
                 return 'IDEA';
 
             },
@@ -118,8 +122,7 @@
                 this.$router.push({path: `/session/${this.sessionNumber}`});
             },
             moveToTeamBuilding() {
-                // this.$router.push({path: `/session/${this.$route.params.sessionNumber}/teambuilding`});
-                this.$store.commit('common/showAlert', {alertMessage: '오픈 준비중 입니다.'});
+                this.$router.push({path: `/session/${this.$route.params.sessionNumber}/team-building`});
             },
 
             moveToUserManage() {
