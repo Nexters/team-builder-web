@@ -55,9 +55,9 @@
                 }
 
                 /**
-                 * 최대 선택갯수를 초과한 경우
+                 * 최대 선택갯수를 초과한 경우 (검색의 경우 허용)
                  */
-                if (!tag.state && this.selectedTagsCopy.length >= SELECTED_TAGS_LIMIT_COUNT) {
+                if (this.$route.name != 'Session' && !tag.state && this.selectedTagsCopy.length >= SELECTED_TAGS_LIMIT_COUNT) {
                     this.$store.commit('common/showAlert', {alertMessage: '태그는 최대 5개까지 선택할 수 있어요.'});
                     return;
                 }

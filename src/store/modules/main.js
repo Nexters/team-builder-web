@@ -200,24 +200,6 @@ const store = {
                 }
             });
             state.candidateIdeas = [];
-
-            // 투표예시데이터
-            // state.candidateIdeas = [
-            //   {
-            //     id: '1',
-            //     title: '일이삼사오육칠팔구십일이'
-            //   },
-            //   {
-            //     id: '2',
-            //     title: '일이삼사오육칠팔구십일이일이삼사오육칠팔구십일이'
-            //   },
-            //   {
-            //     id: '3',
-            //     title: '일이삼사오육칠팔구십일이일이삼사오육칠팔구십일이'
-            //   }
-            // ];
-
-
             state.selectedTags = [];
             state.nowPeriod = session.periods.find(period => period.now);
         },
@@ -381,6 +363,10 @@ const store = {
         [MUTATIONS.CLEAR_CANDIDATE_IDEA]: (state) => {
             state.candidateIdeas = [];
         },
+
+        [MUTATIONS.SET_VOTED_IDEAS]: (state, {votedIdeas}) => {
+            state.session.votedIdeas = votedIdeas;
+        }
     },
 
     actions: {
@@ -520,6 +506,14 @@ const store = {
                     console.log(s);
                 })
         },
+
+        [ACTIONS.RELOAD_VOTED_IDEAS]: context => {
+            return getSession({sessionNumber: context.state.session.sessionNumber})
+                .then(data => {
+                    const session = data.data;
+                    context.commit(MUTATIONS.SET_VOTED_IDEAS, {votedIdeas: session.votedIdeas});
+                });
+        }
     }
 };
 

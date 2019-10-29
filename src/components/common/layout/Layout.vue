@@ -56,7 +56,7 @@
             this.loadInitData({sessionNumber: sessionNumber})
                 .then(() => {
                     this.loading = false;
-                    this.$store.commit(RELOAD_AUTH);
+                    this.$store.dispatch(RELOAD_AUTH);
                 })
                 .catch(err => console.log(err)); //TODO 데이터 초기화 실패
         }
