@@ -492,19 +492,10 @@ const store = {
         [ACTIONS.CREATE_SESSION]: context => {
             const newSessionData = {
                 logoImageUrl: DEFAULT_LOGO_URL,
-                teamBuildingMode: false,
-                periods: [{
-                    periodType: "IDEA_COLLECT",
-                    startDate: "2019-10-26T13:38:16.972Z",
-                    endDate: "2019-10-26T13:38:16.972Z"
-                }],
                 maxVoteCount: 3
             };
 
-            createSession(newSessionData)
-                .then((s) => {
-                    console.log(s);
-                })
+            return createSession(newSessionData);
         },
 
         [ACTIONS.RELOAD_VOTED_IDEAS]: context => {

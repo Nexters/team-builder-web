@@ -119,9 +119,21 @@
                     confirmNoButtonText: '취소',
                     confirmNoFunction: null,
                     confirmYesFunction: () => {
-                        //TODO: 세션 생성하고 해당 세션으로 데이터 갱신 후 일반관리로 페이지로 이동
-                        // this.$store.dispatch(`main/${ACTIONS.CREATE_SESSION}`);
-                        // this.$router.push({path: `/session/${this.sessionNumber}/general-manage`});
+                        this.$store.dispatch(`main/${ACTIONS.CREATE_SESSION}`)
+                            .then(data => {
+                                this.$router.push({path: `/session/${data.data.sessionNumber}/general-manage`});
+                                window.vm.$notify.success({
+                                    title: '새로운 기수',
+                                    message: '새로운 기수가 추가되었습니다.',
+                                });
+                            })
+                            .catch(error => {
+                                console.log(error);
+                                window.vm.$notify.error({
+                                    title: '새로운 기수',
+                                    message: '새로운 기수 생성에 실패했습니다.',
+                                });
+                            });
                     }
                 });
             }
