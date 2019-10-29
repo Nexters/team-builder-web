@@ -8,7 +8,7 @@
                     </div>
                     <div class="ml-auto">
                         <button class="btn-apply" @click="apply">
-                            추가하기
+                            설정하기
                         </button>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
                         </div>
                     </div>
 
-                    <div class="sub-item-row d-flex align-items-center" style="margin-bottom: 100px">
+                    <div class="sub-item-row d-flex align-items-center" style="margin-bottom: 80px">
                         <p class="sub-title">
                             팀빌딩 모드
                             <el-popover
@@ -142,6 +142,13 @@
                                        style="margin: 0 0 0 32px"/>
                     </div>
                 </div>
+                <div class="d-flex" style="margin-bottom: 39px">
+                    <div class="ml-auto">
+                        <button class="btn-remove-session" @click="removeSession">
+                            기수 삭제하기
+                        </button>
+                    </div>
+                </div>
             </div>
         </template>
     </Layout>
@@ -153,6 +160,7 @@
     import {getSession, putSession} from "../../api/sessionApi";
     import moment from 'moment';
     import {getAuthCode, updateAuthCode} from "../../api/UserAPI";
+    import {ACTIONS} from '@/store/types';
 
     export default {
         data() {
@@ -321,6 +329,31 @@
                         this.ideaSelectCheckEnd = nextDay;
                     }
                 }
+            },
+
+            removeSession() {
+                this.$store.commit('common/showConfirm', {
+                    confirmMessage: '기수를 삭제하시면 현재 기수의 모든 글과 설정이 사라집니다. 정말 현재 기수를 삭제 하시겠어요?',
+                    confirmYesButtonText: '삭제',
+                    confirmNoButtonText: '취소',
+                    confirmNoFunction: null,
+                    confirmYesFunction: () => {
+                        this.$store.dispatch(`main/${ACTIONS.REMOVE_SESSION}`, {sessionNumber: this.sessionNumber})
+                            .then(() => {
+                                this.$router.push({path: `/session/${Number(this.sessionNumber) - 1}`});
+                                window.vm.$notify.success({
+                                    title: '기수 삭제',
+                                    message: '기수가 삭제되었습니다',
+                                });
+                            })
+                            .catch(() => {
+                                window.vm.$notify.error({
+                                    title: '기수 삭제',
+                                    message: '기수 삭제에 실패했습니다',
+                                });
+                            });
+                    }
+                });
             }
         },
         created() {
@@ -369,6 +402,18 @@
         outline: none;
         border: 1px solid #273EA5;
         box-shadow: none;
+    }
+
+    .btn-remove-session {
+        width: 200px;
+        height: 57px;
+        border: 0;
+        border-radius: 6px;
+        background-color: #4a4a4a;
+        font-family: NotoSansCJKkr;
+        font-size: 18px;
+        letter-spacing: -0.82px;
+        color: #ffffff;
     }
 </style>
 

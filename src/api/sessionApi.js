@@ -1,4 +1,4 @@
-import {GET, POST, PUT} from './index';
+import {GET, POST, PUT, DELETE} from './index';
 
 export function getSession({sessionNumber}) {
     return GET(`apis/sessions/${sessionNumber}`);
@@ -23,4 +23,8 @@ export function createSession(newSessionData) {
     return POST(`apis/sessions`, {
         ...newSessionData
     })
+}
+
+export function deleteSession({sessionNumber}) {
+    return DELETE(`apis/sessions/${sessionNumber}`);
 }
