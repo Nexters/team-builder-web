@@ -10,7 +10,7 @@ import {
     RELOAD_AUTH
 } from "../../consts/userType";
 import {ROLL_TYPE} from '@/consts/rollType';
-import {SET_EMAIL, SET_HAS_TEAM, SET_SUBMIT_IDEA, SET_VOTE_COUNT, SET_VOTED} from '@/consts/userType';
+import {SET_EMAIL, SET_HAS_TEAM, SET_NEW_AUTH, SET_SUBMIT_IDEA, SET_VOTE_COUNT, SET_VOTED} from '@/consts/userType';
 import {info} from '@/api/LoginAPI';
 
 const store = {
@@ -105,13 +105,32 @@ const store = {
         [SET_VOTED](state, voted) {
             state.voted = voted;
         },
+        [SET_NEW_AUTH](state, {newAuth}) {
+            state.id = newAuth.id;
+            state.name = newAuth.name;
+            state.activated = newAuth.activated;
+            state.nextersNumber = newAuth.nextersNumber;
+            state.role = newAuth.role;
+            state.position = newAuth.position;
+            state.email = newAuth.email;
+            state.hasTeam = newAuth.hasTeam;
+            state.submitIdea = newAuth.submitIdea;
+            state.voteCount = newAuth.voteCount;
+            state.voted = newAuth.voted;
+        }
+    },
 
+    actions: {
         /**
          * auth reload (아이디어 작성, 투표 시)
          * @param state
          */
-        [RELOAD_AUTH](state) {
-            state = info(state.token);
+        [RELOAD_AUTH]({state, commit}) {
+            info(state.token)
+                .then(data => {
+                    const newAuth = data.data;
+                    commit(SET_NEW_AUTH, {newAuth});
+                });
         }
     }
 };

@@ -4,7 +4,7 @@
             <!-- NOTICE -->
             <div v-if="idea['type'] === 'NOTICE'" class="Rectangle list type-notice">
                 <!-- idea type -->
-                <img src="@/assets/img/NOTICE.png" class="notice" />
+                <img src="@/assets/img/NOTICE.png" class="notice"/>
                 <!-- order-number -->
                 <div class="order-number">
 
@@ -41,10 +41,10 @@
                          class="favourites-filled-star-symbol-copy">
                     <img v-show="idea['favorite'] === false" @click="clickFavorite(idea)"
                          src="@/assets/img/favourites-filled-star-symbol@2x.png"
-                         class="favourites-filled-star-symbol" />
+                         class="favourites-filled-star-symbol"/>
                     <!--<img v-show="true" @click="clickFavorite(idea.ideaId)"-->
-                         <!--src="@/assets/img/favourites-filled-star-symbol@2x.png"-->
-                         <!--class="favourites-filled-star-symbol" />-->
+                    <!--src="@/assets/img/favourites-filled-star-symbol@2x.png"-->
+                    <!--class="favourites-filled-star-symbol" />-->
                 </div>
                 <!-- order-number -->
                 <div class="order-number">
@@ -61,7 +61,8 @@
                     <div v-show="idea['tags'].length === 0" class="not-select-tags">
                         태그를 선택하지 않았어요.
                     </div>
-                    <div v-show="idea['tags'].length > 0" class="tags" v-for="(element, index) in idea['tags']" v-if="index < 3"
+                    <div v-show="idea['tags'].length > 0" class="tags" v-for="(element, index) in idea['tags']"
+                         v-if="index < 3"
                          v-on:mouseover="viewAllTags" v-on:mouseout="closeAllTags">
                         <div class="tag" v-if="element.type === 'DEVELOPER'" style="background-color: #daf4ea;">
                             <div class="tag-name" style="color: #208b84;">
@@ -126,95 +127,106 @@
 </template>
 
 <script>
-  import Vue from 'vue';
-  import moment from 'moment';
+    import Vue from 'vue';
+    import moment from 'moment';
 
-  import {ACTIONS, GETTERS} from "@/store/types";
-  import {createNamespacedHelpers} from 'vuex';
-  const {mapActions, mapGetters, mapState} = createNamespacedHelpers('main');
+    import {ACTIONS, GETTERS} from "@/store/types";
+    import {createNamespacedHelpers} from 'vuex';
 
-  export default {
-    name: "IdeaListVoteAndCheck",
+    const {mapActions, mapGetters, mapState} = createNamespacedHelpers('main');
 
-    methods: {
-      viewAllTags(event) {
-        const popUp = event.target.closest('.td').lastChild;
-        if(popUp.className) {
-          popUp.style.display = 'flex';
-        }
-      },
+    export default {
+        name: "IdeaListVoteAndCheck",
 
-      closeAllTags(event) {
-        const popUp = event.target.closest('.td').lastChild;
-        if(popUp.className) {
-          popUp.style.display = 'none';
-        }
-      },
+        methods: {
+            viewAllTags(event) {
+                const popUp = event.target.closest('.td').lastChild;
+                if (popUp.className) {
+                    popUp.style.display = 'flex';
+                }
+            },
 
-      clickFavorite: function (idea) {
-        return this.$store.dispatch('main/FAVORITE_CHANGE', {ideaId: idea.ideaId, isFavorite: idea.favorite});
-      },
+            closeAllTags(event) {
+                const popUp = event.target.closest('.td').lastChild;
+                if (popUp.className) {
+                    popUp.style.display = 'none';
+                }
+            },
 
-      positionFormat(position) {
-        if(position === 'DEVELOPER') {
-          return '개발자';
-        }
-        return '디자이너';
-      },
+            clickFavorite: function (idea) {
+                return this.$store.dispatch('main/FAVORITE_CHANGE', {ideaId: idea.ideaId, isFavorite: idea.favorite});
+            },
 
-      clickIdea(id) {
-        if(this.inSelectedIdeas(id)) {
-          return this.$store.commit('main/REMOVE_CANDIDATE_IDEA', id);
-        }
+            positionFormat(position) {
+                if (position === 'DEVELOPER') {
+                    return '개발자';
+                }
+                return '디자이너';
+            },
 
-        if(this.maxVoteCount === this.candidateIdeas.length) {
-          this.$alert(`최대 ${this.maxVoteCount}개까지 선택할 수 있어요.`, '아이디어 투표', {
-              confirmButtonText: '확인'
+            clickIdea(id) {
+                if (this.inSelectedIdeas(id)) {
+                    this.$store.commit('main/REMOVE_CANDIDATE_IDEA', id);
+                    window.vm.$notify.error({
+                        title: '아이디어 투표',
+                        message: '아이디어를 장바구니에서 삭제했습니다.\n'
+                    });
+                    return;
+                }
+
+                if (this.maxVoteCount === this.candidateIdeas.length) {
+                    this.$alert(`최대 ${this.maxVoteCount}개까지 선택할 수 있어요.`, '아이디어 투표', {
+                            confirmButtonText: '확인'
+                        }
+                    )
+                    return;
+                }
+
+                this.$store.commit('main/ADD_CANDIDATE_IDEA', id);
+                window.vm.$notify.info({
+                    title: '아이디어 투표',
+                    message: '아이디어가 장바구니에 담겼습니다'
+                });
+            },
+
+            inSelectedIdeas(id) {
+                return this.candidateIdeas.findIndex(idea => (idea.ideaId === id)) > -1;
+            },
+
+            votedIdea(id) {
+                return this.votedIdeas.findIndex(idea => (idea.ideaId === id)) > -1;
             }
-          )
-          return;
+
+        },
+
+        computed: {
+            ...mapState({
+                ideaList: 'ideaList',
+                candidateIdeas: 'candidateIdeas',
+                maxVoteCount: 'maxVoteCount',
+
+            }),
+
+            ...mapGetters({
+                ideaListResult: GETTERS.GET_LIST,
+                nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
+                votedIdeas: GETTERS.GET_VOTED_IDEAS,
+
+            }),
+
+            voteDone() {
+                return this.$store.state.auth.voted;
+            },
+
+
         }
-        return this.$store.commit('main/ADD_CANDIDATE_IDEA', id);
-      },
-
-      inSelectedIdeas(id) {
-        return this.candidateIdeas.findIndex(idea => (idea.ideaId === id)) > -1;
-      },
-
-      votedIdea(id) {
-        return this.votedIdeas.findIndex(idea => (idea.ideaId === id)) > -1;
-      }
-
-    },
-
-    computed:  {
-      ...mapState({
-        ideaList : 'ideaList',
-        candidateIdeas: 'candidateIdeas',
-        maxVoteCount: 'maxVoteCount',
-
-      }),
-
-      ...mapGetters({
-        ideaListResult: GETTERS.GET_LIST,
-        nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
-        votedIdeas: GETTERS.GET_VOTED_IDEAS,
-
-      }),
-
-      voteDone() {
-          return this.$store.state.auth.voted;
-      },
-
-
     }
-  }
 
-  Vue.filter('formatDate', function (value) {
-    if (value) {
-      return moment(value).format('YYYY.MM.DD')
-    }
-  })
+    Vue.filter('formatDate', function (value) {
+        if (value) {
+            return moment(value).format('YYYY.MM.DD')
+        }
+    })
 </script>
 
 <style src="./IdeaListVoteAndCheck.css" scoped>

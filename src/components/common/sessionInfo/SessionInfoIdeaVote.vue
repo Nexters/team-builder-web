@@ -128,8 +128,27 @@
                     return;
                 }
 
-                this.$store.dispatch('main/VOTE_SUMMIT')
-                    .then(() => this.$store.commit(RELOAD_AUTH));
+                this.$store.commit('common/showConfirm', {
+                    confirmMessage: '지금 투표 하시겠어요? \n투표는 수정이 불가능 합니다',
+                    confirmYesButtonText: '투표하기',
+                    confirmNoButtonText: '취소',
+                    confirmNoFunction: null,
+                    confirmYesFunction: () => {
+                        this.$store.dispatch('main/VOTE_SUMMIT')
+                            .then(() => {
+                                this.$store.dispatch(RELOAD_AUTH);
+                            })
+                            .then(() => {
+                                this.$store.dispatch(`main/${ACTIONS.RELOAD_VOTED_IDEAS}`);
+                            })
+                            .then(() => {
+                                window.vm.$notify.success({
+                                    title: '아이디어 투표',
+                                    message: '투표가 완료되었습니다️'
+                                });
+                            });
+                    }
+                });
             },
 
             removeCandidateIdea(ideaId) {
@@ -219,6 +238,7 @@
     }
 
     .session-info-idea-vote-info-message-plus-icon {
+        vertical-align: middle;
         width: 20px;
         height: 20px;
         margin: 0px 4px 4px 4px;
@@ -280,19 +300,20 @@
         width: 262px;
         height: 56px;
         margin-right: 12px;
+        padding: 0px 16px;
         border-radius: 6px;
         border: solid 1px #dbdbdb;
         background-color: #ffffff;
         display: flex;
-        justify-content: center;
         align-items: center;
         z-index: 2;
     }
 
     .session-info-idea-vote-candidateIdeas-text {
-        max-width: 186px;
+        width: 186px;
         height: 27px;
         text-overflow: ellipsis;
+        text-align: left;
         overflow-x: hidden;
         overflow-y: hidden;
         white-space: nowrap;
