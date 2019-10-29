@@ -1,5 +1,5 @@
 import {ACTIONS, GETTERS, MUTATIONS} from '@/store/types';
-import {getSession, createSession} from '@/api/sessionApi';
+import {getSession, createSession, deleteSession} from '@/api/sessionApi';
 import {
     createNewIdea,
     deleteFavorite,
@@ -504,6 +504,10 @@ const store = {
                     const session = data.data;
                     context.commit(MUTATIONS.SET_VOTED_IDEAS, {votedIdeas: session.votedIdeas});
                 });
+        },
+
+        [ACTIONS.REMOVE_SESSION]: (context, {sessionNumber}) => {
+            return deleteSession({sessionNumber});
         }
     }
 };
