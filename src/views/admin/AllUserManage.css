@@ -240,6 +240,8 @@
 }
 
 .select-box {
+    width: 120px;
+    height: 40px;
     border-radius: 6px;
     border: solid 1.5px #ff5000;
     background-color: #ffffff;
