@@ -3,7 +3,7 @@
         <b-form-group>
             <div v-for="idea in ideaListResult" :key="idea.orderNumber">
                 <!-- NOTICE -->
-                <div v-if="idea['type'] === 'NOTICE'" class="Rectangle list" style="border: solid 1.5px #dbdbdb;">
+                <div v-if="idea['type'] === 'NOTICE'" class="Rectangle list" style="border: solid 1px #dbdbdb;">
                     <!-- idea type -->
                     <img src="@/assets/img/NOTICE.png"
                          class="notice" />
