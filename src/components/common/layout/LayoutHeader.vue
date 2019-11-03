@@ -82,6 +82,7 @@
         computed: {
             ...mapState({
                 periods: state => state.session.periods,
+                teamBuildingMode: state => state.session.teamBuildingMode,
             }),
 
             ...mapGetters({
@@ -122,6 +123,11 @@
                 this.$router.push({path: `/session/${this.sessionNumber}`});
             },
             moveToTeamBuilding() {
+                if (!this.teamBuildingMode) {
+                    this.$store.commit('common/showAlert', {alertMessage: '팀빌딩 기간이 아닙니다.'});
+                    return;
+                }
+
                 this.$router.push({path: `/session/${this.$route.params.sessionNumber}/team-building`});
             },
 
