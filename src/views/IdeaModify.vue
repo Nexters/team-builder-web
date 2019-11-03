@@ -192,7 +192,6 @@
 
     .file-upload-wrap {
         width: 100%;
-        height: 140px;
         margin-bottom: 69px;
         text-align: left;
     }
