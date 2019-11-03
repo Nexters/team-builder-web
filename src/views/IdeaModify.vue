@@ -11,7 +11,6 @@
                 </div>
 
                 <div v-if="isAvailableFileUpload" class="file-upload-wrap">
-<!--                <div v-if="true" class="file-upload-wrap">-->
                     <div class="file-upload-title-box">
                         <span class="file-upload-title-text">첨부파일</span>
                     </div>
@@ -42,9 +41,13 @@
                         <span class="team-member-modify-text">확정된 팀원이 있다면,  팀원을 추가해서 최종으로 구성해주세요.</span>
                     </div>
 
-                    <button class="team-member-add-button">
-                        <span @click="" class="team-member-add-button-text">팀원 추가하기</span>
+                    <button @click="teamMemberManagePopupOn" class="team-member-add-button">
+                        <span class="team-member-add-button-text">팀원 추가하기</span>
                     </button>
+                    <TeamMemberManagerPopup v-show="showTeamMemberManagePopup"
+                                            :originMembers="idea.members"
+                                            :onCancel="onCancel"
+                                            :onComplete="onComplete" />
 
                     <div class="team-member-info">
                         <TeamMemberInfo v-for="member in idea.members" :key="member.id" :member="member"/>
@@ -65,11 +68,12 @@
     import {uploadFiles} from '@/api/FileAPI';
     import {getFileName} from '@/utils/file';
     import {PERIOD_TYPE} from '@/consts/periodType';
+    import TeamMemberManagerPopup from '@/components/idea/team/TeamMemberManagerPopup';
     const { mapState, mapActions, mapGetters } = createNamespacedHelpers('main');
 
     export default {
         name: "IdeaModify",
-        components: {Layout, IdeaEditor, TagGroup, TeamMemberInfo},
+        components: {TeamMemberManagerPopup, Layout, IdeaEditor, TagGroup, TeamMemberInfo},
         data() {
             return {
                 idea: {
@@ -77,7 +81,8 @@
                     editorText: '',
                     tags: [],
                 },
-                selectedTags: []
+                selectedTags: [],
+                showTeamMemberManagePopup: false
             }
         },
 
@@ -229,7 +234,31 @@
 
             fetchSelectedTags(selectedTags) {
                 this.selectedTags = selectedTags.slice();
+            },
+
+
+            teamMemberManagePopupOn(event) {
+                event.preventDefault();
+                this.showTeamMemberManagePopup = true;
+            },
+
+            /**
+             * 팀원 팝업 취소선택 시
+             * @param event
+             */
+            onCancel : (event) => {
+                event.preventDefault();
+                this.showTeamMemberManagePopup = false;
+            },
+
+            /**
+             * 팀원 팝업 추가 완료선택 시
+             * @param event
+             */
+            onComplete : ({newMembers}) => {
+                //TODO newMembers api로 추가해주고 다시 idea 불러오기!
             }
+
 
         },
 
@@ -386,6 +415,7 @@
     .team-member-wrap {
         width: 100%;
         margin-top: 60px;
+        margin-bottom: 20px;
         text-align: left;
         position: relative;
     }

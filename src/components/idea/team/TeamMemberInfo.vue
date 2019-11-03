@@ -1,7 +1,7 @@
 <template>
-    <div class="team-member-info-wrap">
+    <div class="team-member-info-wrap" :class="{selected: isSelectedMember}" @click="addMember">
         <span class="team-member-info-text">{{memberInfoText}}</span>
-        <button @click="removeMember" class="team-member-info-remove-button">
+        <button v-show="isAvailableRemove" @click.stop="removeMember" class="team-member-info-remove-button">
             <img class="team-member-info-remove-img" src="@/assets/img/ico-team-member-remove.png"/>
         </button>
         <span class="team-member-info-id">{{member.id}}</span>
@@ -17,18 +17,65 @@
             member: {
                 type: Object,
                 required: true
-            }
+            },
+
+            infoType: {
+                type: String,
+            },
+
+            newMembers: {
+                type: Array
+            },
+
+            index: {
+                type: Number
+            },
         },
 
         computed: {
             memberInfoText() {
                 return `${this.member.nextersNumber}기  ${getPositionName(this.member.position)}  ${this.member.name}`;
+            },
+
+            isAvailableRemove() {
+                return this.infoType === 'NEW_MEMBER' && this.member.uuid !== this.$store.state.auth.uuid;
+            },
+
+            /**
+             * 이미 팀에 포함된 회원인지 여부
+             */
+            isSelectedMember() {
+                if (this.infoType !== 'SEARCH') {
+                    return false;
+                }
+                return !!this.newMembers.find(newMember => newMember.id === this.member.id);
             }
         },
 
         methods: {
+            addMember() {
+                if (this.infoType !== 'SEARCH') {
+                    return;
+                }
+
+                if (!this.newMembers) {
+                    return;
+                }
+
+                if (this.isSelectedMember) {
+                    this.$store.commit('common/showAlert', {alertMessage: '선택한 회원에 포함된 회원입니다.'});
+                    return;
+                }
+
+                this.newMembers && this.newMembers.push(this.member);
+            },
+
             removeMember() {
-                alert('remove');
+                if (this.infoType !== 'NEW_MEMBER') {
+                    return;
+                }
+
+                this.newMembers && this.newMembers.splice(this.index, 1);
             }
         }
     }
@@ -44,6 +91,10 @@
         border-radius: 6px;
         border: solid 1px #dbdbdb;
         background-color: #ffffff;
+    }
+
+    .selected {
+        border: solid 1px #9b9b9b!important;
     }
 
     .team-member-info-text {

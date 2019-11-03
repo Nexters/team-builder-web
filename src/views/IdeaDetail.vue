@@ -446,6 +446,7 @@
     .team-member-wrap {
         width: 100%;
         margin-top: 60px;
+        margin-bottom: 20px;
         text-align: left;
     }
 
