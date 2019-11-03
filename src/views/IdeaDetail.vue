@@ -40,7 +40,7 @@
                     <div v-if="isTeamBuildingMode" class="team-member-wrap">
                         <div class="team-member-title">
                             <span class="team-member-text">팀원구성</span>
-                            <span class="team-member-count">4</span>
+                            <span class="team-member-count">{{idea.members.length}}</span>
                         </div>
 
                         <div class="team-member-info">
@@ -199,6 +199,7 @@
                 this.getIdea(this.ideaId)
                     .then(res => {
                         this.idea = res.data;
+
                         //TODO mock data
                         this.idea.members = [
                             {
@@ -211,7 +212,7 @@
                             },
                             {
                                 "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
-                                "id": "sojeongw2",
+                                "id": "sojeongw21",
                                 "name": "왕소정",
                                 "nextersNumber": 14,
                                 "position": "DEVELOPER",
@@ -219,7 +220,7 @@
                             },
                             {
                                 "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
-                                "id": "sojeongw2",
+                                "id": "sojeongw22",
                                 "name": "이관호",
                                 "nextersNumber": 15,
                                 "position": "DEVELOPER",
@@ -227,7 +228,7 @@
                             },
                             {
                                 "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
-                                "id": "sojeongw2",
+                                "id": "sojeongw23",
                                 "name": "허지인",
                                 "nextersNumber": 15,
                                 "position": "DESIGNER",
@@ -235,7 +236,7 @@
                             },
                             {
                                 "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
-                                "id": "sojeongw2",
+                                "id": "sojeongw24",
                                 "name": "양혜인",
                                 "nextersNumber": 15,
                                 "position": "DESIGNER",
@@ -243,7 +244,7 @@
                             },
                             {
                                 "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
-                                "id": "sojeongw2",
+                                "id": "sojeongw25",
                                 "name": "김보미",
                                 "nextersNumber": 15,
                                 "position": "DEVELOPER",
@@ -251,7 +252,7 @@
                             },
                             {
                                 "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
-                                "id": "sojeongw2",
+                                "id": "sojeongw26",
                                 "name": "남기원",
                                 "nextersNumber": 13,
                                 "position": "DEVELOPER",
