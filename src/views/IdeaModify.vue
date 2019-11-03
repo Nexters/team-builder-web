@@ -33,6 +33,26 @@
                         </button>
                     </div>
                 </div>
+
+                <div v-if="isTeamBuildingMode" class="team-member-wrap">
+                    <div class="team-member-title">
+                        <span class="team-member-text">팀원구성</span>
+                        <span class="team-member-count">{{idea.members.length}}</span>
+                        <span class="team-member-modify-text">확정된 팀원이 있다면,  팀원을 추가해서 최종으로 구성해주세요.</span>
+                    </div>
+
+                    <button @click="teamMemberManagePopupOn" class="team-member-add-button">
+                        <span class="team-member-add-button-text">팀원 추가하기</span>
+                    </button>
+                    <TeamMemberManagerPopup v-show="showTeamMemberManagePopup"
+                                            :originMembers="idea.members"
+                                            :onCancel="onCancel"
+                                            :onComplete="onComplete" />
+
+                    <div class="team-member-info">
+                        <TeamMemberInfo v-for="member in idea.members" :key="member.id" :member="member"/>
+                    </div>
+                </div>
             </div>
         </template>
     </Layout>
@@ -42,16 +62,18 @@
     import Layout from '@/components/common/layout/Layout';
     import TagGroup from '@/components/common/tag/TagGroup';
     import IdeaEditor from '@/components/idea/new/IdeaEditor';
+    import TeamMemberInfo from '@/components/idea/team/TeamMemberInfo';
     import {ACTIONS, GETTERS} from '@/store/types';
     import {createNamespacedHelpers} from 'vuex';
     import {uploadFiles} from '@/api/FileAPI';
     import {getFileName} from '@/utils/file';
     import {PERIOD_TYPE} from '@/consts/periodType';
-    const { mapActions, mapGetters } = createNamespacedHelpers('main');
+    import TeamMemberManagerPopup from '@/components/idea/team/TeamMemberManagerPopup';
+    const { mapState, mapActions, mapGetters } = createNamespacedHelpers('main');
 
     export default {
         name: "IdeaModify",
-        components: {Layout, IdeaEditor, TagGroup},
+        components: {TeamMemberManagerPopup, Layout, IdeaEditor, TagGroup, TeamMemberInfo},
         data() {
             return {
                 idea: {
@@ -59,11 +81,16 @@
                     editorText: '',
                     tags: [],
                 },
-                selectedTags: []
+                selectedTags: [],
+                showTeamMemberManagePopup: false
             }
         },
 
         computed: {
+            ...mapState({
+                isTeamBuildingMode: state => state.session.teamBuildingMode,
+            }),
+
             ...mapGetters({
                 nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
             }),
@@ -124,6 +151,67 @@
                             editorText: res.data.content,
                         };
 
+                        //TODO mock data
+                        this.idea.members = [
+                            {
+                                "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
+                                "id": "inhyuck",
+                                "name": "최인혁",
+                                "nextersNumber": 12,
+                                "position": "DEVELOPER",
+                                "hasTeam": true
+                            },
+                            {
+                                "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
+                                "id": "sojeongw21",
+                                "name": "왕소정",
+                                "nextersNumber": 14,
+                                "position": "DEVELOPER",
+                                "hasTeam": true
+                            },
+                            {
+                                "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
+                                "id": "sojeongw22",
+                                "name": "이관호",
+                                "nextersNumber": 15,
+                                "position": "DEVELOPER",
+                                "hasTeam": true
+                            },
+                            {
+                                "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
+                                "id": "sojeongw23",
+                                "name": "허지인",
+                                "nextersNumber": 15,
+                                "position": "DESIGNER",
+                                "hasTeam": true
+                            },
+                            {
+                                "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
+                                "id": "sojeongw24",
+                                "name": "양혜인",
+                                "nextersNumber": 15,
+                                "position": "DESIGNER",
+                                "hasTeam": true
+                            },
+                            {
+                                "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
+                                "id": "sojeongw25",
+                                "name": "김보미",
+                                "nextersNumber": 15,
+                                "position": "DEVELOPER",
+                                "hasTeam": true
+                            },
+                            {
+                                "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
+                                "id": "sojeongw26",
+                                "name": "남기원",
+                                "nextersNumber": 13,
+                                "position": "DEVELOPER",
+                                "hasTeam": true
+                            }
+                        ]
+
+
                         if (!this.availableEditIdea) {
                             this.$store.commit('common/showAlert', {alertMessage: '접근권한이 없어요.'});
                             this.$router.push({path: '/'});
@@ -146,7 +234,31 @@
 
             fetchSelectedTags(selectedTags) {
                 this.selectedTags = selectedTags.slice();
+            },
+
+
+            teamMemberManagePopupOn(event) {
+                event.preventDefault();
+                this.showTeamMemberManagePopup = true;
+            },
+
+            /**
+             * 팀원 팝업 취소선택 시
+             * @param event
+             */
+            onCancel : (event) => {
+                event.preventDefault();
+                this.showTeamMemberManagePopup = false;
+            },
+
+            /**
+             * 팀원 팝업 추가 완료선택 시
+             * @param event
+             */
+            onComplete : ({newMembers}) => {
+                //TODO newMembers api로 추가해주고 다시 idea 불러오기!
             }
+
 
         },
 
@@ -167,7 +279,7 @@
 
     .tag-group-container {
         width: 100%;
-        margin: 50px 0px 44px 0px;
+        margin: 50px 0px 0px 0px;
         display: flex;
         flex-direction: column;
     }
@@ -192,8 +304,6 @@
 
     .file-upload-wrap {
         width: 100%;
-        height: 140px;
-        margin-bottom: 69px;
         text-align: left;
     }
 
@@ -302,5 +412,67 @@
         object-fit: contain;
     }
 
+    .team-member-wrap {
+        width: 100%;
+        margin-top: 60px;
+        margin-bottom: 20px;
+        text-align: left;
+        position: relative;
+    }
+
+    .team-member-title {
+        width: 76px;
+        height: 29px;
+        font-family: NotoSansCJKkr;
+        font-size: 20px;
+        letter-spacing: -0.6px;
+        color: #000000;
+        display: inline;
+    }
+
+    .team-member-count {
+        width: 11px;
+        height: 29px;
+        margin-left: 16px;
+        font-family: NotoSansCJKkr;
+        font-size: 20px;
+        letter-spacing: -0.6px;
+        color: #208b84;
+    }
+
+    .team-member-modify-text {
+        display: block;
+        margin-top: 4px;
+        width: 350px;
+        height: 20px;
+        font-family: NotoSansCJKkr;
+        font-size: 14px;
+        letter-spacing: -0.42px;
+        color: #9b9b9b;
+    }
+
+    .team-member-add-button {
+        width: 201px;
+        height: 58px;
+        border-radius: 6px;
+        background-color: #273ea5;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+    }
+
+    .team-member-add-button-text {
+        width: 98px;
+        height: 27px;
+        font-family: NotoSansCJKkr;
+        font-size: 18px;
+        letter-spacing: -0.82px;
+        text-align: center;
+        color: #ffffff;
+    }
+
+    .team-member-info {
+        margin-top: 42px;
+    }
 
 </style>

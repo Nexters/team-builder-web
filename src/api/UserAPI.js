@@ -34,3 +34,10 @@ export function addActiveUser(uuid) {
 export function deleteActiveUser(uuid) {
     return PUT(String.format(DEACTIVE_USER_URL, uuid));
 }
+
+/**
+ * 활동중인 회원 리스트 (팀원추가팝업 - 검색때 사용)
+ */
+export function findActivatedUsers() {
+    return GET('apis/activated/users');
+}
