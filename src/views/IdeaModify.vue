@@ -46,8 +46,8 @@
                     </button>
                     <TeamMemberManagerPopup v-show="showTeamMemberManagePopup"
                                             :originMembers="idea.members"
-                                            :onCancel="onCancel"
-                                            :onComplete="onComplete" />
+                                            @close="closeTeamMemberManagePopup"
+                                            @complete="completeTeamMember" />
 
                     <div class="team-member-info">
                         <TeamMemberInfo v-for="member in idea.members" :key="member.id" :member="member"/>
@@ -246,20 +246,22 @@
              * 팀원 팝업 취소선택 시
              * @param event
              */
-            onCancel : (event) => {
-                event.preventDefault();
+            closeTeamMemberManagePopup() {
                 this.showTeamMemberManagePopup = false;
             },
 
             /**
-             * 팀원 팝업 추가 완료선택 시
-             * @param event
+             * 팀원 팝업 적용하기 선택 시
              */
-            onComplete : ({newMembers}) => {
-                //TODO newMembers api로 추가해주고 다시 idea 불러오기!
+            completeTeamMember(event, {newMembers}) {
+                const uuids = newMembers.map(member => member.uuid);
+                alert(uuids);
+
+                // TODO
+                //  팝업창 닫아주기
+                //  validate => 이미 팀에 속한사람 에러 확인
+                //  newMembers pi로 추가해주고 다시 idea 불러오기!
             }
-
-
         },
 
         created() {

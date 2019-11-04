@@ -1,10 +1,10 @@
 <template>
     <div class="team-member-info-wrap" :class="{selected: isSelectedMember}" @click="addMember">
-        <span class="team-member-info-text">{{memberInfoText}}</span>
+        <span class="team-member-info-text" :class="{'no-remove': !isAvailableRemove}">{{memberInfoText}}</span>
         <button v-show="isAvailableRemove" @click.stop="removeMember" class="team-member-info-remove-button">
             <img class="team-member-info-remove-img" src="@/assets/img/ico-team-member-remove.png"/>
         </button>
-        <span class="team-member-info-id">{{member.id}}</span>
+        <span class="team-member-info-id" :class="{'no-remove': !isAvailableRemove}">{{member.id}}</span>
     </div>
 </template>
 
@@ -86,8 +86,8 @@
         display: inline-block;
         width: 218px;
         height: 77px;
-        margin: 0px 16px 16px 0px;
-        padding: 14px 16px;
+        margin: 0px 12px 12px 0px;
+        padding: 10px 16px;
         border-radius: 6px;
         border: solid 1px #dbdbdb;
         background-color: #ffffff;
@@ -101,11 +101,18 @@
         display: inline-block;
         width: 150px;
         height: 24px;
-        text-overflow: ellipsis;
         font-family: NotoSansCJKkr;
         font-size: 16px;
         letter-spacing: -1px;
         color: #1c1c1c;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .no-remove {
+        width: 184px!important;
     }
 
     .team-member-info-remove-button {
@@ -124,13 +131,16 @@
     }
 
     .team-member-info-id {
+        display: inline-block;
         width: 150px;
         height: 20px;
-        text-overflow: ellipsis;
-        margin-top: 6px;
         font-family: NotoSansCJKkr;
         font-size: 14px;
         letter-spacing: -0.88px;
         color: #1c1c1c;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 </style>
