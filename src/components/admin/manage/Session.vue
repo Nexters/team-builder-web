@@ -11,7 +11,7 @@
                 </div>
 
                 <button v-if="isAdmin" class="session-info-button">
-                    아이디어 작성하기
+                    아이디어 추가하기
                 </button>
             </div>
 
