@@ -27,7 +27,7 @@
                     </section>
                 </div>
 
-                <div class="card-body" v-show="!(this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING'))">
+                <div class="card-body">
                     <b-form-group>
                     <div class="titles">
                         <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
@@ -48,18 +48,6 @@
                     <admin-idea-list @goDetail="goDetail" :allSelected.sync="allSelected" :select="select"></admin-idea-list>
                     </b-form-group>
                 </div>
-
-                <div class="card-body" v-show="this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING')">
-                    <div class="titles">
-                        <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
-                        <div class="title" style="width: 62px; margin-left: 20px">아이디어 명</div>
-                        <div class="title" style="width: 24px; margin-left: 828px">직군</div>
-                        <div class="title" style="width: 36px; margin-left: 42px">작성자</div>
-                        <div class="title" style="width: 24px; margin-left: 30px">날짜</div>
-                        <div class="title" style="width: 48px; margin-left: 66px">파일첨부</div>
-                    </div>
-                    <team-building-list-default @goDetail="goDetail"></team-building-list-default>
-                </div>
             </div>
         </div>
     </div>
@@ -72,13 +60,11 @@
   const {mapMutations, mapGetters, mapState, mapActions} = createNamespacedHelpers('main');
 
   import AdminIdeaList from "@/components/idea/admin/AdminIdeaList";
-  import TeamBuildingListDefault from "@/components/idea/teamBuildingList/teamBuildingListDefault";
 
   export default {
     name: "AdminIdeaListSection",
     components: {
-      TeamBuildingListDefault,
-      AdminIdeaList,
+      AdminIdeaList
     },
 
     data() {

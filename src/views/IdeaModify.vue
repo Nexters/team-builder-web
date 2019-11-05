@@ -6,8 +6,11 @@
 
                 <div class="tag-group-container">
                     <div class="tag-group-message">저는 이런 팀원이 필요해요</div>
-                    <div class="tag-group-message-hint">함께 일하고 싶은 팀원의 포지션을 선택해주세요. 최대 5개 까지의 태그를 선택할 수 있어요.  개발자태그는 그린박스, 디자이너태그는 옐로우박스예요.</div>
-                    <TagGroup :allTags="allTags" :selectedTags="selectedTags" :fetchSelectedTags="fetchSelectedTags"></TagGroup>
+                    <div class="tag-group-message-hint">함께 일하고 싶은 팀원의 포지션을 선택해주세요. 최대 5개 까지의 태그를 선택할 수 있어요. 개발자태그는 그린박스,
+                        디자이너태그는 옐로우박스예요.
+                    </div>
+                    <TagGroup :allTags="allTags" :selectedTags="selectedTags"
+                              :fetchSelectedTags="fetchSelectedTags"></TagGroup>
                 </div>
 
                 <div v-if="isAvailableFileUpload" class="file-upload-wrap">
@@ -22,7 +25,7 @@
                         <label for="file-upload" class="file-upload-button-label">
                             <span class="file-upload-button-text">파일첨부하기</span>
                         </label>
-                        <input id="file-upload" type="file" @change="onFileChange($event)" class="file-upload-button" />
+                        <input id="file-upload" type="file" @change="onFileChange($event)" class="file-upload-button"/>
                     </div>
                     <div v-show="hasFile" class="file-upload-has-file-wrap">
                         <a :href="idea.file" :download="fileName" target="_blank" class="file-upload-has-file-text-box">
@@ -47,7 +50,7 @@
                     <TeamMemberManagerPopup v-show="showTeamMemberManagePopup"
                                             :originMembers="idea.members"
                                             @close="closeTeamMemberManagePopup"
-                                            @complete="completeTeamMember" />
+                                            @complete="completeTeamMember"/>
 
                     <div class="team-member-info">
                         <TeamMemberInfo v-for="member in idea.members" :key="member.id" :member="member"/>
@@ -69,7 +72,9 @@
     import {getFileName} from '@/utils/file';
     import {PERIOD_TYPE} from '@/consts/periodType';
     import TeamMemberManagerPopup from '@/components/idea/team/TeamMemberManagerPopup';
-    const { mapState, mapActions, mapGetters } = createNamespacedHelpers('main');
+    import {putTeamMember} from '@/api/teamBuildingAPI';
+
+    const {mapState, mapActions, mapGetters} = createNamespacedHelpers('main');
 
     export default {
         name: "IdeaModify",
@@ -151,67 +156,6 @@
                             editorText: res.data.content,
                         };
 
-                        //TODO mock data
-                        this.idea.members = [
-                            {
-                                "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
-                                "id": "inhyuck",
-                                "name": "최인혁",
-                                "nextersNumber": 12,
-                                "position": "DEVELOPER",
-                                "hasTeam": true
-                            },
-                            {
-                                "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
-                                "id": "sojeongw21",
-                                "name": "왕소정",
-                                "nextersNumber": 14,
-                                "position": "DEVELOPER",
-                                "hasTeam": true
-                            },
-                            {
-                                "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
-                                "id": "sojeongw22",
-                                "name": "이관호",
-                                "nextersNumber": 15,
-                                "position": "DEVELOPER",
-                                "hasTeam": true
-                            },
-                            {
-                                "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
-                                "id": "sojeongw23",
-                                "name": "허지인",
-                                "nextersNumber": 15,
-                                "position": "DESIGNER",
-                                "hasTeam": true
-                            },
-                            {
-                                "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
-                                "id": "sojeongw24",
-                                "name": "양혜인",
-                                "nextersNumber": 15,
-                                "position": "DESIGNER",
-                                "hasTeam": true
-                            },
-                            {
-                                "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
-                                "id": "sojeongw25",
-                                "name": "김보미",
-                                "nextersNumber": 15,
-                                "position": "DEVELOPER",
-                                "hasTeam": true
-                            },
-                            {
-                                "uuid": "a661fd71-b0cf-44dd-8434-35829bf03c15",
-                                "id": "sojeongw26",
-                                "name": "남기원",
-                                "nextersNumber": 13,
-                                "position": "DEVELOPER",
-                                "hasTeam": true
-                            }
-                        ]
-
-
                         if (!this.availableEditIdea) {
                             this.$store.commit('common/showAlert', {alertMessage: '접근권한이 없어요.'});
                             this.$router.push({path: '/'});
@@ -255,12 +199,28 @@
              */
             completeTeamMember(event, {newMembers}) {
                 const uuids = newMembers.map(member => member.uuid);
-                alert(uuids);
-
-                // TODO
-                //  팝업창 닫아주기
-                //  validate => 이미 팀에 속한사람 에러 확인
-                //  newMembers pi로 추가해주고 다시 idea 불러오기!
+                putTeamMember({
+                    ideaId: this.idea.ideaId,
+                    uuids
+                })
+                .then(() => {
+                    this.getIdeaDetail(this.idea.ideaId);
+                    this.closeTeamMemberManagePopup();
+                    window.vm.$notify.success({
+                        title: '팀원 추가',
+                        message: '팀원이 추가되었습니다.'
+                    });
+                })
+                .catch(err => {
+                    console.log(err);
+                    //TODO 이미 팀에 속한사람 추가시 에러처리
+                    /**
+                     *  "status": 400,
+                     "errorCode": 90005,
+                     "error": "Bad Request",
+                     "message": "error.user.has.team"
+                     */
+                })
             }
         },
 
