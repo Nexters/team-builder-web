@@ -49,6 +49,14 @@ p {
     color: #1c1c1c;
 }
 
+.logo-box {
+    width: 240px;
+    height: 240px;
+    border-radius: 6px;
+    border: solid 1px #dbdbdb;
+    background-color: #e7e7e7;
+}
+
 .input-box {
     width: 320px;
     height: 56px;
@@ -190,7 +198,7 @@ p {
 }
 
 .file-button-group {
-    padding-top: 250px;
+    padding-top: 190px;
 }
 
 .filebox {

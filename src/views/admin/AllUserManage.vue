@@ -6,8 +6,8 @@
                     <p>회원관리 및 설정</p>
                 </div>
                 <div class="header-sub">
-                    <p>넥스터즈 모임모임에 가입한  회원의 정보를 확인할 수 있고, 현재기수 활동 여부를 설정할 수 있습니다.
-회원의 모임모임 활동내역을 체크해서 아이디어를 관리하세요 !</p>
+                    <p>넥스터즈 모임모임에 가입한 회원의 정보를 확인할 수 있고, 현재기수 활동 여부를 설정할 수 있습니다.
+                        회원의 모임모임 활동내역을 체크해서 아이디어를 관리하세요 !</p>
                 </div>
 
                 <div class="user-manage-tab d-flex">
@@ -69,12 +69,12 @@
                                     <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
                                          v-on:click="sorting('voted')">
                                 </div>
-                                <div class="title" style="width: 122px; margin-left: 24px">
+                                <div class="title" style="width: 122px; margin-left: 37px">
                                     팀빌딩 여부
                                     <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
                                          v-on:click="sorting('hasTeam')">
                                 </div>
-                                <div class="title" style="width: 173px; padding-left: 75px">
+                                <div class="title" style="width: 160px; padding-left: 65px">
                                     활동여부
                                     <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
                                          v-on:click="sorting('activated')">
@@ -117,28 +117,37 @@
                                     <td style="width: 166px">
                                         <div class="row-item">{{user.id}}</div>
                                     </td>
-                                    <td style="width: 120px;">
-                                        <div v-if="user.submitIdea" class="row-item select-box">
-                                            <p>작성</p>
-                                        </div>
-                                        <div v-else class="row-item unselect-box">
-                                            <p>미작성</p>
+                                    <td v-if="user.activated" style="width: 360px">
+                                        <div class="row">
+                                            <div style="width: 120px; margin-left: 17px">
+                                                <div v-if="user.submitIdea" class="row-item unselect-box">
+                                                    <p>작성</p>
+                                                </div>
+                                                <div v-else class="row-item select-box">
+                                                    <p>미작성</p>
+                                                </div>
+                                            </div>
+                                            <div style="width: 120px; margin-left: 20px">
+                                                <div v-if="user.voted" class="row-item unselect-box">
+                                                    <p>투표</p>
+                                                </div>
+                                                <div v-else class="row-item select-box">
+                                                    <p>미투표</p>
+                                                </div>
+                                            </div>
+                                            <div style="width: 120px; margin-left: 20px">
+                                                <div v-if="user.hasTeam" class="row-item unselect-box">
+                                                    <p>완료</p>
+                                                </div>
+                                                <div v-else class="row-item select-box">
+                                                    <p>미완료</p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </td>
-                                    <td style="width: 120px; margin-left: 20px">
-                                        <div v-if="user.voted" class="row-item select-box">
-                                            <p>투표</p>
-                                        </div>
-                                        <div v-else class="row-item unselect-box">
-                                            <p>미투표</p>
-                                        </div>
-                                    </td>
-                                    <td style="width: 120px; margin-left: 20px">
-                                        <div v-if="user.hasTeam" class="row-item select-box">
-                                            <p>완료</p>
-                                        </div>
-                                        <div v-else class="row-item unselect-box">
-                                            <p>미완료</p>
+                                    <td v-else style="width: 340px">
+                                        <div class="row-item" style="color: #9b9b9b">
+                                            현재 기수 활동회원이 아니에요.
                                         </div>
                                     </td>
                                     <td style="width: 163px; padding-left: 87px; margin-right: 32px">
