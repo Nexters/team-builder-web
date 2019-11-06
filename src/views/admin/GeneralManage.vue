@@ -35,7 +35,10 @@
                 </div>
 
                 <div class="d-flex" style="margin-top: 12px">
-                    <img v-if="imageUrl" :src="imageUrl" style="width: 300px; height: 300px"/>
+                    <img v-if="imageUrl !== 'https:image.url'" :src="imageUrl" class="logo-box"/>
+                    <img v-else :src="require('../../assets/img/default_logo.png')" class="logo-box"
+                         style="padding: 48px 46px 40px 46px"/>
+
                     <div class="file-button-group">
                         <div class="filebox">
                             <label for="filename">로고변경</label>
@@ -357,7 +360,7 @@
             }
         },
         created() {
-            this.imageUrl = require('@/assets/logo.png');
+            this.imageUrl = require('@/assets/img/default_logo.png');
             this.loadData();
         }
     }
