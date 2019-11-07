@@ -12,7 +12,7 @@
                         </div>
                         <div v-show="!showSearchTagResult">
                             <div class="list-info">
-                                <div id="view-all" v-show="!favorite">전체 아이디어 </div>
+                                <div id="view-all" v-show="!favorite">전체 아이디어</div>
                                 <div id="view-star" v-show="favorite">즐겨찾기한 아이디어</div>
                                 <div style="display: inline">{{ ideaListLength }}건</div>
                             </div>
@@ -34,26 +34,32 @@
                             </SelectSearchTag>
 
                             <!-- 검색 기능 -->
-                            <input type="search"
-                                   class="search-input Rectangle"
-                                   id="search"
-                                   v-on:input="searchTerm = $event.target.value"
-                                   placeholder="제목과 작성자를 검색해주세요."
-                                   @keyup="filterData()"
-                            />
+                            <div class="search-circle row" v-bind:style="searchBoxMouseHoverStyle">
+                                <input type="search"
+                                       class="search-input"
+                                       placeholder="제목과 작성자를 검색해주세요."
+                                       v-on:input="searchTerm = $event.target.value"
+                                       @focusin="searchFocus"
+                                       @focusout="searchFocusOut"
+                                       @keyup="filterData"
+                                       @search="searchClear">
+                                <img :src="require('@/assets/img/ico-search@2x.png')" width="22px" height="22px">
+                            </div>
                         </div>
                     </section>
                 </div>
 
                 <!-- 아이디어 모집 기간에만 -->
                 <!--<div v-if="isActiveSession && getIsActivated"></div>-->
-                <div  v-show="isActiveSession && nowPeriodType === 'IDEA_COLLECT'" class="card-body">
+                <div v-show="isActiveSession && nowPeriodType === 'IDEA_COLLECT'" class="card-body">
                     <div class="default titles">
                         <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
                         <div class="title" style="width: 48px; height: 18px; line-height: 1.29;
-                        margin-left: 10px; margin-bottom: 1px">즐겨찾기</div>
+                        margin-left: 10px; margin-bottom: 1px">즐겨찾기
+                        </div>
                         <div class="title" style="width: 24px; height: 18px; line-height: 1.29;
-                        margin-left: 14px; margin-bottom: 1px;">번호</div>
+                        margin-left: 14px; margin-bottom: 1px;">번호
+                        </div>
                         <div class="title" style="width: 62px; margin-left: 18px">아이디어 명</div>
                         <div class="title" style="width: 24px; margin-left: 447px">태그</div>
                         <el-popover
@@ -61,7 +67,8 @@
                                 width="400"
                                 trigger="hover"
                                 content='태그 영역위에 마우스를 올리면 전체태그를 볼 수 있어요. 개발자태그는 그린박스, 디자이너태그는 옐로우박스예요.'>
-                            <img class="ico_table_tag" slot="reference" :src="require('../../assets/img/ico-table-tag@2x.png')">
+                            <img class="ico_table_tag" slot="reference"
+                                 :src="require('../../assets/img/ico-table-tag@2x.png')">
                         </el-popover>
                         <div class="title" style="width: 24px; margin-left: 291px">직군</div>
                         <img src="../../assets/img/group-10@2x.png" class="Group-10"
@@ -80,9 +87,11 @@
                     <div class="titles">
                         <!--<div classse="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
                         <div class="title" style="width: 48px; height: 18px; line-height: 1.29;
-                        margin-left: 10px; margin-bottom: 1px;">즐겨찾기</div>
+                        margin-left: 10px; margin-bottom: 1px;">즐겨찾기
+                        </div>
                         <div class="title" style="width: 24px; height: 18px; line-height: 1.29;
-                        margin-left: 14px; margin-bottom: 1px;">번호</div>
+                        margin-left: 14px; margin-bottom: 1px;">번호
+                        </div>
                         <div class="title" style="width: 62px; margin-left: 18px">아이디어 명</div>
                         <div class="title" style="width: 24px; margin-left: 397px">태그</div>
                         <el-popover
@@ -90,7 +99,8 @@
                                 width="400"
                                 trigger="hover"
                                 content='태그 영역위에 마우스를 올리면 전체태그를 볼 수 있어요. 개발자태그는 그린박스, 디자이너태그는 옐로우박스예요.'>
-                            <img class="ico_table_tag" slot="reference" :src="require('../../assets/img/ico-table-tag@2x.png')">
+                            <img class="ico_table_tag" slot="reference"
+                                 :src="require('../../assets/img/ico-table-tag@2x.png')">
                         </el-popover>
                         <div class="title" style="width: 24px; margin-left: 291px">직군</div>
                         <img src="../../assets/img/group-10@2x.png" class="Group-10"
@@ -100,7 +110,9 @@
                         <img src="../../assets/img/group-10@2x.png" class="Group-10"
                              v-on:click="sorting('date')" style="cursor:pointer; margin-left: 6px;">
                         <!-- 선정 전에는 안보임 -->
-                        <div v-show="nowPeriodType === 'IDEA_CHECK'" class="title" style="width: 48px; margin-left: 48px">선정여부</div>
+                        <div v-show="nowPeriodType === 'IDEA_CHECK'" class="title"
+                             style="width: 48px; margin-left: 48px">선정여부
+                        </div>
                     </div>
                     <idea-list-vote-and-check @goDetail="goDetail"></idea-list-vote-and-check>
                 </div>
@@ -110,143 +122,159 @@
 </template>
 
 <script>
-  import {getLatestSession} from "@/api/sessionApi";
+    import {getLatestSession} from "@/api/sessionApi";
 
-  import {ACTIONS, GETTERS, MUTATIONS} from "@/store/types";
-  import {createNamespacedHelpers} from 'vuex';
-  const {mapMutations, mapGetters, mapState, mapActions} = createNamespacedHelpers('main');
+    import {ACTIONS, GETTERS, MUTATIONS} from "@/store/types";
+    import {createNamespacedHelpers} from 'vuex';
 
-  import IdeaListRecruiting from '@/components/idea/list/IdeaListRecruiting';
-  import IdeaListVoteAndCheck from "@/components/idea/list/IdeaListVoteAndCheck";
-  import SelectSearchTag from "@/components/common/tag/SelectSearchTag";
+    const {mapMutations, mapGetters, mapState, mapActions} = createNamespacedHelpers('main');
 
-  export default {
-    name: "IdeaSection",
-    components: {
-      IdeaListVoteAndCheck,
-      SelectSearchTag,
-      IdeaListRecruiting
-    },
+    import IdeaListRecruiting from '@/components/idea/list/IdeaListRecruiting';
+    import IdeaListVoteAndCheck from "@/components/idea/list/IdeaListVoteAndCheck";
+    import SelectSearchTag from "@/components/common/tag/SelectSearchTag";
 
-    data() {
-      return {
-        sortPositionASC: false,
-        sortDateASC: false,
-        favorite: false,
-        showPopUp: false,
-        showSearchTagResult: false,
-        isActive: false,
-
-      }
-    },
-
-    computed: {
-      searchTerm: {
-        set(value) {
-          this.$store.commit('main/SET_SEARCH_TERM', value);
+    export default {
+        name: "IdeaSection",
+        components: {
+            IdeaListVoteAndCheck,
+            SelectSearchTag,
+            IdeaListRecruiting
         },
-        get() {
-          return this.$store.state.main.searchTerm;
-        }
-      },
 
-        tagSearchResultMessage() {
-          if (this.searchTagResult === 1) {
-              return `태그 '${this.getSearchTagName}' 검색결과 ${this.ideaListLength}건`;
-          }
-          return `태그 '${this.getSearchTagName}' 외 ${this.searchTagResult - 1}건 검색결과 ${this.ideaListLength}건`;
+        data() {
+            return {
+                sortPositionASC: false,
+                sortDateASC: false,
+                favorite: false,
+                showPopUp: false,
+                showSearchTagResult: false,
+                isActive: false,
+                searchBoxMouseHoverStyle: {},
+            }
         },
-      //
-      // getters: {
-      //   getIsActivated() {
-      //     console.log(this.$store);
-      //     // console.
-      //     return this.$store.getters.auth.getActivated
-      //   }
-      // },
 
-      ...mapGetters({
-        ideaListLength: GETTERS.LIST_LENGTH,
-        searchTagResult: GETTERS.SEARCH_TAG_LIST_LENGTH,
-        getSearchTagName: GETTERS.GET_SEARCH_TAGS_FIRST_NAME,
-        nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
+        computed: {
+            searchTerm: {
+                set(value) {
+                    this.$store.commit('main/SET_SEARCH_TERM', value);
+                },
+                get() {
+                    return this.$store.state.main.searchTerm;
+                }
+            },
 
-      }),
+            tagSearchResultMessage() {
+                if (this.searchTagResult === 1) {
+                    return `태그 '${this.getSearchTagName}' 검색결과 ${this.ideaListLength}건`;
+                }
+                return `태그 '${this.getSearchTagName}' 외 ${this.searchTagResult - 1}건 검색결과 ${this.ideaListLength}건`;
+            },
+            //
+            // getters: {
+            //   getIsActivated() {
+            //     console.log(this.$store);
+            //     // console.
+            //     return this.$store.getters.auth.getActivated
+            //   }
+            // },
 
-      isActiveSession : function () {
-        getLatestSession().then(res => {
-          this.isActive = (res.data.sessionNumber === this.$store.state.main.session.sessionNumber)
-        });
+            ...mapGetters({
+                ideaListLength: GETTERS.LIST_LENGTH,
+                searchTagResult: GETTERS.SEARCH_TAG_LIST_LENGTH,
+                getSearchTagName: GETTERS.GET_SEARCH_TAGS_FIRST_NAME,
+                nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
 
-        return this.isActive;
-      },
+            }),
+
+            isActiveSession: function () {
+                getLatestSession().then(res => {
+                    this.isActive = (res.data.sessionNumber === this.$store.state.main.session.sessionNumber)
+                });
+
+                return this.isActive;
+            },
 
 
-    },
+        },
 
-    methods: {
-      // ...mapActions([
-      //   'ACTIONS.ENTER_SEARCH_TERM',
-      //   'ACTIONS.POSITION_SORT_LIST',
-      //   'ACTIONS.DATE_SORT_LIST',
-      //   'ACTIONS.SHOW_ORIGIN_LIST',
-      // ])
+        methods: {
+            // ...mapActions([
+            //   'ACTIONS.ENTER_SEARCH_TERM',
+            //   'ACTIONS.POSITION_SORT_LIST',
+            //   'ACTIONS.DATE_SORT_LIST',
+            //   'ACTIONS.SHOW_ORIGIN_LIST',
+            // ])
 
-      sorting(by) {
-        if (by === 'position') {
-          this.sortPositionASC = !this.sortPositionASC;
-          if (this.sortPositionASC) {
-            return this.$store.commit('main/SORT_LIST_BY_POSITION_ASC');
-          }
+            sorting(by) {
+                if (by === 'position') {
+                    this.sortPositionASC = !this.sortPositionASC;
+                    if (this.sortPositionASC) {
+                        return this.$store.commit('main/SORT_LIST_BY_POSITION_ASC');
+                    }
+                }
+
+                if (by === 'date') {
+                    this.sortDateASC = !this.sortDateASC;
+                    if (this.sortDateASC) {
+                        return this.$store.commit('main/SORT_LIST_BY_DATE_ASC');
+                    }
+                }
+                return this.$store.dispatch('main/SORT_BY_DEFAULT');
+            },
+
+            filterData() {
+                if (this.searchTerm === '') {
+                    this.$store.dispatch('main/SHOW_ORIGIN_LIST');
+                    return;
+                }
+                this.$store.dispatch('main/ENTER_SEARCH_TERM');
+            },
+
+            searchClear() {
+                this.filterData()
+            },
+
+            showFavorite(star) {
+                this.sortPositionASC = false;
+                this.sortDateASC = false;
+
+                // 검색어 삭제
+                this.searchTerm = '';
+                document.getElementById('search').value = this.searchTerm;
+
+                return star ? this.$store.commit('main/SET_FAVORITE_LIST')
+                    : this.filterData()
+            },
+
+            cancelTagSearch() {
+                this.showSearchTagResult = false;
+                return this.$store.commit('main/SAVE_ORIGIN_LIST');
+            },
+
+            searchTags() {
+                this.showSearchTagResult = true;
+                this.showPopUp = false;
+                return this.$store.dispatch('main/SEARCH_TAGS');
+            },
+
+            goDetail(id) {
+                this.$router.push({
+                    path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${id}`
+                });
+            },
+
+            searchFocus() {
+                this.searchBoxMouseHoverStyle = {
+                    'outline': 'none',
+                    'border': '1px solid #273EA5',
+                    'box-shadow': 'none'
+                };
+            },
+            searchFocusOut() {
+                this.searchBoxMouseHoverStyle = {};
+            }
         }
-
-        if (by === 'date') {
-          this.sortDateASC = !this.sortDateASC;
-          if (this.sortDateASC) {
-            return this.$store.commit('main/SORT_LIST_BY_DATE_ASC');
-          }
-        }
-        return this.$store.dispatch('main/SORT_BY_DEFAULT');
-      },
-
-      filterData() {
-        if (this.searchTerm === '') {
-          this.$store.dispatch('main/SHOW_ORIGIN_LIST');
-          return;
-        }
-        this.$store.dispatch('main/ENTER_SEARCH_TERM');
-      },
-
-      showFavorite(star) {
-        this.sortPositionASC = false;
-        this.sortDateASC = false;
-
-        // 검색어 삭제
-        this.searchTerm = '';
-        document.getElementById('search').value = this.searchTerm;
-
-        return star ? this.$store.commit('main/SET_FAVORITE_LIST')
-          : this.filterData()
-      },
-
-      cancelTagSearch() {
-        this.showSearchTagResult = false;
-        return this.$store.commit('main/SAVE_ORIGIN_LIST');
-      },
-
-      searchTags() {
-        this.showSearchTagResult = true;
-        this.showPopUp = false;
-        return this.$store.dispatch('main/SEARCH_TAGS');
-      },
-
-      goDetail(id) {
-        this.$router.push({
-          path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${id}`
-        });
-      },
     }
-  }
 </script>
 
 <style src="./IdeaSection.css" scoped>

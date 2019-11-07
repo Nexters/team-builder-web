@@ -11,22 +11,26 @@
                 </div>
 
                 <div class="user-manage-tab d-flex">
-                    <p>전체회원 {{users.length}}명</p>
-                    <div class="ml-auto">
-                        <button class="btn-active-user" @click="addActiveUsers">
-                            활동회원추가
-                        </button>
-                        <button class="btn-deactive-user" @click="deleteActiveUsers">
-                            활동회원제거
-                        </button>
+                    <div class="header-left">
+                        <p class="user-count">전체회원 {{users.length}}명</p>
+                    </div>
+
+                    <div class="header-right">
                         <button class="btn-user-remove">
                             회원 제명
                         </button>
-                        <input type="search"
-                               class="search-box"
-                               placeholder="회원명과 아이디를 검색해주세요."
-                               v-on:input="search = $event.target.value"
-                               @keyup="filtering()">
+
+                        <div class="search-circle row" v-bind:style="searchBoxMouseHoverStyle">
+                            <input type="search"
+                                   class="search-box"
+                                   placeholder="회원명과 아이디를 검색해주세요."
+                                   v-on:input="search = $event.target.value"
+                                   @focusin="searchFocus"
+                                   @focusout="searchFocusOut"
+                                   @keyup="filtering"
+                                   @search="searchClear">
+                            <img :src="require('../../assets/img/ico-search@2x.png')" width="22px" height="22px">
+                        </div>
                     </div>
                 </div>
 
@@ -186,6 +190,7 @@
                 users: [],
                 userViewList: [],
                 search: '',
+                searchBoxMouseHoverStyle: {},
                 sortCreatedAtASC: false,
                 sortNextersNumberASC: false,
                 sortPositionASC: false,
@@ -194,7 +199,7 @@
                 sortHasTeamASC: false,
                 sortActivatedASC: false,
                 selected: [],
-                allSelected: false,
+                allSelected: false
             }
         },
         methods: {
@@ -203,24 +208,6 @@
                 getAllUsers()
                     .then(res => {
                         this.users = this.userViewList = res.data;
-                    });
-            },
-            addActiveUsers() {
-                addActiveUser(this.selected)
-                    .then(res => {
-                        alert(this.selected.length + '명의 활동회원을 추가하였습니다.');
-                        this.loadAllUsers();
-                        this.toggleAll(false);
-                        this.allSelected = false;
-                    });
-            },
-            deleteActiveUsers() {
-                deleteActiveUser(this.selected)
-                    .then(res => {
-                        alert(this.selected.length + '명의 활동회원을 제거하였습니다.');
-                        this.loadAllUsers();
-                        this.toggleAll(false);
-                        this.allSelected = false;
                     });
             },
             toggleAll(checked) {
@@ -281,7 +268,6 @@
                 })
             },
             userActivate(id, activated) {
-                console.log(id)
                 if (activated) {
                     addActiveUser(id)
                         .then(res => console.log(res))
@@ -313,6 +299,19 @@
                     if (idea.id.toLowerCase().includes(searchQuery)) return true;
                     if (idea.name.toLowerCase().includes(searchQuery)) return true;
                 })
+            },
+            searchFocus() {
+                this.searchBoxMouseHoverStyle = {
+                    'outline': 'none',
+                    'border': '1px solid #273EA5',
+                    'box-shadow': 'none'
+                };
+            },
+            searchFocusOut() {
+                this.searchBoxMouseHoverStyle = {};
+            },
+            searchClear() {
+                this.filtering()
             }
         },
         computed: {
