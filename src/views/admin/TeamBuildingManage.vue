@@ -32,7 +32,7 @@
                             </div>
 
                             <table class="board" v-for="idea in ideas">
-                                <tbody>
+                                <tbody @click="detailIdea({ideaId: idea.ideaId})" style="cursor: pointer">
                                 <tr class="list">
                                     <td style="width: 100%">
                                         <div class="row align-items-center"
@@ -107,9 +107,9 @@
     import Layout from "../../components/common/layout/Layout";
     import Session from "../../components/admin/manage/Session";
     import {TAG_TYPE} from "../../consts/Tag";
-    import {getIdeas} from '@/api/ideaApi';
     import {getPositionName} from '@/consts/positionType';
     import moment from 'moment';
+    import {getSession} from '@/api/sessionApi';
 
     export default {
         name: "TeamBuildingManage",
@@ -153,9 +153,7 @@
         },
 
         computed: {
-            memberInfoText({member}) {
-                return `${member.nextersNumber}기  ${getPositionName(member.position)}  ${member.name}`;
-            },
+
         },
 
         methods: {
@@ -174,13 +172,37 @@
 
             createdAtAsFormat({createdAt}) {
                 return moment(createdAt).format('YYYY.MM.DD');
-            }
+            },
+
+            memberInfoText({member}) {
+                return `${member.nextersNumber}기  ${getPositionName(member.position)}  ${member.name}`;
+            },
+
+            detailIdea({ideaId}) {
+                this.$router.push({
+                    path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${ideaId}`
+                });
+            },
+
+            viewAllTags(event) {
+                const popUp = event.target.closest('.td').lastChild;
+                if (popUp.className) {
+                    popUp.style.display = 'flex';
+                }
+            },
+
+            closeAllTags(event) {
+                const popUp = event.target.closest('.td').lastChild;
+                if (popUp.className) {
+                    popUp.style.display = 'none';
+                }
+            },
         },
 
         created() {
-            getIdeas()
+            getSession({sessionNumber: this.$store.state.main.session.sessionNumber})
                 .then(res => {
-                    this.ideas = res.data.filter(idea => {
+                    this.ideas = res.data.ideas.filter(idea => {
                         return idea.selected;
                     });
                 })
@@ -189,6 +211,4 @@
     }
 </script>
 
-<style src="./TeamBuildingManage.css" scoped>
-
-</style>
+<style src="./TeamBuildingManage.css" scoped />
