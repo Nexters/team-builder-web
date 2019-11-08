@@ -1,5 +1,9 @@
 import {GET, POST, PUT, DELETE} from '@/api/index';
 
+export function getIdeas() {
+    return GET('apis/ideas');
+}
+
 export function getIdea(ideaId) {
     return GET(`apis/ideas/${ideaId}`);
 }

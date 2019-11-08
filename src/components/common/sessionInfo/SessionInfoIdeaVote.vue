@@ -9,8 +9,8 @@
 
             <div v-if="!isAdmin">
                 <div class="session-info-idea-put-basket-box">
-                    <div v-show="!voteDone">
-                        <span class="session-info-idea-put-basket">아이디어 담기</span>
+                    <div v-show="!voteDone" style="width: 200px">
+                        <span class="session-info-idea-put-basket">아이디어 투표 담기</span>
                         <span class="session-info-idea-put-basket-count">{{ candidateIdeas.length }} / {{ maxVoteCount }}</span>
                     </div>
                     <span v-show="voteDone" class="session-info-idea-put-basket">투표내역</span>
@@ -355,7 +355,7 @@
         width: 560px;
         height: 399px;
         position: absolute;
-        top: 19px;
+        top: 17px;
         right: -50px;
     }
 

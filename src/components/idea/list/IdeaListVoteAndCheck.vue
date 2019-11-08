@@ -185,7 +185,7 @@
                 this.$store.commit('main/ADD_CANDIDATE_IDEA', id);
                 window.vm.$notify.info({
                     title: '아이디어 투표',
-                    message: '아이디어가 장바구니에 담겼습니다'
+                    message: '아이디어가 투표담기에 담겼습니다'
                 });
             },
 

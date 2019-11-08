@@ -5,60 +5,58 @@
                 <div class="card-header">
                     <section class="header-left">
                         <div class="list-info">
-                            <div v-show="this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING')" id="view-all" style="display: inline;">전체 아이디어 </div>
-                            <div v-show="!(this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING'))" style="display: inline;">선정 아이디어 </div>
+                            <div v-show="this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING')" id="view-all"
+                                 style="display: inline;">전체 아이디어
+                            </div>
+                            <div v-show="!(this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING'))"
+                                 style="display: inline;">선정 아이디어
+                            </div>
                             <div style="display: inline">{{ selectedIdeaListLength }}건</div>
                         </div>
                     </section>
                     <section class="header-right">
                         <div class="idea-management" v-show="getTypeNow !== 'IDEA_COLLECT'">
                             <button class="Rectangle-Copy" @click="clickSelection"><span>아이디어 선정</span></button>
-                            <button class="Rectangle-Copy Rectangle-Black" @click="clickDeletion"><span>아이디어 삭제</span></button>
+                            <button class="Rectangle-Copy Rectangle-Black" @click="clickDeletion"><span>아이디어 삭제</span>
+                            </button>
                             <!-- 검색 기능 -->
                         </div>
-                        <div class="search">
+
+                        <div class="search-circle row" v-bind:style="searchBoxMouseHoverStyle">
                             <input type="search"
-                                   class="search-input Rectangle"
-                                   v-on:input="searchTerm = $event.target.value"
+                                   class="search-input"
                                    placeholder="제목과 작성자를 검색해주세요."
-                                   @keyup="filterData()"
-                            />
+                                   v-on:input="searchTerm = $event.target.value"
+                                   @focusin="searchFocus"
+                                   @focusout="searchFocusOut"
+                                   @keyup="filterData"
+                                   @search="searchClear">
+                            <img :src="require('@/assets/img/ico-search@2x.png')" width="22px" height="22px">
                         </div>
                     </section>
                 </div>
 
-                <div class="card-body" v-show="!(this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING'))">
+                <div class="card-body">
                     <b-form-group>
-                    <div class="titles">
-                        <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
-                        <div class="title" style="width: 46px; padding-left: 28px">
-                            <div class="custom-checkbox">
-                                <b-form-checkbox v-model="allSelected" @change="toggleAll"/>
+                        <div class="titles">
+                            <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
+                            <div class="title" style="width: 46px; padding-left: 28px">
+                                <div class="custom-checkbox">
+                                    <b-form-checkbox v-model="allSelected" @change="toggleAll"/>
+                                </div>
                             </div>
+                            <div class="title" style="width: 62px; margin-left: 26px">아이디어 명</div>
+                            <div class="title" style="width: 24px; margin-left: 701px">직군</div>
+                            <div class="title" style="width: 36px; margin-left: 42px">작성자</div>
+                            <div class="title" style="width: 24px; margin-left: 30px">날짜</div>
+                            <div class="title" style="width: 24px; margin-left: 76px;">득표</div>
+                            <img src="@/assets/img/group-10@2x.png" class="Group-10"
+                                 v-on:click="sorting" style="cursor:pointer; margin-left: 6px;">
+                            <div class="title" style="width: 48px; margin-left: 20px">선정여부</div>
                         </div>
-                        <div class="title" style="width: 62px; margin-left: 26px">아이디어 명</div>
-                        <div class="title" style="width: 24px; margin-left: 701px">직군</div>
-                        <div class="title" style="width: 36px; margin-left: 42px">작성자</div>
-                        <div class="title" style="width: 24px; margin-left: 30px">날짜</div>
-                        <div class="title" style="width: 24px; margin-left: 76px;">득표</div>
-                        <img src="@/assets/img/group-10@2x.png" class="Group-10"
-                             v-on:click="sorting" style="cursor:pointer; margin-left: 6px;">
-                        <div class="title" style="width: 48px; margin-left: 20px">선정여부</div>
-                    </div>
-                    <admin-idea-list @goDetail="goDetail" :allSelected.sync="allSelected" :select="select"></admin-idea-list>
+                        <admin-idea-list @goDetail="goDetail" :allSelected.sync="allSelected"
+                                         :select="select"></admin-idea-list>
                     </b-form-group>
-                </div>
-
-                <div class="card-body" v-show="this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING')">
-                    <div class="titles">
-                        <!--<div class="title" :id="{ index }" v-for="(value, index) in titles">{{ value.name }}</div>-->
-                        <div class="title" style="width: 62px; margin-left: 20px">아이디어 명</div>
-                        <div class="title" style="width: 24px; margin-left: 828px">직군</div>
-                        <div class="title" style="width: 36px; margin-left: 42px">작성자</div>
-                        <div class="title" style="width: 24px; margin-left: 30px">날짜</div>
-                        <div class="title" style="width: 48px; margin-left: 66px">파일첨부</div>
-                    </div>
-                    <team-building-list-default @goDetail="goDetail"></team-building-list-default>
                 </div>
             </div>
         </div>
@@ -66,103 +64,118 @@
 </template>
 
 <script>
-  import {bus} from '@/main';
-  import {ACTIONS, GETTERS, MUTATIONS} from "@/store/types";
-  import {createNamespacedHelpers} from 'vuex';
-  const {mapMutations, mapGetters, mapState, mapActions} = createNamespacedHelpers('main');
+    import {bus} from '@/main';
+    import {ACTIONS, GETTERS, MUTATIONS} from "@/store/types";
+    import {createNamespacedHelpers} from 'vuex';
 
-  import AdminIdeaList from "@/components/idea/admin/AdminIdeaList";
-  import TeamBuildingListDefault from "@/components/idea/teamBuildingList/teamBuildingListDefault";
+    const {mapMutations, mapGetters, mapState, mapActions} = createNamespacedHelpers('main');
 
-  export default {
-    name: "AdminIdeaListSection",
-    components: {
-      TeamBuildingListDefault,
-      AdminIdeaList,
-    },
+    import AdminIdeaList from "@/components/idea/admin/AdminIdeaList";
 
-    data() {
-      return {
-        sortVoteNumberDESC: false,
-        allSelected: false,
-        select: [],
-      }
-    },
-
-    computed: {
-      searchTerm: {
-        set (value) {
-          this.$store.commit('main/SET_SEARCH_TERM', value);
+    export default {
+        name: "AdminIdeaListSection",
+        components: {
+            AdminIdeaList
         },
-        get() {
-          return this.$store.state.main.searchTerm;
+
+        data() {
+            return {
+                sortVoteNumberDESC: false,
+                allSelected: false,
+                select: [],
+                searchBoxMouseHoverStyle: {},
+            }
+        },
+
+        computed: {
+            searchTerm: {
+                set(value) {
+                    this.$store.commit('main/SET_SEARCH_TERM', value);
+                },
+                get() {
+                    return this.$store.state.main.searchTerm;
+                }
+            },
+
+            ...mapGetters({
+                selectedIdeaListLength: GETTERS.SELECTED_IDEA_LIST_LENGTH,
+                ideaListResult: GETTERS.GET_LIST,
+                getTypeNow: GETTERS.GET_PERIOD_TYPE_NOW,
+            }),
+
+            ...mapState({
+                teamBuildingMode: state => state.session.teamBuildingMode,
+            })
+
+            // ...mapMutations([
+            //   'SET_SEARCH_TERM'
+            // ])
+
+        },
+
+        methods: {
+            // ...mapActions([
+            //   'ACTIONS.ENTER_SEARCH_TERM',
+            //   'ACTIONS.POSITION_SORT_LIST',
+            //   'ACTIONS.DATE_SORT_LIST',
+            //   'ACTIONS.SHOW_ORIGIN_LIST',
+            // ]),
+
+            sorting() {
+                this.sortVoteNumberDESC = !this.sortVoteNumberDESC
+                if (this.sortVoteNumberDESC) {
+                    return this.$store.commit('main/SORT_LIST_BY_VOTE_NUMBER_DESC')
+                }
+
+                return this.$store.dispatch('main/SHOW_ORIGIN_LIST');
+            },
+
+            filterData() {
+                if (this.searchTerm === '') {
+                    this.$store.dispatch('main/SHOW_ORIGIN_LIST');
+                    return;
+                }
+                this.$store.dispatch('main/ENTER_SEARCH_TERM');
+            },
+
+            searchClear() {
+                this.filterData()
+            },
+
+            toggleAll(checked) {
+                bus.$emit('toggleAll', checked);
+            },
+
+            clickSelection() {
+                bus.$emit('clickSelection');
+            },
+
+            clickDeletion() {
+                bus.$emit('clickDeletion');
+            },
+
+            goDetail(id) {
+                this.$router.push({
+                    path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${id}`
+                });
+            },
+
+            searchFocus() {
+                this.searchBoxMouseHoverStyle = {
+                    'outline': 'none',
+                    'border': '1px solid #273EA5',
+                    'box-shadow': 'none'
+                };
+            },
+            searchFocusOut() {
+                this.searchBoxMouseHoverStyle = {};
+            }
+        },
+
+        created() {
+            this.$on('allSelected', this.allSelected);
         }
-      },
-
-      ...mapGetters({
-        selectedIdeaListLength: GETTERS.SELECTED_IDEA_LIST_LENGTH,
-        ideaListResult: GETTERS.GET_LIST,
-        getTypeNow: GETTERS.GET_PERIOD_TYPE_NOW,
-      }),
-
-      ...mapState({
-        teamBuildingMode: state => state.session.teamBuildingMode,
-      })
-
-      // ...mapMutations([
-      //   'SET_SEARCH_TERM'
-      // ])
-
-    },
-
-    methods: {
-      // ...mapActions([
-      //   'ACTIONS.ENTER_SEARCH_TERM',
-      //   'ACTIONS.POSITION_SORT_LIST',
-      //   'ACTIONS.DATE_SORT_LIST',
-      //   'ACTIONS.SHOW_ORIGIN_LIST',
-      // ]),
-
-      sorting() {
-        this.sortVoteNumberDESC = !this.sortVoteNumberDESC
-        if(this.sortVoteNumberDESC) {
-          return this.$store.commit('main/SORT_LIST_BY_VOTE_NUMBER_DESC')
-        }
-
-        return this.$store.dispatch('main/SHOW_ORIGIN_LIST');
-      },
-
-      filterData() {
-        if(this.searchTerm === '') {
-          this.$store.dispatch('main/SHOW_ORIGIN_LIST');
-          return;
-        }
-        this.$store.dispatch('main/ENTER_SEARCH_TERM');
-      },
-
-      toggleAll(checked) {
-        bus.$emit('toggleAll', checked);
-      },
-
-      clickSelection() {
-        bus.$emit('clickSelection');
-      },
-
-      clickDeletion() {
-        bus.$emit('clickDeletion');
-      },
-
-      goDetail(id) {
-        this.$router.push({
-          path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${id}`
-        });
-      },
-    },
-
-    created() {
-      this.$on('allSelected', this.allSelected);
     }
-  }
 </script>
 
 <style scoped>
@@ -241,12 +254,29 @@
         margin-left: 1.3%;
     }
 
-    .search {
+    .search-circle {
+        width: 333px;
+        height: 50px;
+        border-radius: 6px;
+        border: solid 1px #eeeeee;
+        background-color: #ffffff;
+        padding: 0 14px;
+        margin: 0;
+        outline: none;
+        vertical-align: center;
+        align-items: center;
+        justify-content: center;
         display: inline-block;
-        float: right;
     }
 
     .search-input {
+        width: 270px;
+        height: 100%;
+        padding: 0 8px 0 0;
+        border: 0;
+        box-shadow: none;
+    }
+    .search-input::placeholder {
         font-family: NotoSansCJKkr;
         font-size: 16px;
         font-weight: 300;
@@ -255,14 +285,10 @@
         line-height: normal;
         letter-spacing: -0.53px;
         color: #9b9b9b;
-
-        padding-left: 50px;
-
-        background-color: #ffffff;
-        background-image: url('../../../assets/img/ico-search@2x.png');
-        background-repeat: no-repeat;
-        background-size: 20px 20px;
-        background-position: 16px 15px;
+    }
+    .search-input:focus {
+        outline: none;
+        box-shadow: none;
     }
 
     .Rectangle-Copy {

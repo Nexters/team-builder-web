@@ -37,6 +37,17 @@
                         </div>
                     </div>
 
+                    <div v-if="isTeamBuildingMode" class="team-member-wrap">
+                        <div class="team-member-title">
+                            <span class="team-member-text">팀원구성</span>
+                            <span class="team-member-count">{{idea.members.length}}</span>
+                        </div>
+
+                        <div class="team-member-info">
+                            <TeamMemberInfo v-for="member in idea.members" :key="member.id" :member="member"/>
+                        </div>
+                    </div>
+
                     <div class="buttons-wrap">
                         <button v-if="availableRemoveIdea" class="idea-detail-remove-button" @click="removeIdea">
                             <span class="idea-detail-remove-button-span">삭제하기</span>
@@ -68,11 +79,12 @@
     import {createNamespacedHelpers} from 'vuex';
     import {getFileName} from '@/utils/file';
     import {PERIOD_TYPE} from '@/consts/periodType';
-    const { mapActions, mapGetters } = createNamespacedHelpers('main');
+    import TeamMemberInfo from '@/components/idea/team/TeamMemberInfo';
+    const { mapState, mapActions, mapGetters } = createNamespacedHelpers('main');
 
     export default {
         name: "IdeaDetail",
-        components: {IdeaDetailHeader, EditorViewer, TagGroup, Layout},
+        components: {TeamMemberInfo, IdeaDetailHeader, EditorViewer, TagGroup, Layout},
         data() {
             return {
                 ideaId: this.$route.params.ideaId,
@@ -83,6 +95,10 @@
         },
 
         computed: {
+            ...mapState({
+                isTeamBuildingMode: state => state.session.teamBuildingMode,
+            }),
+
             ...mapGetters({
                 nowPeriodType: GETTERS.GET_PERIOD_TYPE_NOW,
                 ideaList: GETTERS.GET_LIST,
@@ -181,9 +197,7 @@
 
             getIdeaDetail() {
                 this.getIdea(this.ideaId)
-                    .then(res => {
-                        this.idea = res.data;
-                    })
+                    .then(res => this.idea = res.data)
                     .catch(err => console.log(err));
             }
         },
@@ -288,8 +302,7 @@
 
     .file-upload-wrap {
         width: 100%;
-        height: 130px;
-        margin-top: 60px;
+        margin-top: 44px;
         text-align: left;
     }
 
@@ -365,5 +378,36 @@
         line-height: normal;
         letter-spacing: -0.48px;
         color: #9b9b9b;
+    }
+
+    .team-member-wrap {
+        width: 100%;
+        margin-top: 60px;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    .team-member-title {
+        width: 76px;
+        height: 29px;
+        font-family: NotoSansCJKkr;
+        font-size: 20px;
+        letter-spacing: -0.6px;
+        color: #000000;
+        display: inline;
+    }
+
+    .team-member-count {
+        width: 11px;
+        height: 29px;
+        margin-left: 16px;
+        font-family: NotoSansCJKkr;
+        font-size: 20px;
+        letter-spacing: -0.6px;
+        color: #208b84;
+    }
+
+    .team-member-info {
+        margin-top: 32px;
     }
 </style>

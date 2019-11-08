@@ -6,27 +6,31 @@
                     <p>회원관리 및 설정</p>
                 </div>
                 <div class="header-sub">
-                    <p>넥스터즈 모임모임에 가입한  회원의 정보를 확인할 수 있고, 현재기수 활동 여부를 설정할 수 있습니다.
-회원의 모임모임 활동내역을 체크해서 아이디어를 관리하세요 !</p>
+                    <p>넥스터즈 모임모임에 가입한 회원의 정보를 확인할 수 있고, 현재기수 활동 여부를 설정할 수 있습니다.
+                        회원의 모임모임 활동내역을 체크해서 아이디어를 관리하세요 !</p>
                 </div>
 
                 <div class="user-manage-tab d-flex">
-                    <p>전체회원 {{users.length}}명</p>
-                    <div class="ml-auto">
-                        <button class="btn-active-user" @click="addActiveUsers">
-                            활동회원추가
-                        </button>
-                        <button class="btn-deactive-user" @click="deleteActiveUsers">
-                            활동회원제거
-                        </button>
+                    <div class="header-left">
+                        <p class="user-count">전체회원 {{users.length}}명</p>
+                    </div>
+
+                    <div class="header-right">
                         <button class="btn-user-remove">
                             회원 제명
                         </button>
-                        <input type="search"
-                               class="search-box"
-                               placeholder="회원명과 아이디를 검색해주세요."
-                               v-on:input="search = $event.target.value"
-                               @keyup="filtering()">
+
+                        <div class="search-circle row" v-bind:style="searchBoxMouseHoverStyle">
+                            <input type="search"
+                                   class="search-box"
+                                   placeholder="회원명과 아이디를 검색해주세요."
+                                   v-on:input="search = $event.target.value"
+                                   @focusin="searchFocus"
+                                   @focusout="searchFocusOut"
+                                   @keyup="filtering"
+                                   @search="searchClear">
+                            <img :src="require('../../assets/img/ico-search@2x.png')" width="22px" height="22px">
+                        </div>
                     </div>
                 </div>
 
@@ -69,12 +73,12 @@
                                     <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
                                          v-on:click="sorting('voted')">
                                 </div>
-                                <div class="title" style="width: 122px; margin-left: 24px">
+                                <div class="title" style="width: 122px; margin-left: 37px">
                                     팀빌딩 여부
                                     <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
                                          v-on:click="sorting('hasTeam')">
                                 </div>
-                                <div class="title" style="width: 173px; padding-left: 75px">
+                                <div class="title" style="width: 160px; padding-left: 65px">
                                     활동여부
                                     <img class="pointer" :src="require('../../assets/img/group-10@2x.png')"
                                          v-on:click="sorting('activated')">
@@ -117,28 +121,37 @@
                                     <td style="width: 166px">
                                         <div class="row-item">{{user.id}}</div>
                                     </td>
-                                    <td style="width: 120px;">
-                                        <div v-if="user.submitIdea" class="row-item select-box">
-                                            <p>작성</p>
-                                        </div>
-                                        <div v-else class="row-item unselect-box">
-                                            <p>미작성</p>
+                                    <td v-if="user.activated" style="width: 360px">
+                                        <div class="row">
+                                            <div style="width: 120px; margin-left: 17px">
+                                                <div v-if="user.submitIdea" class="row-item unselect-box">
+                                                    <p>작성</p>
+                                                </div>
+                                                <div v-else class="row-item select-box">
+                                                    <p>미작성</p>
+                                                </div>
+                                            </div>
+                                            <div style="width: 120px; margin-left: 20px">
+                                                <div v-if="user.voted" class="row-item unselect-box">
+                                                    <p>투표</p>
+                                                </div>
+                                                <div v-else class="row-item select-box">
+                                                    <p>미투표</p>
+                                                </div>
+                                            </div>
+                                            <div style="width: 120px; margin-left: 20px">
+                                                <div v-if="user.hasTeam" class="row-item unselect-box">
+                                                    <p>완료</p>
+                                                </div>
+                                                <div v-else class="row-item select-box">
+                                                    <p>미완료</p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </td>
-                                    <td style="width: 120px; margin-left: 20px">
-                                        <div v-if="user.voted" class="row-item select-box">
-                                            <p>투표</p>
-                                        </div>
-                                        <div v-else class="row-item unselect-box">
-                                            <p>미투표</p>
-                                        </div>
-                                    </td>
-                                    <td style="width: 120px; margin-left: 20px">
-                                        <div v-if="user.hasTeam" class="row-item select-box">
-                                            <p>완료</p>
-                                        </div>
-                                        <div v-else class="row-item unselect-box">
-                                            <p>미완료</p>
+                                    <td v-else style="width: 340px">
+                                        <div class="row-item" style="color: #9b9b9b">
+                                            현재 기수 활동회원이 아니에요.
                                         </div>
                                     </td>
                                     <td style="width: 163px; padding-left: 87px; margin-right: 32px">
@@ -177,6 +190,7 @@
                 users: [],
                 userViewList: [],
                 search: '',
+                searchBoxMouseHoverStyle: {},
                 sortCreatedAtASC: false,
                 sortNextersNumberASC: false,
                 sortPositionASC: false,
@@ -185,7 +199,7 @@
                 sortHasTeamASC: false,
                 sortActivatedASC: false,
                 selected: [],
-                allSelected: false,
+                allSelected: false
             }
         },
         methods: {
@@ -194,24 +208,6 @@
                 getAllUsers()
                     .then(res => {
                         this.users = this.userViewList = res.data;
-                    });
-            },
-            addActiveUsers() {
-                addActiveUser(this.selected)
-                    .then(res => {
-                        alert(this.selected.length + '명의 활동회원을 추가하였습니다.');
-                        this.loadAllUsers();
-                        this.toggleAll(false);
-                        this.allSelected = false;
-                    });
-            },
-            deleteActiveUsers() {
-                deleteActiveUser(this.selected)
-                    .then(res => {
-                        alert(this.selected.length + '명의 활동회원을 제거하였습니다.');
-                        this.loadAllUsers();
-                        this.toggleAll(false);
-                        this.allSelected = false;
                     });
             },
             toggleAll(checked) {
@@ -272,7 +268,6 @@
                 })
             },
             userActivate(id, activated) {
-                console.log(id)
                 if (activated) {
                     addActiveUser(id)
                         .then(res => console.log(res))
@@ -304,6 +299,19 @@
                     if (idea.id.toLowerCase().includes(searchQuery)) return true;
                     if (idea.name.toLowerCase().includes(searchQuery)) return true;
                 })
+            },
+            searchFocus() {
+                this.searchBoxMouseHoverStyle = {
+                    'outline': 'none',
+                    'border': '1px solid #273EA5',
+                    'box-shadow': 'none'
+                };
+            },
+            searchFocusOut() {
+                this.searchBoxMouseHoverStyle = {};
+            },
+            searchClear() {
+                this.filtering()
             }
         },
         computed: {

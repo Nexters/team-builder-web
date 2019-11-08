@@ -70,6 +70,11 @@
                 } else {
                     this.selectedTagsCopy.splice(index, 1);
                 }
+
+                this.copyTag();
+            },
+
+            copyTag() {
                 this.fetchSelectedTags(this.selectedTagsCopy);
             }
         },
@@ -77,6 +82,7 @@
         created() {
             this.allTagsCopy = JSON.parse(JSON.stringify(this.allTags));
             this.selectedTagsCopy = JSON.parse(JSON.stringify(this.allTags.filter(tag => tag.state)));
+            this.copyTag();
         }
     }
 </script>
