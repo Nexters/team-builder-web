@@ -36,6 +36,7 @@
                             <!-- 검색 기능 -->
                             <div class="search-circle row" v-bind:style="searchBoxMouseHoverStyle">
                                 <input type="search"
+                                       id="search"
                                        class="search-input"
                                        placeholder="제목과 작성자를 검색해주세요."
                                        v-on:input="searchTerm = $event.target.value"
@@ -169,14 +170,6 @@
                 }
                 return `태그 '${this.getSearchTagName}' 외 ${this.searchTagResult - 1}건 검색결과 ${this.ideaListLength}건`;
             },
-            //
-            // getters: {
-            //   getIsActivated() {
-            //     console.log(this.$store);
-            //     // console.
-            //     return this.$store.getters.auth.getActivated
-            //   }
-            // },
 
             ...mapGetters({
                 ideaListLength: GETTERS.LIST_LENGTH,
@@ -198,12 +191,6 @@
         },
 
         methods: {
-            // ...mapActions([
-            //   'ACTIONS.ENTER_SEARCH_TERM',
-            //   'ACTIONS.POSITION_SORT_LIST',
-            //   'ACTIONS.DATE_SORT_LIST',
-            //   'ACTIONS.SHOW_ORIGIN_LIST',
-            // ])
 
             sorting(by) {
                 if (by === 'position') {
