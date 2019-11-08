@@ -87,7 +87,11 @@
 
                             <table class="board">
                                 <tbody>
-                                <tr class="list" v-for="user in filteredUsers" :key="user.id">
+                                <div v-if="filteredUsers.length === 0" class="no-user-search" style="text-align: center; margin-top: 154px">
+                                    ‘{{search}}’에 대한 검색결과가 없어요
+                                </div>
+                                <tr v-else class="list" v-for="user in filteredUsers"
+                                    :key="user.id">
                                     <td class="flex"
                                         style="width: 70px; height: 20px; padding-left: 26px; padding-bottom: 2px">
                                         <div class="custom-checkbox">
