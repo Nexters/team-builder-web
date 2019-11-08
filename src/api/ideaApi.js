@@ -40,15 +40,15 @@ export function deleteFavorite(ideaId) {
   return DELETE(`/apis/favorites/${ideaId}`)
 }
 
-export function updateIdea(idea) {
+export function selectIdea(idea) {
   return PUT(`/apis/ideas/${idea.ideaId}`, {
-    content: idea.content,
-    file: idea.file,
-    selected: true,
     sessionId: idea.sessionId,
-    tags: idea.tags,
     title: idea.title,
-    type: idea.type
+    content: idea.content,
+    tags: idea.tags,
+    file: idea.file,
+    type: idea.type,
+    selected: true,
   })
 }
 

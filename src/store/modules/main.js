@@ -1,14 +1,13 @@
 import {ACTIONS, GETTERS, MUTATIONS} from '@/store/types';
 import {getSession, createSession, deleteSession} from '@/api/sessionApi';
 import {
-    createNewIdea,
-    deleteFavorite,
-    deleteIdea,
-    getIdea,
-    putVoteIdea,
-    setFavorite,
-    updateIdea,
-    modifyIdea
+  createNewIdea,
+  deleteFavorite,
+  deleteIdea,
+  getIdea,
+  putVoteIdea,
+  setFavorite,
+  modifyIdea, selectIdea
 } from '@/api/ideaApi';
 import {DEFAULT_LOGO_URL} from '@/consts/common';
 
@@ -202,6 +201,7 @@ const store = {
             state.candidateIdeas = [];
             state.selectedTags = [];
             state.nowPeriod = session.periods.find(period => period.now);
+            state.maxVoteCount = session.maxVoteCount;
         },
 
         [MUTATIONS.SET_SEARCH_TERM]: (state, value) => {
@@ -356,11 +356,7 @@ const store = {
         },
 
         [MUTATIONS.REMOVE_CANDIDATE_IDEA]: (state, ideaId) => {
-            // 수정해야함
-            // const removeIdeaIndex = state.candidateIdeas.findIndex(idea => idea.id === ideaId);
-            const removeIdeaIndex = state.candidateIdeas.indexOf(idea => (idea.id === ideaId));
-            console.log(state.candidateIdeas);
-            console.log(removeIdeaIndex);
+            const removeIdeaIndex = state.candidateIdeas.findIndex(idea => idea.ideaId === ideaId);
             state.candidateIdeas.splice(removeIdeaIndex, 1);
         },
 
@@ -470,12 +466,13 @@ const store = {
 
         [ACTIONS.SELECTION_IDEAS]: (context, ideas) => {
             ideas.forEach(function (idea) {
-                updateIdea(idea)
+                selectIdea(idea)
                 // .then(this.$forceUpdate())
-                    .catch(err => console.log(err));
+                    .catch(err => console.log(err))
+                  .then(context.commit(MUTATIONS.SET_IDEAS_SELECTED_TRUE, ideas));
             });
 
-            return context.commit(MUTATIONS.SET_IDEAS_SELECTED_TRUE, ideas);
+            // return context.commit(MUTATIONS.SET_IDEAS_SELECTED_TRUE, ideas);
         },
 
         [ACTIONS.SORT_BY_DEFAULT]: (context) => {

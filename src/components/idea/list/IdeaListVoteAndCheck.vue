@@ -42,9 +42,6 @@
                     <img v-show="idea['favorite'] === false" @click="clickFavorite(idea)"
                          src="@/assets/img/favourites-filled-star-symbol@2x.png"
                          class="favourites-filled-star-symbol"/>
-                    <!--<img v-show="true" @click="clickFavorite(idea.ideaId)"-->
-                    <!--src="@/assets/img/favourites-filled-star-symbol@2x.png"-->
-                    <!--class="favourites-filled-star-symbol" />-->
                 </div>
                 <!-- order-number -->
                 <div class="order-number">
