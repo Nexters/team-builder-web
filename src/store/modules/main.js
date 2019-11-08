@@ -356,7 +356,11 @@ const store = {
         },
 
         [MUTATIONS.REMOVE_CANDIDATE_IDEA]: (state, ideaId) => {
-            const removeIdeaIndex = state.candidateIdeas.findIndex(idea => idea.id === ideaId);
+            // 수정해야함
+            // const removeIdeaIndex = state.candidateIdeas.findIndex(idea => idea.id === ideaId);
+            const removeIdeaIndex = state.candidateIdeas.indexOf(idea => (idea.id === ideaId));
+            console.log(state.candidateIdeas);
+            console.log(removeIdeaIndex);
             state.candidateIdeas.splice(removeIdeaIndex, 1);
         },
 
