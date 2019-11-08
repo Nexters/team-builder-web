@@ -3,7 +3,7 @@ import {GET, POST} from '@/api/index';
 
 export async function login(uid, password) {
     if (!uid || !password) {
-        return false;
+        return;
     }
 
     let params = new URLSearchParams();
