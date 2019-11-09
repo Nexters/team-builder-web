@@ -121,7 +121,10 @@
                                         </div>
                                     </td>
                                     <td style="width: 76px; padding-left: 10px">
-                                        <div class="row-item">{{user.name}}</div>
+                                        <div v-if="user.name.length <= 4" class="row-item">{{user.name}}</div>
+                                        <div v-else class="row-item" @mouseover="user.name">{{user.name.substr(0,
+                                            4)}}...
+                                        </div>
                                     </td>
                                     <td style="width: 166px">
                                         <div class="row-item">{{user.id}}</div>
@@ -199,9 +202,9 @@
                 sortCreatedAtASC: true,
                 sortNextersNumberASC: true,
                 sortPositionASC: true,
-                sortSubmitIdeaASC: true,
-                sortVotedASC: true,
-                sortHasTeamASC: true,
+                sortSubmitIdeaASC: false,
+                sortVotedASC: false,
+                sortHasTeamASC: false,
                 sortActivatedASC: true,
                 selected: [],
                 allSelected: false
@@ -337,7 +340,18 @@
         },
         computed: {
             filteredUsers() {
-                return this.userViewList;
+                let filterList = [];
+                for (let i = 0; i < this.userViewList.length; i++) {
+                    if (this.userViewList[i].activated === true) {
+                        filterList.push(this.userViewList[i])
+                    }
+                }
+                for (let i = 0; i < this.userViewList.length; i++) {
+                    if (this.userViewList[i].activated === false) {
+                        filterList.push(this.userViewList[i])
+                    }
+                }
+                return filterList;
             }
         },
         created() {
