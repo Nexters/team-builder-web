@@ -60,8 +60,17 @@
         },
         methods: {
             infoChange() {
+                if (!this.password || this.errors.any()) {
+                    alert('비밀번호를 확인해주세요!');
+                    return;
+                }
+
                 login(this.$store.getters.getId, this.password)
                     .then(res => {
+                        if (res === undefined) {
+                            alert('비밀번호를 확인해주세요!');
+                            return;
+                        }
                         this.$emit('update:isAccess', true)
                     })
                     .catch(err => {
