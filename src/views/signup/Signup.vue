@@ -170,21 +170,29 @@
                         this.goToPages(data)
                     })
                     .catch(err => {
-                        alert(err.response.data.message)
+                        window.vm.$notify.error({
+                            title: '회원가입',
+                            message: err.response.data.message
+                        });
                         this.duringLogin = false;
-                    });
+                    })
+                ;
 
                 this.duringLogin = true;
-                console.log('waiting')
             },
             goToPages(data) {
+                window.vm.$notify.success({
+                    title: '회원가입',
+                    message: '회원가입이 완료되었습니다.'
+                });
                 this.$store.commit(SET_ID, data.id);
                 this.$store.commit(SET_AUTH, true);
                 this.$store.commit(SET_TOKEN, 'temp_key');
                 this.$router.push({
                     name: 'Login'
                 })
-            },
+            }
+            ,
             idDuplicateCheck() {
                 isIdDuplicate(this.uid)
                     .then(data => {
@@ -197,7 +205,8 @@
                     .catch(err => {
                         alert(err.response.data.message)
                     });
-            },
+            }
+            ,
             visiblePassword(kind) {
                 if (kind === 'password') {
                     if (this.passwordVisible) {
@@ -218,7 +227,8 @@
                     }
                     this.confirmPasswordVisible = !this.confirmPasswordVisible
                 }
-            },
+            }
+            ,
             passwordFocus(kind) {
                 if (kind === 'password') {
                     this.passwordBoxMouseHoverStyle = {
@@ -233,10 +243,12 @@
                         'box-shadow': 'none'
                     }
                 }
-            },
+            }
+            ,
             passwordFocusOut() {
                 this.passwordBoxMouseHoverStyle = this.confirmPasswordBoxMouseHoverStyle = {};
-            },
+            }
+            ,
             validEmail(email) {
                 let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 return re.test(email);
