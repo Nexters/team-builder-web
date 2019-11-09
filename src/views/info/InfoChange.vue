@@ -51,7 +51,7 @@
                     비밀번호가 일치하지 않습니다.</p>
             </div>
 
-            <div class="row">
+            <div v-if="!this.$store.getters.isAdmin" class="row">
                 <div class="info-title">직무</div>
                 <b-form>
                     <b-form-select v-model="positionSelect" :options="positionOptions" class="position-select">
@@ -88,7 +88,7 @@
             infoChange() {
                 updateUserInfo(this.newPassword, this.password, this.positionSelect)
                     .then(res => {
-                        alert("수정 완료!")
+                        alert("수정 완료!");
                         this.$emit('update:isAccess', false)
                     })
                     .catch(err => {
