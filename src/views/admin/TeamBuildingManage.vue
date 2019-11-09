@@ -41,7 +41,7 @@
                                                 {{idea.title}}
                                             </div>
                                             <div class="row row-item" style="width: 337px">
-                                                <div v-for="tag in idea.tags" class="card justify-content-center" :class="wrapClassName(tag.type)">
+                                                <div v-for="(tag, index) in idea.tags" v-show="index < 3" class="card justify-content-center" :class="wrapClassName(tag.type)">
                                                     {{tag.name}}
                                                 </div>
                                             </div>
