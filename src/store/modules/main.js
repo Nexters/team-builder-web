@@ -467,12 +467,9 @@ const store = {
         [ACTIONS.SELECTION_IDEAS]: (context, ideas) => {
             ideas.forEach(function (idea) {
                 selectIdea(idea)
-                // .then(this.$forceUpdate())
-                    .catch(err => console.log(err))
-                  .then(context.commit(MUTATIONS.SET_IDEAS_SELECTED_TRUE, ideas));
+                    .then(context.commit(MUTATIONS.SET_IDEAS_SELECTED_TRUE, ideas))
+                    .catch(err => console.log(err));
             });
-
-            // return context.commit(MUTATIONS.SET_IDEAS_SELECTED_TRUE, ideas);
         },
 
         [ACTIONS.SORT_BY_DEFAULT]: (context) => {

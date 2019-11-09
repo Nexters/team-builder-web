@@ -45,7 +45,7 @@ export function selectIdea(idea) {
     sessionId: idea.sessionId,
     title: idea.title,
     content: idea.content,
-    tags: idea.tags,
+    tags: idea.tags.map(tag => tag.tagId),
     file: idea.file,
     type: idea.type,
     selected: true,
