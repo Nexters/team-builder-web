@@ -5,13 +5,13 @@
                 <div class="card-header">
                     <section class="header-left">
                         <div class="list-info">
-                            <div v-show="this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING')" id="view-all"
+                            <div v-show="!nowIsTeamBuilding" id="view-all"
                                  style="display: inline;">전체 아이디어
                             </div>
-                            <div v-show="!(this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING'))"
+                            <div v-show="nowIsTeamBuilding"
                                  style="display: inline;">선정 아이디어
                             </div>
-                            <div style="display: inline">{{ selectedIdeaListLength }}건</div>
+                            <div style="display: inline">{{ ideaListLength }}건</div>
                         </div>
                     </section>
                     <section class="header-right">
@@ -105,11 +105,15 @@
 
             ...mapState({
                 teamBuildingMode: state => state.session.teamBuildingMode,
-            })
+            }),
 
-            // ...mapMutations([
-            //   'SET_SEARCH_TERM'
-            // ])
+          ideaListLength() {
+              return this.nowIsTeamBuilding ? this.selectedIdeaListLength : this.ideaListResult.length;
+          },
+
+          nowIsTeamBuilding() {
+              return this.teamBuildingMode || (this.getTypeNow === 'TEAM_BUILDING');
+          },
 
         },
 
@@ -174,7 +178,9 @@
 
         created() {
             this.$on('allSelected', this.allSelected);
-        }
+        },
+
+
     }
 </script>
 
