@@ -6,7 +6,6 @@
 .info-text {
 	width: 207px;
 	height: 24px;
-	/*height: 300px;*/
 	font-family: NotoSansCJKkr;
 	font-size: 16px;
 	font-weight: normal;
@@ -17,8 +16,8 @@
 	text-align: center;
 	color: #9b9b9b;
 
-	/*padding-top: 138px;*/
-	/*padding-left: 467px;*/
+	margin-top: 135px;
+	display: inline-block;
 }
 
 .list {

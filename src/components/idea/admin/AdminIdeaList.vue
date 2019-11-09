@@ -1,5 +1,12 @@
 <template>
     <div class="board">
+        <div class="info-text" v-if="this.ideaList.length === 0">
+            아이디어가 없어요.<br/>
+            첫 아이디어를 작성해보세요.
+        </div>
+        <div class="info-text" v-else-if="ideaListResult.length === 0">
+            검색 결과가 없어요.
+        </div>
         <b-form-group>
             <div v-for="idea in ideaListResult" :key="idea.orderNumber">
                 <!-- NOTICE -->
@@ -90,6 +97,7 @@
         data() {
             return {
                 selected: [],
+                ideaList : this.$store.state.main.ideaList
             }
         },
 

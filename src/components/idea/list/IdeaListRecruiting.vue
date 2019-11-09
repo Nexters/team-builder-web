@@ -159,10 +159,6 @@
     },
 
     computed:  {
-      ...mapState([
-        'ideaList',
-      ]),
-
       ...mapGetters({
         ideaListResult: GETTERS.GET_LIST,
       })
