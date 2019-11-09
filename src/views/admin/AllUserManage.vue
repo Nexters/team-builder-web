@@ -87,7 +87,8 @@
 
                             <table class="board">
                                 <tbody>
-                                <div v-if="filteredUsers.length === 0" class="no-user-search" style="text-align: center; margin-top: 154px">
+                                <div v-if="filteredUsers.length === 0" class="no-user-search"
+                                     style="text-align: center; margin-top: 154px">
                                     ‘{{search}}’에 대한 검색결과가 없어요
                                 </div>
                                 <tr v-else class="list" v-for="user in filteredUsers"
@@ -128,26 +129,26 @@
                                     <td v-if="user.activated" style="width: 360px">
                                         <div class="row">
                                             <div style="width: 120px; margin-left: 17px">
-                                                <div v-if="user.submitIdea" class="row-item unselect-box">
+                                                <div v-if="user.submitIdea" class="row-item select-box">
                                                     <p>작성</p>
                                                 </div>
-                                                <div v-else class="row-item select-box">
+                                                <div v-else class="row-item unselect-box">
                                                     <p>미작성</p>
                                                 </div>
                                             </div>
                                             <div style="width: 120px; margin-left: 20px">
-                                                <div v-if="user.voted" class="row-item unselect-box">
+                                                <div v-if="user.voted" class="row-item select-box">
                                                     <p>투표</p>
                                                 </div>
-                                                <div v-else class="row-item select-box">
+                                                <div v-else class="row-item unselect-box">
                                                     <p>미투표</p>
                                                 </div>
                                             </div>
                                             <div style="width: 120px; margin-left: 20px">
-                                                <div v-if="user.hasTeam" class="row-item unselect-box">
+                                                <div v-if="user.hasTeam" class="row-item select-box">
                                                     <p>완료</p>
                                                 </div>
-                                                <div v-else class="row-item select-box">
+                                                <div v-else class="row-item unselect-box">
                                                     <p>미완료</p>
                                                 </div>
                                             </div>
@@ -195,13 +196,13 @@
                 userViewList: [],
                 search: '',
                 searchBoxMouseHoverStyle: {},
-                sortCreatedAtASC: false,
-                sortNextersNumberASC: false,
-                sortPositionASC: false,
-                sortSubmitIdeaASC: false,
-                sortVotedASC: false,
-                sortHasTeamASC: false,
-                sortActivatedASC: false,
+                sortCreatedAtASC: true,
+                sortNextersNumberASC: true,
+                sortPositionASC: true,
+                sortSubmitIdeaASC: true,
+                sortVotedASC: true,
+                sortHasTeamASC: true,
+                sortActivatedASC: true,
                 selected: [],
                 allSelected: false
             }
@@ -212,6 +213,8 @@
                 getAllUsers()
                     .then(res => {
                         this.users = this.userViewList = res.data;
+                        this.sorting('createdAt');
+                        this.sorting('activated');
                     });
             },
             toggleAll(checked) {
@@ -274,11 +277,25 @@
             userActivate(id, activated) {
                 if (activated) {
                     addActiveUser(id)
-                        .then(res => console.log(res))
+                        .then(res => {
+                            for (let i = 0; i < this.users.length; i++) {
+                                if (this.users[i].uuid === id) {
+                                    this.users[i].activated = !this.users[i].activated;
+                                    break;
+                                }
+                            }
+                        })
                         .catch(err => console.log(err))
                 } else {
                     deleteActiveUser(id)
-                        .then(res => console.log(res))
+                        .then(res => {
+                            for (let i = 0; i < this.users.length; i++) {
+                                if (this.users[i].uuid === id) {
+                                    this.users[i].activated = !this.users[i].activated;
+                                    break;
+                                }
+                            }
+                        })
                         .catch(err => console.log(err))
                 }
             },
