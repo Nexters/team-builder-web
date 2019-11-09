@@ -345,11 +345,11 @@ const store = {
             })
         },
 
-        [MUTATIONS.SET_IDEAS_SELECTED_TRUE]: (state, ideas) => {
+        [MUTATIONS.SET_IDEAS_SELECTED_TRUE]: (state, {ideas, isSelected}) => {
             state.ideaList.forEach(function (idea) {
                 ideas.forEach(function (selectedIdea) {
                     if (idea.ideaId === selectedIdea.ideaId) {
-                        idea.selected = true;
+                        idea.selected = isSelected;
                     }
                 })
             })
@@ -464,15 +464,12 @@ const store = {
             return context.commit(MUTATIONS.REMOVE_IDEAS_FROM_IDEA_LIST, ideas);
         },
 
-        [ACTIONS.SELECTION_IDEAS]: (context, ideas) => {
+        [ACTIONS.SELECTION_IDEAS]: (context, {ideas, isSelected}) => {
             ideas.forEach(function (idea) {
-                selectIdea(idea)
-                // .then(this.$forceUpdate())
-                    .catch(err => console.log(err))
-                  .then(context.commit(MUTATIONS.SET_IDEAS_SELECTED_TRUE, ideas));
+                selectIdea(idea, isSelected)
+                    .then(context.commit(MUTATIONS.SET_IDEAS_SELECTED_TRUE, {ideas, isSelected: isSelected}))
+                    .catch(err => console.log(err));
             });
-
-            // return context.commit(MUTATIONS.SET_IDEAS_SELECTED_TRUE, ideas);
         },
 
         [ACTIONS.SORT_BY_DEFAULT]: (context) => {

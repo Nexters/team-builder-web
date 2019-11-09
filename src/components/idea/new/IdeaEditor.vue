@@ -107,6 +107,7 @@
                     tags: this.selectedTags.map(selectedTag => selectedTag.tagId),
                     title: this.ideaTitle,
                     type: this.$store.getters.isAdmin ? IDEA_TYPE.NOTICE : IDEA_TYPE.IDEA,
+                    selected: this.idea.selected
                 };
 
                 //기존 아이디어 수정
