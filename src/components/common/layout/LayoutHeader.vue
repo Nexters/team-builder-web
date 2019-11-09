@@ -223,7 +223,7 @@
     }
 
     .mode-team-building {
-        width: 47px;
+        width: 60px;
         height: 27px;
         margin: 26px 6px 17px 0px;
         font-family: Roboto;
@@ -239,7 +239,7 @@
     }
 
     .mode-team-building-padlock {
-        width: 12px;
+        width: 18px;
         height: 15px;
         position: fixed;
         top: 33px;
@@ -255,7 +255,7 @@
     }
 
     .mode-team-building-bar {
-        width: 47px;
+        width: 60px;
         height: 2px;
         background-color: #273ea5;
     }
