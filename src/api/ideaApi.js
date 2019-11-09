@@ -27,6 +27,7 @@ export function modifyIdea(idea) {
         tags: idea.tags,
         title: idea.title,
         type: idea.type,
+        selected: idea.selected
     })
 }
 
@@ -40,7 +41,7 @@ export function deleteFavorite(ideaId) {
   return DELETE(`/apis/favorites/${ideaId}`)
 }
 
-export function selectIdea(idea) {
+export function selectIdea(idea, isSelected) {
   return PUT(`/apis/ideas/${idea.ideaId}`, {
     sessionId: idea.sessionId,
     title: idea.title,
@@ -48,7 +49,7 @@ export function selectIdea(idea) {
     tags: idea.tags.map(tag => tag.tagId),
     file: idea.file,
     type: idea.type,
-    selected: true,
+    selected: isSelected,
   })
 }
 

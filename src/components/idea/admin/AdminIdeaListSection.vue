@@ -17,7 +17,7 @@
                     <section class="header-right">
                         <div class="idea-management" v-show="getTypeNow !== 'IDEA_COLLECT'">
                             <button class="Rectangle-Copy" @click="clickSelection"><span>아이디어 선정</span></button>
-                            <button class="Rectangle-Copy cancel" @click="clickSelection"><span>아이디어 선정 해지</span></button>
+                            <button class="Rectangle-Copy cancel" @click="clickUnSelection"><span>아이디어 선정 해지</span></button>
                             <button class="Rectangle-Copy Rectangle-Black" @click="clickDeletion"><span>아이디어 삭제</span>
                             </button>
                             <!-- 검색 기능 -->
@@ -146,6 +146,10 @@
 
             clickSelection() {
                 bus.$emit('clickSelection');
+            },
+
+            clickUnSelection() {
+                bus.$emit('clickUnSelection');
             },
 
             clickDeletion() {

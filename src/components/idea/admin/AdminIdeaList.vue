@@ -138,7 +138,25 @@
             }),
 
                 bus.$on('clickSelection', () => {
-                    this.$store.dispatch('main/SELECTION_IDEAS', this.selected);
+                    this.$store.dispatch('main/SELECTION_IDEAS', {ideas: this.selected, isSelected: true})
+                        .then(() => {
+                            this.selected = [];
+                            window.vm.$notify.info({
+                                title: '아이디어 선정',
+                                message: '아이디어를 선정했습니다.',
+                            });
+                        });
+                }),
+
+                bus.$on('clickUnSelection', () => {
+                    this.$store.dispatch('main/SELECTION_IDEAS', {ideas: this.selected, isSelected: false})
+                        .then(() => {
+                            this.selected = [];
+                            window.vm.$notify.info({
+                                title: '아이디어 선정',
+                                message: '아이디어 선정을 해지했습니다.',
+                            });
+                        });
                 }),
 
                 bus.$on('clickDeletion', () => {
