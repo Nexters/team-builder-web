@@ -5,18 +5,19 @@
                 <div class="card-header">
                     <section class="header-left">
                         <div class="list-info">
-                            <div v-show="this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING')" id="view-all"
+                            <div v-show="!nowIsTeamBuilding" id="view-all"
                                  style="display: inline;">전체 아이디어
                             </div>
-                            <div v-show="!(this.teamBuildingMode || (getTypeNow === 'TEAM_BUILDING'))"
+                            <div v-show="nowIsTeamBuilding"
                                  style="display: inline;">선정 아이디어
                             </div>
-                            <div style="display: inline">{{ selectedIdeaListLength }}건</div>
+                            <div style="display: inline">{{ ideaListLength }}건</div>
                         </div>
                     </section>
                     <section class="header-right">
                         <div class="idea-management" v-show="getTypeNow !== 'IDEA_COLLECT'">
                             <button class="Rectangle-Copy" @click="clickSelection"><span>아이디어 선정</span></button>
+                            <button class="Rectangle-Copy cancel" @click="clickSelection"><span>아이디어 선정 해지</span></button>
                             <button class="Rectangle-Copy Rectangle-Black" @click="clickDeletion"><span>아이디어 삭제</span>
                             </button>
                             <!-- 검색 기능 -->
@@ -105,22 +106,19 @@
 
             ...mapState({
                 teamBuildingMode: state => state.session.teamBuildingMode,
-            })
+            }),
 
-            // ...mapMutations([
-            //   'SET_SEARCH_TERM'
-            // ])
+          ideaListLength() {
+              return this.nowIsTeamBuilding ? this.selectedIdeaListLength : this.ideaListResult.length;
+          },
+
+          nowIsTeamBuilding() {
+              return this.teamBuildingMode || (this.getTypeNow === 'TEAM_BUILDING');
+          },
 
         },
 
         methods: {
-            // ...mapActions([
-            //   'ACTIONS.ENTER_SEARCH_TERM',
-            //   'ACTIONS.POSITION_SORT_LIST',
-            //   'ACTIONS.DATE_SORT_LIST',
-            //   'ACTIONS.SHOW_ORIGIN_LIST',
-            // ]),
-
             sorting() {
                 this.sortVoteNumberDESC = !this.sortVoteNumberDESC
                 if (this.sortVoteNumberDESC) {
@@ -174,7 +172,9 @@
 
         created() {
             this.$on('allSelected', this.allSelected);
-        }
+        },
+
+
     }
 </script>
 
@@ -299,6 +299,11 @@
 
         padding: 11px 29.5px;
         margin-right: 16px;
+    }
+
+    .cancel {
+        padding-right: 11px;
+        padding-left: 11px;
     }
 
     .Rectangle-Black {

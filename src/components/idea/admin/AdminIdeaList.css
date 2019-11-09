@@ -7,6 +7,25 @@
 
 .board {
 	width: 100%;
+	min-height: 300px;
+}
+
+
+.info-text {
+	width: 207px;
+	height: 24px;
+	font-family: NotoSansCJKkr;
+	font-size: 16px;
+	font-weight: normal;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: normal;
+	letter-spacing: -1px;
+	text-align: center;
+	color: #9b9b9b;
+
+	margin-top: 135px;
+	display: inline-block;
 }
 
 .list {

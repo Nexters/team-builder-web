@@ -1,5 +1,12 @@
 <template>
     <div class="board">
+        <div class="info-text" v-if="this.ideaList.length === 0">
+            아이디어가 없어요.<br/>
+            첫 아이디어를 작성해보세요.
+        </div>
+        <div class="info-text" v-else-if="ideaListResult.length === 0">
+            검색 결과가 없어요.
+        </div>
         <div v-for="idea in ideaListResult" :key="idea.orderNumber">
             <!-- NOTICE -->
             <div v-if="idea['type'] === 'NOTICE'" class="Rectangle list type-notice">
@@ -145,11 +152,13 @@
       },
     },
 
-    computed:  {
-      ...mapState([
-        'ideaList',
-      ]),
+    data() {
+      return {
+        ideaList : this.$store.state.main.ideaList
+      }
+    },
 
+    computed:  {
       ...mapGetters({
         ideaListResult: GETTERS.GET_LIST,
       })
