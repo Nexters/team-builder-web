@@ -17,6 +17,7 @@
                     <section class="header-right">
                         <div class="idea-management" v-show="getTypeNow !== 'IDEA_COLLECT'">
                             <button class="Rectangle-Copy" @click="clickSelection"><span>아이디어 선정</span></button>
+                            <button class="Rectangle-Copy cancel" @click="clickSelection"><span>아이디어 선정 해지</span></button>
                             <button class="Rectangle-Copy Rectangle-Black" @click="clickDeletion"><span>아이디어 삭제</span>
                             </button>
                             <!-- 검색 기능 -->
@@ -118,13 +119,6 @@
         },
 
         methods: {
-            // ...mapActions([
-            //   'ACTIONS.ENTER_SEARCH_TERM',
-            //   'ACTIONS.POSITION_SORT_LIST',
-            //   'ACTIONS.DATE_SORT_LIST',
-            //   'ACTIONS.SHOW_ORIGIN_LIST',
-            // ]),
-
             sorting() {
                 this.sortVoteNumberDESC = !this.sortVoteNumberDESC
                 if (this.sortVoteNumberDESC) {
@@ -305,6 +299,11 @@
 
         padding: 11px 29.5px;
         margin-right: 16px;
+    }
+
+    .cancel {
+        padding-right: 11px;
+        padding-left: 11px;
     }
 
     .Rectangle-Black {
