@@ -162,7 +162,10 @@
             deleteActiveUsers() {
                 deleteActiveUsers({sessionNumber: this.$route.params.sessionNumber, uuids: this.selected})
                     .then(res => {
-                        alert(this.selected.length + '명의 활동회원을 제거하였습니다.')
+                        window.vm.$notify.success({
+                            title: '회원관리',
+                            message: this.selected.length + '명의 활동회원을 제거하였습니다.'
+                        });
                         window.location.reload()
                     });
             },
