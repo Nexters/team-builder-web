@@ -137,11 +137,12 @@
                             </el-popover>
                         </p>
 
-                        <toggle-button :value="teamBuildingSwitch"
+                        <toggle-button v-model="teamBuildingSwitch"
+                                       :sync="true"
                                        :width="60"
                                        :height="32"
                                        color="#273EA5"
-                                       @change="teamBuildingSwitch = $event.value"
+                                       @change="eventTeamBuildingToggle($event.value)"
                                        style="margin: 0 0 0 32px"/>
                     </div>
                 </div>
@@ -196,11 +197,17 @@
             onFileChange(e) {
                 uploadFiles(e.target.files[0].name, e.target.files[0], this.$store.getters.getId)
                     .then(fileUrls => {
-                        alert('이미지 업로드 성공!')
+                        window.vm.$notify.success({
+                            title: '일반관리',
+                            message: '이미지를 성공적으로 업로드 하였습니다.'
+                        });
                         this.imageUrl = fileUrls[0];
                     })
                     .catch(err => {
-                        alert('이미지 업로드 실패 ㅜㅜ');
+                        window.vm.$notify.error({
+                            title: '일반관리',
+                            message: '이미지를 업로드를 실패하였습니다. 관리자에게 문의해주세요.'
+                        });
                     });
             },
             loadData() {
@@ -253,14 +260,20 @@
                 };
                 putSession({sessionNumber: this.$route.params.sessionNumber, body: JSON.stringify(body)})
                     .then(res => {
-                        alert('적용완료!')
+                        window.vm.$notify.success({
+                            title: '일반관리',
+                            message: '성공적으로 반영되었습니다.'
+                        });
                     })
             },
             updateCode() {
                 updateAuthCode(this.accessCode)
                     .then(res => {
                         this.accessCode = res.data.authenticationCode;
-                        alert('성공적으로 업데이트 되었습니다.')
+                        window.vm.$notify.success({
+                            title: '일반관리',
+                            message: '성공적으로 반영되었습니다.'
+                        });
                     });
             },
             startDateCheck(value) {
@@ -270,13 +283,19 @@
                     let afterCompareFormat = moment(this.ideaVoteEnd).format();
 
                     if (beforeCompareFormat >= originFormat) {
-                        alert('모집기간보다 빠른 날짜를 설정하실 수 없습니다.');
+                        window.vm.$notify.error({
+                            title: '일반관리',
+                            message: '모집기간보다 빠른 날짜를 설정하실 수 없습니다.'
+                        });
                         let beforeDay = new Date(beforeCompareFormat);
                         beforeDay.setDate(beforeDay.getDate() + 1);
                         this.ideaVoteStart = beforeDay;
                     }
                     if (originFormat >= afterCompareFormat) {
-                        alert('종료일보다 클수 없습니다.');
+                        window.vm.$notify.error({
+                            title: '일반관리',
+                            message: '종료일보다 클수 없습니다.'
+                        });
                         let afterDay = new Date(afterCompareFormat);
                         afterDay.setDate(afterDay.getDate() - 1);
                         this.ideaVoteStart = afterDay;
@@ -287,13 +306,19 @@
                     let afterCompareFormat = moment(this.ideaSelectCheckEnd).format();
 
                     if (beforeCompareFormat >= originFormat) {
-                        alert('투표기간보다 빠른 날짜를 설정하실 수 없습니다.');
+                        window.vm.$notify.error({
+                            title: '일반관리',
+                            message: '투표기간보다 빠른 날짜를 설정하실 수 없습니다.'
+                        });
                         let beforeDay = new Date(beforeCompareFormat);
                         beforeDay.setDate(beforeDay.getDate() + 1);
                         this.ideaSelectCheckStart = beforeDay;
                     }
                     if (originFormat >= afterCompareFormat) {
-                        alert('종료일보다 클수 없습니다.');
+                        window.vm.$notify.error({
+                            title: '일반관리',
+                            message: '종료일보다 클수 없습니다.'
+                        });
                         let afterDay = new Date(afterCompareFormat);
                         afterDay.setDate(afterDay.getDate() - 1);
                         this.ideaSelectCheckStart = afterDay;
@@ -306,7 +331,10 @@
                     let compareFormat = moment(this.ideaRecruitStart).format();
 
                     if (compareFormat >= originFormat) {
-                        alert('시작일보다 작을수 없습니다.');
+                        window.vm.$notify.error({
+                            title: '일반관리',
+                            message: '시작일보다 작을수 없습니다.'
+                        });
                         let nextDay = new Date(compareFormat);
                         nextDay.setDate(nextDay.getDate() + 1);
                         this.ideaRecruitEnd = nextDay;
@@ -316,7 +344,10 @@
                     let compareFormat = moment(this.ideaVoteStart).format();
 
                     if (compareFormat >= originFormat) {
-                        alert('시작일보다 작을수 없습니다.');
+                        window.vm.$notify.error({
+                            title: '일반관리',
+                            message: '시작일보다 작을수 없습니다.'
+                        });
                         let nextDay = new Date(compareFormat);
                         nextDay.setDate(nextDay.getDate() + 1);
                         this.ideaVoteEnd = nextDay;
@@ -326,12 +357,34 @@
                     let compareFormat = moment(this.ideaSelectCheckStart).format();
 
                     if (compareFormat >= originFormat) {
-                        alert('시작일보다 작을수 없습니다.');
+                        window.vm.$notify.error({
+                            title: '일반관리',
+                            message: '시작일보다 작을수 없습니다.'
+                        });
                         let nextDay = new Date(compareFormat);
                         nextDay.setDate(nextDay.getDate() + 1);
                         this.ideaSelectCheckEnd = nextDay;
                     }
                 }
+            },
+
+            eventTeamBuildingToggle(activated) {
+                let confirmMessage;
+                if (activated) {
+                    confirmMessage = '투표 기능을 제외한 모든 기능이 활성화됩니다. 팀빌딩 모드를 활성화 하시겠어요?'
+                } else {
+                    confirmMessage = '팀빌딩 모드를 비활성화 하시겠어요?'
+                }
+
+                this.$store.commit('common/showConfirm', {
+                    confirmMessage: confirmMessage,
+                    confirmYesButtonText: '확인',
+                    confirmNoButtonText: '취소',
+                    confirmNoFunction: () => {
+                        this.teamBuildingSwitch = !activated;
+                    },
+                    confirmYesFunction: null
+                });
             },
 
             removeSession() {

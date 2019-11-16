@@ -87,12 +87,11 @@
                             })
                     })
                     .catch(err => {
-                        alert('Login fail!', err);
+                        alert('아이디와 비밀번호를 확인해주세요.', err);
                         this.duringLogin = false
                     });
 
                 this.duringLogin = true;
-                console.log('waiting')
             },
             goToPages(token, info) {
                 this.$store.commit(SET_ID, info.id);
