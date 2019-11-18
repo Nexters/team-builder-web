@@ -65,7 +65,7 @@
                                             </div>
                                         </div>
 
-                                        <div style="width: 100%; height: 1px; border: solid 1px #dbdbdb"></div>
+                                        <div style="width: 100%;height: 1px;border: .5px solid #eeeeee;"></div>
 
                                         <div style="width: 100%">
                                             <div class="row align-items-center" v-if="idea.members.length === 0" style="margin-left: 20px">

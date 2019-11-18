@@ -250,8 +250,8 @@
         width: 217px;
         height: 29px;
         font-size: 20px;
-        letter-spacing: 0.5px;
-        color: #000000;
+        letter-spacing: -.5px;
+        color: #000;
     }
 
     .tag-group-message-hint {
@@ -267,6 +267,7 @@
     .file-upload-wrap {
         width: 100%;
         text-align: left;
+        padding-top: 44px;
     }
 
     .file-upload-title-box {
@@ -377,7 +378,7 @@
     .team-member-wrap {
         width: 100%;
         margin-top: 60px;
-        margin-bottom: 20px;
+        margin-bottom: 80px;
         text-align: left;
         position: relative;
     }
@@ -404,12 +405,12 @@
 
     .team-member-modify-text {
         display: block;
-        margin-top: 4px;
+        margin-top: 10px;
         width: 350px;
         height: 20px;
         font-family: NotoSansCJKkr;
         font-size: 14px;
-        letter-spacing: -0.42px;
+        letter-spacing: -.42px;
         color: #9b9b9b;
     }
 

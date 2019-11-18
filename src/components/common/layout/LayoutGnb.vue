@@ -103,8 +103,16 @@
                 return '';
             },
             onClickLogout() {
-                sessionStorage.clear();
-                this.$router.push({path: '/login'});
+                this.$store.commit('common/showConfirm', {
+                    confirmMessage: '로그아웃 하시겠습니까?',
+                    confirmYesButtonText: '확인',
+                    confirmNoButtonText: '취소',
+                    confirmNoFunction: null,
+                    confirmYesFunction: () => {
+                        sessionStorage.clear();
+                        this.$router.push({path: '/login'});
+                    }
+                });
             },
 
             /**

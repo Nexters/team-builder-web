@@ -192,6 +192,24 @@
         components: {
             Layout
         },
+
+        watch: {
+            teamBuildingSwitch: function (value) {
+                if (value) {
+                    this.$store.commit('common/showConfirm', {
+                        confirmMessage: '팀빌딩 모드는 기간에 상관 없이 투표 기능을 제외한 모든 기능이 활성화됩니다.  오프라인 팀빌딩 시 생성된 아이디어를 위한 기능입니다.',
+                        confirmYesButtonText: '확인',
+                        confirmNoButtonText: '취소',
+                        confirmNoFunction: function () {
+                            debugger
+                            this.teamBuildingSwitch = false;
+                        },
+                        confirmYesFunction: null
+                    });
+                }
+            }
+        },
+
         methods: {
             moment,
             onFileChange(e) {

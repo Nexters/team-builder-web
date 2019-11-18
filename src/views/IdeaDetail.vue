@@ -256,10 +256,9 @@
     .tag-group-message {
         width: 217px;
         height: 29px;
-        margin-bottom: 30px;
         font-size: 20px;
-        letter-spacing: 0.5px;
-        color: #000000;
+        letter-spacing: -.5px;
+        color: #000;
     }
 
     .buttons-wrap {
@@ -302,8 +301,8 @@
 
     .file-upload-wrap {
         width: 100%;
-        margin-top: 44px;
         text-align: left;
+        padding-top: 44px;
     }
 
     .file-upload-title-box {
@@ -383,7 +382,7 @@
     .team-member-wrap {
         width: 100%;
         margin-top: 60px;
-        margin-bottom: 20px;
+        margin-bottom: 80px;
         text-align: left;
     }
 

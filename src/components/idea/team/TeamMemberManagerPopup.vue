@@ -155,11 +155,12 @@
         width: 988px;
         height: 733px;
         z-index: 101;
-        padding: 34px 18px 34px 34px;
+        padding: 34px 18px 34px 40px;
         text-align: left;
         border-radius: 6px;
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.09);
-        background-color: #ffffff;
+        -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,.09);
+        box-shadow: 0 0 10px 0 rgba(0,0,0,.09);
+        background-color: #fff;
     }
 
     .team-member-manage-title {
