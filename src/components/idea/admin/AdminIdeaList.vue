@@ -138,7 +138,7 @@
             }),
 
                 bus.$on('clickSelection', () => {
-                    this.$store.dispatch('main/SELECTION_IDEAS', {ideas: this.selected, isSelected: true})
+                    this.$store.dispatch('main/ADMIN_IDEAS_SELECT', {ideas: this.selected})
                         .then(() => {
                             this.selected = [];
                             window.vm.$notify.info({

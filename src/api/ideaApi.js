@@ -60,3 +60,13 @@ export function deleteIdea(ideaId) {
 export function putVoteIdea({ideaIds}) {
     return PUT(`/apis/ideas/vote?ideaIds=${ideaIds}`);
 }
+
+/**
+ * 관리자 아이디어 선정
+ * @param ideaIds
+ */
+export function adminIdeaSelect({ideaIds}) {
+    return PUT(`/apis/ideas/select`, {
+        ideaIds
+    })
+}
