@@ -70,8 +70,8 @@
         width: 217px;
         height: 29px;
         font-size: 20px;
-        letter-spacing: 0.5px;
-        color: #000000;
+        letter-spacing: -.5px;
+        color: #000;
     }
 
     .tag-group-message-hint {
