@@ -1,13 +1,13 @@
 import {ACTIONS, GETTERS, MUTATIONS} from '@/store/types';
 import {getSession, createSession, deleteSession} from '@/api/sessionApi';
 import {
-  createNewIdea,
-  deleteFavorite,
-  deleteIdea,
-  getIdea,
-  putVoteIdea,
-  setFavorite,
-  modifyIdea, selectIdea
+    createNewIdea,
+    deleteFavorite,
+    deleteIdea,
+    getIdea,
+    putVoteIdea,
+    setFavorite,
+    modifyIdea, selectIdea, adminIdeaSelect
 } from '@/api/ideaApi';
 import {DEFAULT_LOGO_URL} from '@/consts/common';
 
@@ -506,6 +506,20 @@ const store = {
 
         [ACTIONS.REMOVE_SESSION]: (context, {sessionNumber}) => {
             return deleteSession({sessionNumber});
+        },
+
+        /**
+         * 어드민 - 아이디어 선정
+         * @param context
+         * @param ideas
+         * @returns {*}
+         */
+        [ACTIONS.ADMIN_IDEAS_SELECT]: (context, {ideas}) => {
+            const ideaIds = ideas.map(idea => idea.ideaId);
+
+            return adminIdeaSelect({ideaIds})
+                .then(context.commit(MUTATIONS.SET_IDEAS_SELECTED_TRUE, {ideas, isSelected: true}))
+                .catch(err => console.log(err));
         }
     }
 };
