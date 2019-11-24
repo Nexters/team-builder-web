@@ -184,8 +184,7 @@
                             message: err.response.data.message
                         });
                         this.duringLogin = false;
-                    })
-                ;
+                    });
 
                 this.duringLogin = true;
             },

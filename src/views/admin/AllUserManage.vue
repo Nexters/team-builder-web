@@ -16,7 +16,7 @@
                     </div>
 
                     <div class="header-right">
-                        <button class="btn-user-remove">
+                        <button class="btn-user-remove" @click="dismissUser()">
                             회원 제명
                         </button>
 
@@ -184,7 +184,7 @@
     import Layout from '@/components/common/layout/Layout';
     import {
         addActiveUser,
-        deleteActiveUser,
+        deleteActiveUser, dismissUser,
         getAllUsers
     } from "../../api/UserAPI";
     import Vue from 'vue';
@@ -336,6 +336,50 @@
             },
             searchClear() {
                 this.filtering()
+            },
+            dismissUser() {
+                let representUserName = this.findUsernameByUuid(this.selected[0]);
+                let message;
+                if (this.selected.length === 1) {
+                    message = representUserName + '님을 정말로 제명하시겠습니까?'
+                } else {
+                    message = representUserName + '님 외 ' + (this.selected.length - 1) + '명을 정말로 제명하시겠습니까?.'
+                }
+                this.$store.commit('common/showConfirm', {
+                    confirmMessage: message,
+                    confirmYesButtonText: '확인',
+                    confirmNoButtonText: '취소',
+                    confirmNoFunction: null,
+                    confirmYesFunction: () => {
+                        dismissUser(this.selected)
+                            .then(data => {
+                                let message;
+                                if (this.selected.length === 1) {
+                                    message = representUserName + '님을 제명하였습니다.'
+                                } else {
+                                    message = representUserName + '님 외 ' + (this.selected.length - 1) + '명을 제명하였습니다.'
+                                }
+                                window.vm.$notify.success({
+                                    title: '회원제명',
+                                    message: message
+                                });
+                            })
+                            .catch(err => {
+                                window.vm.$notify.error({
+                                    title: '회원제명',
+                                    message: '회원제명에 실패하였습니다. 관리자에게 문의해주세요.'
+                                });
+                            });
+                    }
+                });
+            },
+            findUsernameByUuid(uuid) {
+                for (let i = 0; i < this.users.length; i++) {
+                    if (this.users[i].uuid === uuid) {
+                        return this.users[i].name;
+                    }
+                }
+                return '';
             }
         },
         computed: {
