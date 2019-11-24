@@ -1,4 +1,4 @@
-import {ALL_USER_URL, ACTIVE_USER_URL, DEACTIVE_USER_URL, AUTH_CODE_URL} from "../consts/userType"
+import {ALL_USER_URL, ACTIVE_USER_URL, DEACTIVE_USER_URL, AUTH_CODE_URL, DISMISS_USER_URL} from "../consts/userType"
 import {GET, POST, PUT} from "./index";
 import '../utils/string'
 
@@ -21,6 +21,19 @@ export function updateAuthCode(authCode) {
     };
 
     return POST(AUTH_CODE_URL, params, headers)
+}
+
+export function dismissUser(userList) {
+    let params = JSON.stringify({
+        'uuids': userList
+    });
+
+    const headers = {
+        'Content-Type': 'application/json',
+        'charset': 'UTF-8'
+    };
+
+    return PUT(DISMISS_USER_URL, params, headers)
 }
 
 export function getActiveUsers({sessionNumber}) {
