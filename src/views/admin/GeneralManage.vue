@@ -42,7 +42,7 @@
                     <div class="file-button-group">
                         <div class="filebox">
                             <label for="filename">로고변경</label>
-                            <input type="file" id="filename" class="upload-hidden" @change="onFileChange($event)">
+                            <input type="file" id="filename" @change="onFileChange($event)">
                         </div>
                     </div>
                 </div>
