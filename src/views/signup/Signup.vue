@@ -135,10 +135,7 @@
                 duringLogin: false,
                 email: '',
                 nextersNumberSelect: null,
-                nextersNumberOptions: [
-                    {text: '15기', value: 15},
-                    {text: '16기', value: 16}
-                ],
+                nextersNumberOptions: [],
                 positionSelect: null,
                 positionOptions: [
                     {text: '개발자', value: 'DEVELOPER'},
@@ -252,12 +249,20 @@
             validEmail(email) {
                 let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
                 return re.test(email);
+            },
+            initSession() {
+                for (let i = 1; i <= 16; i++) {
+                    this.nextersNumberOptions.push({text: i + '기', value: i})
+                }
             }
         },
         computed: {
             isDisabled() {
                 return this.duringLogin
             }
+        },
+        created() {
+            this.initSession();
         }
     }
 </script>
