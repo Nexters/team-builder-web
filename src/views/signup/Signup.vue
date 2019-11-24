@@ -147,19 +147,31 @@
             onSubmit() {
                 const uid = this.uid;
                 const upassword = this.password;
+                const uconfirmPassword = this.confirmPassword;
                 const uname = this.name;
                 const nextersNumber = this.nextersNumberSelect;
                 const position = this.positionSelect;
                 const email = this.email;
                 const accessCode = this.accessCode;
 
-                if (!uid || !upassword || !uname || !nextersNumber || !position || !accessCode || !email || this.errors.any()) {
-                    alert('모든 항목을 채워주세요.');
+                if (!uid || !upassword || !uname || !nextersNumber || !position || !accessCode || !email) {
+                    window.vm.$notify.error({
+                        title: '회원가입',
+                        message: "모든 항목을 채워주세요."
+                    });
                     return false;
-                }
-
-                if (this.validEmail(email) === false) {
-                    alert('이메일 형식을 맞춰주세요.')
+                } else if (upassword.length < 8 || upassword !== uconfirmPassword) {
+                    window.vm.$notify.error({
+                        title: '회원가입',
+                        message: "비밀번호를 확인해주세요."
+                    });
+                    return false;
+                } else if (this.validEmail(email) === false) {
+                    window.vm.$notify.error({
+                        title: '회원가입',
+                        message: "이메일 형식을 맞춰주세요."
+                    });
+                    return false;
                 }
 
                 signup(uid, upassword, uname, nextersNumber, position, email, accessCode)

@@ -86,13 +86,33 @@
         },
         methods: {
             infoChange() {
+                if (!this.password || !this.newPassword || !this.checkPassword || !this.positionSelect) {
+                    window.vm.$notify.error({
+                        title: '정보수정',
+                        message: "모든 항목을 채워주세요."
+                    });
+                    return false;
+                } else if (this.newPassword.length < 8 || this.newPassword !== this.checkPassword) {
+                    window.vm.$notify.error({
+                        title: '정보수정',
+                        message: "비밀번호를 확인해주세요."
+                    });
+                    return false;
+                }
+
                 updateUserInfo(this.newPassword, this.password, this.positionSelect)
                     .then(res => {
-                        alert("수정 완료!");
+                        window.vm.$notify.success({
+                            title: '정보수정',
+                            message: "수정이 완료되었습니다."
+                        });
                         this.$emit('update:isAccess', false)
                     })
                     .catch(err => {
-                        alert('수정 실패 ㅜ');
+                        window.vm.$notify.error({
+                            title: '정보수정',
+                            message: "수정이 실패하였습니다. 관리자에게 문의해주세요."
+                        });
                     });
             }
         },
