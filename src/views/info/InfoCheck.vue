@@ -61,20 +61,29 @@
         methods: {
             infoChange() {
                 if (!this.password || this.errors.any()) {
-                    alert('현재 비밀번호를 입력해 주세요.');
+                    window.vm.$notify.error({
+                        title: '정보수정',
+                        message: "비밀번호를 입력해주세요."
+                    });
                     return;
                 }
 
                 login(this.$store.getters.getId, this.password)
                     .then(res => {
                         if (res === undefined) {
-                            alert('현재 비밀번호를 입력해 주세요.');
+                            window.vm.$notify.error({
+                                title: '정보수정',
+                                message: "비밀번호를 확인해주세요."
+                            });
                             return;
                         }
                         this.$emit('update:isAccess', true)
                     })
                     .catch(err => {
-                        alert('현재 비밀번호를 입력해 주세요.');
+                        window.vm.$notify.error({
+                            title: '정보수정',
+                            message: "비밀번호를 확인해주세요."
+                        });
                     });
             }
         }
