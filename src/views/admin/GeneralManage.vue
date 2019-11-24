@@ -177,12 +177,11 @@
                 ideaVoteEnd: '',
                 ideaSelectCheckStart: '',
                 ideaSelectCheckEnd: '',
-                maxVoteCount: '2',
+                maxVoteCount: '3',
                 maxVoteCountOptions: [
                     {value: '1', text: '1'},
                     {value: '2', text: '2'},
-                    {value: '3', text: '3'},
-                    {value: '4', text: '4'}
+                    {value: '3', text: '3'}
                 ],
                 teamBuildingSwitch: true,
                 accessCode: ''
