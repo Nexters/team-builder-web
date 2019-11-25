@@ -11,10 +11,8 @@ import {
 } from '@/api/ideaApi';
 import {DEFAULT_LOGO_URL} from '@/consts/common';
 
-// 가독성을 위해 데이터 폼 표시
-const store = {
-    namespaced: true,
-    state: {
+function initialState() {
+    return {
         session: {
             id: 0,
             session: 0,
@@ -113,7 +111,13 @@ const store = {
             }
         ],
         nowPeriod: {},
-    },
+    };
+}
+
+// 가독성을 위해 데이터 폼 표시
+const store = {
+    namespaced: true,
+    state: initialState,
 
     getters: {
         [GETTERS.GET_LIST]: state => {
@@ -162,6 +166,13 @@ const store = {
     },
 
     mutations: {
+        [MUTATIONS.CLEAR_MAIN](state) {
+            const s = initialState();
+            Object.keys(s).forEach(key => {
+                state[key] = s[key]
+            })
+        },
+
         [MUTATIONS.SET_INIT_DATA](state, data) {
             const session = data.data;
             state.session = session;
