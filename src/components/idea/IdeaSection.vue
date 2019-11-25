@@ -14,10 +14,10 @@
                             <div class="list-info">
                                 <div id="view-all" v-show="!favorite">전체 아이디어</div>
                                 <div id="view-star" v-show="favorite">즐겨찾기한 아이디어</div>
-                                <div style="display: inline">{{ ideaListLength }}건</div>
+                                <div style="display: inline"> {{ ideaListLength }}건</div>
                             </div>
                             |
-                            <div class="theme" style="cursor:pointer"
+                            <div class="theme" style="cursor:pointer"x
                                  v-on:click="showFavorite(favorite = !favorite)">
                                 <div id="all" v-show="favorite">전체 아이디어 보기</div>
                                 <div id="star" v-show="!favorite">즐겨찾기만 보기</div>
