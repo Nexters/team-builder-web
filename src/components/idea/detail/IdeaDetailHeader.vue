@@ -47,7 +47,7 @@
             },
 
             availableEditIdea() {
-                return this.isAdmin || this.isOwner;
+                return this.isOwner;
             },
 
             isAdmin() {

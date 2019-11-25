@@ -10,7 +10,7 @@
                     {{teambuildingMessage}}
                 </div>
 
-                <button v-if="isAdmin" class="session-info-button">
+                <button v-if="isAdmin" @click="moveNewIdea" class="session-info-button">
                     아이디어 추가하기
                 </button>
             </div>
@@ -40,6 +40,12 @@
                     return '선정 아이디어의 팀빌딩 현황을 체크하고 관리해요.';
                 }
                 return '아이디어 선정자는 자신의 아이디어 게시글을 수정해서 팀원을 추가해 주세요.';
+            },
+        },
+
+        methods: {
+            moveNewIdea() {
+                this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/new`});
             }
         }
     }
