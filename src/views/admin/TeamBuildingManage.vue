@@ -180,7 +180,8 @@
 
             detailIdea({ideaId}) {
                 this.$router.push({
-                    path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${ideaId}`
+                    path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${ideaId}`,
+                    query: { mode : 'team-building' }
                 });
             },
 

@@ -192,6 +192,10 @@
             },
 
             moveSession() {
+                if (this.$route.query.mode === 'team-building') {
+                    this.$router.push({path: `/session/${this.$route.params.sessionNumber}/team-building`});
+                    return;
+                }
                 this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}`});
             },
 
