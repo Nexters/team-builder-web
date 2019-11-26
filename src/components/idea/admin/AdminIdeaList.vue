@@ -157,10 +157,6 @@
                                 message: '아이디어 선정을 해지했습니다.',
                             });
                         });
-                }),
-
-                bus.$on('clickDeletion', () => {
-                    this.$store.dispatch('main/DELETE_IDEAS', this.selected);
                 })
         },
 
