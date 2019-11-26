@@ -218,4 +218,53 @@ span {
     height: 16px;
     object-fit: contain;
     margin-left: 6px;
+
+    cursor:pointer;
 }
+
+.favorite {
+    width: 48px;
+    height: 18px;
+    line-height: 1.29;
+    margin-left: 10px;
+    margin-bottom: 1px;
+}
+
+.order-number {
+    width: 24px; height: 18px; line-height: 1.29;
+    margin-left: 14px; margin-bottom: 1px;
+}
+
+.idea-name {
+    width: 62px; margin-left: 18px;
+}
+
+.tag {
+    width: 24px; margin-left: 397px;
+}
+
+.idea-collect-tag {
+    margin-left: 447px;
+}
+
+.position {
+    width: 24px; margin-left: 291px;
+}
+
+.writer {
+    width: 36px; margin-left: 42px;
+}
+
+.date {
+    width: 24px; margin-left: 30px;
+}
+
+.idea-collect-date {
+    margin-left: 36px;
+}
+
+.selection {
+    width: 48px; margin-left: 48px;
+}
+
+
