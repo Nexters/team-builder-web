@@ -218,7 +218,6 @@ span {
     height: 16px;
     object-fit: contain;
     margin-left: 6px;
-
     cursor:pointer;
 }
 
@@ -231,16 +230,21 @@ span {
 }
 
 .order-number {
-    width: 24px; height: 18px; line-height: 1.29;
-    margin-left: 14px; margin-bottom: 1px;
+    width: 24px;
+    height: 18px;
+    line-height: 1.29;
+    margin-left: 14px;
+	margin-bottom: 1px;
 }
 
 .idea-name {
-    width: 62px; margin-left: 18px;
+    width: 62px;
+	margin-left: 18px;
 }
 
 .tag {
-    width: 24px; margin-left: 397px;
+    width: 24px;
+	margin-left: 397px;
 }
 
 .idea-collect-tag {
@@ -248,15 +252,18 @@ span {
 }
 
 .position {
-    width: 24px; margin-left: 291px;
+    width: 24px;
+	margin-left: 291px;
 }
 
 .writer {
-    width: 36px; margin-left: 42px;
+    width: 36px;
+	margin-left: 42px;
 }
 
 .date {
-    width: 24px; margin-left: 30px;
+    width: 24px;
+	margin-left: 30px;
 }
 
 .idea-collect-date {
@@ -264,7 +271,8 @@ span {
 }
 
 .selection {
-    width: 48px; margin-left: 48px;
+    width: 48px;
+	margin-left: 48px;
 }
 
 
