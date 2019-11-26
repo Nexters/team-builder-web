@@ -335,6 +335,12 @@ const store = {
                 const idea2Type = idea2.type;
                 if (idea1Type > idea2Type) return -1;
                 if (idea1Type < idea2Type) return 1;
+
+                const idea1Selected = idea1.selected;
+                const idea2Selected = idea2.selected;
+                if(idea1Selected && !idea2Selected) return -1;
+                if(!idea1Selected && idea2Selected) return 1;
+
                 return idea2.voteNumber === idea1.voteNumber ? idea2.orderNumber - idea1.orderNumber
                     : idea2.voteNumber - idea1.voteNumber;
             })
