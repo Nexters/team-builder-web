@@ -158,7 +158,7 @@
 
             goDetail(id) {
                 this.$router.push({
-                    path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${id}`
+                    path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${id}`,
                 });
             },
 

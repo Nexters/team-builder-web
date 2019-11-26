@@ -39,6 +39,7 @@
     import {uploadFiles} from '@/api/FileAPI';
     import {IDEA_TYPE} from '@/consts/IdeaType';
     import {RELOAD_AUTH} from '@/consts/userType';
+    import {PERIOD_TYPE} from '@/consts/periodType';
     const { mapActions } = createNamespacedHelpers('main');
 
     export default {
@@ -84,6 +85,13 @@
 
         computed: {
             ideaPlaceholder() {
+                /**
+                 * 팀빌딩 기간의 경우 관리자가 아이디어를 추가할 수 있음.
+                 */
+                if (this.$store.state.main.session.teamBuildingMode) {
+                    return '추가 아이디어를 한문장으로 요약해주세요.';
+                }
+
                 return this.$store.getters.isAdmin ? '공지사항 제목을 입력해주세요.' : '아이디어를 한문장으로 요약해주세요.';
             }
         },
@@ -106,7 +114,6 @@
                     sessionId: this.$store.state.main.session.sessionId,
                     tags: this.selectedTags.map(selectedTag => selectedTag.tagId),
                     title: this.ideaTitle,
-                    type: this.$store.getters.isAdmin ? IDEA_TYPE.NOTICE : IDEA_TYPE.IDEA,
                     selected: this.idea.selected
                 };
 
@@ -114,6 +121,7 @@
                 if (this.idea.ideaId) {
                     this.modifyIdea({
                         ...data,
+                        type: this.idea.type,
                         ideaId: this.idea.ideaId
                     })
                     .then(res => {
@@ -127,7 +135,8 @@
                 else {
                     //새 아이디어 생성
                     this.createNewIdea({
-                        ...data
+                        ...data,
+                        type: this.$store.state.main.session.teamBuildingMode ? IDEA_TYPE.IDEA : (this.$store.getters.isAdmin ? IDEA_TYPE.NOTICE : IDEA_TYPE.IDEA),
                     })
                     .then(res => {
                         this.$store.dispatch(RELOAD_AUTH);

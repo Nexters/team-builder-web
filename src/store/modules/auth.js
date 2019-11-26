@@ -7,14 +7,15 @@ import {
     SET_TOKEN,
     SET_AUTH,
     SET_UUID, SET_ACTIVATED,
-    RELOAD_AUTH
+    RELOAD_AUTH,
+    CLEAR_AUTH
 } from "../../consts/userType";
 import {ROLL_TYPE} from '@/consts/rollType';
 import {SET_EMAIL, SET_HAS_TEAM, SET_NEW_AUTH, SET_SUBMIT_IDEA, SET_VOTE_COUNT, SET_VOTED} from '@/consts/userType';
 import {info} from '@/api/LoginAPI';
 
-const store = {
-    state: {
+function initialState() {
+    return {
         id: '',
         name: '',
         activated: '',
@@ -28,8 +29,12 @@ const store = {
         hasTeam: false,
         submitIdea: false,
         voteCount: 0,
-        voted: false
-    },
+        voted: false,
+    };
+}
+
+const store = {
+    state: initialState,
     getters: {
         getId(state) {
             return state.id
@@ -117,6 +122,13 @@ const store = {
             state.submitIdea = newAuth.submitIdea;
             state.voteCount = newAuth.voteCount;
             state.voted = newAuth.voted;
+        },
+
+        [CLEAR_AUTH](state) {
+            const s = initialState();
+            Object.keys(s).forEach(key => {
+                state[key] = s[key]
+            })
         }
     },
 
@@ -132,7 +144,7 @@ const store = {
                     commit(SET_NEW_AUTH, {newAuth});
                 });
         }
-    }
+    },
 };
 
 export default store;

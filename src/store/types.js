@@ -18,6 +18,7 @@ export const GETTERS = {
 };
 
 export const MUTATIONS = {
+    CLEAR_MAIN: 'CLEAR_MAIN',
     SET_POSTS: 'SET_POSTS',
     SET_INIT_DATA: 'SET_INIT_DATA',
     SET_SEARCH_TERM: 'SET_SEARCH_TERM',

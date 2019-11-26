@@ -48,7 +48,8 @@
 <script>
     import {SlideXLeftTransition} from 'vue2-transitions';
     import {DEFAULT_LOGO_URL} from '@/consts/common';
-    import {ACTIONS} from '@/store/types';
+    import {ACTIONS, MUTATIONS} from '@/store/types';
+    import {CLEAR_AUTH} from '@/consts/userType';
 
     export default {
         name: "LayoutGnb",
@@ -81,6 +82,10 @@
 
         methods: {
             onClickLogo() {
+                if (this.$store.state.main.session.teamBuildingMode) {
+                    this.$router.push({path: `/session/${this.$route.params.sessionNumber}/team-building`});
+                    return;
+                }
                 this.$router.push({path: `/session/${this.sessionNumber}`});
             },
             openSessionGroup() {
@@ -110,6 +115,8 @@
                     confirmNoFunction: null,
                     confirmYesFunction: () => {
                         sessionStorage.clear();
+                        this.$store.commit(`${CLEAR_AUTH}`);
+                        this.$store.commit(`main/${MUTATIONS.CLEAR_MAIN}`);
                         this.$router.push({path: '/login'});
                     }
                 });
