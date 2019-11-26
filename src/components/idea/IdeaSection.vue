@@ -145,8 +145,6 @@
 
                 return this.isActive;
             },
-
-
         },
 
         methods: {
@@ -169,6 +167,7 @@
 
             showFavorite(star) {
                 this.sortDateASC = false;
+                this.favorite = star;
 
                 // 검색어 삭제
                 this.searchTerm = '';
