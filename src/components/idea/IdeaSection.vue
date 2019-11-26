@@ -117,6 +117,7 @@
             searchTerm: {
                 set(value) {
                     this.$store.commit('main/SET_SEARCH_TERM', value);
+                    this.favorite = false;
                 },
                 get() {
                     return this.$store.state.main.searchTerm;
@@ -167,11 +168,11 @@
 
             showFavorite(star) {
                 this.sortDateASC = false;
-                this.favorite = star;
 
                 // 검색어 삭제
                 this.searchTerm = '';
                 document.getElementById('search').value = this.searchTerm;
+                this.favorite = star;
 
                 return star ? this.$store.commit('main/SET_FAVORITE_LIST')
                     : this.filterData()
