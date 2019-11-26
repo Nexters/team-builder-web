@@ -14,10 +14,10 @@
                             <div class="list-info">
                                 <div id="view-all" v-show="!favorite">전체 아이디어</div>
                                 <div id="view-star" v-show="favorite">즐겨찾기한 아이디어</div>
-                                <div style="display: inline">{{ ideaListLength }}건</div>
+                                <div style="display: inline"> {{ ideaListLength }}건</div>
                             </div>
                             |
-                            <div class="theme" style="cursor:pointer"
+                            <div class="theme" style="cursor:pointer"x
                                  v-on:click="showFavorite(favorite = !favorite)">
                                 <div id="all" v-show="favorite">전체 아이디어 보기</div>
                                 <div id="star" v-show="!favorite">즐겨찾기만 보기</div>
@@ -72,12 +72,10 @@
                                  :src="require('../../assets/img/ico-table-tag@2x.png')">
                         </el-popover>
                         <div class="title" style="width: 24px; margin-left: 291px">직군</div>
-                        <img src="../../assets/img/group-10@2x.png" class="Group-10"
-                             v-on:click="sorting('position')" style="cursor:pointer; margin-left: 6px;">
-                        <div class="title" style="width: 36px; margin-left: 24px">작성자</div>
+                        <div class="title" style="width: 36px; margin-left: 42px">작성자</div>
                         <div class="title" style="width: 24px; margin-left: 36px">날짜</div>
                         <img src="../../assets/img/group-10@2x.png" class="Group-10"
-                             v-on:click="sorting('date')" style="cursor:pointer; margin-left: 6px;">
+                             v-on:click="sorting()" style="cursor:pointer; margin-left: 6px;">
                     </div>
                     <idea-list-recruiting @goDetail="goDetail"></idea-list-recruiting>
                 </div>
@@ -104,12 +102,10 @@
                                  :src="require('../../assets/img/ico-table-tag@2x.png')">
                         </el-popover>
                         <div class="title" style="width: 24px; margin-left: 291px">직군</div>
-                        <img src="../../assets/img/group-10@2x.png" class="Group-10"
-                             v-on:click="sorting('position')" style="cursor:pointer; margin-left: 6px;">
-                        <div class="title" style="width: 36px; margin-left: 20px">작성자</div>
+                        <div class="title" style="width: 36px; margin-left: 42px">작성자</div>
                         <div class="title" style="width: 24px; margin-left: 30px">날짜</div>
                         <img src="../../assets/img/group-10@2x.png" class="Group-10"
-                             v-on:click="sorting('date')" style="cursor:pointer; margin-left: 6px;">
+                             v-on:click="sorting()" style="cursor:pointer; margin-left: 6px;">
                         <!-- 선정 전에는 안보임 -->
                         <div v-show="nowPeriodType === 'IDEA_CHECK'" class="title"
                              style="width: 48px; margin-left: 48px">선정여부
@@ -144,7 +140,6 @@
 
         data() {
             return {
-                sortPositionASC: false,
                 sortDateASC: false,
                 favorite: false,
                 showPopUp: false,
@@ -191,22 +186,9 @@
         },
 
         methods: {
-
-            sorting(by) {
-                if (by === 'position') {
-                    this.sortPositionASC = !this.sortPositionASC;
-                    if (this.sortPositionASC) {
-                        return this.$store.commit('main/SORT_LIST_BY_POSITION_ASC');
-                    }
-                }
-
-                if (by === 'date') {
-                    this.sortDateASC = !this.sortDateASC;
-                    if (this.sortDateASC) {
-                        return this.$store.commit('main/SORT_LIST_BY_DATE_ASC');
-                    }
-                }
-                return this.$store.dispatch('main/SORT_BY_DEFAULT');
+            sorting() {
+              this.sortDateASC = !this.sortDateASC;
+              return this.sortDateASC ? this.$store.commit('main/SORT_LIST_BY_DATE_ASC') : this.$store.dispatch('main/SORT_BY_DEFAULT');
             },
 
             filterData() {
@@ -222,7 +204,6 @@
             },
 
             showFavorite(star) {
-                this.sortPositionASC = false;
                 this.sortDateASC = false;
 
                 // 검색어 삭제

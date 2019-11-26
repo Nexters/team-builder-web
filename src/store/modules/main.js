@@ -269,22 +269,6 @@ const store = {
             })
         },
 
-        [MUTATIONS.SORT_LIST_BY_POSITION_ASC](state) {
-            state.ideaList = state.ideaList.sort((idea1, idea2) => {
-                const idea1Type = idea1.type;
-                const idea2Type = idea2.type;
-
-                if (idea1Type > idea2Type) return -1;
-                if (idea1Type < idea2Type) return 1;
-
-                const position1 = idea1.author.position.toUpperCase();
-                const position2 = idea2.author.position.toUpperCase();
-
-                return position1 === position2 ? idea2.orderNumber - idea1.orderNumber
-                    : (position1 < position2 ? -1 : 1);
-            })
-        },
-
         [MUTATIONS.SORT_LIST_BY_DATE_ASC](state) {
             state.ideaList = state.ideaList.sort((idea1, idea2) => {
                 const idea1Type = idea1.type;

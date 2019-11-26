@@ -11,7 +11,7 @@
                             <div v-show="nowIsTeamBuilding"
                                  style="display: inline;">선정 아이디어
                             </div>
-                            <div style="display: inline">{{ ideaListLength }}건</div>
+                            <div style="display: inline"> {{ ideaListLength }}건</div>
                         </div>
                     </section>
                     <section class="header-right">
