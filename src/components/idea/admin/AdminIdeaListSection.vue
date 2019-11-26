@@ -5,22 +5,19 @@
                 <div class="card-header">
                     <section class="header-left">
                         <div class="list-info">
-                            <div v-show="!nowIsTeamBuilding" id="view-all"
+                            <div v-show="!nowIsTeamBuilding && (getTypeNow === 'IDEA_COLLECT' || getTypeNow === 'IDEA_VOTE')" id="view-all"
                                  style="display: inline;">전체 아이디어
                             </div>
-                            <div v-show="nowIsTeamBuilding"
+                            <div v-show="nowIsTeamBuilding || getTypeNow === 'IDEA_CHECK' || getTypeNow === 'TEAM_BUILDING'"
                                  style="display: inline;">선정 아이디어
                             </div>
                             <div style="display: inline"> {{ ideaListLength }}건</div>
                         </div>
                     </section>
                     <section class="header-right">
-                        <div class="idea-management" v-show="getTypeNow !== 'IDEA_COLLECT'">
+                        <div class="idea-management" v-show="getTypeNow !== 'IDEA_COLLECT' && getTypeNow !== 'IDEA_VOTE'">
                             <button class="Rectangle-Copy" @click="clickSelection"><span>아이디어 선정</span></button>
                             <button class="Rectangle-Copy cancel" @click="clickUnSelection"><span>아이디어 선정 해지</span></button>
-                            <button class="Rectangle-Copy Rectangle-Black" @click="clickDeletion"><span>아이디어 삭제</span>
-                            </button>
-                            <!-- 검색 기능 -->
                         </div>
 
                         <div class="search-circle row" v-bind:style="searchBoxMouseHoverStyle">
@@ -150,10 +147,6 @@
 
             clickUnSelection() {
                 bus.$emit('clickUnSelection');
-            },
-
-            clickDeletion() {
-                bus.$emit('clickDeletion');
             },
 
             goDetail(id) {
