@@ -277,6 +277,12 @@ const store = {
                 if (idea1Type > idea2Type) return -1;
                 if (idea1Type < idea2Type) return 1;
 
+                const idea1Selected = idea1.selected;
+                const idea2Selected = idea2.selected;
+
+                if (idea1Selected && !idea2Selected) return -1;
+                if (!idea1Selected && idea2Selected) return 1;
+
                 return new Date(idea1.createdAt) - new Date(idea2.createdAt);
             });
         },
