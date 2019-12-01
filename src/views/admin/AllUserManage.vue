@@ -384,18 +384,7 @@
         },
         computed: {
             filteredUsers() {
-                let filterList = [];
-                for (let i = 0; i < this.userViewList.length; i++) {
-                    if (this.userViewList[i].activated === true) {
-                        filterList.push(this.userViewList[i])
-                    }
-                }
-                for (let i = 0; i < this.userViewList.length; i++) {
-                    if (this.userViewList[i].activated === false) {
-                        filterList.push(this.userViewList[i])
-                    }
-                }
-                return filterList;
+                return this.userViewList;
             }
         },
         created() {
