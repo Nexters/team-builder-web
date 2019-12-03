@@ -491,7 +491,17 @@ const store = {
             const candidateIdeas = context.state.candidateIdeas;
             const ideaIds = candidateIdeas.map(idea => idea.ideaId).join(',');
             return putVoteIdea({ideaIds})
-                .then(context.commit(MUTATIONS.CLEAR_CANDIDATE_IDEA));
+                .then(context.commit(MUTATIONS.CLEAR_CANDIDATE_IDEA))
+                .catch(error => {
+                    if (error.response.data.errorCode === 90007) {
+                        window.vm.$notify.error({
+                            title: '투표실패',
+                            message: '활동회원이 아닙니다.'
+                        });
+                    } else {
+                        console.log(error);
+                    }
+                });
         },
 
         [ACTIONS.CREATE_SESSION]: context => {

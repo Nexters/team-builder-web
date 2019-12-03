@@ -123,6 +123,11 @@
             }),
 
             voteSummit() {
+                if (!this.$store.state.auth.activated) {
+                    this.$store.commit('common/showAlert', {alertMessage: '활동회원이 아닙니다.'});
+                    return;
+                }
+
                 if (this.candidateIdeas.length !== this.maxVoteCount) {
                     this.$store.commit('common/showAlert', {alertMessage: `${this.maxVoteCount}개까지 선택해 주세요.`});
                     return;

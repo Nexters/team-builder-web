@@ -152,10 +152,10 @@
     }
 
     .team-member-manage-popup-wrap {
-        width: 988px;
-        height: 733px;
+        width: 1000px;
+        height: 804px;
         z-index: 101;
-        padding: 34px 18px 34px 40px;
+        padding: 34px 12px 34px 40px;
         text-align: left;
         border-radius: 6px;
         -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,.09);
@@ -282,7 +282,7 @@
     }
 
     .team-member-complete-button {
-        margin-top: 60px;
+        margin-top: 131px;
         margin-right: 16px;
         width: 240px;
         height: 64px;

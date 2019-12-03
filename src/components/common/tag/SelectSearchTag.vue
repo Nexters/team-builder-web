@@ -10,7 +10,7 @@
                     <div class="section">
                         <TagGroup :allTags="allTags" :selectedTags="selectedTags" :fetchSelectedTags="fetchSelectedTags"></TagGroup>
                     </div>
-                    <button class="search" @click="doSearch()"><span>검색하기</span></button>
+                    <button class="search" :class="{disable: selectedTags.length === 0}" @click="doSearch()"><span>검색하기</span></button>
 <!--                    <div class="selection-initialization" @click="initSelect">선택초기화</div>-->
                 </div>
             </div>
@@ -46,7 +46,7 @@
 
         doSearch() {
             if (this.selectedTags.length < 1) {
-                this.$emit('close');
+                return;
             }
             this.$store.commit('main/SELECT_TAG', this.selectedTags);
             this.$emit('searchTags');
@@ -125,6 +125,10 @@
         cursor: pointer;
     }
 
+    .disable {
+        background-color: #eee;
+    }
+
     .selection-initialization {
         width: 73px;
         height: 24px;
@@ -161,6 +165,10 @@
         line-height: normal;
         letter-spacing: -1px;
         color: #ffffff;
+    }
+
+    .disable > span {
+        color: #9b9b9b;
     }
 
     .section {
