@@ -211,15 +211,13 @@
                         message: '팀원이 추가되었습니다.'
                     });
                 })
-                .catch(err => {
-                    console.log(err);
-                    //TODO 이미 팀에 속한사람 추가시 에러처리
-                    /**
-                     *  "status": 400,
-                     "errorCode": 90005,
-                     "error": "Bad Request",
-                     "message": "error.user.has.team"
-                     */
+                .catch(error => {
+                    if (error.response.data.errorCode === 90005) {
+                        window.vm.$notify.error({
+                            title: '팀원 추가 실패',
+                            message: '다른팀에 속한 팀원이 존재합니다.'
+                        });
+                    }
                 })
             }
         },
@@ -247,7 +245,7 @@
     }
 
     .tag-group-message {
-        width: 217px;
+        text-align: left;
         height: 29px;
         font-size: 20px;
         letter-spacing: -.5px;

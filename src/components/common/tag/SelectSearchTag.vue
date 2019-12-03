@@ -10,8 +10,8 @@
                     <div class="section">
                         <TagGroup :allTags="allTags" :selectedTags="selectedTags" :fetchSelectedTags="fetchSelectedTags"></TagGroup>
                     </div>
-                    <button class="search" @click="doSearch()"><span>검색하기</span></button>
-                    <div class="selection-initialization" @click="initSelect">선택초기화</div>
+                    <button class="search" :class="{disable: selectedTags.length === 0}" @click="doSearch()"><span>검색하기</span></button>
+<!--                    <div class="selection-initialization" @click="initSelect">선택초기화</div>-->
                 </div>
             </div>
         </div>
@@ -29,45 +29,36 @@
     components: {TagGroup},
     data() {
       return {
-          selectedTags: []
+          allTags: [],
+          selectedTags: [],
       }
     },
 
-    computed: {
-        allTags() {
-            const allTagsCopy = JSON.parse(JSON.stringify(this.$store.state.main.session.tags));
-            return allTagsCopy.map(tag => {
-
-                //TODO: 이미 검색한 태그 그대로 유지
-                // if (this.idea.tags.find(selectedTag => selectedTag.tagId === tag.tagId)) {
-                //     return {
-                //         ...tag,
-                //         state: true
-                //     };
-                // }
-                return {...tag};
-            })
-        },
-    },
-
     methods: {
-      initSelect() {
-        return this.$store.commit('main/SET_INIT_SELECTED_TAGS');
-      },
+        initSelect() {
+            this.selectedTags = [];
+            this.allTags = [];
+        },
 
-    fetchSelectedTags(selectedTags) {
-        this.selectedTags = selectedTags.slice();
-    },
+        fetchSelectedTags(selectedTags) {
+            this.selectedTags = selectedTags.slice();
+        },
 
         doSearch() {
             if (this.selectedTags.length < 1) {
-                this.$emit('close');
+                return;
             }
             this.$store.commit('main/SELECT_TAG', this.selectedTags);
             this.$emit('searchTags');
         }
     },
 
+    created() {
+        const allTagsCopy = JSON.parse(JSON.stringify(this.$store.state.main.session.tags));
+        this.allTags = allTagsCopy.map(tag => {
+            return {...tag};
+        });
+    }
   }
 </script>
 
@@ -91,12 +82,12 @@
 
     .Rectangle {
         width: 716px;
-        height: 404px;
+        height: 535px;
         border-radius: 6px;
         box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.09);
         background-color: #ffffff;
         padding: 29px 18px 40px 34px;
-        margin: 231px 197px 233px 197px;
+        margin: 166px 197px 168px 197px;
 
         transition: all .3s ease;
     }
@@ -130,8 +121,12 @@
         background-color: #ff5000;
         margin-top: 44px;
         margin-left: 200px;
-        margin-right: 120px;
+        margin-right: 200px;
         cursor: pointer;
+    }
+
+    .disable {
+        background-color: #eee;
     }
 
     .selection-initialization {
@@ -170,6 +165,10 @@
         line-height: normal;
         letter-spacing: -1px;
         color: #ffffff;
+    }
+
+    .disable > span {
+        color: #9b9b9b;
     }
 
     .section {

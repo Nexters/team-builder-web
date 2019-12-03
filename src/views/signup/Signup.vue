@@ -9,7 +9,7 @@
                         <div class="info-title">계정정보</div>
                         <div class="info-body">
                             <b-form-group>
-                                <b-form class="row">
+                                <b-form class="row" @submit.prevent="idDuplicateCheck">
                                     <b-form-input class="input-box" placeholder="아이디를 입력해주세요" type="text"
                                                   v-model="uid"></b-form-input>
                                     <button type="button" class="btn-duplicate-check" v-on:click="idDuplicateCheck">
@@ -20,7 +20,7 @@
 
                             <b-form-group style="margin-top: 16px">
                                 <b-form class="row">
-                                    <b-form>
+                                    <b-form @submit.prevent="onSubmit">
                                         <div class="password-circle row" v-bind:style="passwordBoxMouseHoverStyle">
                                             <b-form-input class="input-box-password" v-validate="'required|min:8'"
                                                           :type="passwordType" v-model="password"
@@ -34,7 +34,7 @@
                                             <p v-if="0 < password.length && password.length < 8">영문,숫자 8자 이상 입력하세요.</p>
                                         </div>
                                     </b-form>
-                                    <b-form style="margin-left: 15px;">
+                                    <b-form style="margin-left: 15px;" @submit.prevent="onSubmit">
                                         <div class="password-circle row"
                                              v-bind:style="confirmPasswordBoxMouseHoverStyle">
                                             <b-form-input class="input-box-password" :type="confirmPasswordType"
@@ -59,7 +59,7 @@
                         <div class="info-title">개인정보</div>
                         <div class="info-body">
                             <b-form-group>
-                                <b-form class="row">
+                                <b-form class="row" @submit.prevent="onSubmit">
                                     <b-form-input class="input-box" type="text" v-model="name"
                                                   placeholder="이름을 적어주세요."></b-form-input>
                                     <b-form-select v-model="nextersNumberSelect" :options="nextersNumberOptions"
@@ -78,7 +78,7 @@
                             </b-form-group>
 
                             <b-form-group>
-                                <b-form class="row">
+                                <b-form class="row" @submit.prevent="onSubmit">
                                     <b-form-input class="input-box" placeholder="이메일 주소를 입력해주세요."
                                                   type="text" v-model="email"></b-form-input>
                                 </b-form>
@@ -90,7 +90,7 @@
                         <div class="info-title">보안</div>
                         <div class="info-body">
                             <b-form-group>
-                                <b-form class="row">
+                                <b-form class="row" @submit.prevent="onSubmit">
                                     <b-form-input class="input-box" placeholder="넥스터즈의 인증코드를 입력해주세요."
                                                   type="text" v-model="accessCode"></b-form-input>
                                 </b-form>
@@ -262,7 +262,7 @@
                 return re.test(email);
             },
             initSession() {
-                for (let i = 1; i <= 16; i++) {
+                for (let i = 16; i >= 1; i--) {
                     this.nextersNumberOptions.push({text: i + '기', value: i})
                 }
             }
