@@ -67,7 +67,7 @@
     }
 
     .tag-group-message {
-        width: 217px;
+        text-align: left;
         height: 29px;
         font-size: 20px;
         letter-spacing: -.5px;
