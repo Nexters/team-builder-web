@@ -114,6 +114,16 @@ td {
     text-align: left;
 }
 
+td {
+    width: 100%;
+    border: solid 1px #eeeeee;
+    border-radius: 6px
+}
+
+td:hover {
+    border: 1px solid rgb(219, 219, 219);
+}
+
 .row-item {
     font-family: NotoSansCJKkr;
     font-size: 16px;
@@ -196,7 +206,7 @@ td {
     letter-spacing: -1px;
     color: #ff7205;
     text-align: center;
-    margin: 0 12px 0 0 ;
+    margin: 0 12px 0 0;
 }
 
 .developer-wrap {
@@ -213,5 +223,5 @@ td {
     letter-spacing: -1px;
     color: #208b84;
     text-align: center;
-    margin: 0 12px 0 0 ;
+    margin: 0 12px 0 0;
 }

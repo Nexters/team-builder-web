@@ -34,7 +34,7 @@
                             <table class="board" v-for="idea in ideas">
                                 <tbody @click="detailIdea({ideaId: idea.ideaId})" style="cursor: pointer">
                                 <tr class="list">
-                                    <td style="width: 100%">
+                                    <td>
                                         <div class="row align-items-center"
                                              style="width: 100%; height: 74px; margin-left: 20px">
                                             <div class="row-item" style="width: 553px">
