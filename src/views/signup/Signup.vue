@@ -120,6 +120,7 @@
         data() {
             return {
                 uid: '',
+                isIdChecked: false,
                 password: '',
                 confirmPassword: '',
                 passwordVisible: false,
@@ -172,6 +173,12 @@
                         message: "이메일 형식을 맞춰주세요."
                     });
                     return false;
+                } else if (!this.isIdChecked) {
+                    window.vm.$notify.error({
+                        title: '회원가입',
+                        message: "아이디 중복확인을 해주세요."
+                    });
+                    return false;
                 }
 
                 signup(uid, upassword, uname, nextersNumber, position, email, accessCode)
@@ -179,9 +186,15 @@
                         this.goToPages(data)
                     })
                     .catch(err => {
+                        let message;
+                        if (err.response.data.message === 'id: error.id.unique.') {
+                            message = "아이디 중복확인을 해주세요."
+                        } else {
+                            message = err.response.data.message
+                        }
                         window.vm.$notify.error({
                             title: '회원가입',
-                            message: err.response.data.message
+                            message: message
                         });
                         this.duringLogin = false;
                     });
@@ -205,9 +218,11 @@
                 isIdDuplicate(this.uid)
                     .then(data => {
                         if (data.data.isIdUsable) {
-                            alert('사용 가능한 아이디입니다.')
+                            alert('사용 가능한 아이디입니다.');
+                            this.isIdChecked = true
                         } else {
-                            alert('사용중인 아이디입니다.')
+                            alert('사용중인 아이디입니다.');
+                            this.isIdChecked = false
                         }
                     })
                     .catch(err => {
