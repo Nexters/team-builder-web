@@ -47,6 +47,10 @@
                 <span @mouseover="mouseroverPeriod(PERIOD_TYPE.TEAM_BUILDING)" @mouseleave="mouseleavePeriod(PERIOD_TYPE.TEAM_BUILDING)">{{ periodTypeTeamBuildingText }}</span>
             </div>
         </div>
+
+        <div class="mini-info-background">
+            <div class="border-line"></div>
+        </div>
     </div>
 </template>
 
@@ -316,6 +320,23 @@
 
     .period-step-on {
         color: #208b84;
+    }
+
+    .mini-info-background {
+        position: fixed;
+        top: 73px;
+        width: 100%;
+        height: 131px;
+        z-index: 2;
+        background-color: white;
+    }
+
+    .border-line {
+        position: fixed;
+        top: 204px;
+        width: 100%;
+        height: 1px;
+        background-color: #eeeeee;
     }
 
 </style>
