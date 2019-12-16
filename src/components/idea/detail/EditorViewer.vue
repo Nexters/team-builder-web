@@ -45,6 +45,5 @@
         text-align: left;
 
         overflow-x: scroll;
-        max-height: 370px;
     }
 </style>
