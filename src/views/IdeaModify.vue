@@ -250,6 +250,7 @@
         font-size: 20px;
         letter-spacing: -.5px;
         color: #000;
+        margin-bottom: 30px;
     }
 
     .tag-group-message-hint {
