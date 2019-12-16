@@ -50,51 +50,54 @@
             </div>
         </div>
 
-        <div class="session-info-mini-wrap">
-            <div v-if="!isAdmin">
-                <div class="session-info-idea-put-basket-box" style="margin-top: 15px;">
-                    <div v-show="!voteDone" style="width: 200px">
-                        <span class="session-info-idea-put-basket">아이디어 투표 담기</span>
-                        <span class="session-info-idea-put-basket-count">{{ candidateIdeas.length }} / {{ maxVoteCount }}</span>
+        <SlideYUpTransition :duration="600">
+            <div v-show="scroll > 265" class="session-info-mini-wrap">
+                <div v-if="!isAdmin">
+                    <div class="session-info-idea-put-basket-box" style="margin-top: 15px;">
+                        <div v-show="!voteDone" style="width: 200px">
+                            <span class="session-info-idea-put-basket">아이디어 투표 담기</span>
+                            <span class="session-info-idea-put-basket-count">{{ candidateIdeas.length }} / {{ maxVoteCount }}</span>
+                        </div>
+                        <span v-show="voteDone" class="session-info-idea-put-basket">투표내역</span>
                     </div>
-                    <span v-show="voteDone" class="session-info-idea-put-basket">투표내역</span>
+
+                    <div v-show="!voteDone && !isAvailableVote" class="session-info-idea-vote-info-message-box">
+                        <span class="session-info-idea-vote-info-message">아이디어 목록 오른쪽에 있는 </span>
+                        <img class="session-info-idea-vote-info-message-plus-icon" src="@/assets/img/session-info-vote-plus-icon.png"/>
+                        <span class="session-info-idea-vote-info-message"> 플러스 아이콘을 눌러 아이디어를 담고 투표를 확정해주세요.</span>
+                    </div>
+
+                    <div v-show="!voteDone && isAvailableVote" class="session-info-idea-vote-candidateIdeas-wrap">
+                        <div v-for="idea in candidateIdeas" class="session-info-idea-vote-candidateIdeas-box">
+                            <span class="session-info-idea-vote-candidateIdeas-text">{{ idea.title }}</span>
+                            <button @click="removeCandidateIdea(idea.id)" class="session-info-idea-vote-candidateIdeas-idea-remove-button">
+                                <img class="session-info-idea-vote-candidateIdeas-idea-remove" src="@/assets/img/session-info-idea-vote-candidateIdeas-idea-remove-icon.png"/>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 투표완료한 경우 -->
+                    <div v-show="voteDone" class="session-info-idea-vote-candidateIdeas-wrap">
+                        <div v-for="idea in votedIdeas" class="session-info-idea-vote-candidateIdeas-box">
+                            <span class="session-info-idea-vote-candidateIdeas-text" :style="voteDoneStyle">{{ idea.title }}</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div v-show="!voteDone && !isAvailableVote" class="session-info-idea-vote-info-message-box">
-                    <span class="session-info-idea-vote-info-message">아이디어 목록 오른쪽에 있는 </span>
-                    <img class="session-info-idea-vote-info-message-plus-icon" src="@/assets/img/session-info-vote-plus-icon.png"/>
-                    <span class="session-info-idea-vote-info-message"> 플러스 아이콘을 눌러 아이디어를 담고 투표를 확정해주세요.</span>
-                </div>
-
-                <div v-show="!voteDone && isAvailableVote" class="session-info-idea-vote-candidateIdeas-wrap">
-                    <div v-for="idea in candidateIdeas" class="session-info-idea-vote-candidateIdeas-box">
-                        <span class="session-info-idea-vote-candidateIdeas-text">{{ idea.title }}</span>
-                        <button @click="removeCandidateIdea(idea.id)" class="session-info-idea-vote-candidateIdeas-idea-remove-button">
-                            <img class="session-info-idea-vote-candidateIdeas-idea-remove" src="@/assets/img/session-info-idea-vote-candidateIdeas-idea-remove-icon.png"/>
+                <div class="session-info-idea-vote-image-wrap">
+                    <div v-show="!isAdmin && !voteDone" class="session-info-idea-vote-button-box" :class="availableVoteButtonBoxClass" style="bottom: -12px; right: -809px;">
+                        <button @click="voteSummit()" class="session-info-idea-vote-button" :class="availableVoteButtonClass" :disabled="!isAvailableVote" style="bottom: 30px">
+                            <span class="session-info-idea-vote-button-text" :class="availableVoteButtonTextClass">아이디어 투표하기</span>
                         </button>
                     </div>
                 </div>
-
-                <!-- 투표완료한 경우 -->
-                <div v-show="voteDone" class="session-info-idea-vote-candidateIdeas-wrap">
-                    <div v-for="idea in votedIdeas" class="session-info-idea-vote-candidateIdeas-box">
-                        <span class="session-info-idea-vote-candidateIdeas-text" :style="voteDoneStyle">{{ idea.title }}</span>
-                    </div>
-                </div>
             </div>
-
-            <div class="session-info-idea-vote-image-wrap">
-                <div v-show="!isAdmin && !voteDone" class="session-info-idea-vote-button-box" :class="availableVoteButtonBoxClass" style="bottom: -12px; right: -809px;">
-                    <button @click="voteSummit()" class="session-info-idea-vote-button" :class="availableVoteButtonClass" :disabled="!isAvailableVote" style="bottom: 30px">
-                        <span class="session-info-idea-vote-button-text" :class="availableVoteButtonTextClass">아이디어 투표하기</span>
-                    </button>
-                </div>
-            </div>
-        </div>
+        </SlideYUpTransition>
     </div>
 </template>
 
 <script>
+    import {SlideYUpTransition} from 'vue2-transitions';
     import SessionInfoDDay from '@/components/common/sessionInfo/SessionInfoDDay';
     import { ACTIONS } from '@/store/types';
     import {createNamespacedHelpers} from 'vuex';
@@ -103,10 +106,11 @@
 
     export default {
         name: "SessionInfoIdeaVote",
-        components: {SessionInfoDDay},
+        components: {SessionInfoDDay, SlideYUpTransition},
         data() {
             return {
                 sessionNumber: this.$store.state.main.session.sessionNumber,
+                scroll: 0,
             }
         },
 
@@ -208,6 +212,17 @@
             removeCandidateIdea(ideaId) {
                 this.removeCandidateIdeaAction(ideaId);
             },
+
+            onScroll(event) {
+                this.scroll = window.scrollY;
+            },
+        },
+
+        created () {
+            window.addEventListener('scroll', this.onScroll);
+        },
+        destroyed () {
+            window.removeEventListener('scroll', this.onScroll);
         }
     }
 </script>

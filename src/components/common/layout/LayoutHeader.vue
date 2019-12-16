@@ -48,13 +48,16 @@
             </div>
         </div>
 
-        <div class="mini-info-background">
-            <div class="border-line"></div>
-        </div>
+        <SlideYUpTransition :duration="600">
+            <div v-show="scroll > 265" class="mini-info-background">
+                <div class="border-line"></div>
+            </div>
+        </SlideYUpTransition>
     </div>
 </template>
 
 <script>
+    import {SlideYUpTransition} from 'vue2-transitions';
     import {GENERAL_MANAGE, USER_MANAGE} from '@/consts/adminType';
     import {GETTERS} from "@/store/types";
     import {createNamespacedHelpers} from 'vuex';
@@ -64,6 +67,9 @@
 
     export default {
         name: "LayoutHeader",
+        components: {
+            SlideYUpTransition
+        },
         data() {
             return {
                 PERIOD_TYPE: {
@@ -80,6 +86,7 @@
                 periodTypeIdeaVoteText: '아이디어 투표',
                 periodTypeIdeaCheckText: '아이디어 선정',
                 periodTypeTeamBuildingText: '팀빌딩',
+                scroll: 0,
             }
         },
 
@@ -185,6 +192,16 @@
                 }
             },
 
+            onScroll(event) {
+                this.scroll = window.scrollY;
+            },
+        },
+
+        created () {
+            window.addEventListener('scroll', this.onScroll);
+        },
+        destroyed () {
+            window.removeEventListener('scroll', this.onScroll);
         }
     }
 </script>
