@@ -314,6 +314,7 @@
         width: 100%;
         text-align: left;
         padding-top: 44px;
+        margin-bottom: 50px;
     }
 
     .file-upload-title-box {
@@ -343,10 +344,12 @@
     }
 
     .file-upload-has-file-text-box {
-        width: 177px;
+        width: 210px;
         height: 24px;
         margin: 17px 0px 16px 20px;
-        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .file-upload-has-file-text {
