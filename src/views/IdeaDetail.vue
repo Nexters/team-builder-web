@@ -143,7 +143,13 @@
             },
 
             availableRemoveIdea() {
-                return this.isAdmin || this.isOwner;
+                if (this.isAdmin) {
+                    return true;
+                }
+                if (!this.idea.selected && this.isOwner) {
+                    return true;
+                }
+                return false;
             },
         },
 
