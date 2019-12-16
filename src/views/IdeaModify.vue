@@ -18,7 +18,7 @@
                         <span class="file-upload-title-text">첨부파일</span>
                     </div>
                     <div class="file-upload-message-box">
-                        <span class="file-upload-message-text">아이디어 선정자는 발표용 파일을 첨부해주세요.</span>
+                        <span class="file-upload-message-text">아이디어 선정자는 발표용 파일을 첨부해주세요. (최대 10MB)</span>
                     </div>
 
                     <div v-show="!hasFile" class="file-upload-button-box">
@@ -286,7 +286,7 @@
     }
 
     .file-upload-message-box {
-        width: 264px;
+        width: 100%;
         height: 20px;
         margin-top: 4px;
     }

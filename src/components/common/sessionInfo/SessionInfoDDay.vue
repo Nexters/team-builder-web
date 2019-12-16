@@ -62,7 +62,7 @@
                 remainHour = moment(endDate, 'YYYY-MM-HH-MM').diff(nowDate, 'minute') + '분';
             }
 
-            this.ddayMessage = `마감까지 ${remainDay} ${remainHour} 남았습니다.`;
+            this.ddayMessage = `마감일(${moment(this.nowPeriod.endDate).format('M월D일')}) 까지 ${remainDay} ${remainHour} 남았습니다.`;
         },
     }
 </script>

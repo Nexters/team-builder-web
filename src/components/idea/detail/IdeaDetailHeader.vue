@@ -37,7 +37,7 @@
         computed: {
             positionName() {
                 if (this.idea.author.role === ROLL_TYPE.ADMIN) {
-                    return '운영자';
+                    return 'admin';
                 }
                 return this.idea.author.position === 'DEVELOPER' ? '개발자' : '디자이너';
             },
