@@ -61,7 +61,7 @@
     }
 
     .session-info-main {
-        width: 418px;
+        width: 578px;
         height: 100%;
     }
 
@@ -103,7 +103,7 @@
     .session-info-image-wrap {
         width: 560px;
         height: 100%;
-        margin-left: 221px;
+        margin-left: 61px;
     }
 
     .session-info-image {

@@ -18,11 +18,11 @@
                         <span class="file-upload-title-text">첨부파일</span>
                     </div>
                     <div class="file-upload-message-box">
-                        <span class="file-upload-message-text">아이디어 선정자는 발표용 파일을 첨부해주세요.</span>
+                        <span class="file-upload-message-text">아이디어 선정자는 발표용 파일을 첨부해주세요. (최대 10MB)</span>
                     </div>
 
                     <div v-show="!hasFile" class="file-upload-button-box">
-                        <label for="file-upload" class="file-upload-button-label">
+                        <label for="file-upload" class="file-upload-button-label" style="cursor:pointer">
                             <span class="file-upload-button-text">파일첨부하기</span>
                         </label>
                         <input id="file-upload" type="file" @change="onFileChange($event)" class="file-upload-button"/>
@@ -167,7 +167,6 @@
             onFileChange(event) {
                 uploadFiles(event.target.files[0].name, event.target.files[0], 'idea')
                     .then(fileUrls => {
-                        alert('파일 업로드 성공!');
                         this.idea.file = fileUrls[0];
                     })
                     .catch(err => {
@@ -250,6 +249,7 @@
         font-size: 20px;
         letter-spacing: -.5px;
         color: #000;
+        margin-bottom: 30px;
     }
 
     .tag-group-message-hint {
@@ -266,6 +266,7 @@
         width: 100%;
         text-align: left;
         padding-top: 44px;
+        margin-bottom: 50px;
     }
 
     .file-upload-title-box {
@@ -285,7 +286,7 @@
     }
 
     .file-upload-message-box {
-        width: 264px;
+        width: 100%;
         height: 20px;
         margin-top: 4px;
     }
@@ -345,9 +346,12 @@
     }
 
     .file-upload-has-file-text-box {
-        width: 177px;
+        width: 210px;
         height: 24px;
         margin: 17px 0px 16px 20px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .file-upload-has-file-text {

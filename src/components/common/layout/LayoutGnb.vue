@@ -32,8 +32,8 @@
             <div v-show="isOpenSessionGroup" class="layout-session-group" style="margin-top: 72px; padding-top: 7px">
                 <button v-if="isAdmin" @click="createNewSession()" class="layout-session-group-one now-session">
                     <div style="position: absolute">
-                        <div style="width: 17px;height: 1px;border: solid 1.5px #ffffff;position: relative;top: 0px;left: 3px;"></div>
-                        <div style="width: 1px;height: 17px;border: solid 1.5px #ffffff;position: relative;left: 10px;top: -10px;"></div>
+                        <div style="width: 17px;height: 1px;border: solid 1.7px #ffffff;position: relative;top: 0px;left: 3px;"></div>
+                        <div style="width: 1px;height: 17px;border: solid 1.7px #ffffff;position: relative;left: 10px;top: -10px;"></div>
                     </div>
                 </button>
                 <button @click="moveSession(sessionNumber)" v-for="sessionNumber in sessionNumbers" class="layout-session-group-one" :class="nowSessionClass(sessionNumber)">

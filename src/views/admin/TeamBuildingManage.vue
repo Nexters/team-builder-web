@@ -8,12 +8,7 @@
             <div style="width: 1200px; margin-left: 70px;">
                 <div class="user-manage-tab d-flex" style="margin-top: 25px">
                     <p>선정 아이디어 {{ideas.length}}건</p>
-                    <div class="ml-auto">
-                        <input type="search"
-                               class="search-box"
-                               placeholder="제목과 작성자를 검색해주세요."
-                               v-on:input="search = $event.target.value"
-                               @keyup="filtering()">
+                    <div class="ml-auto" style="height: 52px;">
                     </div>
                 </div>
 

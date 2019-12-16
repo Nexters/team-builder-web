@@ -143,7 +143,13 @@
             },
 
             availableRemoveIdea() {
-                return this.isAdmin || this.isOwner;
+                if (this.isAdmin) {
+                    return true;
+                }
+                if (!this.idea.selected && this.isOwner) {
+                    return true;
+                }
+                return false;
             },
         },
 
@@ -263,6 +269,7 @@
         font-size: 20px;
         letter-spacing: -.5px;
         color: #000;
+        margin-bottom: 30px;
     }
 
     .buttons-wrap {
@@ -307,6 +314,7 @@
         width: 100%;
         text-align: left;
         padding-top: 44px;
+        margin-bottom: 50px;
     }
 
     .file-upload-title-box {
@@ -336,10 +344,12 @@
     }
 
     .file-upload-has-file-text-box {
-        width: 177px;
+        width: 210px;
         height: 24px;
         margin: 17px 0px 16px 20px;
-        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .file-upload-has-file-text {
