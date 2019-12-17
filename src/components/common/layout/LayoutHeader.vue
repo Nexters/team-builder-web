@@ -49,7 +49,7 @@
         </div>
 
         <SlideYUpTransition :duration="600">
-            <div v-show="scroll > 265" class="mini-info-background">
+            <div v-show="scroll > 265 && !isAdmin" class="mini-info-background">
                 <div class="border-line"></div>
             </div>
         </SlideYUpTransition>
