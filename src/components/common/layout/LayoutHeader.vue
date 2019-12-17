@@ -49,8 +49,8 @@
         </div>
 
         <SlideYUpTransition :duration="600">
-            <div v-show="scroll > 265" class="mini-info-background">
-                <div class="border-line"></div>
+            <div v-show="isOnScrollMiniSessionInfo" class="mini-info-background" :style="collectMini">
+                <div v-show="scroll > 307" class="border-line" :style="collectMiniBorder"></div>
             </div>
         </SlideYUpTransition>
     </div>
@@ -109,7 +109,7 @@
                     return GENERAL_MANAGE;
                 }
 
-                if(/team-building/.test(this.$route.path)) {
+                if(/team-building/.test(this.$route.path) || this.$route.query.mode === 'team-building') {
                     return 'TEAMBUILDING';
                 }
 
@@ -126,6 +126,21 @@
 
             isAdminPage() {
                 return /all-user-manager/.test(this.$route.path) || /general-manage/.test(this.$route.path);
+            },
+
+            collectMini() {
+                return this.nowPeriodType === PERIOD_TYPE.IDEA_COLLECT ? {height: '90px'} : {};
+            },
+
+            collectMiniBorder() {
+                return this.nowPeriodType === PERIOD_TYPE.IDEA_COLLECT ? {top: '162px'} : {};
+            },
+
+            isOnScrollMiniSessionInfo() {
+                return this.scroll > 265
+                    && !this.isAdmin
+                    && (this.nowPeriodType === PERIOD_TYPE.IDEA_COLLECT || this.nowPeriodType === PERIOD_TYPE.IDEA_VOTE)
+                    && !/team-building/.test(this.$route.path)
             }
         },
 

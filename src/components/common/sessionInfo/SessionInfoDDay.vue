@@ -48,21 +48,33 @@
         created() {
             const endDate = moment(this.nowPeriod.endDate);
             const nowDate = moment();
-            const remainDayNumber = moment(endDate, 'YYYY-MM').diff(nowDate, 'day');
-            const remainHourNumber = moment(endDate, 'YYYY-MM-HH').diff(nowDate, 'hour') % 24;
 
             if (nowDate.isAfter(endDate)) {
                 this.ddayMessage = '마감되었습니다.';
                 return;
             }
 
-            const remainDay = remainDayNumber === 0 ? '' : (remainDayNumber + '일');
-            let remainHour = remainHourNumber === 0 ? '' : (remainHourNumber + '시간');
-            if (!remainHour) {
-                remainHour = moment(endDate, 'YYYY-MM-HH-MM').diff(nowDate, 'minute') + '분';
+            const remainHourNumber = moment(endDate, 'YYYY-MM-HH').diff(nowDate, 'hour');
+            /**
+             * 24시간 이상 남은 경우
+             */
+            if (remainHourNumber >= 24) {
+                this.ddayMessage = `마감시간 \'${moment(this.nowPeriod.endDate).format('M월 D일')} 저녁 12시\' 까지 ${Math.floor(remainHourNumber / 24)}일 ${remainHourNumber%24}시간 남았습니다.`;
+                return;
             }
 
-            this.ddayMessage = `마감시간 \'${moment(this.nowPeriod.endDate).format('M월 D일')} 저녁 12시\' 까지 ${remainDay} ${remainHour} 남았습니다.`;
+            /**
+             * 1시간 미만으로 남은 경우
+             */
+            if (remainHourNumber < 1) {
+                this.ddayMessage = `마감시간 \'${moment(this.nowPeriod.endDate).format('M월 D일')} 저녁 12시\' 곧 아이디어 모집이 마감됩니다.`;
+                return;
+            }
+
+            /**
+             * 1 ~ 23 시간 남은 경우
+             */
+            this.ddayMessage = `마감시간 \'${moment(this.nowPeriod.endDate).format('M월 D일')} 저녁 12시\' 까지 ${remainHourNumber}시간 남았습니다.`;
         },
     }
 </script>
