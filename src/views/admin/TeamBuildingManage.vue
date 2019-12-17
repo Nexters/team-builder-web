@@ -32,15 +32,19 @@
                                     <td>
                                         <div class="row align-items-center"
                                              style="width: 100%; height: 74px; margin-left: 20px">
-                                            <div class="row-item" @click="detailIdea({ideaId: idea.ideaId})" style="width: 553px; cursor: pointer;">
+                                            <div class="row-item" @click="detailIdea({ideaId: idea.ideaId})"
+                                                 style="width: 553px; cursor: pointer;">
                                                 {{idea.title}}
                                             </div>
-                                            <div class="row row-item" style="width: 337px; height: 40px; margin: 17px 0px;">
+                                            <div class="row row-item"
+                                                 style="width: 337px; height: 40px; margin: 17px 0px;">
                                                 <div v-show="idea['tags'].length === 0" class="not-select-tags">
                                                     태그를 선택하지 않았어요.
                                                 </div>
-                                                <div v-show="idea['tags'].length > 0" class="tags" v-for="(element, index) in idea['tags']"
-                                                     v-if="index < 3" v-on:mouseover="viewAllTags" v-on:mouseout="closeAllTags">
+                                                <div v-show="idea['tags'].length > 0" class="tags"
+                                                     v-for="(element, index) in idea['tags']"
+                                                     v-if="index < 3" v-on:mouseover="viewAllTags"
+                                                     v-on:mouseout="closeAllTags">
                                                     <table-tag
                                                             :name="element.name"
                                                             :type="element.type">
@@ -75,10 +79,12 @@
                                         <div style="width: 100%;height: 1px;border: .5px solid #eeeeee;"></div>
 
                                         <div style="width: 100%">
-                                            <div class="row align-items-center" v-if="idea.members.length === 0" style="margin-left: 20px">
+                                            <div class="row align-items-center" v-if="idea.members.length === 0"
+                                                 style="margin-left: 20px">
                                                 <div class="row row-item align-items-center"
                                                      style="width: 498px; height: 59px">
-                                                    팀원 <p style="margin-left: 10px; color: #ff5000">{{idea.members.length}}</p>
+                                                    팀원 <p style="margin-left: 10px; color: #ff5000">
+                                                    {{idea.members.length}}</p>
                                                 </div>
                                                 <div class="row-item-no-have-team">
                                                     아직 팀원이 구성되지 못했어요
@@ -87,12 +93,20 @@
                                             <div class="align-items-center" v-else style="margin-left: 20px">
                                                 <div class="row row-item align-items-center"
                                                      style="width: 498px; height: 59px">
-                                                    팀원 <p style="margin-left: 10px; color: #ff5000">{{idea.members.length}}</p>
+                                                    팀원 <p style="margin-left: 10px; color: #ff5000">
+                                                    {{idea.members.length}}</p>
                                                 </div>
                                                 <div class="row row-item" style="width: 100%; height: 86px">
-                                                    <div v-for="member in idea.members"class="team-member-box">
-                                                        <div class="team-member-box-header">{{memberInfoText({member})}}</div>
-                                                        <div class="team-member-box-body">{{member.id}}</div>
+                                                    <div v-for="member in idea.members" class="team-member-box">
+                                                        <div class="team-member-box-header">
+                                                            {{memberInfoText({member})}}
+                                                        </div>
+                                                        <div v-if="member.id.length <= this.idMaxSize" class="team-member-box-body">
+                                                            {{member.id}}
+                                                        </div>
+                                                        <div v-else class="team-member-box-body">
+                                                            {{member.id.substr(0, this.idMaxSize)}}...
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -118,6 +132,7 @@
     import {getSession} from '@/api/sessionApi';
     import TableTag from "@/components/common/tag/TableTag";
     import TableTagPopUp from "@/components/common/tag/TableTagPopUp";
+    import {ID_MAX_SIZE, NAME_MAX_SIZE} from "../../consts/OverLengthDefine";
 
     export default {
         name: "TeamBuildingManage",
@@ -125,6 +140,8 @@
 
         data() {
             return {
+                idMaxSize: ID_MAX_SIZE,
+                nameMaxSize: NAME_MAX_SIZE,
                 /**
                  * 선정된 아이디어 목록
                  */
@@ -160,9 +177,7 @@
             }
         },
 
-        computed: {
-
-        },
+        computed: {},
 
         methods: {
             getPositionName(position) {
@@ -174,13 +189,15 @@
             },
 
             memberInfoText({member}) {
-                return `${member.nextersNumber}기  ${getPositionName(member.position)}  ${member.name}`;
+                return member.name.length <= this.nameMaxSize ?
+                    `${member.nextersNumber}기  ${getPositionName(member.position)}  ${member.name}` :
+                    `${member.nextersNumber}기  ${getPositionName(member.position)}  ${member.name.substr(0, this.nameMaxSize)}...`;
             },
 
             detailIdea({ideaId}) {
                 this.$router.push({
                     path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${ideaId}`,
-                    query: { mode : 'team-building' }
+                    query: {mode: 'team-building'}
                 });
             },
 
@@ -211,4 +228,4 @@
     }
 </script>
 
-<style src="./TeamBuildingManage.css" scoped />
+<style src="./TeamBuildingManage.css" scoped/>
