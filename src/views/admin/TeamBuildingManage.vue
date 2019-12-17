@@ -27,20 +27,32 @@
                             </div>
 
                             <table class="board" v-for="idea in ideas">
-                                <tbody @click="detailIdea({ideaId: idea.ideaId})" style="cursor: pointer">
+                                <tbody>
                                 <tr class="list">
                                     <td>
                                         <div class="row align-items-center"
                                              style="width: 100%; height: 74px; margin-left: 20px">
-                                            <div class="row-item" style="width: 553px">
+                                            <div class="row-item" @click="detailIdea({ideaId: idea.ideaId})" style="width: 553px; cursor: pointer;">
                                                 {{idea.title}}
                                             </div>
-                                            <div class="row row-item" style="width: 337px">
-                                                <div v-for="(tag, index) in idea.tags" v-show="index < 3" class="card justify-content-center" :class="wrapClassName(tag.type)">
-                                                    {{tag.name}}
+                                            <div class="row row-item" style="width: 337px; height: 40px; margin: 17px 0px;">
+                                                <div v-show="idea['tags'].length === 0" class="not-select-tags">
+                                                    태그를 선택하지 않았어요.
                                                 </div>
+                                                <div v-show="idea['tags'].length > 0" class="tags" v-for="(element, index) in idea['tags']"
+                                                     v-if="index < 3" v-on:mouseover="viewAllTags" v-on:mouseout="closeAllTags">
+                                                    <table-tag
+                                                            :name="element.name"
+                                                            :type="element.type">
+                                                    </table-tag>
+                                                </div>
+                                                <table-tag-pop-up
+                                                        style="display: none; right: 290px"
+                                                        v-if="idea['tags'].length > 3"
+                                                        :all-tags="idea['tags']">
+                                                </table-tag-pop-up>
                                             </div>
-                                            <div class="row-item" style="width: 66px">
+                                            <div class="row-item" style="width: 66px; margin: 25px 0">
                                                 {{getPositionName(idea.author.position)}}
                                             </div>
                                             <div class="row-item" style="width: 66px">
@@ -101,14 +113,15 @@
 <script>
     import Layout from "../../components/common/layout/Layout";
     import Session from "../../components/admin/manage/Session";
-    import {TAG_TYPE} from "../../consts/Tag";
     import {getPositionName} from '@/consts/positionType';
     import moment from 'moment';
     import {getSession} from '@/api/sessionApi';
+    import TableTag from "@/components/common/tag/TableTag";
+    import TableTagPopUp from "@/components/common/tag/TableTagPopUp";
 
     export default {
         name: "TeamBuildingManage",
-        components: {Session, Layout},
+        components: {TableTagPopUp, TableTag, Session, Layout},
 
         data() {
             return {
@@ -152,15 +165,6 @@
         },
 
         methods: {
-            wrapClassName(type) {
-                switch (type) {
-                    case TAG_TYPE.DESIGNER:
-                        return 'designer-wrap';
-                    case TAG_TYPE.DEVELOPER :
-                        return 'developer-wrap';
-                }
-            },
-
             getPositionName(position) {
                 return getPositionName(position);
             },
@@ -181,14 +185,14 @@
             },
 
             viewAllTags(event) {
-                const popUp = event.target.closest('.td').lastChild;
+                const popUp = event.target.closest('.row').lastChild;
                 if (popUp.className) {
                     popUp.style.display = 'flex';
                 }
             },
 
             closeAllTags(event) {
-                const popUp = event.target.closest('.td').lastChild;
+                const popUp = event.target.closest('.row').lastChild;
                 if (popUp.className) {
                     popUp.style.display = 'none';
                 }

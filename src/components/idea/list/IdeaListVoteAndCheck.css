@@ -128,43 +128,6 @@
 	clear: both;
 }
 
-.tag {
-	border-radius: 6px;
-	display: inline-block;
-	vertical-align: center;
-	padding: 8px 15px;
-	width: 100%;
-	flex: 1 1 auto;
-	clear: both;
-}
-
-.tag-name {
-	width: 69px;
-	height: 24px;
-	font-family: NotoSansCJKkr;
-	font-size: 16px;
-	font-weight: normal;
-	font-style: normal;
-	font-stretch: normal;
-	line-height: normal;
-	letter-spacing: -1px;
-	color: #208b84;
-}
-
-.tag-popUp {
-	height: 74px;
-	border-radius: 6px;
-	box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.2);
-	background-color: #ffffff;
-	display: flex;
-	padding: 17px 10px;
-	right: 10px;
-	top: 65px;
-	position: absolute;
-	clear: both;
-	z-index: 2;
-}
-
 .position {
 	width: 56px;
 	height: 24px;
