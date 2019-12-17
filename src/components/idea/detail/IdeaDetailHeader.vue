@@ -74,7 +74,10 @@
             },
 
             onClickEditIdea(ideaId) {
-                this.$router.push({path:`/session/${this.$store.state.main.session.sessionNumber}/idea/${this.idea.ideaId}/modify`});
+                this.$router.push({
+                    path:`/session/${this.$store.state.main.session.sessionNumber}/idea/${this.idea.ideaId}/modify`,
+                    query: this.$route.query
+                });
             }
         },
 
