@@ -4,8 +4,8 @@
         <button v-show="isAvailableRemove" @click.stop="removeMember" class="team-member-info-remove-button">
             <img class="team-member-info-remove-img" src="@/assets/img/ico-team-member-remove.png"/>
         </button>
-        <span v-if="member.id.length <= this.idMaxSize" class="team-member-info-id" :class="{'no-remove': !isAvailableRemove}">{{member.id}}</span>
-        <span v-else class="team-member-info-id" :class="{'no-remove': !isAvailableRemove}">{{member.id.substr(0, this.idMaxSize)}}...</span>
+        <span v-if="member.id.length <= idMaxSize" class="team-member-info-id" :class="{'no-remove': !isAvailableRemove}">{{member.id}}</span>
+        <span v-else class="team-member-info-id" :class="{'no-remove': !isAvailableRemove}">{{member.id.substr(0, idMaxSize)}}...</span>
     </div>
 </template>
 

@@ -101,11 +101,11 @@
                                                         <div class="team-member-box-header">
                                                             {{memberInfoText({member})}}
                                                         </div>
-                                                        <div v-if="member.id.length <= this.idMaxSize" class="team-member-box-body">
+                                                        <div v-if="member.id.length <= idMaxSize" class="team-member-box-body">
                                                             {{member.id}}
                                                         </div>
                                                         <div v-else class="team-member-box-body">
-                                                            {{member.id.substr(0, this.idMaxSize)}}...
+                                                            {{member.id.substr(0, idMaxSize)}}...
                                                         </div>
                                                     </div>
                                                 </div>
@@ -132,7 +132,7 @@
     import {getSession} from '@/api/sessionApi';
     import TableTag from "@/components/common/tag/TableTag";
     import TableTagPopUp from "@/components/common/tag/TableTagPopUp";
-    import {ID_MAX_SIZE, NAME_MAX_SIZE} from "../../consts/OverLengthDefine";
+    import {ID_MAX_SIZE, NAME_MAX_SIZE} from "@/consts/OverLengthDefine";
 
     export default {
         name: "TeamBuildingManage",
