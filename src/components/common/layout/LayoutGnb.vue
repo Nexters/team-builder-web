@@ -3,7 +3,7 @@
         <div class="layout-gnb">
             <button class="gnb-logo-wrap" @click="onClickLogo">
                 <div class="gnb-logo-image">
-                    <img style="width: 48px; height: 48px;padding: 7px;" :src="logoImageUrl"/>
+                    <img style="width: 48px; height: 48px;" :src="logoImageUrl"/>
                 </div>
             </button>
             <button @click="openSessionGroup" class="gnb-session-wrap">

@@ -37,7 +37,7 @@
                         </div>
                     </div>
 
-                    <div v-if="isTeamBuildingMode" class="team-member-wrap">
+                    <div v-if="isTeamBuildingMode && $route.query.mode === 'team-building'" class="team-member-wrap">
                         <div class="team-member-title">
                             <span class="team-member-text">팀원구성</span>
                             <span class="team-member-count">{{idea.members.length}}</span>
