@@ -49,8 +49,8 @@
         </div>
 
         <SlideYUpTransition :duration="600">
-            <div v-show="scroll > 265 && !isAdmin" class="mini-info-background">
-                <div class="border-line"></div>
+            <div v-show="scroll > 265 && !isAdmin && (nowPeriodType === PERIOD_TYPE.IDEA_COLLECT || nowPeriodType === PERIOD_TYPE.IDEA_VOTE)" class="mini-info-background" :style="collectMini">
+                <div v-show="scroll > 307" class="border-line" :style="collectMiniBorder"></div>
             </div>
         </SlideYUpTransition>
     </div>
@@ -126,6 +126,14 @@
 
             isAdminPage() {
                 return /all-user-manager/.test(this.$route.path) || /general-manage/.test(this.$route.path);
+            },
+
+            collectMini() {
+                return this.nowPeriodType === PERIOD_TYPE.IDEA_COLLECT ? {height: '90px'} : {};
+            },
+
+            collectMiniBorder() {
+                return this.nowPeriodType === PERIOD_TYPE.IDEA_COLLECT ? {top: '162px'} : {};
             }
         },
 

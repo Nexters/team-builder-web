@@ -51,7 +51,7 @@
         </div>
 
         <SlideYUpTransition :duration="600">
-            <div v-show="scroll > 265" class="session-info-mini-wrap">
+            <div v-show="scroll > 265 && !isAdmin" class="session-info-mini-wrap">
                 <div v-if="!isAdmin">
                     <div class="session-info-idea-put-basket-box" style="margin-top: 15px;">
                         <div v-show="!voteDone" style="width: 200px">
