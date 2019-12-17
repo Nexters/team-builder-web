@@ -1,0 +1,333 @@
+.main-idea-list-wrap {
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+}
+
+.main-idea-contents-wrap {
+    width: 1200px;
+}
+
+.header {
+    width: 249px;
+    height: 59px;
+    font-family: NotoSansCJKkr;
+    font-size: 40px;
+    font-weight: 300;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -3px;
+    color: #000000;
+    margin-top: 65px;
+}
+
+.header-sub {
+    width: 632px;
+    height: 50px;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.6px;
+    color: #1c1c1c;
+    margin-top: 16px;
+    text-align: left;
+}
+
+.header-left {
+    display: inline-block;
+    float: left;
+    text-align: left;
+    margin: 0;
+}
+
+.header-right {
+    display: inline-block;
+    float: right;
+    text-align: right;
+    margin: 0;
+}
+
+.search-circle {
+    width: 333px;
+    height: 50px;
+    border-radius: 6px;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    padding: 0 14px;
+    margin: 0;
+    outline: none;
+    vertical-align: center;
+    align-items: center;
+    justify-content: center;
+    display: inline-block;
+}
+
+.search-box {
+    width: 270px;
+    height: 100%;
+    padding: 0 8px 0 0;
+    border: 0;
+    box-shadow: none;
+}
+
+.search-box::placeholder, .no-user-search{
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.53px;
+    color: #9b9b9b;
+}
+
+.search-box:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.user-manage-tab {
+    margin-top: 93px;
+    display: table-cell;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.user-count {
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.6px;
+    color: #4a4a4a;
+    margin: 0;
+}
+
+.btn-active-user {
+    width: 144px;
+    height: 46px;
+    border-radius: 6px;
+    background-color: #ff5000;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #ffffff;
+}
+
+.btn-deactive-user {
+    width: 144px;
+    height: 46px;
+    border-radius: 6px;
+    background-color: #ff5000;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #ffffff;
+    margin-left: 16px;
+}
+
+.btn-user-remove {
+    width: 144px;
+    height: 46px;
+    border-radius: 6px;
+    background-color: #4a4a4a;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #ffffff;
+    margin-right: 16px;
+}
+
+.pointer {
+    width: 16px;
+    height: 16px;
+    margin-left: 6px;
+}
+
+.card {
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 rgba(0, 0, 0, 0);
+    border-radius: 0;
+    margin-top: 65px;
+}
+
+.card-header {
+    margin-bottom: 0;
+    border-bottom: 0;
+    padding: 0 0 65px 0;
+    background-color: #F5F5F5;
+}
+
+.header-left {
+    display: inline-block;
+    float: left;
+    width: 50%;
+    text-align: left;
+    margin-top: 0;
+}
+
+.header-right {
+    display: inline-block;
+    float: right;
+    width: 50%;
+    margin-top: 0;
+}
+
+.search {
+    display: inline-block;
+    float: right;
+}
+
+.search-input {
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.53px;
+    color: #9b9b9b;
+    padding: 14px 0 12px 18px;
+}
+
+.ico_search {
+    /*float: right;*/
+    position: absolute;
+    left: 291px;
+    bottom: 11px;
+
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.card-body {
+    background-color: #f5f5f5;
+    padding: 0;
+}
+
+
+.titles {
+    height: 20px;
+    display: table-cell;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.title {
+    display: inline-block;
+    font-family: NotoSansCJKkr;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #4a4a4a;
+}
+
+.row-item {
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.89px;
+    color: #1c1c1c;
+}
+
+.select-box {
+    width: 120px;
+    height: 40px;
+    border-radius: 6px;
+    border: solid 1.5px #ff5000;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.select-box > p {
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #ff5000;
+    margin: auto;
+}
+
+
+.unselect-box {
+    width: 120px;
+    height: 40px;
+    border-radius: 6px;
+    border: solid 1.5px #dbdbdb;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.unselect-box > p {
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #9b9b9b;
+    margin: auto;
+}
+
+.ico_table_tag {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    margin-left: 6px;
+}
+
+.board {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+}
+
+td {
+    display: table-cell;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.list {
+    width: 1200px;
+    height: 74px;
+    border-radius: 6px;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    text-align: left;
+}

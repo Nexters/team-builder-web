@@ -1,0 +1,252 @@
+
+p {
+    margin-bottom: 0;
+}
+
+.header {
+    height: 59px;
+    font-family: NotoSansCJKkr;
+    font-size: 40px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -3px;
+    color: #000000;
+    text-align: left;
+}
+
+.header-sub {
+    width: 493px;
+    height: 50px;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.6px;
+    color: #1c1c1c;
+    text-align: left;
+    margin-top: 16px;
+}
+
+.certify {
+    margin-top: 70px;
+    text-align: left;
+}
+
+.certify > p {
+    width: 110px;
+    height: 29px;
+    font-family: NotoSansCJKkr;
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.75px;
+    color: #1c1c1c;
+}
+
+.logo-box {
+    width: 240px;
+    height: 240px;
+    border-radius: 6px;
+    border: solid 1px #dbdbdb;
+    background-color: #e7e7e7;
+}
+
+.input-box {
+    width: 320px;
+    height: 56px;
+    border-radius: 6px;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: #9b9b9b;
+    padding-left: 18px;
+    margin-top: 12px;
+}
+
+.input-box::placeholder {
+    width: 57px;
+    height: 27px;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: #9b9b9b;
+    padding-left: 8px;
+}
+
+.input-box:focus {
+    outline: none;
+    border: 1px solid #273EA5;
+    box-shadow: none;
+}
+
+.btn-certify-apply {
+    width: 110px;
+    height: 56px;
+    border-radius: 6px;
+    border: solid 1px #273ea5;
+    background-color: #273ea5;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    margin-left: 16px;
+    margin-top: 12px;
+}
+
+.btn-apply {
+    width: 200px;
+    height: 57px;
+    border: 0;
+    border-radius: 6px;
+    background-color: #ff5000;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.82px;
+    color: #ffffff;
+}
+
+.logo-input-box {
+    width: 320px;
+    height: 56px;
+    border-radius: 6px;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: #9b9b9b;
+    padding-left: 18px;
+}
+
+.main-title {
+    width: 75px;
+    height: 29px;
+    font-family: NotoSansCJKkr;
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.75px;
+    color: #1c1c1c;
+}
+
+.sub-item-row {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.sub-title {
+    width: 136px;
+    height: 27px;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: #1c1c1c;
+}
+
+.select-idea-vote-count {
+    width: 126px;
+    height: 56px;
+    margin-left: 32px;
+}
+
+.select-idea-vote-count:focus {
+    outline: none;
+    border: 1px solid #273EA5;
+    box-shadow: none;
+}
+
+.claim_mark {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    border: 1px solid #ffffff;
+}
+
+.file-button-group {
+    padding-top: 190px;
+}
+
+.filebox {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin-left: 15px;
+}
+
+.filebox input[type="file"] {
+    visibility: hidden;
+}
+
+.filebox label {
+    width: 110px;
+    height: 48px;
+    border-radius: 6px;
+    background-color: #273ea5;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.file-delete-button {
+    width: 110px;
+    height: 48px;
+    border-radius: 6px;
+    background-color: #ff5000;
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.5px;
+    text-align: center;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 15px;
+}

@@ -1,0 +1,118 @@
+.body {
+    background-color: #eeeeee;
+}
+
+.container {
+    width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.main-container {
+    border: 0;
+    width: 984px;
+    height: 726px;
+    border-radius: 6px;
+    background-color: #ffffff;
+    margin: auto;
+    text-align: left;
+}
+
+.login-container {
+    width: 50%;
+    padding-left: 57px;
+}
+
+.el-header {
+    padding: 0;
+}
+
+.el-header > p {
+    color: #333;
+    margin-top: 60px;
+    font-family: NotoSansCJKkr;
+    font-size: 32px;
+    font-weight: 300;
+}
+
+.input-box {
+    width: 360px;
+    height: 56px;
+    border-radius: 6px;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    padding-left: 18px;
+}
+
+.input-box::placeholder {
+    font-family: NotoSansCJKkr;
+    font-size: 18px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.6px;
+    color: #9b9b9b;
+}
+
+.input-box:focus {
+    outline: none;
+    border: 1px solid #273EA5;
+    box-shadow: none;
+}
+
+.btn-login {
+    width: 378px;
+    height: 56px;
+    border: 0;
+    border-radius: 6px;
+    background-color: #273ea5;
+    margin-top: 50px;
+    padding: 0;
+    font-family: NotoSansCJKkr;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.btn-signup {
+    width: 378px;
+    height: 56px;
+    border-radius: 6px;
+    border: solid 1px #273ea5;
+    background-color: #ffffff;
+    margin-top: 16px;
+    padding: 0;
+    font-family: NotoSansCJKkr;
+    font-size: 20px;
+    color: #273ea5;
+}
+
+.el-main {
+    margin-top: 171px;
+    padding: 0;
+}
+
+.el-main > form > p {
+    margin: 0;
+}
+
+.el-footer {
+    height: 16px;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: 0.5px;
+    color: #9b9b9b;
+    margin-top: 66px;
+    padding: 0;
+}
+
+.login-logo {
+    width: 50%;
+    height: 726px;
+}

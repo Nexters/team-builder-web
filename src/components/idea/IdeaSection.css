@@ -1,0 +1,278 @@
+.main-idea-list-wrap {
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    margin-left: 70px;
+}
+
+.main-idea-contents-wrap {
+    width: 1200px;
+}
+
+.card {
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 rgba(0, 0, 0, 0);
+    border-radius: 0;
+}
+
+.card-header {
+    margin-bottom: 0;
+    border-bottom: 0;
+    padding: 0 0 65px 0;
+    background-color: #F5F5F5;
+}
+
+.header-left {
+    display: inline-block;
+    float: left;
+    width: 50%;
+    text-align: left;
+    margin-top: 38px;
+}
+
+#view-all, #view-star, #all, #star {
+    display: inline;
+}
+
+.tag-result {
+    width: 248px;
+    height: 24px;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.6px;
+    color: #4a4a4a;
+    display: inline;
+}
+
+.cancellation {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.header-right {
+    display: inline-block;
+    float: right;
+    width: 50%;
+    margin-top: 25px;
+	text-align: right;
+}
+
+.list-info {
+    display: inline;
+    width: 130px;
+    height: 24px;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.6px;
+    color: #4a4a4a;
+    margin-right: 0.6%;
+}
+
+.theme {
+    display: inline;
+    /*width: 102px;*/
+    width: 120px;
+    height: 24px;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: 500;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.6px;
+    color: #4a4a4a;
+    margin-left: 1.3%;
+}
+
+.theme:hover {
+    background-color: #eeeeee;
+}
+
+.search-circle {
+    width: 333px;
+    height: 50px;
+    border-radius: 6px;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    padding: 0 14px;
+    margin: 0;
+    outline: none;
+    vertical-align: center;
+    align-items: center;
+    justify-content: center;
+    display: inline-block;
+}
+
+.search-input {
+    width: 270px;
+    height: 100%;
+    padding: 0 8px 0 0;
+    border: 0;
+    box-shadow: none;
+}
+
+.search-input::placeholder {
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -0.53px;
+    color: #9b9b9b;
+}
+
+.search-input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.Rectangle-Copy {
+    width: 103px;
+    height: 46px;
+    border-radius: 6px;
+    background-color: #273ea5;
+
+    padding: 11px 24px;
+    margin-right: 16px;
+}
+
+span {
+    width: 55px;
+    height: 24px;
+    font-family: NotoSansCJKkr;
+    font-size: 16px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #ffffff;
+}
+
+.Rectangle {
+    width: 325px;
+    height: 50px;
+    border-radius: 6px;
+    border: solid 1px #eeeeee;
+    background-color: #ffffff;
+    padding-right: 8px;
+}
+
+.ico_search {
+    position: absolute;
+    left: 291px;
+    bottom: 11px;
+
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.card-body {
+    background-color: #f5f5f5;
+    padding: 0;
+    padding: 0 0 30px 0;
+}
+
+
+.titles {
+    height: 20px;
+    text-align: left;
+    margin-bottom: 16px;
+}
+
+.title {
+    display: inline-block;
+    font-family: NotoSansCJKkr;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: -1px;
+    color: #4a4a4a;
+}
+
+.ico_table_tag {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    margin-left: 6px;
+}
+
+.Group-10 {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    margin-left: 6px;
+    cursor:pointer;
+}
+
+.favorite {
+    width: 48px;
+    height: 18px;
+    line-height: 1.29;
+    margin-left: 10px;
+    margin-bottom: 1px;
+}
+
+.order-number {
+    width: 24px;
+    height: 18px;
+    line-height: 1.29;
+    margin-left: 14px;
+	margin-bottom: 1px;
+}
+
+.idea-name {
+    width: 62px;
+	margin-left: 18px;
+}
+
+.tag {
+    width: 24px;
+	margin-left: 397px;
+}
+
+.idea-collect-tag {
+    margin-left: 447px;
+}
+
+.position {
+    width: 24px;
+	margin-left: 291px;
+}
+
+.writer {
+    width: 36px;
+	margin-left: 42px;
+}
+
+.date {
+    width: 24px;
+	margin-left: 30px;
+}
+
+.idea-collect-date {
+    margin-left: 36px;
+}
+
+.selection {
+    width: 48px;
+	margin-left: 48px;
+}
+
+

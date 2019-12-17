@@ -1,45 +1,22 @@
-# team-builder-web
+![모임모임.com](readme/moimmoim.png)
+
+![PPT](readme/readme-moimmoim-ppt.gif)
 
 ### NEXTERS 15th (주)모임건설
 *디자이너*
 - [지니]()
 - [혜니]()
 
-[team-builder-server](https://github.com/Nexters/team-builder-server)
-- [오리진](https://github.com/Namkiwon)
-- [도더니](https://github.com/sojeongw)
-
-[team-builder-web](https://github.com/Nexters/team-builder-web)
+*프론트엔드 개발*
+- [team-builder-web](https://github.com/Nexters/team-builder-web)
 - [미카엘](https://github.com/leekwanho)
 - [봄](https://github.com/BBBOMi)
 - [홈매튜](https://github.com/inhyuck)
 
----
+*서버개발*
+- [team-builder-server](https://github.com/Nexters/team-builder-server)
+- [오리진](https://github.com/Namkiwon)
+- [도더니](https://github.com/sojeongw)
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 동작화면 
+![동작화면](readme/readme-moimmoim.gif)

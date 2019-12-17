@@ -1,28 +1,27 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/signup">Signup</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="app">
+        <router-view/>
+        <Alert />
+        <Confirm />
     </div>
-    <router-view/>
-  </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
+<script>
+    import Alert from '@/components/common/modal/Alert';
+    import Confirm from '@/components/common/modal/Confirm';
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+    export default {
+        name: "App",
+        components: {Confirm, Alert},
+    }
+</script>
+
+<style scoped>
+    @import "./assets/css/reset.css";
+    @import "./assets/css/common.css";
+
+    #app {
+        font-family: 'Avenir', Helvetica, Arial, sans-serif;
+        text-align: center;
+    }
 </style>
