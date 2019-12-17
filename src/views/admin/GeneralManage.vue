@@ -242,17 +242,17 @@
                         {
                             "periodType": "IDEA_COLLECT",
                             "startDate": moment(this.ideaRecruitStart).format(),
-                            "endDate": moment(this.ideaRecruitEnd).format()
+                            "endDate": moment(this.ideaRecruitEnd).set('hour', 23).set('minute', 59).set('second', 59).format()
                         },
                         {
                             "periodType": "IDEA_VOTE",
                             "startDate": moment(this.ideaVoteStart).format(),
-                            "endDate": moment(this.ideaVoteEnd).format()
+                            "endDate": moment(this.ideaVoteEnd).set('hour', 23).set('minute', 59).set('second', 59).format()
                         },
                         {
                             "periodType": "IDEA_CHECK",
                             "startDate": moment(this.ideaSelectCheckStart).format(),
-                            "endDate": moment(this.ideaSelectCheckEnd).format()
+                            "endDate": moment(this.ideaSelectCheckEnd).set('hour', 23).set('minute', 59).set('second', 59).format()
                         }
                     ],
                     "sessionNumber": this.$route.params.sessionNumber,
