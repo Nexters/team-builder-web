@@ -4,12 +4,14 @@
         <button v-show="isAvailableRemove" @click.stop="removeMember" class="team-member-info-remove-button">
             <img class="team-member-info-remove-img" src="@/assets/img/ico-team-member-remove.png"/>
         </button>
-        <span class="team-member-info-id" :class="{'no-remove': !isAvailableRemove}">{{member.id}}</span>
+        <span v-if="member.id.length <= this.idMaxSize" class="team-member-info-id" :class="{'no-remove': !isAvailableRemove}">{{member.id}}</span>
+        <span v-else class="team-member-info-id" :class="{'no-remove': !isAvailableRemove}">{{member.id.substr(0, this.idMaxSize)}}...</span>
     </div>
 </template>
 
 <script>
     import {getPositionName} from '@/consts/positionType';
+    import {ID_MAX_SIZE, NAME_MAX_SIZE} from "@/consts/OverLengthDefine";
 
     export default {
         name: "TeamMemberInfo",
@@ -32,9 +34,18 @@
             },
         },
 
+        data() {
+            return {
+                idMaxSize: ID_MAX_SIZE,
+                nameMaxSize: NAME_MAX_SIZE
+            }
+        },
+
         computed: {
             memberInfoText() {
-                return `${this.member.nextersNumber}기  ${getPositionName(this.member.position)}  ${this.member.name}`;
+                return this.member.name.length <= this.nameMaxSize ?
+                    `${this.member.nextersNumber}기  ${getPositionName(this.member.position)}  ${this.member.name}` :
+                    `${this.member.nextersNumber}기  ${getPositionName(this.member.position)}  ${this.member.name.substr(0, this.nameMaxSize)}...`;
             },
 
             isAvailableRemove() {
