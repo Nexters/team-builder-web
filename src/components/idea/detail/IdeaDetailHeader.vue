@@ -104,7 +104,6 @@
         width: 28px;
         height: 26.6px;
         object-fit: contain;
-        object-fit: contain;
         margin-top: -21px;
         /*
         실서버에서는 아이디어 제목과 중앙정렬이 맞음
@@ -115,6 +114,10 @@
         width: 28px;
         height: 26.6px;
         object-fit: contain;
+        margin-top: -21px;
+        /*
+        실서버에서는 아이디어 제목과 중앙정렬이 맞음
+         */
     }
 
     .idea-detail-header-title {
