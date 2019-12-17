@@ -128,7 +128,10 @@
                         this.$store.dispatch(RELOAD_AUTH);
 
                         const ideaId = res.data.ideaId;
-                        this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${ideaId}`});
+                        this.$router.push({
+                            path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${ideaId}`,
+                            query: this.$route.query
+                        });
                     })
                 }
 
