@@ -122,43 +122,6 @@
 	display: inline-block;
 }
 
-.tag {
-	width: 97px;
-	height: 40px;
-	text-align: center;
-	margin-right: 9px;
-	border-radius: 6px;
-	display: inline-block;
-	vertical-align: center;
-	padding: 8px 15px;
-}
-
-.tag-name {
-	width: 69px;
-	height: 24px;
-	font-family: NotoSansCJKkr;
-	font-size: 16px;
-	font-weight: normal;
-	font-style: normal;
-	font-stretch: normal;
-	line-height: normal;
-	letter-spacing: -1px;
-	color: #208b84;
-}
-
-.tag-popUp {
-	width: auto;
-	height: 74px;
-	border-radius: 6px;
-	box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.2);
-	background-color: #ffffff;
-	display: inline-block;
-	padding: 17px 10px;
-	float: right;
-	position: relative;
-	z-index: 2;
-}
-
 .position {
 	width: 56px;
 	height: 24px;

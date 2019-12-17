@@ -66,33 +66,17 @@
                         태그를 선택하지 않았어요.
                     </div>
                     <div v-show="idea['tags'].length > 0" class="tags" v-for="(element, index) in idea['tags']"
-                         v-if="index < 3"
-                         v-on:mouseover="viewAllTags" v-on:mouseout="closeAllTags">
-                        <div class="tag" v-if="element.type === 'DEVELOPER'" style="background-color: #daf4ea;">
-                            <div class="tag-name" style="color: #208b84;">
-                                {{ element['name'] }}
-                            </div>
-                        </div>
-                        <div v-else class="tag" style=" background-color: #fff4d5;">
-                            <div class="tag-name" style="color: #ff7205;">
-                                {{ element['name'] }}
-                            </div>
-                        </div>
+                         v-if="index < 3" v-on:mouseover="viewAllTags" v-on:mouseout="closeAllTags">
+                        <table-tag
+                                :name="element.name"
+                                :type="element.type">
+                        </table-tag>
                     </div>
-                    <div class="tag-popUp" v-if="idea['tags'].length > 3" style="float: right; display: none;">
-                        <div class="tags" v-for="(element) in idea['tags']" style="margin: 0 6px; float: left">
-                            <div class="tag" v-if="element.type === 'DEVELOPER'" style="background-color: #daf4ea;">
-                                <div class="tag-name" style="color: #208b84;">
-                                    {{ element['name'] }}
-                                </div>
-                            </div>
-                            <div v-else class="tag" style=" background-color: #fff4d5;">
-                                <div class="tag-name" style="color: #ff7205;">
-                                    {{ element['name'] }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <table-tag-pop-up
+                            style="display: none"
+                            v-if="idea['tags'].length > 3"
+                            :all-tags="idea['tags']">
+                    </table-tag-pop-up>
                 </div>
                 <!-- position -->
                 <div class="position">
@@ -136,13 +120,15 @@
 
     import {ACTIONS, GETTERS} from "@/store/types";
     import {createNamespacedHelpers} from 'vuex';
+    import TableTag from "@/components/common/tag/TableTag";
+    import TableTagPopUp from "@/components/common/tag/TableTagPopUp";
 
     const {mapActions, mapGetters, mapState} = createNamespacedHelpers('main');
 
     export default {
         name: "IdeaListVoteAndCheck",
-
-        methods: {
+      components: {TableTagPopUp, TableTag},
+      methods: {
             viewAllTags(event) {
                 const popUp = event.target.closest('.td').lastChild;
                 if (popUp.className) {
