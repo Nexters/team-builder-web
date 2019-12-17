@@ -101,7 +101,8 @@
                                                         <div class="team-member-box-header">
                                                             {{memberInfoText({member})}}
                                                         </div>
-                                                        <div v-if="member.id.length <= idMaxSize" class="team-member-box-body">
+                                                        <div v-if="member.id.length <= idMaxSize"
+                                                             class="team-member-box-body">
                                                             {{member.id}}
                                                         </div>
                                                         <div v-else class="team-member-box-body">
@@ -221,6 +222,20 @@
                 .then(res => {
                     this.ideas = res.data.ideas.filter(idea => {
                         return idea.selected;
+                    });
+
+                    this.ideas.forEach(idea => {
+                        // Search writer index
+                        let writerIdx = -1;
+                        for (let i = 0; i < idea.members.length; i++) {
+                            if (idea.members[i].uuid === idea.author.uuid) {
+                                writerIdx = i;
+                                break;
+                            }
+                        }
+
+                        // Move index
+                        idea.members.splice(0, 0, idea.members.splice(writerIdx, 1)[0]);
                     });
                 })
                 .catch(err => console.log(err)); //TODO: 아이디어 목록을 불러오지 못했습니다.
