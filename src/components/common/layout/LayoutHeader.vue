@@ -27,23 +27,23 @@
                 </div>
             </div>
 
-            <div class="header-period" :class="{'now' : nowPeriodType === PERIOD_TYPE.IDEA_COLLECT}">
-                <div class="period-step" :class="{'period-step-on' : nowPeriodType === PERIOD_TYPE.IDEA_COLLECT}">step1</div>
+            <div class="header-period" :class="{'now' : (nowPeriodType === PERIOD_TYPE.IDEA_COLLECT && !teamBuildingMode)}">
+                <div class="period-step" :class="{'period-step-on' : (nowPeriodType === PERIOD_TYPE.IDEA_COLLECT && !teamBuildingMode)}">step1</div>
                 <span @mouseover="mouseroverPeriod(PERIOD_TYPE.IDEA_COLLECT)" @mouseleave="mouseleavePeriod(PERIOD_TYPE.IDEA_COLLECT)">{{ periodTypeIdeaCollectText }}</span>
             </div>
             <img class="period-right-icon" src="@/assets/img/header-right-icon.png"/>
-            <div class="header-period" :class="{'now' : nowPeriodType === PERIOD_TYPE.IDEA_VOTE}">
-                <div class="period-step" :class="{'period-step-on' : nowPeriodType === PERIOD_TYPE.IDEA_VOTE}">step2</div>
+            <div class="header-period" :class="{'now' : (nowPeriodType === PERIOD_TYPE.IDEA_VOTE && !teamBuildingMode)}">
+                <div class="period-step" :class="{'period-step-on' : (nowPeriodType === PERIOD_TYPE.IDEA_VOTE && !teamBuildingMode)}">step2</div>
                 <span @mouseover="mouseroverPeriod(PERIOD_TYPE.IDEA_VOTE)" @mouseleave="mouseleavePeriod(PERIOD_TYPE.IDEA_VOTE)">{{ periodTypeIdeaVoteText }}</span>
             </div>
             <img class="period-right-icon" src="@/assets/img/header-right-icon.png"/>
-            <div class="header-period" :class="{'now' : nowPeriodType === PERIOD_TYPE.IDEA_CHECK}">
-                <div class="period-step" :class="{'period-step-on' : nowPeriodType === PERIOD_TYPE.IDEA_CHECK}">step3</div>
+            <div class="header-period" :class="{'now' : (nowPeriodType === PERIOD_TYPE.IDEA_CHECK && !teamBuildingMode)}">
+                <div class="period-step" :class="{'period-step-on' : (nowPeriodType === PERIOD_TYPE.IDEA_CHECK && !teamBuildingMode)}">step3</div>
                 <span @mouseover="mouseroverPeriod(PERIOD_TYPE.IDEA_CHECK)" @mouseleave="mouseleavePeriod(PERIOD_TYPE.IDEA_CHECK)">{{ periodTypeIdeaCheckText }}</span>
             </div>
             <img class="period-right-icon" src="@/assets/img/header-right-icon.png"/>
-            <div class="header-period" :class="{'now' : nowPeriodType === PERIOD_TYPE.TEAM_BUILDING}">
-                <div class="period-step" :class="{'period-step-on' : nowPeriodType === PERIOD_TYPE.TEAM_BUILDING}">step4</div>
+            <div class="header-period" :class="{'now' : teamBuildingMode}">
+                <div class="period-step" :class="{'period-step-on' : teamBuildingMode}">step4</div>
                 <span @mouseover="mouseroverPeriod(PERIOD_TYPE.TEAM_BUILDING)" @mouseleave="mouseleavePeriod(PERIOD_TYPE.TEAM_BUILDING)">{{ periodTypeTeamBuildingText }}</span>
             </div>
         </div>
