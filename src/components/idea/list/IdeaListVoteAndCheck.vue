@@ -165,10 +165,10 @@
                 }
 
                 if (this.maxVoteCount === this.candidateIdeas.length) {
-                    this.$alert(`최대 ${this.maxVoteCount}개까지 선택할 수 있어요.`, '아이디어 투표', {
-                            confirmButtonText: '확인'
-                        }
-                    )
+                    window.vm.$notify.error({
+                        title: '아이디어 투표',
+                        message: `최대 ${this.maxVoteCount}개까지 선택할 수 있어요.`
+                    });
                     return;
                 }
 
