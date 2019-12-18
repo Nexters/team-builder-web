@@ -68,7 +68,7 @@
                         <div class="title position">직군</div>
                         <div class="title writer">작성자</div>
                         <div class="title date" :class="{'idea-collect-date': nowPeriodType === 'IDEA_COLLECT'}">날짜</div>
-                        <img src="../../assets/img/group-10@2x.png" class="Group-10"
+                        <img src="@/assets/img/group-10@2x.png" class="Group-10"
                              v-on:click="sorting()">
                         <!-- 선정 전에는 안보임 -->
                         <div v-show="nowPeriodType === 'IDEA_CHECK'" class="title selection">선정여부

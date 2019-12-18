@@ -25,7 +25,7 @@
                 <div v-show="!voteDone && isAvailableVote" class="session-info-idea-vote-candidateIdeas-wrap">
                     <div v-for="idea in candidateIdeas" class="session-info-idea-vote-candidateIdeas-box">
                         <span class="session-info-idea-vote-candidateIdeas-text">{{ idea.title }}</span>
-                        <button @click="removeCandidateIdea(idea.id)" class="session-info-idea-vote-candidateIdeas-idea-remove-button">
+                        <button @click="removeCandidateIdea(idea.ideaId)" class="session-info-idea-vote-candidateIdeas-idea-remove-button">
                             <img class="session-info-idea-vote-candidateIdeas-idea-remove" src="@/assets/img/session-info-idea-vote-candidateIdeas-idea-remove-icon.png"/>
                         </button>
                     </div>
@@ -70,7 +70,7 @@
                     <div v-show="!voteDone && isAvailableVote" class="session-info-idea-vote-candidateIdeas-wrap">
                         <div v-for="idea in candidateIdeas" class="session-info-idea-vote-candidateIdeas-box">
                             <span class="session-info-idea-vote-candidateIdeas-text">{{ idea.title }}</span>
-                            <button @click="removeCandidateIdea(idea.id)" class="session-info-idea-vote-candidateIdeas-idea-remove-button">
+                            <button @click="removeCandidateIdea(idea.ideaId)" class="session-info-idea-vote-candidateIdeas-idea-remove-button">
                                 <img class="session-info-idea-vote-candidateIdeas-idea-remove" src="@/assets/img/session-info-idea-vote-candidateIdeas-idea-remove-icon.png"/>
                             </button>
                         </div>

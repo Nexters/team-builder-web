@@ -37,6 +37,8 @@
 <script>
     import SessionInfoDDay from '@/components/common/sessionInfo/SessionInfoDDay';
     import {SlideYUpTransition} from 'vue2-transitions';
+    import {PERIOD_TYPE} from '@/consts/periodType';
+    import moment from 'moment';
 
     export default {
         name: "SessionInfoIdeaCollect",
@@ -62,8 +64,19 @@
 
         methods: {
             moveNewIdea() {
+                if (this.isAdmin) {
+                    this.$router.push({path: `/session/${this.$store.state.main.session.sessionNumber}/idea/new`});
+                    return;
+                }
+
                 if (!this.$store.state.auth.activated) {
                     this.$store.commit('common/showAlert', {alertMessage: '해당 기수에 대한 권한이 없어요.\n운영진에게 해당 기수에 추가 요청하세요.'});
+                    return;
+                }
+
+                const ideaCollectStartDate = this.$store.state.main.session.periods.find(period => period.periodType === PERIOD_TYPE.IDEA_COLLECT).startDate;
+                if (moment().isBefore(moment(ideaCollectStartDate))) {
+                    this.$store.commit('common/showAlert', {alertMessage: '아이디어 모집 기간 이전입니다.'});
                     return;
                 }
 

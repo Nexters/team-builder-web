@@ -44,6 +44,13 @@
                 selectedTagsCopy: []
             }
         },
+
+        watch: {
+            allTags: function() {
+                this.updateCopy();
+            }
+        },
+
         methods: {
             /**
              * 태그 클릭시
@@ -75,15 +82,33 @@
             },
 
             copyTag() {
-                this.fetchSelectedTags(this.selectedTagsCopy);
+                this.fetchSelectedTags && this.fetchSelectedTags(this.selectedTagsCopy);
+            },
+
+            clone(obj) {
+                if (obj === null || typeof(obj) !== 'object') {
+                    return obj;
+                }
+                let copy = obj.constructor();
+                for (let attr in obj) {
+                    if (obj.hasOwnProperty(attr)) {
+                        copy[attr] = this.clone(obj[attr]);
+                    }
+                }
+                return copy;
+            },
+
+            updateCopy() {
+                this.allTagsCopy = this.clone(this.allTags);
+                this.selectedTagsCopy = this.clone(this.allTags.filter(tag => tag.state));
+                this.copyTag();
             }
         },
 
         created() {
-            this.allTagsCopy = JSON.parse(JSON.stringify(this.allTags));
-            this.selectedTagsCopy = JSON.parse(JSON.stringify(this.allTags.filter(tag => tag.state)));
-            this.copyTag();
-        }
+            this.updateCopy();
+        },
+
     }
 </script>
 
