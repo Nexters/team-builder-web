@@ -22,7 +22,7 @@
                 <div class="mini-title">
                     <span>넥스터즈 {{sessionNumber}}기의 {{ mainTitle }}</span>
                 </div>
-                <SessionInfoDDay style="margin-top: 25px"></SessionInfoDDay>
+                <SessionInfoDDay style="margin-top: 30px"></SessionInfoDDay>
 
                 <div class="session-info-idea-write-wrap" style="margin-left: 65px; margin-top: 17px;">
                     <button class="session-info-idea-write-button-mini" @click="moveNewIdea">
