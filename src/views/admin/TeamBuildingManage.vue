@@ -96,7 +96,7 @@
                                                     팀원 <p style="margin-left: 10px; color: #ff5000">
                                                     {{idea.members.length}}</p>
                                                 </div>
-                                                <div class="row row-item" style="width: 100%; height: 86px">
+                                                <div class="row row-item" style="width: 100%; min-height: 86px">
                                                     <div v-for="member in idea.members" class="team-member-box">
                                                         <div class="team-member-box-header">
                                                             {{memberInfoText({member})}}

@@ -83,9 +83,10 @@
         methods: {
             onClickLogo() {
                 if (this.$store.state.main.session.teamBuildingMode) {
-                    this.$router.push({path: `/session/${this.$route.params.sessionNumber}/team-building`});
+                    this.$router.push({path: `/session/${this.$route.params.sessionNumber || this.sessionNumber}/team-building`});
                     return;
                 }
+
                 this.$router.push({path: `/session/${this.sessionNumber}`});
             },
             openSessionGroup() {
