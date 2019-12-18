@@ -81,7 +81,7 @@
         background-color: #eeeeee;
         position: fixed;
         top: 72px;
-        z-index: 98;
+        z-index: 100;
     }
 
     .slot-wrap {
