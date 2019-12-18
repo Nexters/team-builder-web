@@ -44,7 +44,7 @@
             <img class="period-right-icon" src="@/assets/img/header-right-icon.png"/>
             <div class="header-period" :class="{'now' : teamBuildingMode}">
                 <div class="period-step" :class="{'period-step-on' : teamBuildingMode}">step4</div>
-                <span @mouseover="mouseroverPeriod(PERIOD_TYPE.TEAM_BUILDING)" @mouseleave="mouseleavePeriod(PERIOD_TYPE.TEAM_BUILDING)">{{ periodTypeTeamBuildingText }}</span>
+                <span>{{ periodTypeTeamBuildingText }}</span>
             </div>
         </div>
 
