@@ -66,7 +66,7 @@
         height: 100%;
         position: fixed;
         top: 0;
-        z-index: 99;
+        z-index: 101;
         background-color: rgba(0, 0, 0, 0.5);
 
         display: flex;
