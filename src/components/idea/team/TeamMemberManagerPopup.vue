@@ -242,7 +242,8 @@
     }
 
     .no-search-result {
-        width: 115px;
+        margin-right: 20px;
+        width: auto;
         height: 19px;
         opacity: 0.3;
         font-family: AppleSDGothicNeo;
