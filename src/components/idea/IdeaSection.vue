@@ -118,6 +118,7 @@
                 set(value) {
                     this.$store.commit('main/SET_SEARCH_TERM', value);
                     this.favorite = false;
+                    this.sortDateASC = false;
                 },
                 get() {
                     return this.$store.state.main.searchTerm;
