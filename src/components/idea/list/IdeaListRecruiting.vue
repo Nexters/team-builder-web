@@ -141,15 +141,19 @@
     },
 
     data() {
-      return {
+        return {
         ideaList : this.$store.state.main.ideaList
-      }
+        }
     },
 
     computed: {
-      ...mapGetters({
+        ...mapGetters({
         ideaListResult: GETTERS.GET_LIST,
-      }),
+        }),
+    },
+
+    mounted() {
+        window.scrollTo(0, this.$store.state.common.nowScrollTop);
     }
   };
 

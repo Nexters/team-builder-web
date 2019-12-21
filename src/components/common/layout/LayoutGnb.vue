@@ -168,7 +168,7 @@
         background-color: #273ea5;
         display: flex;
         flex-direction: column;
-        z-index: 99;
+        z-index: 120;
     }
 
     .gnb-logo-wrap {
