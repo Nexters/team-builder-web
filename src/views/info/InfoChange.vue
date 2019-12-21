@@ -84,8 +84,19 @@
                 ]
             }
         },
+
+        computed: {
+            isAdmin() {
+                return this.$store.getters.isAdmin;
+            },
+        },
+
         methods: {
             infoChange() {
+                if (this.isAdmin) {
+                    this.positionSelect = 'DEVELOPER';
+                }
+
                 if (!this.password || !this.newPassword || !this.checkPassword || !this.positionSelect) {
                     window.vm.$notify.error({
                         title: '정보수정',
