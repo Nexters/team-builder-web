@@ -246,8 +246,7 @@
     .next-button-wrap {
         position: fixed;
         margin-top: 343px;
-        margin-left: 50px;
-        width: 2520px;
+        right: 17px;
     }
 
     .next-button-image {
