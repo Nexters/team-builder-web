@@ -212,8 +212,10 @@
             voteDone() {
                 return this.$store.state.auth.voted;
             },
+        },
 
-
+        mounted() {
+            window.scrollTo(0, this.$store.state.common.nowScrollTop);
         }
     }
 

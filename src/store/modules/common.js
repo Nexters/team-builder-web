@@ -9,7 +9,9 @@ const store = {
         confirmYesButtonText: '',
         confirmNoButtonText: '',
         confirmYesFunction: null,
-        confirmNoFunction: null
+        confirmNoFunction: null,
+
+        nowScrollTop: 0,
     },
 
     mutations: {
@@ -39,8 +41,11 @@ const store = {
             state.confirmNoButtonText = '';
             state.confirmYesFunction = null;
             state.confirmNoFunction = null;
-        }
+        },
 
+        setNowScrollTop: (state) => {
+            state.nowScrollTop = window.scrollY;
+        }
     }
 };
 

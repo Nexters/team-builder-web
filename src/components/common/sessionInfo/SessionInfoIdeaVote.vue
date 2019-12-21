@@ -436,6 +436,7 @@
 
     .session-info-mini-wrap {
         position: fixed;
+        top: 72px;
         width: 100%;
         height: 132px;
         z-index: 99;

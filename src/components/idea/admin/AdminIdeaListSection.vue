@@ -150,6 +150,7 @@
             },
 
             goDetail(id) {
+                this.$store.commit('common/setNowScrollTop');
                 this.$router.push({
                     path: `/session/${this.$store.state.main.session.sessionNumber}/idea/${id}`,
                 });
