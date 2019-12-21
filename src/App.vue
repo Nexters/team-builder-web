@@ -23,5 +23,6 @@
     #app {
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         text-align: center;
+        min-width: 1300px;
     }
 </style>
