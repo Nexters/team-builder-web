@@ -141,6 +141,7 @@
                     && !this.isAdmin
                     && (this.nowPeriodType === PERIOD_TYPE.IDEA_COLLECT || this.nowPeriodType === PERIOD_TYPE.IDEA_VOTE)
                     && !/team-building/.test(this.$route.path)
+                    && this.$route.name !== 'IdeaDetail';
             }
         },
 
