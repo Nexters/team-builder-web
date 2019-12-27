@@ -5,7 +5,11 @@
                 <span class="wait-message-text">잠시만요 !</span>
             </div>
             <div class="wait-message-detail-wrap">
-                <span class="wait-message-detail-text">넥스터즈 아이디어 라이브러리 모임모임은<br>PC 웹에서만 이용이 가능해요.</span>
+                <span class="wait-message-detail-text">
+                    넥스터즈 아이디어 라이브러리 모임모임은
+                    <br>PC 웹에 최적화되어 있어요. 모바일은
+                    <br>데스크톱 버전으로 변경해주세요.
+                </span>
             </div>
 
             <div class="mobile-guide-image-wrap">
