@@ -72,7 +72,7 @@
         overflow: hidden;
         margin: 0px;
         padding: 0px;
-
+        min-width: 1400px;
     }
 
     .border-line {
