@@ -212,9 +212,10 @@
                 })
                 .catch(error => {
                     if (error.response.data.errorCode === 90005) {
+                        const hasTeamMembers = error.response.data.hasTeamMembers;
                         window.vm.$notify.error({
                             title: '팀원 추가 실패',
-                            message: '다른팀에 속한 팀원이 존재합니다.'
+                            message: `다른팀에 속한 팀원이 존재합니다. (${hasTeamMembers.map(member => member.name).join(', ')})`
                         });
                     }
                 })
