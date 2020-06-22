@@ -85,7 +85,7 @@
     import moment from 'moment';
 
     import {bus} from '@/main';
-    import {ACTIONS, GETTERS} from "@/store/types";
+    import {GETTERS} from '@/store/types';
     import {createNamespacedHelpers} from 'vuex';
 
     const {mapActions, mapGetters, mapState} = createNamespacedHelpers('main');
@@ -132,32 +132,34 @@
                         if (idea.type !== 'NOTICE') {
                             selected.push(idea);
                         }
-                    })
+                    });
                 }
                 this.selected = selected;
-            }),
+            });
 
-                bus.$on('clickSelection', () => {
-                    this.$store.dispatch('main/ADMIN_IDEAS_SELECT', {ideas: this.selected})
-                        .then(() => {
-                            this.selected = [];
-                            window.vm.$notify.info({
-                                title: '아이디어 선정',
-                                message: '아이디어를 선정했습니다.',
-                            });
+            bus.$on('clickSelection', () => {
+                this.$store.dispatch('main/ADMIN_IDEAS_SELECT', {ideas: this.selected})
+                    .then(() => {
+                        this.selected = [];
+                        window.vm.$notify.info({
+                            title: '아이디어 선정',
+                            message: '아이디어를 선정했습니다.',
                         });
-                }),
+                    });
+            });
 
-                bus.$on('clickUnSelection', () => {
-                    this.$store.dispatch('main/SELECTION_IDEAS', {ideas: this.selected, isSelected: false})
-                        .then(() => {
-                            this.selected = [];
-                            window.vm.$notify.info({
-                                title: '아이디어 선정',
-                                message: '아이디어 선정을 해지했습니다.',
-                            });
+            bus.$on('clickUnSelection', () => {
+                this.$store.dispatch('main/SELECTION_IDEAS', {ideas: this.selected, isSelected: false})
+                    .then(() => {
+                        this.selected = [];
+                        window.vm.$notify.info({
+                            title: '아이디어 선정',
+                            message: '아이디어 선정을 해지했습니다.',
                         });
-                })
+                    });
+            });
+
+            window.scrollTo(0, this.$store.state.common.nowScrollTop);
         },
 
         computed: {
@@ -165,10 +167,6 @@
                 ideaListResult: GETTERS.GET_LIST,
             }),
         },
-
-        mounted() {
-            window.scrollTo(0, this.$store.state.common.nowScrollTop);
-        }
     }
 
     Vue.filter('formatDate', function (value) {
