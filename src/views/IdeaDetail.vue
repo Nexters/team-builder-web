@@ -48,6 +48,11 @@
                         </div>
                     </div>
 
+                    <!-- 라이브리 시티 코드 -->
+                    <div id="livere-wrap" class="livere-wrap">
+                        <div id="lv-container" data-id="city" data-uid="MTAyMC81MDYyMS8yNzEwNA=="/>
+                    </div>
+
                     <div class="buttons-wrap">
                         <button v-if="availableRemoveIdea" class="idea-detail-remove-button" @click="removeIdea">
                             <span class="idea-detail-remove-button-span">삭제하기</span>
@@ -80,18 +85,26 @@
     import {getFileName} from '@/utils/file';
     import {PERIOD_TYPE} from '@/consts/periodType';
     import TeamMemberInfo from '@/components/idea/team/TeamMemberInfo';
-    const { mapState, mapActions, mapGetters } = createNamespacedHelpers('main');
+    import {loadLivere} from '@/utils/livere';
+
+    const {mapState, mapActions, mapGetters} = createNamespacedHelpers('main');
 
     export default {
-        name: "IdeaDetail",
+        name: 'IdeaDetail',
         components: {TeamMemberInfo, IdeaDetailHeader, EditorViewer, TagGroup, Layout},
         data() {
             return {
                 ideaId: this.$route.params.ideaId,
                 idea: {},
                 isHoverPrevButton: false,
-                isHoverNextButton: false
-            }
+                isHoverNextButton: false,
+            };
+        },
+
+        watch: {
+            ideaId(ideaId) {
+                loadLivere({ideaId});
+            },
         },
 
         computed: {
@@ -209,11 +222,17 @@
                 this.getIdea(this.ideaId)
                     .then(res => this.idea = res.data)
                     .catch(err => console.log(err));
-            }
+            },
         },
 
         created() {
             this.getIdeaDetail();
+        },
+
+        mounted() {
+            setTimeout(() => {
+                loadLivere({ideaId: this.ideaId});
+            }, 500);
         },
     }
 </script>
