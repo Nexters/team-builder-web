@@ -106,12 +106,16 @@
             }),
 
           ideaListLength() {
-              return this.nowIsTeamBuilding ? this.selectedIdeaListLength : this.ideaListResult.length;
+              return this.nowIsTeamBuilding || this.nowIsIdeaCheck ? this.selectedIdeaListLength : this.ideaListResult.length;
           },
 
           nowIsTeamBuilding() {
               return this.teamBuildingMode || (this.getTypeNow === 'TEAM_BUILDING');
           },
+
+          nowIsIdeaCheck() {
+              return this.getTypeNow === 'IDEA_CHECK';
+          }
 
         },
 
