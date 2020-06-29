@@ -92,13 +92,13 @@
                 </div>
                 <!-- 투표 이미지 -->
                 <div v-show="nowPeriodType === 'IDEA_VOTE'" class="idea-button">
-                    <div v-show="!voteDone">
+                    <div v-show="!voteDone && isActivated">
                         <img src="@/assets/img/group@2x.png"
                              v-show="!inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
                         <img src="@/assets/img/idea-minus.png"
                              v-show="inSelectedIdeas(idea.ideaId)" @click="clickIdea(idea.ideaId)">
                     </div>
-                    <div v-show="voteDone" class="on">
+                    <div v-show="voteDone || !isActivated" class="on">
                         <img src="@/assets/img/voteEnd.png" v-show="!votedIdea(idea.ideaId)" style="cursor: default">
                         <img src="@/assets/img/ideaVoteCheck.png" v-show="votedIdea(idea.ideaId)">
                     </div>
@@ -212,6 +212,10 @@
             voteDone() {
                 return this.$store.state.auth.voted;
             },
+
+            isActivated() {
+                return this.$store.state.auth.activated;
+            }
         },
 
         mounted() {
