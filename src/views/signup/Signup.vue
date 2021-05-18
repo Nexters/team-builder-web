@@ -277,7 +277,7 @@
                 return re.test(email);
             },
             initSession() {
-                for (let i = 17; i >= 1; i--) {
+                for (let i = 19; i >= 1; i--) {
                     this.nextersNumberOptions.push({text: i + '기', value: i})
                 }
             }
