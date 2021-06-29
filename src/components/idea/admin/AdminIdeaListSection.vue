@@ -271,6 +271,11 @@
         display: inline-block;
     }
 
+    .search-circle > img {
+      vertical-align: top;
+      margin-top: 13px;
+    }
+
     .search-input {
         width: 270px;
         height: 100%;
@@ -372,5 +377,7 @@
         height: 16px;
         object-fit: contain;
         margin-left: 6px;
+        vertical-align: top;
+        margin-top: 6px;
     }
 </style>
