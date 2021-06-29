@@ -115,6 +115,11 @@
     display: inline-block;
 }
 
+.search-circle > img {
+    vertical-align: top;
+    margin-top: 13px;
+}
+
 .search-input {
     width: 270px;
     height: 100%;
@@ -211,6 +216,8 @@ span {
     height: 16px;
     object-fit: contain;
     margin-left: 6px;
+    vertical-align: top;
+    margin-top: 6px;
 }
 
 .Group-10 {
@@ -219,6 +226,8 @@ span {
     object-fit: contain;
     margin-left: 6px;
     cursor:pointer;
+    vertical-align: top;
+    margin-top: 6px;
 }
 
 .favorite {
