@@ -114,6 +114,7 @@
 <script>
     import {isIdDuplicate, signup} from "../../api/SignupAPI"
     import {SET_ID, SET_AUTH, SET_TOKEN} from "../../consts/userType"
+    import {getLatestNextersNumber} from '@/utils/nextersNumber';
 
     export default {
         name: 'Signup',
@@ -277,7 +278,8 @@
                 return re.test(email);
             },
             initSession() {
-                for (let i = 19; i >= 1; i--) {
+                const latestNextersNumber = getLatestNextersNumber();
+                for (let i = latestNextersNumber; i >= 1; i--) {
                     this.nextersNumberOptions.push({text: i + '기', value: i})
                 }
             }
