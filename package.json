@@ -18,7 +18,7 @@
     "element-ui": "^2.11.1",
     "hangul-chosung-search-js": "^1.1.2",
     "mobile-detect": "^1.4.4",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",
     "vue": "^2.6.10",
